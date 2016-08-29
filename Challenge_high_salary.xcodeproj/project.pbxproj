@@ -1,0 +1,505 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */; };
+		1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC11D73E6DB0067970B /* ViewController.swift */; };
+		1FCDFEC51D73E6DB0067970B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC31D73E6DB0067970B /* Main.storyboard */; };
+		1FCDFEC71D73E6DB0067970B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC61D73E6DB0067970B /* Assets.xcassets */; };
+		1FCDFECA1D73E6DB0067970B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC81D73E6DB0067970B /* LaunchScreen.storyboard */; };
+		1FCDFED51D73E6DB0067970B /* Challenge_high_salaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFED41D73E6DB0067970B /* Challenge_high_salaryTests.swift */; };
+		1FCDFEE01D73E6DB0067970B /* Challenge_high_salaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEDF1D73E6DB0067970B /* Challenge_high_salaryUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1FCDFED11D73E6DB0067970B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FCDFEB41D73E6DB0067970B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1FCDFEBB1D73E6DB0067970B;
+			remoteInfo = Challenge_high_salary;
+		};
+		1FCDFEDC1D73E6DB0067970B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FCDFEB41D73E6DB0067970B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1FCDFEBB1D73E6DB0067970B;
+			remoteInfo = Challenge_high_salary;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1FCDFEBC1D73E6DB0067970B /* Challenge_high_salary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Challenge_high_salary.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1FCDFEC11D73E6DB0067970B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1FCDFEC41D73E6DB0067970B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1FCDFEC61D73E6DB0067970B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1FCDFEC91D73E6DB0067970B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1FCDFECB1D73E6DB0067970B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FCDFED01D73E6DB0067970B /* Challenge_high_salaryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Challenge_high_salaryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FCDFED41D73E6DB0067970B /* Challenge_high_salaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge_high_salaryTests.swift; sourceTree = "<group>"; };
+		1FCDFED61D73E6DB0067970B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FCDFEDB1D73E6DB0067970B /* Challenge_high_salaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Challenge_high_salaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FCDFEDF1D73E6DB0067970B /* Challenge_high_salaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge_high_salaryUITests.swift; sourceTree = "<group>"; };
+		1FCDFEE11D73E6DB0067970B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1FCDFEB91D73E6DB0067970B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FCDFECD1D73E6DB0067970B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FCDFED81D73E6DB0067970B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1FCDFEB31D73E6DB0067970B = {
+			isa = PBXGroup;
+			children = (
+				1FCDFEBE1D73E6DB0067970B /* Challenge_high_salary */,
+				1FCDFED31D73E6DB0067970B /* Challenge_high_salaryTests */,
+				1FCDFEDE1D73E6DB0067970B /* Challenge_high_salaryUITests */,
+				1FCDFEBD1D73E6DB0067970B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1FCDFEBD1D73E6DB0067970B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDFEBC1D73E6DB0067970B /* Challenge_high_salary.app */,
+				1FCDFED01D73E6DB0067970B /* Challenge_high_salaryTests.xctest */,
+				1FCDFEDB1D73E6DB0067970B /* Challenge_high_salaryUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1FCDFEBE1D73E6DB0067970B /* Challenge_high_salary */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */,
+				1FCDFEC11D73E6DB0067970B /* ViewController.swift */,
+				1FCDFEC31D73E6DB0067970B /* Main.storyboard */,
+				1FCDFEC61D73E6DB0067970B /* Assets.xcassets */,
+				1FCDFEC81D73E6DB0067970B /* LaunchScreen.storyboard */,
+				1FCDFECB1D73E6DB0067970B /* Info.plist */,
+			);
+			path = Challenge_high_salary;
+			sourceTree = "<group>";
+		};
+		1FCDFED31D73E6DB0067970B /* Challenge_high_salaryTests */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDFED41D73E6DB0067970B /* Challenge_high_salaryTests.swift */,
+				1FCDFED61D73E6DB0067970B /* Info.plist */,
+			);
+			path = Challenge_high_salaryTests;
+			sourceTree = "<group>";
+		};
+		1FCDFEDE1D73E6DB0067970B /* Challenge_high_salaryUITests */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDFEDF1D73E6DB0067970B /* Challenge_high_salaryUITests.swift */,
+				1FCDFEE11D73E6DB0067970B /* Info.plist */,
+			);
+			path = Challenge_high_salaryUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1FCDFEBB1D73E6DB0067970B /* Challenge_high_salary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1FCDFEE41D73E6DB0067970B /* Build configuration list for PBXNativeTarget "Challenge_high_salary" */;
+			buildPhases = (
+				1FCDFEB81D73E6DB0067970B /* Sources */,
+				1FCDFEB91D73E6DB0067970B /* Frameworks */,
+				1FCDFEBA1D73E6DB0067970B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Challenge_high_salary;
+			productName = Challenge_high_salary;
+			productReference = 1FCDFEBC1D73E6DB0067970B /* Challenge_high_salary.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1FCDFECF1D73E6DB0067970B /* Challenge_high_salaryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1FCDFEE71D73E6DB0067970B /* Build configuration list for PBXNativeTarget "Challenge_high_salaryTests" */;
+			buildPhases = (
+				1FCDFECC1D73E6DB0067970B /* Sources */,
+				1FCDFECD1D73E6DB0067970B /* Frameworks */,
+				1FCDFECE1D73E6DB0067970B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1FCDFED21D73E6DB0067970B /* PBXTargetDependency */,
+			);
+			name = Challenge_high_salaryTests;
+			productName = Challenge_high_salaryTests;
+			productReference = 1FCDFED01D73E6DB0067970B /* Challenge_high_salaryTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		1FCDFEDA1D73E6DB0067970B /* Challenge_high_salaryUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1FCDFEEA1D73E6DB0067970B /* Build configuration list for PBXNativeTarget "Challenge_high_salaryUITests" */;
+			buildPhases = (
+				1FCDFED71D73E6DB0067970B /* Sources */,
+				1FCDFED81D73E6DB0067970B /* Frameworks */,
+				1FCDFED91D73E6DB0067970B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1FCDFEDD1D73E6DB0067970B /* PBXTargetDependency */,
+			);
+			name = Challenge_high_salaryUITests;
+			productName = Challenge_high_salaryUITests;
+			productReference = 1FCDFEDB1D73E6DB0067970B /* Challenge_high_salaryUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1FCDFEB41D73E6DB0067970B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "北京校酷网络科技公司";
+				TargetAttributes = {
+					1FCDFEBB1D73E6DB0067970B = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					1FCDFECF1D73E6DB0067970B = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 1FCDFEBB1D73E6DB0067970B;
+					};
+					1FCDFEDA1D73E6DB0067970B = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 1FCDFEBB1D73E6DB0067970B;
+					};
+				};
+			};
+			buildConfigurationList = 1FCDFEB71D73E6DB0067970B /* Build configuration list for PBXProject "Challenge_high_salary" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1FCDFEB31D73E6DB0067970B;
+			productRefGroup = 1FCDFEBD1D73E6DB0067970B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1FCDFEBB1D73E6DB0067970B /* Challenge_high_salary */,
+				1FCDFECF1D73E6DB0067970B /* Challenge_high_salaryTests */,
+				1FCDFEDA1D73E6DB0067970B /* Challenge_high_salaryUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1FCDFEBA1D73E6DB0067970B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FCDFECA1D73E6DB0067970B /* LaunchScreen.storyboard in Resources */,
+				1FCDFEC71D73E6DB0067970B /* Assets.xcassets in Resources */,
+				1FCDFEC51D73E6DB0067970B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FCDFECE1D73E6DB0067970B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FCDFED91D73E6DB0067970B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1FCDFEB81D73E6DB0067970B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */,
+				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FCDFECC1D73E6DB0067970B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FCDFED51D73E6DB0067970B /* Challenge_high_salaryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FCDFED71D73E6DB0067970B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FCDFEE01D73E6DB0067970B /* Challenge_high_salaryUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1FCDFED21D73E6DB0067970B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1FCDFEBB1D73E6DB0067970B /* Challenge_high_salary */;
+			targetProxy = 1FCDFED11D73E6DB0067970B /* PBXContainerItemProxy */;
+		};
+		1FCDFEDD1D73E6DB0067970B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1FCDFEBB1D73E6DB0067970B /* Challenge_high_salary */;
+			targetProxy = 1FCDFEDC1D73E6DB0067970B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1FCDFEC31D73E6DB0067970B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1FCDFEC41D73E6DB0067970B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1FCDFEC81D73E6DB0067970B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1FCDFEC91D73E6DB0067970B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1FCDFEE21D73E6DB0067970B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1FCDFEE31D73E6DB0067970B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1FCDFEE51D73E6DB0067970B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Challenge_high_salary/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xiaocool.Challenge-high-salary";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1FCDFEE61D73E6DB0067970B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Challenge_high_salary/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xiaocool.Challenge-high-salary";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		1FCDFEE81D73E6DB0067970B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = Challenge_high_salaryTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xiaocool.Challenge-high-salaryTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Challenge_high_salary.app/Challenge_high_salary";
+			};
+			name = Debug;
+		};
+		1FCDFEE91D73E6DB0067970B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = Challenge_high_salaryTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xiaocool.Challenge-high-salaryTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Challenge_high_salary.app/Challenge_high_salary";
+			};
+			name = Release;
+		};
+		1FCDFEEB1D73E6DB0067970B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Challenge_high_salaryUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xiaocool.Challenge-high-salaryUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Challenge_high_salary;
+			};
+			name = Debug;
+		};
+		1FCDFEEC1D73E6DB0067970B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Challenge_high_salaryUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xiaocool.Challenge-high-salaryUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Challenge_high_salary;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1FCDFEB71D73E6DB0067970B /* Build configuration list for PBXProject "Challenge_high_salary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FCDFEE21D73E6DB0067970B /* Debug */,
+				1FCDFEE31D73E6DB0067970B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1FCDFEE41D73E6DB0067970B /* Build configuration list for PBXNativeTarget "Challenge_high_salary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FCDFEE51D73E6DB0067970B /* Debug */,
+				1FCDFEE61D73E6DB0067970B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		1FCDFEE71D73E6DB0067970B /* Build configuration list for PBXNativeTarget "Challenge_high_salaryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FCDFEE81D73E6DB0067970B /* Debug */,
+				1FCDFEE91D73E6DB0067970B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		1FCDFEEA1D73E6DB0067970B /* Build configuration list for PBXNativeTarget "Challenge_high_salaryUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FCDFEEB1D73E6DB0067970B /* Debug */,
+				1FCDFEEC1D73E6DB0067970B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1FCDFEB41D73E6DB0067970B /* Project object */;
+}
