@@ -14,6 +14,8 @@
 		1FCDFECA1D73E6DB0067970B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC81D73E6DB0067970B /* LaunchScreen.storyboard */; };
 		1FCDFED51D73E6DB0067970B /* Challenge_high_salaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFED41D73E6DB0067970B /* Challenge_high_salaryTests.swift */; };
 		1FCDFEE01D73E6DB0067970B /* Challenge_high_salaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEDF1D73E6DB0067970B /* Challenge_high_salaryUITests.swift */; };
+		1FCDFEFC1D740DA40067970B /* LoHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEFB1D740DA40067970B /* LoHomeViewController.swift */; };
+		CB9CDB689E94B8A4EBB09C32 /* Pods_Challenge_high_salary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02CC2341262A77985746D107 /* Pods_Challenge_high_salary.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02CC2341262A77985746D107 /* Pods_Challenge_high_salary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Challenge_high_salary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCDFEBC1D73E6DB0067970B /* Challenge_high_salary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Challenge_high_salary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FCDFEC11D73E6DB0067970B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +50,9 @@
 		1FCDFEDB1D73E6DB0067970B /* Challenge_high_salaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Challenge_high_salaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCDFEDF1D73E6DB0067970B /* Challenge_high_salaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge_high_salaryUITests.swift; sourceTree = "<group>"; };
 		1FCDFEE11D73E6DB0067970B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FCDFEFB1D740DA40067970B /* LoHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoHomeViewController.swift; sourceTree = "<group>"; };
+		87ABDA8E1A9C795C2B8D637C /* Pods-Challenge_high_salary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Challenge_high_salary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Challenge_high_salary/Pods-Challenge_high_salary.debug.xcconfig"; sourceTree = "<group>"; };
+		897E3E940467E77F77214C28 /* Pods-Challenge_high_salary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Challenge_high_salary.release.xcconfig"; path = "Pods/Target Support Files/Pods-Challenge_high_salary/Pods-Challenge_high_salary.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB9CDB689E94B8A4EBB09C32 /* Pods_Challenge_high_salary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +88,8 @@
 				1FCDFED31D73E6DB0067970B /* Challenge_high_salaryTests */,
 				1FCDFEDE1D73E6DB0067970B /* Challenge_high_salaryUITests */,
 				1FCDFEBD1D73E6DB0067970B /* Products */,
+				BCA9C4F0795B8C4D841F1915 /* Pods */,
+				7D0BA4E52437BC3903C79784 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,12 +106,10 @@
 		1FCDFEBE1D73E6DB0067970B /* Challenge_high_salary */ = {
 			isa = PBXGroup;
 			children = (
-				1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */,
-				1FCDFEC11D73E6DB0067970B /* ViewController.swift */,
-				1FCDFEC31D73E6DB0067970B /* Main.storyboard */,
-				1FCDFEC61D73E6DB0067970B /* Assets.xcassets */,
-				1FCDFEC81D73E6DB0067970B /* LaunchScreen.storyboard */,
-				1FCDFECB1D73E6DB0067970B /* Info.plist */,
+				1FCDFEF01D740C120067970B /* ChallengeHighSalary(挑战高薪) */,
+				1FCDFEEF1D740BCC0067970B /* ForTalent(抢人才) */,
+				1FCDFEED1D740B5C0067970B /* Login(登录) */,
+				1FCDFEF71D740CF80067970B /* System(系统) */,
 			);
 			path = Challenge_high_salary;
 			sourceTree = "<group>";
@@ -125,6 +132,138 @@
 			path = Challenge_high_salaryUITests;
 			sourceTree = "<group>";
 		};
+		1FCDFEED1D740B5C0067970B /* Login(登录) */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDFEFA1D740D430067970B /* Controller */,
+				1FCDFEF91D740D3D0067970B /* View */,
+				1FCDFEF81D740D350067970B /* Model */,
+			);
+			name = "Login(登录)";
+			sourceTree = "<group>";
+		};
+		1FCDFEEE1D740B820067970B /* Talent(人才) */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Talent(人才)";
+			sourceTree = "<group>";
+		};
+		1FCDFEEF1D740BCC0067970B /* ForTalent(抢人才) */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDFEF61D740CE50067970B /* Mine(我的) */,
+				1FCDFEF51D740CC90067970B /* Message(消息) */,
+				1FCDFEEE1D740B820067970B /* Talent(人才) */,
+			);
+			name = "ForTalent(抢人才)";
+			sourceTree = "<group>";
+		};
+		1FCDFEF01D740C120067970B /* ChallengeHighSalary(挑战高薪) */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDFEF41D740CA40067970B /* Mine(我的) */,
+				1FCDFEF31D740C820067970B /* Message(消息) */,
+				1FCDFEF21D740C6E0067970B /* Resume(简历) */,
+				1FCDFEF11D740C300067970B /* Chance(机会) */,
+			);
+			name = "ChallengeHighSalary(挑战高薪)";
+			sourceTree = "<group>";
+		};
+		1FCDFEF11D740C300067970B /* Chance(机会) */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "\U001dChance(机会)";
+			sourceTree = "<group>";
+		};
+		1FCDFEF21D740C6E0067970B /* Resume(简历) */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Resume(简历)";
+			sourceTree = "<group>";
+		};
+		1FCDFEF31D740C820067970B /* Message(消息) */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Message(消息)";
+			sourceTree = "<group>";
+		};
+		1FCDFEF41D740CA40067970B /* Mine(我的) */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Mine(我的)";
+			sourceTree = "<group>";
+		};
+		1FCDFEF51D740CC90067970B /* Message(消息) */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Message(消息)";
+			sourceTree = "<group>";
+		};
+		1FCDFEF61D740CE50067970B /* Mine(我的) */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Mine(我的)";
+			sourceTree = "<group>";
+		};
+		1FCDFEF71D740CF80067970B /* System(系统) */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */,
+				1FCDFEC11D73E6DB0067970B /* ViewController.swift */,
+				1FCDFEC31D73E6DB0067970B /* Main.storyboard */,
+				1FCDFEC61D73E6DB0067970B /* Assets.xcassets */,
+				1FCDFEC81D73E6DB0067970B /* LaunchScreen.storyboard */,
+				1FCDFECB1D73E6DB0067970B /* Info.plist */,
+			);
+			name = "System(系统)";
+			sourceTree = "<group>";
+		};
+		1FCDFEF81D740D350067970B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		1FCDFEF91D740D3D0067970B /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		1FCDFEFA1D740D430067970B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDFEFB1D740DA40067970B /* LoHomeViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		7D0BA4E52437BC3903C79784 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				02CC2341262A77985746D107 /* Pods_Challenge_high_salary.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BCA9C4F0795B8C4D841F1915 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				87ABDA8E1A9C795C2B8D637C /* Pods-Challenge_high_salary.debug.xcconfig */,
+				897E3E940467E77F77214C28 /* Pods-Challenge_high_salary.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +271,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FCDFEE41D73E6DB0067970B /* Build configuration list for PBXNativeTarget "Challenge_high_salary" */;
 			buildPhases = (
+				CC57BAF3632C08DCE9EEC4CC /* [CP] Check Pods Manifest.lock */,
 				1FCDFEB81D73E6DB0067970B /* Sources */,
 				1FCDFEB91D73E6DB0067970B /* Frameworks */,
 				1FCDFEBA1D73E6DB0067970B /* Resources */,
+				3FCC6F673413A1A8E82C7215 /* [CP] Embed Pods Frameworks */,
+				D64A6C8BB965E9364CB5CA68 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -251,12 +393,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3FCC6F673413A1A8E82C7215 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Challenge_high_salary/Pods-Challenge_high_salary-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CC57BAF3632C08DCE9EEC4CC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D64A6C8BB965E9364CB5CA68 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Challenge_high_salary/Pods-Challenge_high_salary-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1FCDFEB81D73E6DB0067970B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */,
+				1FCDFEFC1D740DA40067970B /* LoHomeViewController.swift in Sources */,
 				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,6 +588,7 @@
 		};
 		1FCDFEE51D73E6DB0067970B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 87ABDA8E1A9C795C2B8D637C /* Pods-Challenge_high_salary.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Challenge_high_salary/Info.plist;
@@ -408,6 +600,7 @@
 		};
 		1FCDFEE61D73E6DB0067970B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 897E3E940467E77F77214C28 /* Pods-Challenge_high_salary.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Challenge_high_salary/Info.plist;
@@ -482,6 +675,7 @@
 				1FCDFEE61D73E6DB0067970B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1FCDFEE71D73E6DB0067970B /* Build configuration list for PBXNativeTarget "Challenge_high_salaryTests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +684,7 @@
 				1FCDFEE91D73E6DB0067970B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1FCDFEEA1D73E6DB0067970B /* Build configuration list for PBXNativeTarget "Challenge_high_salaryUITests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +693,7 @@
 				1FCDFEEC1D73E6DB0067970B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

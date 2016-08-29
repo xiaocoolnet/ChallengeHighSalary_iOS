@@ -1,0 +1,6 @@
+framework module Pods_Challenge_high_salary {
+  umbrella header "Pods-Challenge_high_salary-umbrella.h"
+
+  export *
+  module * { export * }
+}
