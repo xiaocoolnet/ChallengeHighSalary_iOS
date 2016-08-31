@@ -14,7 +14,7 @@
 		1FCDFECA1D73E6DB0067970B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC81D73E6DB0067970B /* LaunchScreen.storyboard */; };
 		1FCDFED51D73E6DB0067970B /* Challenge_high_salaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFED41D73E6DB0067970B /* Challenge_high_salaryTests.swift */; };
 		1FCDFEE01D73E6DB0067970B /* Challenge_high_salaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEDF1D73E6DB0067970B /* Challenge_high_salaryUITests.swift */; };
-		1FCDFEFC1D740DA40067970B /* LoHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEFB1D740DA40067970B /* LoHomeViewController.swift */; };
+		1FCDFF011D7411160067970B /* LoHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEFF1D7411160067970B /* LoHomeViewController.swift */; };
 		CB9CDB689E94B8A4EBB09C32 /* Pods_Challenge_high_salary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02CC2341262A77985746D107 /* Pods_Challenge_high_salary.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		02CC2341262A77985746D107 /* Pods_Challenge_high_salary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Challenge_high_salary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F33D77A1D7587370028444A /* Challenge_high_salary-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Challenge_high_salary-Bridging-Header.h"; sourceTree = "<group>"; };
 		1FCDFEBC1D73E6DB0067970B /* Challenge_high_salary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Challenge_high_salary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FCDFEC11D73E6DB0067970B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -50,7 +51,7 @@
 		1FCDFEDB1D73E6DB0067970B /* Challenge_high_salaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Challenge_high_salaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCDFEDF1D73E6DB0067970B /* Challenge_high_salaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge_high_salaryUITests.swift; sourceTree = "<group>"; };
 		1FCDFEE11D73E6DB0067970B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1FCDFEFB1D740DA40067970B /* LoHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoHomeViewController.swift; sourceTree = "<group>"; };
+		1FCDFEFF1D7411160067970B /* LoHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoHomeViewController.swift; sourceTree = "<group>"; };
 		87ABDA8E1A9C795C2B8D637C /* Pods-Challenge_high_salary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Challenge_high_salary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Challenge_high_salary/Pods-Challenge_high_salary.debug.xcconfig"; sourceTree = "<group>"; };
 		897E3E940467E77F77214C28 /* Pods-Challenge_high_salary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Challenge_high_salary.release.xcconfig"; path = "Pods/Target Support Files/Pods-Challenge_high_salary/Pods-Challenge_high_salary.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,6 +110,7 @@
 				1FCDFEF01D740C120067970B /* ChallengeHighSalary(挑战高薪) */,
 				1FCDFEEF1D740BCC0067970B /* ForTalent(抢人才) */,
 				1FCDFEED1D740B5C0067970B /* Login(登录) */,
+				1FCDFEFD1D740EEA0067970B /* Tool(工具) */,
 				1FCDFEF71D740CF80067970B /* System(系统) */,
 			);
 			path = Challenge_high_salary;
@@ -242,9 +244,17 @@
 		1FCDFEFA1D740D430067970B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				1FCDFEFB1D740DA40067970B /* LoHomeViewController.swift */,
+				1FCDFEFF1D7411160067970B /* LoHomeViewController.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		1FCDFEFD1D740EEA0067970B /* Tool(工具) */ = {
+			isa = PBXGroup;
+			children = (
+				1F33D77A1D7587370028444A /* Challenge_high_salary-Bridging-Header.h */,
+			);
+			name = "Tool(工具)";
 			sourceTree = "<group>";
 		};
 		7D0BA4E52437BC3903C79784 /* Frameworks */ = {
@@ -447,7 +457,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */,
-				1FCDFEFC1D740DA40067970B /* LoHomeViewController.swift in Sources */,
+				1FCDFF011D7411160067970B /* LoHomeViewController.swift in Sources */,
 				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -595,6 +605,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xiaocool.Challenge-high-salary";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Challenge_high_salary/Challenge_high_salary-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -607,6 +618,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xiaocool.Challenge-high-salary";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Challenge_high_salary/Challenge_high_salary-Bridging-Header.h";
 			};
 			name = Release;
 		};

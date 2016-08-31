@@ -2,6 +2,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'Challenge_high_salary' do
+  pod 'SnapKit', '~> 0.15.0'
   pod "UIPlaceholderTextView"
   pod 'GVUserDefaults'
   pod 'SwiftyJSON', '~> 2.3'

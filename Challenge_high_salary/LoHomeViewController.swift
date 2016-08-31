@@ -12,8 +12,18 @@ class LoHomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        
+        
+    }
+    
+    func setSubviews() {
+        self.title = "挑战高薪"
+        
+        let inputBgView = UIView()
+        self.view.addSubview(inputBgView)
+        
+//        inputBgView
     }
 
     override func didReceiveMemoryWarning() {
