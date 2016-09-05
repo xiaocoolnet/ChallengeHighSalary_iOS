@@ -17,8 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
+        UITabBar.appearance().tintColor = baseColor
+        UITabBar.appearance().backgroundColor = UIColor(red: 248/255.0, green: 248/255.0, blue: 248/255.0, alpha: 1)
         
-        self.window?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
+        UINavigationBar.appearance().barTintColor = baseColor
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = [
+            NSForegroundColorAttributeName:UIColor.whiteColor()
+        ]
+        
+//        self.window?.rootViewController = UINavigationController(rootViewController: WeHomeViewController())
+        self.window?.rootViewController = CHRoHomeViewController()
         
         return true
     }

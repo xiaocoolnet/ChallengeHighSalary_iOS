@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F4FD25B1D767CC500FF7040 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4FD25A1D767CC500FF7040 /* Tool.swift */; };
+		1F4FD2651D76C01D00FF7040 /* BButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4FD25E1D76C01D00FF7040 /* BButton.m */; };
+		1F4FD2661D76C01D00FF7040 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4FD2601D76C01D00FF7040 /* NSString+FontAwesome.m */; };
+		1F4FD2671D76C01D00FF7040 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F4FD2621D76C01D00FF7040 /* FontAwesome.ttf */; };
+		1F4FD2681D76C01D00FF7040 /* UIColor+BButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4FD2641D76C01D00FF7040 /* UIColor+BButton.m */; };
 		1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */; };
 		1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC11D73E6DB0067970B /* ViewController.swift */; };
 		1FCDFEC51D73E6DB0067970B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC31D73E6DB0067970B /* Main.storyboard */; };
@@ -15,6 +20,23 @@
 		1FCDFED51D73E6DB0067970B /* Challenge_high_salaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFED41D73E6DB0067970B /* Challenge_high_salaryTests.swift */; };
 		1FCDFEE01D73E6DB0067970B /* Challenge_high_salaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEDF1D73E6DB0067970B /* Challenge_high_salaryUITests.swift */; };
 		1FCDFF011D7411160067970B /* LoHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEFF1D7411160067970B /* LoHomeViewController.swift */; };
+		1FD7FBD61D795BA70032221D /* WeHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD7FBD51D795BA70032221D /* WeHomeViewController.swift */; };
+		1FF06CB41D7D16540032943B /* CHRoHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CB31D7D16540032943B /* CHRoHomeViewController.swift */; };
+		1FF06CBA1D7D16A20032943B /* ChMiHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CB91D7D16A20032943B /* ChMiHomeViewController.swift */; };
+		1FF06CBC1D7D17760032943B /* ChMeHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CBB1D7D17760032943B /* ChMeHomeViewController.swift */; };
+		1FF06CBE1D7D17860032943B /* ChReHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CBD1D7D17860032943B /* ChReHomeViewController.swift */; };
+		1FF06CC01D7D17960032943B /* ChChHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CBF1D7D17960032943B /* ChChHomeViewController.swift */; };
+		1FF06CC41D7D50E20032943B /* LFLUISegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CC31D7D50E20032943B /* LFLUISegmentedControl.m */; };
+		1FF06CD21D7D609A0032943B /* DPDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CC81D7D609A0032943B /* DPDConstants.swift */; };
+		1FF06CD31D7D609A0032943B /* DPDKeyboardListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CC91D7D609A0032943B /* DPDKeyboardListener.swift */; };
+		1FF06CD41D7D609A0032943B /* DPDUIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CCA1D7D609A0032943B /* DPDUIView+Extension.swift */; };
+		1FF06CD51D7D609A0032943B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FF06CCB1D7D609A0032943B /* Info.plist */; };
+		1FF06CD61D7D609A0032943B /* DropDownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF06CCD1D7D609A0032943B /* DropDownCell.xib */; };
+		1FF06CD71D7D609A0032943B /* DropDown+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CCF1D7D609A0032943B /* DropDown+Appearance.swift */; };
+		1FF06CD81D7D609A0032943B /* DropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CD01D7D609A0032943B /* DropDown.swift */; };
+		1FF06CD91D7D609A0032943B /* DropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CD11D7D609A0032943B /* DropDownCell.swift */; };
+		1FF06CDD1D7D6D970032943B /* ChChHomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CDB1D7D6D970032943B /* ChChHomeTableViewCell.swift */; };
+		1FF06CDE1D7D6D970032943B /* ChChHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF06CDC1D7D6D970032943B /* ChChHomeTableViewCell.xib */; };
 		CB9CDB689E94B8A4EBB09C32 /* Pods_Challenge_high_salary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02CC2341262A77985746D107 /* Pods_Challenge_high_salary.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +60,14 @@
 /* Begin PBXFileReference section */
 		02CC2341262A77985746D107 /* Pods_Challenge_high_salary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Challenge_high_salary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F33D77A1D7587370028444A /* Challenge_high_salary-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Challenge_high_salary-Bridging-Header.h"; sourceTree = "<group>"; };
+		1F4FD25A1D767CC500FF7040 /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
+		1F4FD25D1D76C01D00FF7040 /* BButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BButton.h; sourceTree = "<group>"; };
+		1F4FD25E1D76C01D00FF7040 /* BButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BButton.m; sourceTree = "<group>"; };
+		1F4FD25F1D76C01D00FF7040 /* NSString+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FontAwesome.h"; sourceTree = "<group>"; };
+		1F4FD2601D76C01D00FF7040 /* NSString+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontAwesome.m"; sourceTree = "<group>"; };
+		1F4FD2621D76C01D00FF7040 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		1F4FD2631D76C01D00FF7040 /* UIColor+BButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+BButton.h"; sourceTree = "<group>"; };
+		1F4FD2641D76C01D00FF7040 /* UIColor+BButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+BButton.m"; sourceTree = "<group>"; };
 		1FCDFEBC1D73E6DB0067970B /* Challenge_high_salary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Challenge_high_salary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FCDFEC11D73E6DB0067970B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -52,6 +82,25 @@
 		1FCDFEDF1D73E6DB0067970B /* Challenge_high_salaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge_high_salaryUITests.swift; sourceTree = "<group>"; };
 		1FCDFEE11D73E6DB0067970B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FCDFEFF1D7411160067970B /* LoHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoHomeViewController.swift; sourceTree = "<group>"; };
+		1FD7FBD51D795BA70032221D /* WeHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeHomeViewController.swift; sourceTree = "<group>"; };
+		1FF06CB31D7D16540032943B /* CHRoHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHRoHomeViewController.swift; sourceTree = "<group>"; };
+		1FF06CB91D7D16A20032943B /* ChMiHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChMiHomeViewController.swift; sourceTree = "<group>"; };
+		1FF06CBB1D7D17760032943B /* ChMeHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChMeHomeViewController.swift; sourceTree = "<group>"; };
+		1FF06CBD1D7D17860032943B /* ChReHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChReHomeViewController.swift; sourceTree = "<group>"; };
+		1FF06CBF1D7D17960032943B /* ChChHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChHomeViewController.swift; sourceTree = "<group>"; };
+		1FF06CC21D7D50E20032943B /* LFLUISegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFLUISegmentedControl.h; sourceTree = "<group>"; };
+		1FF06CC31D7D50E20032943B /* LFLUISegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFLUISegmentedControl.m; sourceTree = "<group>"; };
+		1FF06CC61D7D609A0032943B /* DropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropDown.h; sourceTree = "<group>"; };
+		1FF06CC81D7D609A0032943B /* DPDConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DPDConstants.swift; sourceTree = "<group>"; };
+		1FF06CC91D7D609A0032943B /* DPDKeyboardListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DPDKeyboardListener.swift; sourceTree = "<group>"; };
+		1FF06CCA1D7D609A0032943B /* DPDUIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DPDUIView+Extension.swift"; sourceTree = "<group>"; };
+		1FF06CCB1D7D609A0032943B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FF06CCD1D7D609A0032943B /* DropDownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropDownCell.xib; sourceTree = "<group>"; };
+		1FF06CCF1D7D609A0032943B /* DropDown+Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DropDown+Appearance.swift"; sourceTree = "<group>"; };
+		1FF06CD01D7D609A0032943B /* DropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDown.swift; sourceTree = "<group>"; };
+		1FF06CD11D7D609A0032943B /* DropDownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownCell.swift; sourceTree = "<group>"; };
+		1FF06CDB1D7D6D970032943B /* ChChHomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChHomeTableViewCell.swift; sourceTree = "<group>"; };
+		1FF06CDC1D7D6D970032943B /* ChChHomeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChChHomeTableViewCell.xib; sourceTree = "<group>"; };
 		87ABDA8E1A9C795C2B8D637C /* Pods-Challenge_high_salary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Challenge_high_salary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Challenge_high_salary/Pods-Challenge_high_salary.debug.xcconfig"; sourceTree = "<group>"; };
 		897E3E940467E77F77214C28 /* Pods-Challenge_high_salary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Challenge_high_salary.release.xcconfig"; path = "Pods/Target Support Files/Pods-Challenge_high_salary/Pods-Challenge_high_salary.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +131,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F4FD25C1D76C01D00FF7040 /* BButton */ = {
+			isa = PBXGroup;
+			children = (
+				1F4FD25D1D76C01D00FF7040 /* BButton.h */,
+				1F4FD25E1D76C01D00FF7040 /* BButton.m */,
+				1F4FD25F1D76C01D00FF7040 /* NSString+FontAwesome.h */,
+				1F4FD2601D76C01D00FF7040 /* NSString+FontAwesome.m */,
+				1F4FD2611D76C01D00FF7040 /* resources */,
+				1F4FD2631D76C01D00FF7040 /* UIColor+BButton.h */,
+				1F4FD2641D76C01D00FF7040 /* UIColor+BButton.m */,
+			);
+			path = BButton;
+			sourceTree = "<group>";
+		};
+		1F4FD2611D76C01D00FF7040 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				1F4FD2621D76C01D00FF7040 /* FontAwesome.ttf */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
 		1FCDFEB31D73E6DB0067970B = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +178,7 @@
 		1FCDFEBE1D73E6DB0067970B /* Challenge_high_salary */ = {
 			isa = PBXGroup;
 			children = (
+				1FD7FBD11D7955840032221D /* Welcome(欢迎页) */,
 				1FCDFEF01D740C120067970B /* ChallengeHighSalary(挑战高薪) */,
 				1FCDFEEF1D740BCC0067970B /* ForTalent(抢人才) */,
 				1FCDFEED1D740B5C0067970B /* Login(登录) */,
@@ -164,10 +236,11 @@
 		1FCDFEF01D740C120067970B /* ChallengeHighSalary(挑战高薪) */ = {
 			isa = PBXGroup;
 			children = (
-				1FCDFEF41D740CA40067970B /* Mine(我的) */,
-				1FCDFEF31D740C820067970B /* Message(消息) */,
-				1FCDFEF21D740C6E0067970B /* Resume(简历) */,
+				1FF06CB11D7D15CF0032943B /* Root(根) */,
 				1FCDFEF11D740C300067970B /* Chance(机会) */,
+				1FCDFEF21D740C6E0067970B /* Resume(简历) */,
+				1FCDFEF31D740C820067970B /* Message(消息) */,
+				1FCDFEF41D740CA40067970B /* Mine(我的) */,
 			);
 			name = "ChallengeHighSalary(挑战高薪)";
 			sourceTree = "<group>";
@@ -175,6 +248,8 @@
 		1FCDFEF11D740C300067970B /* Chance(机会) */ = {
 			isa = PBXGroup;
 			children = (
+				1FF06CDA1D7D6D6B0032943B /* View */,
+				1FF06CB81D7D16830032943B /* Controller */,
 			);
 			name = "\U001dChance(机会)";
 			sourceTree = "<group>";
@@ -182,6 +257,7 @@
 		1FCDFEF21D740C6E0067970B /* Resume(简历) */ = {
 			isa = PBXGroup;
 			children = (
+				1FF06CB71D7D16750032943B /* Controller */,
 			);
 			name = "Resume(简历)";
 			sourceTree = "<group>";
@@ -189,6 +265,7 @@
 		1FCDFEF31D740C820067970B /* Message(消息) */ = {
 			isa = PBXGroup;
 			children = (
+				1FF06CB61D7D16670032943B /* Controller */,
 			);
 			name = "Message(消息)";
 			sourceTree = "<group>";
@@ -196,6 +273,7 @@
 		1FCDFEF41D740CA40067970B /* Mine(我的) */ = {
 			isa = PBXGroup;
 			children = (
+				1FF06CB51D7D165D0032943B /* Controller */,
 			);
 			name = "Mine(我的)";
 			sourceTree = "<group>";
@@ -252,9 +330,135 @@
 		1FCDFEFD1D740EEA0067970B /* Tool(工具) */ = {
 			isa = PBXGroup;
 			children = (
+				1FF06CC51D7D609A0032943B /* DropDown */,
+				1FF06CC11D7D50E20032943B /* LFLUISegmentedControl */,
+				1F4FD25C1D76C01D00FF7040 /* BButton */,
 				1F33D77A1D7587370028444A /* Challenge_high_salary-Bridging-Header.h */,
+				1F4FD25A1D767CC500FF7040 /* Tool.swift */,
 			);
 			name = "Tool(工具)";
+			sourceTree = "<group>";
+		};
+		1FD7FBD11D7955840032221D /* Welcome(欢迎页) */ = {
+			isa = PBXGroup;
+			children = (
+				1FD7FBD21D79559F0032221D /* Controller */,
+			);
+			name = "Welcome(欢迎页)";
+			sourceTree = "<group>";
+		};
+		1FD7FBD21D79559F0032221D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1FD7FBD51D795BA70032221D /* WeHomeViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		1FF06CB11D7D15CF0032943B /* Root(根) */ = {
+			isa = PBXGroup;
+			children = (
+				1FF06CB21D7D15E50032943B /* Controller */,
+			);
+			name = "Root(根)";
+			sourceTree = "<group>";
+		};
+		1FF06CB21D7D15E50032943B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1FF06CB31D7D16540032943B /* CHRoHomeViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		1FF06CB51D7D165D0032943B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1FF06CB91D7D16A20032943B /* ChMiHomeViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		1FF06CB61D7D16670032943B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1FF06CBB1D7D17760032943B /* ChMeHomeViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		1FF06CB71D7D16750032943B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1FF06CBD1D7D17860032943B /* ChReHomeViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		1FF06CB81D7D16830032943B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1FF06CBF1D7D17960032943B /* ChChHomeViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		1FF06CC11D7D50E20032943B /* LFLUISegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				1FF06CC21D7D50E20032943B /* LFLUISegmentedControl.h */,
+				1FF06CC31D7D50E20032943B /* LFLUISegmentedControl.m */,
+			);
+			path = LFLUISegmentedControl;
+			sourceTree = "<group>";
+		};
+		1FF06CC51D7D609A0032943B /* DropDown */ = {
+			isa = PBXGroup;
+			children = (
+				1FF06CC61D7D609A0032943B /* DropDown.h */,
+				1FF06CC71D7D609A0032943B /* helpers */,
+				1FF06CCB1D7D609A0032943B /* Info.plist */,
+				1FF06CCC1D7D609A0032943B /* resources */,
+				1FF06CCE1D7D609A0032943B /* src */,
+			);
+			path = DropDown;
+			sourceTree = "<group>";
+		};
+		1FF06CC71D7D609A0032943B /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				1FF06CC81D7D609A0032943B /* DPDConstants.swift */,
+				1FF06CC91D7D609A0032943B /* DPDKeyboardListener.swift */,
+				1FF06CCA1D7D609A0032943B /* DPDUIView+Extension.swift */,
+			);
+			path = helpers;
+			sourceTree = "<group>";
+		};
+		1FF06CCC1D7D609A0032943B /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				1FF06CCD1D7D609A0032943B /* DropDownCell.xib */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		1FF06CCE1D7D609A0032943B /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1FF06CCF1D7D609A0032943B /* DropDown+Appearance.swift */,
+				1FF06CD01D7D609A0032943B /* DropDown.swift */,
+				1FF06CD11D7D609A0032943B /* DropDownCell.swift */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		1FF06CDA1D7D6D6B0032943B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1FF06CDB1D7D6D970032943B /* ChChHomeTableViewCell.swift */,
+				1FF06CDC1D7D6D970032943B /* ChChHomeTableViewCell.xib */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		7D0BA4E52437BC3903C79784 /* Frameworks */ = {
@@ -381,9 +585,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FF06CD61D7D609A0032943B /* DropDownCell.xib in Resources */,
+				1FF06CDE1D7D6D970032943B /* ChChHomeTableViewCell.xib in Resources */,
 				1FCDFECA1D73E6DB0067970B /* LaunchScreen.storyboard in Resources */,
 				1FCDFEC71D73E6DB0067970B /* Assets.xcassets in Resources */,
 				1FCDFEC51D73E6DB0067970B /* Main.storyboard in Resources */,
+				1FF06CD51D7D609A0032943B /* Info.plist in Resources */,
+				1F4FD2671D76C01D00FF7040 /* FontAwesome.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,9 +664,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F4FD2651D76C01D00FF7040 /* BButton.m in Sources */,
+				1FF06CBE1D7D17860032943B /* ChReHomeViewController.swift in Sources */,
+				1FF06CC01D7D17960032943B /* ChChHomeViewController.swift in Sources */,
+				1FF06CD31D7D609A0032943B /* DPDKeyboardListener.swift in Sources */,
+				1FF06CD21D7D609A0032943B /* DPDConstants.swift in Sources */,
+				1FF06CC41D7D50E20032943B /* LFLUISegmentedControl.m in Sources */,
 				1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */,
+				1FD7FBD61D795BA70032221D /* WeHomeViewController.swift in Sources */,
+				1FF06CD71D7D609A0032943B /* DropDown+Appearance.swift in Sources */,
+				1F4FD2681D76C01D00FF7040 /* UIColor+BButton.m in Sources */,
+				1FF06CD91D7D609A0032943B /* DropDownCell.swift in Sources */,
+				1FF06CD41D7D609A0032943B /* DPDUIView+Extension.swift in Sources */,
+				1FF06CDD1D7D6D970032943B /* ChChHomeTableViewCell.swift in Sources */,
+				1FF06CBC1D7D17760032943B /* ChMeHomeViewController.swift in Sources */,
+				1FF06CB41D7D16540032943B /* CHRoHomeViewController.swift in Sources */,
+				1F4FD2661D76C01D00FF7040 /* NSString+FontAwesome.m in Sources */,
+				1FF06CD81D7D609A0032943B /* DropDown.swift in Sources */,
+				1FF06CBA1D7D16A20032943B /* ChMiHomeViewController.swift in Sources */,
 				1FCDFF011D7411160067970B /* LoHomeViewController.swift in Sources */,
 				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,
+				1F4FD25B1D767CC500FF7040 /* Tool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

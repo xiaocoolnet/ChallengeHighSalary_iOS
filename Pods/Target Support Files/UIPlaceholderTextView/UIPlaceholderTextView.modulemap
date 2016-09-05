@@ -1,6 +1,0 @@
-framework module UIPlaceholderTextView {
-  umbrella header "UIPlaceholderTextView-umbrella.h"
-
-  export *
-  module * { export * }
-}

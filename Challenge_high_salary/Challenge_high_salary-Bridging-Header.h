@@ -9,4 +9,7 @@
 #ifndef Challenge_high_salary_Bridging_Header_h
 #define Challenge_high_salary_Bridging_Header_h
 
+#import "BButton.h"
+#import "LFLUISegmentedControl.h"
+
 #endif /* Challenge_high_salary_Bridging_Header_h */
