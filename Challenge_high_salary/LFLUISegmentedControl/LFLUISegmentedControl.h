@@ -12,7 +12,7 @@
 
 @optional
 /// 外界调用获取点击下标
--(void)uisegumentSelectionChange:(NSInteger)selection;
+-(void)uisegumentSelectionChange:(NSInteger)selection segmentTag:(NSInteger) segmentTag;
 @end
 
 @interface LFLUISegmentedControl : UIView

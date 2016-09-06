@@ -8,11 +8,17 @@
 
 import UIKit
 
-class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, UITableViewDataSource {
+class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, UITableViewDataSource, UITableViewDelegate {
 
+    let rootScrollView = UIScrollView()
+    
     var salaryDrop = DropDown()
     var redEnvelopeDrop = DropDown()
-    let myTableView = UITableView()
+    let findJobTableView = UITableView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height-20-44-49-37), style: .Grouped)
+    
+    var scaleDrop = DropDown()
+    var nearbyDrop = DropDown()
+    let findEmployerTableView = UITableView(frame: CGRectMake(screenSize.width, 0, screenSize.width, screenSize.height-20-44-49-37), style: .Grouped)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +41,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         //        let seg = UISegmentedControl(frame: CGRectMake(0, 0, 160, 44))
         let seg = UISegmentedControl(items: ["找工作","找雇主"])
         seg.frame = CGRectMake(0, 0, 120, 24)
+        seg.addTarget(self, action: #selector(segValueChanged(_:)), forControlEvents: .ValueChanged)
         seg.selectedSegmentIndex = 0
         self.navigationItem.titleView = seg
         
@@ -46,8 +53,29 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         print("ChChHomeViewController searchBtnClick")
     }
     
+    // MARK: seg 点击事件
+    func segValueChanged(seg:UISegmentedControl) {
+        print(seg.selectedSegmentIndex)
+        
+        self.rootScrollView.contentOffset = CGPointMake(CGFloat(seg.selectedSegmentIndex)*screenSize.width, 0)
+    }
+    
     // MARK: 设置子视图
     func setSubviews() {
+        
+        self.automaticallyAdjustsScrollViewInsets = false
+        
+        rootScrollView.frame = CGRectMake(0, 64,screenSize.width ,screenSize.height-49-64)
+        rootScrollView.contentSize = CGSizeMake(screenSize.width*2, screenSize.height-49-64)
+        rootScrollView.scrollEnabled = false
+        self.view.addSubview(rootScrollView)
+        
+        setSubviews_findJob()
+        setSubviews_findEmployer()
+    }
+    
+    // MARK: 设置子视图_找工作
+    func setSubviews_findJob() {
         
         // 自定义下拉列表样式
         customizeDropDown()
@@ -67,7 +95,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         salaryDrop.dataSource = ["不限","1万以下","1~2万","2~3万","3~4万","4~5万","5万以上"]
         
         // 下拉列表选中后的回调方法
-        salaryDrop.selectionAction = { [unowned self] (index, item) in
+        salaryDrop.selectionAction = { (index, item) in
             
             salaryBtn.setTitle(item, forState: .Normal)
         }
@@ -87,24 +115,90 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         redEnvelopeDrop.dataSource = ["测试用","大红包","小红包","不大不小的红包"]
         
         // 下拉列表选中后的回调方法
-        redEnvelopeDrop.selectionAction = { [unowned self] (index, item) in
+        redEnvelopeDrop.selectionAction = { (index, item) in
             
             redEnvelopeBtn.setTitle(item, forState: .Normal)
         }
         
         // 选择菜单
-        let segChoose = LFLUISegmentedControl.segmentWithFrame(CGRectMake(0, 64,screenSize.width ,37), titleArray: ["最新","最热","最近","评价",salaryBtn,redEnvelopeBtn], defaultSelect: 0)
+        let segChoose = LFLUISegmentedControl.segmentWithFrame(CGRectMake(0, 0,screenSize.width ,37), titleArray: ["最新","最热","最近","评价",salaryBtn,redEnvelopeBtn], defaultSelect: 0)
+        segChoose.tag = 101
         segChoose.lineColor(baseColor)
         segChoose.titleColor(UIColor.blackColor(), selectTitleColor: baseColor, backGroundColor: UIColor.whiteColor(), titleFontSize: 14)
         segChoose.delegate = self
-        self.view.addSubview(segChoose)
+        self.rootScrollView.addSubview(segChoose)
         
         // tableView
-        myTableView.frame = CGRectMake(0, CGRectGetMaxY(segChoose.frame), screenSize.width, screenSize.height-20-44-49-37)
-        myTableView.registerNib(UINib.init(nibName: "ChChHomeTableViewCell", bundle: nil), forCellReuseIdentifier: "ChChHomeTableViewCell")
-        myTableView.rowHeight = 140
-        myTableView.dataSource = self
-        self.view.addSubview(myTableView)
+        findJobTableView.frame = CGRectMake(0, CGRectGetMaxY(segChoose.frame), screenSize.width, screenSize.height-20-44-49-37)
+        findJobTableView.registerNib(UINib.init(nibName: "ChChFindJobTableViewCell", bundle: nil), forCellReuseIdentifier: "ChChFindJobTableViewCell")
+        findJobTableView.separatorStyle = .None
+        findJobTableView.rowHeight = 140
+        findJobTableView.tag = 101
+        findJobTableView.dataSource = self
+        findJobTableView.delegate = self
+        self.rootScrollView.addSubview(findJobTableView)
+    }
+    
+    // MARK: 设置子视图_找雇主
+    func setSubviews_findEmployer() {
+        
+        // 规模
+        let scaleBtn = UIButton()
+        scaleBtn.titleLabel?.adjustsFontSizeToFitWidth = true
+        scaleBtn.setTitle("规模", forState: .Normal)
+        
+        // 规模 下拉
+        scaleDrop.anchorView = scaleBtn
+        
+        scaleDrop.bottomOffset = CGPoint(x: 0, y: 37)
+        scaleDrop.width = screenSize.width
+        scaleDrop.direction = .Bottom
+        
+        scaleDrop.dataSource = ["不限","一人","2人","3人"]
+        
+        // 下拉列表选中后的回调方法
+        scaleDrop.selectionAction = { (index, item) in
+            
+            scaleBtn.setTitle(item, forState: .Normal)
+        }
+        
+        // 附近
+        let nearbyBtn = UIButton()
+        nearbyBtn.titleLabel?.adjustsFontSizeToFitWidth = true
+        nearbyBtn.setTitle("附近", forState: .Normal)
+        
+        // 附近 下拉
+        nearbyDrop.anchorView = nearbyBtn
+        
+        nearbyDrop.bottomOffset = CGPoint(x: 0, y: 37)
+        nearbyDrop.width = screenSize.width
+        nearbyDrop.direction = .Bottom
+        
+        nearbyDrop.dataSource = ["测试用","一米","两米","三米"]
+        
+        // 下拉列表选中后的回调方法
+        nearbyDrop.selectionAction = { (index, item) in
+            
+            nearbyBtn.setTitle(item, forState: .Normal)
+        }
+        
+        // 选择菜单
+        let segChoose = LFLUISegmentedControl.segmentWithFrame(CGRectMake(screenSize.width, 0,screenSize.width ,37), titleArray: ["最新",scaleBtn,nearbyBtn], defaultSelect: 0)
+        segChoose.tag = 102
+        segChoose.lineColor(baseColor)
+        segChoose.titleColor(UIColor.blackColor(), selectTitleColor: baseColor, backGroundColor: UIColor.whiteColor(), titleFontSize: 14)
+        segChoose.delegate = self
+        self.rootScrollView.addSubview(segChoose)
+        
+        // tableView
+        findEmployerTableView.frame = CGRectMake(screenSize.width, CGRectGetMaxY(segChoose.frame), screenSize.width, screenSize.height-20-44-49-37)
+        findEmployerTableView.registerNib(UINib.init(nibName: "ChChFindJobTableViewCell", bundle: nil), forCellReuseIdentifier: "ChChFindJobTableViewCell")
+        findEmployerTableView.separatorStyle = .None
+        findEmployerTableView.rowHeight = 140
+        findEmployerTableView.tag = 102
+        findEmployerTableView.dataSource = self
+        findEmployerTableView.delegate = self
+        self.rootScrollView.addSubview(findEmployerTableView)
     }
     
     // MARK:自定义下拉列表样式
@@ -125,29 +219,57 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     }
     
     // MARK: LFLUISegmentedControlDelegate
-    func uisegumentSelectionChange(selection: Int) {
+    func uisegumentSelectionChange(selection: Int, segmentTag: Int) {
         print("ChChHomeViewController click \(selection) item")
         
-        if selection == 4 {
-            salaryDrop.show()
-        }else if selection == 5 {
-            redEnvelopeDrop.show()
+        if segmentTag == 101 {
+            
+            if selection == 4 {
+                salaryDrop.show()
+            }else if selection == 5 {
+                redEnvelopeDrop.show()
+            }
+        }else if segmentTag == 102 {
+            
+            if selection == 1 {
+                scaleDrop.show()
+            }else if selection == 2 {
+                nearbyDrop.show()
+            }
         }
     }
     
     // MARK: UITableView DataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if tableView.tag == 101 {
+            return 1
+        }else{
+            return 1
+        }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 10
+        if tableView.tag == 101 {
+            return 10
+        }else{
+            return 1
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ChChHomeTableViewCell") as! ChChHomeTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("ChChFindJobTableViewCell") as! ChChFindJobTableViewCell
+        cell.selectionStyle = .None
         
         return cell
+    }
+    
+    // MARK: UITableView Delegate
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 8
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.0001
     }
 
     override func didReceiveMemoryWarning() {

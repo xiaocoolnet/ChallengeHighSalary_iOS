@@ -35,8 +35,8 @@
 		1FF06CD71D7D609A0032943B /* DropDown+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CCF1D7D609A0032943B /* DropDown+Appearance.swift */; };
 		1FF06CD81D7D609A0032943B /* DropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CD01D7D609A0032943B /* DropDown.swift */; };
 		1FF06CD91D7D609A0032943B /* DropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CD11D7D609A0032943B /* DropDownCell.swift */; };
-		1FF06CDD1D7D6D970032943B /* ChChHomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CDB1D7D6D970032943B /* ChChHomeTableViewCell.swift */; };
-		1FF06CDE1D7D6D970032943B /* ChChHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF06CDC1D7D6D970032943B /* ChChHomeTableViewCell.xib */; };
+		1FF06CDD1D7D6D970032943B /* ChChFindJobTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CDB1D7D6D970032943B /* ChChFindJobTableViewCell.swift */; };
+		1FF06CDE1D7D6D970032943B /* ChChFindJobTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF06CDC1D7D6D970032943B /* ChChFindJobTableViewCell.xib */; };
 		CB9CDB689E94B8A4EBB09C32 /* Pods_Challenge_high_salary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02CC2341262A77985746D107 /* Pods_Challenge_high_salary.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,8 +99,8 @@
 		1FF06CCF1D7D609A0032943B /* DropDown+Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DropDown+Appearance.swift"; sourceTree = "<group>"; };
 		1FF06CD01D7D609A0032943B /* DropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDown.swift; sourceTree = "<group>"; };
 		1FF06CD11D7D609A0032943B /* DropDownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownCell.swift; sourceTree = "<group>"; };
-		1FF06CDB1D7D6D970032943B /* ChChHomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChHomeTableViewCell.swift; sourceTree = "<group>"; };
-		1FF06CDC1D7D6D970032943B /* ChChHomeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChChHomeTableViewCell.xib; sourceTree = "<group>"; };
+		1FF06CDB1D7D6D970032943B /* ChChFindJobTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChFindJobTableViewCell.swift; sourceTree = "<group>"; };
+		1FF06CDC1D7D6D970032943B /* ChChFindJobTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChChFindJobTableViewCell.xib; sourceTree = "<group>"; };
 		87ABDA8E1A9C795C2B8D637C /* Pods-Challenge_high_salary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Challenge_high_salary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Challenge_high_salary/Pods-Challenge_high_salary.debug.xcconfig"; sourceTree = "<group>"; };
 		897E3E940467E77F77214C28 /* Pods-Challenge_high_salary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Challenge_high_salary.release.xcconfig"; path = "Pods/Target Support Files/Pods-Challenge_high_salary/Pods-Challenge_high_salary.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -455,8 +455,8 @@
 		1FF06CDA1D7D6D6B0032943B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1FF06CDB1D7D6D970032943B /* ChChHomeTableViewCell.swift */,
-				1FF06CDC1D7D6D970032943B /* ChChHomeTableViewCell.xib */,
+				1FF06CDB1D7D6D970032943B /* ChChFindJobTableViewCell.swift */,
+				1FF06CDC1D7D6D970032943B /* ChChFindJobTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -586,7 +586,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FF06CD61D7D609A0032943B /* DropDownCell.xib in Resources */,
-				1FF06CDE1D7D6D970032943B /* ChChHomeTableViewCell.xib in Resources */,
+				1FF06CDE1D7D6D970032943B /* ChChFindJobTableViewCell.xib in Resources */,
 				1FCDFECA1D73E6DB0067970B /* LaunchScreen.storyboard in Resources */,
 				1FCDFEC71D73E6DB0067970B /* Assets.xcassets in Resources */,
 				1FCDFEC51D73E6DB0067970B /* Main.storyboard in Resources */,
@@ -676,7 +676,7 @@
 				1F4FD2681D76C01D00FF7040 /* UIColor+BButton.m in Sources */,
 				1FF06CD91D7D609A0032943B /* DropDownCell.swift in Sources */,
 				1FF06CD41D7D609A0032943B /* DPDUIView+Extension.swift in Sources */,
-				1FF06CDD1D7D6D970032943B /* ChChHomeTableViewCell.swift in Sources */,
+				1FF06CDD1D7D6D970032943B /* ChChFindJobTableViewCell.swift in Sources */,
 				1FF06CBC1D7D17760032943B /* ChMeHomeViewController.swift in Sources */,
 				1FF06CB41D7D16540032943B /* CHRoHomeViewController.swift in Sources */,
 				1F4FD2661D76C01D00FF7040 /* NSString+FontAwesome.m in Sources */,

@@ -1,5 +1,5 @@
 //
-//  ChChHomeTableViewCell.swift
+//  ChChFindJobTableViewCell.swift
 //  Challenge_high_salary
 //
 //  Created by zhang on 16/9/5.
@@ -8,14 +8,19 @@
 
 import UIKit
 
-class ChChHomeTableViewCell: UITableViewCell {
+class ChChFindJobTableViewCell: UITableViewCell {
 
     @IBOutlet weak var topLine: UIImageView!
+    
+    @IBOutlet weak var bottomLine: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
         self.drawDashed(topLine, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(0, 0), toPoint: CGPointMake(screenSize.width, 0), lineWidth: 1)
+        
+        self.drawDashed(bottomLine, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(0, 0), toPoint: CGPointMake(screenSize.width, 0), lineWidth: 1)
     }
     
     

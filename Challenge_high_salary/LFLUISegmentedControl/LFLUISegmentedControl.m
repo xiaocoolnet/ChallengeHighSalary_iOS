@@ -107,7 +107,7 @@
         }];
          self.selectSeugment=segument;
     }
-    [self.delegate uisegumentSelectionChange: self.selectSeugment];
+    [self.delegate uisegumentSelectionChange:self.selectSeugment segmentTag:self.tag];
 }
 
 - (void)lineColor:(UIColor *)color{
