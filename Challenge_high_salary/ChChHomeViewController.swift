@@ -10,6 +10,8 @@ import UIKit
 
 class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, UITableViewDataSource, UITableViewDelegate {
 
+    let cityBtn = UIButton()
+    
     let rootScrollView = UIScrollView()
     
     var salaryDrop = DropDown()
@@ -18,7 +20,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     
     var scaleDrop = DropDown()
     var nearbyDrop = DropDown()
-    let findEmployerTableView = UITableView(frame: CGRectMake(screenSize.width, 0, screenSize.width, screenSize.height-20-44-49-37), style: .Grouped)
+    let findEmployerTableView = UITableView(frame: CGRectMake(screenSize.width, 0, screenSize.width, screenSize.height-20-44-49-37), style: .Plain)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +29,12 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         self.view.backgroundColor = UIColor.whiteColor()
         
+        NSNotificationCenter.defaultCenter().addObserverForName("positioningCityNotification", object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (noti) in
+            print("chchhome.. 执行")
+
+            self.cityBtn.setTitle(positioningCity, forState: .Normal)
+        })
+        
         setNavigationBar()
         setSubviews()
     }
@@ -34,8 +42,9 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     // MARK: 设置 NavigationBar
     func setNavigationBar() {
         
-        let cityBtn = UIButton(frame: CGRectMake(0, 0, 60, 44))
-        cityBtn.setTitle("烟台", forState: .Normal)
+        cityBtn.frame = CGRectMake(0, 0, 60, 44)
+        cityBtn.setTitle(positioningCity, forState: .Normal)
+        cityBtn.addTarget(self, action: #selector(cityBtnClick), forControlEvents: .TouchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cityBtn)
         
         //        let seg = UISegmentedControl(frame: CGRectMake(0, 0, 160, 44))
@@ -48,9 +57,15 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(searchBtnClick))
     }
     
+    // MARK: 城市按钮点击事件
+    func cityBtnClick() {
+        self.navigationController?.pushViewController(ChChCityViewController(), animated: true)
+    }
+    
     // MARK: 搜索按钮点击事件
     func searchBtnClick() {
         print("ChChHomeViewController searchBtnClick")
+        self.navigationController?.pushViewController(ChChSearchViewController(), animated: true)
     }
     
     // MARK: seg 点击事件
@@ -192,9 +207,9 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         // tableView
         findEmployerTableView.frame = CGRectMake(screenSize.width, CGRectGetMaxY(segChoose.frame), screenSize.width, screenSize.height-20-44-49-37)
-        findEmployerTableView.registerNib(UINib.init(nibName: "ChChFindJobTableViewCell", bundle: nil), forCellReuseIdentifier: "ChChFindJobTableViewCell")
+        findEmployerTableView.registerNib(UINib.init(nibName: "ChChFindEmployerTableViewCell", bundle: nil), forCellReuseIdentifier: "ChChFindEmployerTableViewCell")
         findEmployerTableView.separatorStyle = .None
-        findEmployerTableView.rowHeight = 140
+        findEmployerTableView.rowHeight = 250
         findEmployerTableView.tag = 102
         findEmployerTableView.dataSource = self
         findEmployerTableView.delegate = self
@@ -244,7 +259,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         if tableView.tag == 101 {
             return 1
         }else{
-            return 1
+            return 8
         }
     }
     
@@ -257,10 +272,19 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ChChFindJobTableViewCell") as! ChChFindJobTableViewCell
-        cell.selectionStyle = .None
         
-        return cell
+        if tableView.tag == 101 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("ChChFindJobTableViewCell") as! ChChFindJobTableViewCell
+            cell.selectionStyle = .None
+            
+            return cell
+        }else{
+            let cell = tableView.dequeueReusableCellWithIdentifier("ChChFindEmployerTableViewCell") as! ChChFindEmployerTableViewCell
+            cell.selectionStyle = .None
+            
+            return cell
+        }
+        
     }
     
     // MARK: UITableView Delegate

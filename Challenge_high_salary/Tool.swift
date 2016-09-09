@@ -11,8 +11,14 @@ import UIKit
 import SnapKit
 
 let screenSize = UIScreen.mainScreen().bounds.size
+let kWidthScale = screenSize.width/375
+let kHeightScale = screenSize.height/667
+
 
 let baseColor = UIColor(red: 105/255.0, green: 216/255.0, blue: 147/255.0, alpha: 1)
+
+var positioningCity = "未知"
+var myCity = NSUserDefaults.standardUserDefaults().stringForKey("myCity")
 
 func drawDashed(onView:UIView, color:UIColor, fromPoint:CGPoint, toPoint:CGPoint, lineWidth:CGFloat) {
     
@@ -41,4 +47,20 @@ func drawDashed(onView:UIView, color:UIColor, fromPoint:CGPoint, toPoint:CGPoint
     //        dotteShapLayer.lineDashPhase = 1.0
     //        dotteShapLayer.lineDashPattern = arr as? [NSNumber]
     //        view.layer.addSublayer(dotteShapLayer)
+}
+
+func calculateHeight(string:String,size:CGFloat,width:  CGFloat) -> CGFloat {
+    let options : NSStringDrawingOptions = NSStringDrawingOptions.UsesLineFragmentOrigin
+    //let screenBounds:CGRect = UIScreen.mainScreen().bounds
+    let boundingRect = String(string).boundingRectWithSize(CGSizeMake(width, 0), options: options, attributes: [NSFontAttributeName:UIFont.systemFontOfSize(size)], context: nil)
+    print(boundingRect.height)
+    return boundingRect.height
+}
+
+func calculateWidth(string:String,size:CGFloat,height:  CGFloat) -> CGFloat {
+    let options : NSStringDrawingOptions = NSStringDrawingOptions.UsesLineFragmentOrigin
+    //let screenBounds:CGRect = UIScreen.mainScreen().bounds
+    let boundingRect = String(string).boundingRectWithSize(CGSizeMake(0, height), options: options, attributes: [NSFontAttributeName:UIFont.systemFontOfSize(size)], context: nil)
+    
+    return boundingRect.width
 }

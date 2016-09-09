@@ -112,6 +112,7 @@ class LoHomeViewController: UIViewController {
         let forgetPwdBtn = UIButton()
         forgetPwdBtn.setTitle("忘记密码？", forState: .Normal)
         forgetPwdBtn.setTitleColor(baseColor, forState: .Normal)
+        forgetPwdBtn.addTarget(self, action: #selector(forgetPwdBtnClick), forControlEvents: .TouchUpInside)
         self.view.addSubview(forgetPwdBtn)
         
         forgetPwdBtn.snp_makeConstraints { (make) in
@@ -145,7 +146,7 @@ class LoHomeViewController: UIViewController {
         let registerBtn = UIButton()
         registerBtn.setTitle("立即注册", forState: .Normal)
         registerBtn.setTitleColor(baseColor, forState: .Normal)
-//        registerBtn.backgroundColor = UIColor.greenColor()
+        registerBtn.addTarget(self, action: #selector(registerPwdBtnClick), forControlEvents: .TouchUpInside)
         self.view.addSubview(registerBtn)
         
         registerBtn.snp_makeConstraints { (make) in
@@ -244,6 +245,16 @@ class LoHomeViewController: UIViewController {
     // MAKE: 登录按钮点击事件
     func loginBtnClick() {
         self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
+    }
+    
+    // MAKE: 忘记密码按钮点击事件
+    func forgetPwdBtnClick() {
+        self.navigationController?.pushViewController(LoForgetPasswordViewController(), animated: true)
+    }
+    
+    // MAKE: 立即注册按钮点击事件
+    func registerPwdBtnClick() {
+        self.navigationController?.pushViewController(LoRegisterViewController(), animated: true)
     }
 
     override func didReceiveMemoryWarning() {
