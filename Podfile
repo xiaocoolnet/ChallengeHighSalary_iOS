@@ -5,4 +5,5 @@ target 'Challenge_high_salary' do
   pod 'SnapKit', '~> 0.15.0'
   pod 'SwiftyJSON', '~> 2.3'
   pod 'Alamofire', '~> 3.4'
+  pod 'D3Model', '~> 2.0.3'
 end

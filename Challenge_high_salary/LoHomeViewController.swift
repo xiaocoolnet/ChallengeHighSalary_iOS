@@ -12,6 +12,9 @@ class LoHomeViewController: UIViewController {
 
     let lightGrayColor = UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
     
+    let telTF = UITextField()
+    let pwdTF = UITextField()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -53,7 +56,6 @@ class LoHomeViewController: UIViewController {
         drawDashed(inputBgView, color: lightGrayColor, fromPoint: CGPointMake(CGRectGetMaxX(telLab.frame), CGRectGetMinY(telLab.frame)+5), toPoint: CGPointMake(CGRectGetMaxX(telLab.frame), CGRectGetMaxY(telLab.frame)-5), lineWidth: 1)
         
         // 电话号码输入框
-        let telTF = UITextField()
         telTF.placeholder = "请输入手机号"
         inputBgView.addSubview(telTF)
         
@@ -81,7 +83,6 @@ class LoHomeViewController: UIViewController {
         pwdLab.layoutIfNeeded()
 
         // 密码输入框
-        let pwdTF = UITextField()
         pwdTF.placeholder = "请输入密码"
         inputBgView.addSubview(pwdTF)
         
@@ -244,7 +245,40 @@ class LoHomeViewController: UIViewController {
     
     // MAKE: 登录按钮点击事件
     func loginBtnClick() {
-        self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
+        
+        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        
+        // 判断 手机号 密码 是否为空
+        if telTF.text!.isEmpty {
+
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入手机号"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if pwdTF.text!.isEmpty {
+
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入密码"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }
+        
+
+        
+        LoginNetUtil().applogin(telTF.text!, password: pwdTF.text!) { (success, response) in
+            if success {
+                
+                checkCodeHud.hide(true)
+                
+                self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
+            }else{
+                
+                checkCodeHud.mode = .Text
+                checkCodeHud.labelText = "请输入密码"
+                checkCodeHud.hide(true, afterDelay: 1)
+            }
+        }
     }
     
     // MAKE: 忘记密码按钮点击事件

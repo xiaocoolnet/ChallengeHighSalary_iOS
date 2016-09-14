@@ -21,6 +21,8 @@
 		1F7B303A1D7FA36600D0BF56 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7B30391D7FA36600D0BF56 /* MapKit.framework */; };
 		1F87411B1D82AF47007B8793 /* LoForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */; };
 		1F87411D1D82C22B007B8793 /* LoRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */; };
+		1F9CE7C11D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CE7C01D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift */; };
+		1F9CE7C31D8802FC002E6632 /* CHSReJobIntensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CE7C21D8802FC002E6632 /* CHSReJobIntensionViewController.swift */; };
 		1FA93F511D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA93F4F1D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.swift */; };
 		1FA93F521D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FA93F501D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.xib */; };
 		1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */; };
@@ -53,6 +55,10 @@
 		1FF06CD91D7D609A0032943B /* DropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CD11D7D609A0032943B /* DropDownCell.swift */; };
 		1FF06CDD1D7D6D970032943B /* ChChFindJobTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CDB1D7D6D970032943B /* ChChFindJobTableViewCell.swift */; };
 		1FF06CDE1D7D6D970032943B /* ChChFindJobTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF06CDC1D7D6D970032943B /* ChChFindJobTableViewCell.xib */; };
+		1FF524D11D88DBD800E1B70F /* LoginNetUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF524D01D88DBD800E1B70F /* LoginNetUtil.swift */; };
+		1FF524D51D88E8C700E1B70F /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF524D41D88E8C700E1B70F /* LoginModel.swift */; };
+		1FF524D71D88EC2B00E1B70F /* D3Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF524D61D88EC2B00E1B70F /* D3Model.swift */; };
+		1FF524DE1D88F6EC00E1B70F /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF524DB1D88F6EC00E1B70F /* MBProgressHUD.m */; };
 		CB9CDB689E94B8A4EBB09C32 /* Pods_Challenge_high_salary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02CC2341262A77985746D107 /* Pods_Challenge_high_salary.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +99,8 @@
 		1F7B30391D7FA36600D0BF56 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoForgetPasswordViewController.swift; sourceTree = "<group>"; };
 		1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoRegisterViewController.swift; sourceTree = "<group>"; };
+		1F9CE7C01D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReEditPersonalInfoViewController.swift; sourceTree = "<group>"; };
+		1F9CE7C21D8802FC002E6632 /* CHSReJobIntensionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReJobIntensionViewController.swift; sourceTree = "<group>"; };
 		1FA93F4F1D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChFindEmployerTableViewCell.swift; sourceTree = "<group>"; };
 		1FA93F501D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChChFindEmployerTableViewCell.xib; sourceTree = "<group>"; };
 		1FCDFEBC1D73E6DB0067970B /* Challenge_high_salary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Challenge_high_salary.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,6 +141,11 @@
 		1FF06CD11D7D609A0032943B /* DropDownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownCell.swift; sourceTree = "<group>"; };
 		1FF06CDB1D7D6D970032943B /* ChChFindJobTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChFindJobTableViewCell.swift; sourceTree = "<group>"; };
 		1FF06CDC1D7D6D970032943B /* ChChFindJobTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChChFindJobTableViewCell.xib; sourceTree = "<group>"; };
+		1FF524D01D88DBD800E1B70F /* LoginNetUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginNetUtil.swift; sourceTree = "<group>"; };
+		1FF524D41D88E8C700E1B70F /* LoginModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		1FF524D61D88EC2B00E1B70F /* D3Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D3Model.swift; sourceTree = "<group>"; };
+		1FF524DA1D88F6EC00E1B70F /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		1FF524DB1D88F6EC00E1B70F /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		87ABDA8E1A9C795C2B8D637C /* Pods-Challenge_high_salary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Challenge_high_salary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Challenge_high_salary/Pods-Challenge_high_salary.debug.xcconfig"; sourceTree = "<group>"; };
 		897E3E940467E77F77214C28 /* Pods-Challenge_high_salary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Challenge_high_salary.release.xcconfig"; path = "Pods/Target Support Files/Pods-Challenge_high_salary/Pods-Challenge_high_salary.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -197,6 +210,8 @@
 		1F8741191D82A02A007B8793 /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
+				1FF524D81D88F6EC00E1B70F /* MBProgressHUD */,
+				1FF524D61D88EC2B00E1B70F /* D3Model.swift */,
 				1FF06CC51D7D609A0032943B /* DropDown */,
 				1FF06CC11D7D50E20032943B /* LFLUISegmentedControl */,
 				1F4FD25C1D76C01D00FF7040 /* BButton */,
@@ -366,6 +381,8 @@
 		1FCDFEF81D740D350067970B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1FF524D01D88DBD800E1B70F /* LoginNetUtil.swift */,
+				1FF524D41D88E8C700E1B70F /* LoginModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -496,6 +513,8 @@
 			isa = PBXGroup;
 			children = (
 				1FF06CBD1D7D17860032943B /* ChReHomeViewController.swift */,
+				1F9CE7C01D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift */,
+				1F9CE7C21D8802FC002E6632 /* CHSReJobIntensionViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -571,6 +590,15 @@
 				1F482B9B1D8002560079A62B /* ChChSearchTableViewCell.swift */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		1FF524D81D88F6EC00E1B70F /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				1FF524DA1D88F6EC00E1B70F /* MBProgressHUD.h */,
+				1FF524DB1D88F6EC00E1B70F /* MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
 		7D0BA4E52437BC3903C79784 /* Frameworks */ = {
@@ -784,10 +812,12 @@
 				1F482B8F1D7FE9C80079A62B /* ChChCityTableViewCell.swift in Sources */,
 				1F4FD2651D76C01D00FF7040 /* BButton.m in Sources */,
 				1F482B921D7FF7B80079A62B /* ChChSearchViewController.swift in Sources */,
+				1FF524D11D88DBD800E1B70F /* LoginNetUtil.swift in Sources */,
 				1F87411B1D82AF47007B8793 /* LoForgetPasswordViewController.swift in Sources */,
 				1FF06CBE1D7D17860032943B /* ChReHomeViewController.swift in Sources */,
 				1FF06CC01D7D17960032943B /* ChChHomeViewController.swift in Sources */,
 				1FEF80A41D810E5700486F9C /* FTTaNoPositionTableViewCell.swift in Sources */,
+				1FF524D71D88EC2B00E1B70F /* D3Model.swift in Sources */,
 				1FEF809F1D810A5B00486F9C /* FTMeHomeViewController.swift in Sources */,
 				1FF06CD31D7D609A0032943B /* DPDKeyboardListener.swift in Sources */,
 				1FF06CD21D7D609A0032943B /* DPDConstants.swift in Sources */,
@@ -801,19 +831,23 @@
 				1FEF809D1D810A4D00486F9C /* FTTaHomeViewController.swift in Sources */,
 				1FA93F511D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.swift in Sources */,
 				1FF06CD41D7D609A0032943B /* DPDUIView+Extension.swift in Sources */,
+				1FF524DE1D88F6EC00E1B70F /* MBProgressHUD.m in Sources */,
 				1F482B891D7FBD630079A62B /* ChChCityViewController.swift in Sources */,
 				1FF06CDD1D7D6D970032943B /* ChChFindJobTableViewCell.swift in Sources */,
 				1FF06CBC1D7D17760032943B /* ChMeHomeViewController.swift in Sources */,
 				1FF06CB41D7D16540032943B /* CHRoHomeViewController.swift in Sources */,
 				1F482B9C1D8002560079A62B /* ChChSearchTableViewCell.swift in Sources */,
 				1F87411D1D82C22B007B8793 /* LoRegisterViewController.swift in Sources */,
+				1F9CE7C11D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift in Sources */,
 				1F4FD2661D76C01D00FF7040 /* NSString+FontAwesome.m in Sources */,
 				1FF06CD81D7D609A0032943B /* DropDown.swift in Sources */,
 				1FF06CBA1D7D16A20032943B /* ChMiHomeViewController.swift in Sources */,
 				1FCDFF011D7411160067970B /* LoHomeViewController.swift in Sources */,
+				1FF524D51D88E8C700E1B70F /* LoginModel.swift in Sources */,
 				1FEF80A11D810A7600486F9C /* FTMiHomeViewController.swift in Sources */,
 				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,
 				1F4FD25B1D767CC500FF7040 /* Tool.swift in Sources */,
+				1F9CE7C31D8802FC002E6632 /* CHSReJobIntensionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

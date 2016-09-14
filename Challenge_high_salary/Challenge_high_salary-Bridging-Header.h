@@ -12,5 +12,6 @@
 #import "BButton.h"
 #import "LFLUISegmentedControl.h"
 #import <CoreLocation/CoreLocation.h>
+#import "MBProgressHUD.h"
 
 #endif /* Challenge_high_salary_Bridging_Header_h */

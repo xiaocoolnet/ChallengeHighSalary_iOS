@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChReHomeViewController: UIViewController, UITableViewDataSource {
+class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     let resumeItemArray = ["求职意向","教育背景","工作/实习经历","项目经验","我的优势"]
     let resumeItemStatusArray = ["待完善","完整","完整","待完善","完整"]
@@ -37,6 +37,7 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource {
         
         // top imageBgView
         let topBgImageView = UIImageView(frame: CGRectMake(0, 64, screenSize.width, screenSize.height*0.319))
+        topBgImageView.userInteractionEnabled = true
         topBgImageView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(topBgImageView)
         
@@ -70,6 +71,7 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource {
         let editBtn = UIButton(frame: CGRectMake(CGRectGetMaxX(overviewLab.frame)+5, 0, 25, 25))
         editBtn.backgroundColor = baseColor
         editBtn.center.y = overviewLab.center.y
+        editBtn.addTarget(self, action: #selector(clickEditBtn), forControlEvents: .TouchUpInside)
         topBgImageView.addSubview(editBtn)
         
         // TableView
@@ -77,14 +79,18 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource {
         myTableView.backgroundColor = UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
         myTableView.rowHeight = 50
         myTableView.dataSource = self
+        myTableView.delegate = self
+        
         self.view.addSubview(myTableView)
-//        // tableView HeaderView
-//        let headerView = UIView(frame: CGRectMake(0, 0 ,screenSize.width, 12))
-//        myTableView.tableHeaderView = headerView
         // 用于去掉多余Cell的分割线
         let removeRedundantCellSepLine = UIView(frame: CGRectZero)
         myTableView.tableFooterView = removeRedundantCellSepLine
         
+    }
+    
+    // MARK: 点击编辑按钮
+    func clickEditBtn() {
+        self.navigationController?.pushViewController(CHSReEditPersonalInfoViewController(), animated: true)
     }
     
     // tableView DataSource
@@ -110,6 +116,12 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource {
         cell?.detailTextLabel?.text = resumeItemStatusArray[indexPath.row]
         
         return cell!
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == 0 {
+            self.navigationController?.pushViewController(CHSReJobIntensionViewController(), animated: true)
+        }
     }
 
     override func didReceiveMemoryWarning() {

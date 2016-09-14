@@ -15,15 +15,24 @@ class LoRegisterViewController: UIViewController {
     
     // 电话号码输入框
     let telTF = UITextField()
+    // 获取验证码 按钮
+    let getCheckCodeBtn = UIButton()
     // 验证码输入框
     let checkCodeTF = UITextField()
     // 新密码输入框
-    let newPwdTF = UITextField()
+    let pwdTF = UITextField()
+    
+    //  倒计时功能
+    var processHandle:TimerHandle?
+    var finishHandle:TimerHandle?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        // 1.验证码倒计时
+        getCheckCodeCountdown()
+        // 2.设置子视图
         self.setSubviews()
     }
     
@@ -58,7 +67,11 @@ class LoRegisterViewController: UIViewController {
         inputBgView.addSubview(telTF)
         
         // 获取验证码 按钮
-        let getCheckCodeBtn = UIButton(frame: CGRectMake(screenSize.width-kWidthScale*(96+11), kHeightScale*10, kWidthScale*96, kHeightScale*36))
+        getCheckCodeBtn.frame = CGRectMake(
+            screenSize.width-kWidthScale*(96+11),
+            kHeightScale*10,
+            kWidthScale*96,
+            kHeightScale*36)
         getCheckCodeBtn.backgroundColor = baseColor
         getCheckCodeBtn.layer.cornerRadius = 8
         getCheckCodeBtn.titleLabel?.font = UIFont.systemFontOfSize(16)
@@ -92,23 +105,23 @@ class LoRegisterViewController: UIViewController {
         drawDashed(inputBgView, color: lightGrayColor, fromPoint: CGPointMake(0, CGRectGetMaxY(checkCodeLab.frame)), toPoint: CGPointMake(CGRectGetMaxX(telTF.frame), CGRectGetMaxY(checkCodeLab.frame)), lineWidth: 1)
         
         // 新密码 Label
-        let newPwdLab = UILabel(frame: CGRectMake(
+        let pwdLab = UILabel(frame: CGRectMake(
             kHeightScale*12,
             CGRectGetMaxY(checkCodeLab.frame)+1,
             kWidthScale*78,
             subHeight))
-        newPwdLab.text = "新密码"
-        newPwdLab.textAlignment = .Left
-        inputBgView.addSubview(newPwdLab)
+        pwdLab.text = "密码"
+        pwdLab.textAlignment = .Left
+        inputBgView.addSubview(pwdLab)
         
         // 新密码输入框
-        newPwdTF.frame = CGRectMake(
+        pwdTF.frame = CGRectMake(
             CGRectGetMaxX(telLab.frame)+5,
             CGRectGetMaxY(checkCodeLab.frame)+1,
             screenSize.width-kWidthScale*11-CGRectGetMaxX(checkCodeLab.frame)+5,
             subHeight)
-        newPwdTF.placeholder = "请输入新密码"
-        inputBgView.addSubview(newPwdTF)
+        pwdTF.placeholder = "请输入密码"
+        inputBgView.addSubview(pwdTF)
         
         // 注册按钮
         let registerBtn = UIButton(frame: CGRectMake(kWidthScale*10, CGRectGetMaxY(inputBgView.frame)+kHeightScale*49, kWidthScale*355, kHeightScale*42))
@@ -132,12 +145,81 @@ class LoRegisterViewController: UIViewController {
         self.view.addSubview(agreementBtn)
     }
     
-    // MAKE: 获取验证码按钮点击事件
-    func getCheckCodeBtnClick() {
-        //        self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
+    //  倒计时功能
+    func getCheckCodeCountdown(){
+        processHandle = {[unowned self] (timeInterVal) in
+            dispatch_async(dispatch_get_main_queue(), {
+                self.getCheckCodeBtn.userInteractionEnabled = false
+                let btnTitle = String(timeInterVal) + "秒后重新获取"
+                self.getCheckCodeBtn.titleLabel?.font = UIFont.systemFontOfSize(12)
+                
+                self.getCheckCodeBtn.setTitle(btnTitle, forState: .Normal)
+                
+                
+                
+            })
+        }
+        
+        finishHandle = {[unowned self] (timeInterVal) in
+            dispatch_async(dispatch_get_main_queue(), {
+                self.getCheckCodeBtn.userInteractionEnabled = true
+                self.getCheckCodeBtn.titleLabel?.font = UIFont.systemFontOfSize(12)
+                self.getCheckCodeBtn.setTitle("重新获取验证码", forState: .Normal)
+            })
+        }
+        TimeManager.shareManager.taskDic["forget"]?.FHandle = finishHandle
+        TimeManager.shareManager.taskDic["forget"]?.PHandle = processHandle
     }
     
-    // MAKE: 登录按钮点击事件
+    // MARK: 获取验证码按钮点击事件
+    func getCheckCodeBtnClick() {
+        
+        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        
+        // 判断手机号是否为空
+        if telTF.text!.isEmpty {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入手机号"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }
+        
+        
+        LoginNetUtil().checkphone(telTF.text!) { (success, response) in
+            
+            if success {
+                
+                checkCodeHud.mode = .Text
+                checkCodeHud.labelText = response as! String
+                checkCodeHud.hide(true, afterDelay: 1)
+            }else{
+                
+                // 手机号没注册,验证码传到手机,执行倒计时操作
+                TimeManager.shareManager.begainTimerWithKey("forget", timeInterval: 30, process: self.processHandle!, finish: self.finishHandle!)
+                checkCodeHud.hide(true)
+                
+                LoginNetUtil().SendMobileCode(self.telTF.text!) { (success, response) in
+                    if success {
+                        print("success")
+                    }else{
+                        print("no success")
+                        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                        checkCodeHud.removeFromSuperViewOnHide = true
+                        checkCodeHud.mode = .Text
+                        checkCodeHud.labelText = "获取验证码失败"
+                        checkCodeHud.hide(true, afterDelay: 1)
+                        
+                        TimeManager.shareManager.taskDic["forget"]?.leftTime = 0
+                        
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    // MAKE: 注册按钮点击事件
     func registerBtnClick() {
         //        self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
     }
@@ -145,6 +227,12 @@ class LoRegisterViewController: UIViewController {
     // MAKE: 用户协议按钮点击事件
     func agreementBtnClick() {
         //        self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        TimeManager.shareManager.taskDic["forget"]?.FHandle = nil
+        TimeManager.shareManager.taskDic["forget"]?.PHandle = nil
     }
     
     override func didReceiveMemoryWarning() {
