@@ -167,8 +167,8 @@ class LoRegisterViewController: UIViewController {
                 self.getCheckCodeBtn.setTitle("重新获取验证码", forState: .Normal)
             })
         }
-        TimeManager.shareManager.taskDic["forget"]?.FHandle = finishHandle
-        TimeManager.shareManager.taskDic["forget"]?.PHandle = processHandle
+        TimeManager.shareManager.taskDic["register"]?.FHandle = finishHandle
+        TimeManager.shareManager.taskDic["register"]?.PHandle = processHandle
     }
     
     // MARK: 获取验证码按钮点击事件
@@ -183,36 +183,47 @@ class LoRegisterViewController: UIViewController {
             checkCodeHud.labelText = "请输入手机号"
             checkCodeHud.hide(true, afterDelay: 1)
             return
+        }else if !isPhoneNumber(telTF.text!) {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "手机号输入有误"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
         }
-        
         
         LoginNetUtil().checkphone(telTF.text!) { (success, response) in
             
             if success {
                 
-                checkCodeHud.mode = .Text
-                checkCodeHud.labelText = response as! String
-                checkCodeHud.hide(true, afterDelay: 1)
+                dispatch_async(dispatch_get_main_queue(), { 
+                    
+                    checkCodeHud.mode = .Text
+                    checkCodeHud.labelText = response as! String
+                    checkCodeHud.hide(true, afterDelay: 1)
+                })
             }else{
                 
-                // 手机号没注册,验证码传到手机,执行倒计时操作
-                TimeManager.shareManager.begainTimerWithKey("forget", timeInterval: 30, process: self.processHandle!, finish: self.finishHandle!)
-                checkCodeHud.hide(true)
                 
                 LoginNetUtil().SendMobileCode(self.telTF.text!) { (success, response) in
-                    if success {
-                        print("success")
-                    }else{
-                        print("no success")
-                        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-                        checkCodeHud.removeFromSuperViewOnHide = true
-                        checkCodeHud.mode = .Text
-                        checkCodeHud.labelText = "获取验证码失败"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                    
+                    dispatch_async(dispatch_get_main_queue(), { 
                         
-                        TimeManager.shareManager.taskDic["forget"]?.leftTime = 0
-                        
-                    }
+                        if success {
+                            
+                            // 手机号没注册,验证码传到手机,执行倒计时操作
+                            TimeManager.shareManager.begainTimerWithKey("register", timeInterval: 30, process: self.processHandle!, finish: self.finishHandle!)
+                            checkCodeHud.hide(true)
+                            print("success")
+                        }else{
+                            
+                            print("no success")
+                            checkCodeHud.mode = .Text
+                            checkCodeHud.labelText = "获取验证码失败"
+                            checkCodeHud.hide(true, afterDelay: 1)
+                            
+                            TimeManager.shareManager.taskDic["register"]?.leftTime = 0
+                            
+                        }
+                    })
                 }
             }
         }

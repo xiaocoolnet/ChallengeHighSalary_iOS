@@ -94,9 +94,36 @@ class LoginNetUtil: NSObject {
             if(error != nil){
                 handle(success: false, response: error?.description)
             }else{
-                let login:LoginModel = LoginModel.jsonToModelWithData(json)
-                if login.status == "success" {
+                let status:StatusModel = StatusModel.jsonToModelWithData(json)
+                if status.status == "success" {
+                    let login:LoginModel = LoginModel.jsonToModelWithData(json)
+
                     handle(success: true, response: login.data)
+                }else{
+                    let error:errorModel = errorModel.jsonToModelWithData(json)
+                    handle(success: false, response: error.data)
+                }
+            }
+        }
+    }
+    
+    // MARK: 修改密码
+    func forgetpwd(phone:String, code:String, password:String, handle:ResponseClosures) {
+        
+        let url = kPortPrefix+"forgetpwd"
+        let param = [
+            "phone":phone,
+            "code":code,
+            "password":password
+        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let status:StatusModel = StatusModel.jsonToModelWithData(json)
+                if status.status == "success" {
+                    handle(success: true, response: "")
                 }else{
                     let error:errorModel = errorModel.jsonToModelWithData(json)
                     handle(success: false, response: error.data)

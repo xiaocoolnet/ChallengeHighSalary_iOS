@@ -93,10 +93,24 @@ class TimeTask :NSObject{
             }
         }
     }
-    
-    
 }
 
+//MARK: 验证手机号是否正确
+func isPhoneNumber(phoneNumber:String) -> Bool {
+    if phoneNumber.characters.count == 0 {
+        return false
+    }
+    let mobile = "^(13[0-9]|15[0-9]|18[0-9]|17[0-9]|147)\\d{8}$"
+    let regexMobile = NSPredicate(format: "SELF MATCHES %@",mobile)
+    if regexMobile.evaluateWithObject(phoneNumber) == true {
+        return true
+    }else
+    {
+        return false
+    }
+}
+
+//MARK: 画虚线
 func drawDashed(onView:UIView, color:UIColor, fromPoint:CGPoint, toPoint:CGPoint, lineWidth:CGFloat) {
     
     let dotteShapLayer = CAShapeLayer()
@@ -126,6 +140,7 @@ func drawDashed(onView:UIView, color:UIColor, fromPoint:CGPoint, toPoint:CGPoint
     //        view.layer.addSublayer(dotteShapLayer)
 }
 
+//MARK: 计算文本最佳高度
 func calculateHeight(string:String,size:CGFloat,width:  CGFloat) -> CGFloat {
     let options : NSStringDrawingOptions = NSStringDrawingOptions.UsesLineFragmentOrigin
     //let screenBounds:CGRect = UIScreen.mainScreen().bounds
@@ -134,6 +149,7 @@ func calculateHeight(string:String,size:CGFloat,width:  CGFloat) -> CGFloat {
     return boundingRect.height
 }
 
+//MARK: 计算文本最佳宽度
 func calculateWidth(string:String,size:CGFloat,height:  CGFloat) -> CGFloat {
     let options : NSStringDrawingOptions = NSStringDrawingOptions.UsesLineFragmentOrigin
     //let screenBounds:CGRect = UIScreen.mainScreen().bounds

@@ -243,7 +243,7 @@ class LoHomeViewController: UIViewController {
 
     }
     
-    // MAKE: 登录按钮点击事件
+    // MARK: 登录按钮点击事件
     func loginBtnClick() {
         
         let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -267,26 +267,33 @@ class LoHomeViewController: UIViewController {
 
         
         LoginNetUtil().applogin(telTF.text!, password: pwdTF.text!) { (success, response) in
-            if success {
+            
+            dispatch_async(dispatch_get_main_queue(), { 
                 
-                checkCodeHud.hide(true)
-                
-                self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
-            }else{
-                
-                checkCodeHud.mode = .Text
-                checkCodeHud.labelText = "请输入密码"
-                checkCodeHud.hide(true, afterDelay: 1)
-            }
+                if success {
+                    
+                    checkCodeHud.hide(true)
+                    
+                    self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
+                }else{
+                    
+                    checkCodeHud.mode = .Text
+                    checkCodeHud.labelFont = UIFont.systemFontOfSize(14)
+                    checkCodeHud.labelText = "登录失败"
+                    checkCodeHud.detailsLabelFont = UIFont.systemFontOfSize(16)
+                    checkCodeHud.detailsLabelText = response as! String
+                    checkCodeHud.hide(true, afterDelay: 1)
+                }
+            })
         }
     }
     
-    // MAKE: 忘记密码按钮点击事件
+    // MARK: 忘记密码按钮点击事件
     func forgetPwdBtnClick() {
         self.navigationController?.pushViewController(LoForgetPasswordViewController(), animated: true)
     }
     
-    // MAKE: 立即注册按钮点击事件
+    // MARK: 立即注册按钮点击事件
     func registerPwdBtnClick() {
         self.navigationController?.pushViewController(LoRegisterViewController(), animated: true)
     }

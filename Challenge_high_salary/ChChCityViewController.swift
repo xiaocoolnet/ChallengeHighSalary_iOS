@@ -16,6 +16,7 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         AppDelegate().loadLocation()
+        self.tabBarController?.tabBar.hidden = true
     }
     
     override func viewDidLoad() {
@@ -62,7 +63,7 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
         self.view.addSubview(searchBar)
         
         
-        let myTableView = UITableView(frame: CGRectMake(0, CGRectGetMaxY(searchBar.frame), screenSize.width, screenSize.height-CGRectGetMaxY(searchBar.frame)-49), style: .Plain)
+        let myTableView = UITableView(frame: CGRectMake(0, CGRectGetMaxY(searchBar.frame), screenSize.width, screenSize.height-CGRectGetMaxY(searchBar.frame)), style: .Plain)
         myTableView.sectionIndexColor = UIColor.grayColor()
         myTableView.sectionIndexBackgroundColor = UIColor.clearColor()
         myTableView.rowHeight = 200

@@ -16,14 +16,22 @@ class LoForgetPasswordViewController: UIViewController {
     let telTF = UITextField()
     // 验证码输入框
     let checkCodeTF = UITextField()
+    // 获取验证码 按钮
+    let getCheckCodeBtn = UIButton()
     // 新密码输入框
     let newPwdTF = UITextField()
     // 确认密码输入框
     let surePwdTF = UITextField()
     
+    //  倒计时功能
+    var processHandle:TimerHandle?
+    var finishHandle:TimerHandle?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        self.getCheckCodeCountdown()
         
         self.setSubviews()
     }
@@ -59,7 +67,7 @@ class LoForgetPasswordViewController: UIViewController {
         inputBgView.addSubview(telTF)
         
         // 获取验证码 按钮
-        let getCheckCodeBtn = UIButton(frame: CGRectMake(screenSize.width-kWidthScale*(96+11), kHeightScale*10, kWidthScale*96, kHeightScale*36))
+        getCheckCodeBtn.frame = CGRectMake(screenSize.width-kWidthScale*(96+11), kHeightScale*10, kWidthScale*96, kHeightScale*36)
         getCheckCodeBtn.backgroundColor = baseColor
         getCheckCodeBtn.layer.cornerRadius = 8
         getCheckCodeBtn.titleLabel?.font = UIFont.systemFontOfSize(16)
@@ -155,19 +163,158 @@ class LoForgetPasswordViewController: UIViewController {
         self.view.addSubview(agreementBtn)
     }
     
-    // MAKE: 获取验证码按钮点击事件
-    func getCheckCodeBtnClick() {
-        //        self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
+    //  倒计时功能
+    func getCheckCodeCountdown(){
+        processHandle = {[unowned self] (timeInterVal) in
+            dispatch_async(dispatch_get_main_queue(), {
+                self.getCheckCodeBtn.userInteractionEnabled = false
+                let btnTitle = String(timeInterVal) + "秒后重新获取"
+                self.getCheckCodeBtn.titleLabel?.font = UIFont.systemFontOfSize(12)
+                
+                self.getCheckCodeBtn.setTitle(btnTitle, forState: .Normal)
+                
+                
+                
+            })
+        }
+        
+        finishHandle = {[unowned self] (timeInterVal) in
+            dispatch_async(dispatch_get_main_queue(), {
+                self.getCheckCodeBtn.userInteractionEnabled = true
+                self.getCheckCodeBtn.titleLabel?.font = UIFont.systemFontOfSize(12)
+                self.getCheckCodeBtn.setTitle("重新获取验证码", forState: .Normal)
+            })
+        }
+        TimeManager.shareManager.taskDic["forgetPassword"]?.FHandle = finishHandle
+        TimeManager.shareManager.taskDic["forgetPassword"]?.PHandle = processHandle
     }
     
-    // MAKE: 登录按钮点击事件
+    // MARK: 获取验证码按钮点击事件
+    func getCheckCodeBtnClick() {
+        
+        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        
+        // 判断手机号是否为空
+        if telTF.text!.isEmpty {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入手机号"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if !isPhoneNumber(telTF.text!) {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "手机号输入有误"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }
+        
+        LoginNetUtil().SendMobileCode(self.telTF.text!) { (success, response) in
+            
+            dispatch_async(dispatch_get_main_queue(), { 
+                
+                if success {
+                    
+                    // 验证码传到手机,执行倒计时操作
+                    TimeManager.shareManager.begainTimerWithKey("forgetPassword", timeInterval: 30, process: self.processHandle!, finish: self.finishHandle!)
+                    checkCodeHud.hide(true)
+                    print("success")
+                }else{
+                    
+                    print("no success")
+                    checkCodeHud.labelText = "获取验证码失败"
+                    checkCodeHud.hide(true, afterDelay: 1)
+                    
+                    TimeManager.shareManager.taskDic["forgetPassword"]?.leftTime = 0
+                    
+                }
+            })
+        }
+    }
+    
+    // MAKE: 完成按钮点击事件
     func doneBtnClick() {
-//        self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
+        
+        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        
+        // 判断手机号是否为空
+        if telTF.text!.isEmpty {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入手机号"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if !isPhoneNumber(telTF.text!) {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "手机号输入有误"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if checkCodeTF.text!.isEmpty {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入验证码"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if newPwdTF.text!.isEmpty {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入新密码"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if surePwdTF.text!.isEmpty {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入确认密码"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if newPwdTF.text! != surePwdTF.text! {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "两次密码输入不一致"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }
+        
+        LoginNetUtil().forgetpwd(self.telTF.text!, code: self.checkCodeTF.text!, password: self.newPwdTF.text!, handle: { (success, response) in
+            
+                dispatch_async(dispatch_get_main_queue(), {
+                    if success {
+                        
+                        print("success")
+                        
+                        checkCodeHud.mode = .Text
+                        checkCodeHud.labelText = "密码修改成功"
+                        checkCodeHud.hide(true, afterDelay: 1)
+                        
+                        let time: NSTimeInterval = 1.0
+                        
+                        let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                        
+                        dispatch_after(delay, dispatch_get_main_queue()) {
+                            
+                           self.navigationController?.popViewControllerAnimated(true)
+                            
+                        }
+                        
+                        checkCodeHud.hide(true)
+                    }else{
+                        
+                        print("no success")
+                        checkCodeHud.mode = .Text
+                        checkCodeHud.labelFont = UIFont.systemFontOfSize(14)
+                        checkCodeHud.labelText = "修改密码失败"
+                        checkCodeHud.detailsLabelFont = UIFont.systemFontOfSize(16)
+                        checkCodeHud.detailsLabelText = response as! String
+                        checkCodeHud.hide(true, afterDelay: 1)
+                    }
+                })
+        })
     }
     
     // MAKE: 用户协议按钮点击事件
     func agreementBtnClick() {
         //        self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        TimeManager.shareManager.taskDic["forgetPassword"]?.FHandle = nil
+        TimeManager.shareManager.taskDic["forgetPassword"]?.PHandle = nil
     }
 
     override func didReceiveMemoryWarning() {

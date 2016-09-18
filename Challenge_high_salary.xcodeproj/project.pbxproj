@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F180F6C1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F180F6B1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift */; };
+		1F180F701D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F180F6F1D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift */; };
 		1F482B891D7FBD630079A62B /* ChChCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F482B881D7FBD630079A62B /* ChChCityViewController.swift */; };
 		1F482B8C1D7FBE400079A62B /* citydict.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F482B8B1D7FBE400079A62B /* citydict.plist */; };
 		1F482B8F1D7FE9C80079A62B /* ChChCityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F482B8D1D7FE9C80079A62B /* ChChCityTableViewCell.swift */; };
@@ -81,6 +83,8 @@
 
 /* Begin PBXFileReference section */
 		02CC2341262A77985746D107 /* Pods_Challenge_high_salary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Challenge_high_salary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F180F6B1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChRetrievalViewController.swift; sourceTree = "<group>"; };
+		1F180F6F1D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChPersonalInfoViewController.swift; sourceTree = "<group>"; };
 		1F33D77A1D7587370028444A /* Challenge_high_salary-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Challenge_high_salary-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F482B881D7FBD630079A62B /* ChChCityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChCityViewController.swift; sourceTree = "<group>"; };
 		1F482B8B1D7FBE400079A62B /* citydict.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = citydict.plist; sourceTree = "<group>"; };
@@ -525,6 +529,8 @@
 				1FF06CBF1D7D17960032943B /* ChChHomeViewController.swift */,
 				1F482B881D7FBD630079A62B /* ChChCityViewController.swift */,
 				1F482B911D7FF7B80079A62B /* ChChSearchViewController.swift */,
+				1F180F6B1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift */,
+				1F180F6F1D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -840,11 +846,13 @@
 				1F87411D1D82C22B007B8793 /* LoRegisterViewController.swift in Sources */,
 				1F9CE7C11D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift in Sources */,
 				1F4FD2661D76C01D00FF7040 /* NSString+FontAwesome.m in Sources */,
+				1F180F6C1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift in Sources */,
 				1FF06CD81D7D609A0032943B /* DropDown.swift in Sources */,
 				1FF06CBA1D7D16A20032943B /* ChMiHomeViewController.swift in Sources */,
 				1FCDFF011D7411160067970B /* LoHomeViewController.swift in Sources */,
 				1FF524D51D88E8C700E1B70F /* LoginModel.swift in Sources */,
 				1FEF80A11D810A7600486F9C /* FTMiHomeViewController.swift in Sources */,
+				1F180F701D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift in Sources */,
 				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,
 				1F4FD25B1D767CC500FF7040 /* Tool.swift in Sources */,
 				1F9CE7C31D8802FC002E6632 /* CHSReJobIntensionViewController.swift in Sources */,

@@ -32,8 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         
         loadLocation()
-        self.window?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
-//        self.window?.rootViewController = CHRoHomeViewController()
+//        self.window?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
+        self.window?.rootViewController = CHRoHomeViewController()
         
         return true
     }

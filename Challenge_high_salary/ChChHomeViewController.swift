@@ -39,27 +39,50 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         setSubviews()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.hidden = false
+    }
+    
     // MARK: 设置 NavigationBar
     func setNavigationBar() {
         
+        // 城市按钮
         cityBtn.frame = CGRectMake(0, 0, 60, 44)
         cityBtn.setTitle(positioningCity, forState: .Normal)
         cityBtn.addTarget(self, action: #selector(cityBtnClick), forControlEvents: .TouchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cityBtn)
         
-        //        let seg = UISegmentedControl(frame: CGRectMake(0, 0, 160, 44))
+        // UISegmentedControl
         let seg = UISegmentedControl(items: ["找工作","找雇主"])
         seg.frame = CGRectMake(0, 0, 120, 24)
         seg.addTarget(self, action: #selector(segValueChanged(_:)), forControlEvents: .ValueChanged)
         seg.selectedSegmentIndex = 0
         self.navigationItem.titleView = seg
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(searchBtnClick))
+        // rightBarButtonItems
+        let retrievalBtn = UIButton(frame: CGRectMake(0, 0, 50, 24))
+        retrievalBtn.setTitle("检索", forState: .Normal)
+        retrievalBtn.addTarget(self, action: #selector(retrievalBtnClick), forControlEvents: .TouchUpInside)
+        let retrievalItem = UIBarButtonItem(customView: retrievalBtn)
+        
+        let searchBtn = UIButton(frame: CGRectMake(0, 0, 50, 24))
+        searchBtn.setTitle("搜索", forState: .Normal)
+        searchBtn.addTarget(self, action: #selector(searchBtnClick), forControlEvents: .TouchUpInside)
+        let searchItem = UIBarButtonItem(customView: searchBtn)
+
+        self.navigationItem.rightBarButtonItems = [searchItem,retrievalItem]
     }
     
     // MARK: 城市按钮点击事件
     func cityBtnClick() {
         self.navigationController?.pushViewController(ChChCityViewController(), animated: true)
+    }
+    
+    // MARK: 检索按钮点击事件
+    func retrievalBtnClick() {
+        print("ChChHomeViewController searchBtnClick")
+        self.navigationController?.pushViewController(CHSChRetrievalViewController(), animated: true)
     }
     
     // MARK: 搜索按钮点击事件
@@ -294,6 +317,10 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.navigationController?.pushViewController(CHSChPersonalInfoViewController(), animated: true)
     }
 
     override func didReceiveMemoryWarning() {
