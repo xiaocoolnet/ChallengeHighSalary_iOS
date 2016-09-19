@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Security
 
 class LoHomeViewController: UIViewController {
 
@@ -243,9 +244,34 @@ class LoHomeViewController: UIViewController {
 
     }
     
+    var addQuery:[NSString:AnyObject] = [
+        
+        kSecClass : kSecClassGenericPassword,
+        
+        kSecAttrService : "MyService",
+        
+        kSecAttrLabel : "My UUID",
+        
+        kSecAttrAccount : "MyUsername",
+        
+        kSecValueData : "12345678".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!
+    ]
+    
     // MARK: 登录按钮点击事件
     func loginBtnClick() {
+        let result = SecItemAdd(addQuery, nil)
         
+        if result == errSecSuccess {
+            
+            //操作成功处理
+            
+        }
+            
+        else {
+            
+            //操作失败处理
+            
+        }
         let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         

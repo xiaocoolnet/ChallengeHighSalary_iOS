@@ -56,6 +56,7 @@ class ChChSearchViewController: UIViewController, UITableViewDataSource, UITable
             NSUserDefaults.standardUserDefaults().setValue(searhHistoryArray, forKey: "searhHistory")
             self.myTableView.reloadData()
         }
+        
     }
     
     // MARK: 取消按钮点击事件
