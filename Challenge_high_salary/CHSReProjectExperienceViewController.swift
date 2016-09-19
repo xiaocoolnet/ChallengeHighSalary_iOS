@@ -1,19 +1,19 @@
 //
-//  CHSReJobIntensionViewController.swift
+//  CHSReProjectExperienceViewController.swift
 //  Challenge_high_salary
 //
-//  Created by zhang on 16/9/13.
+//  Created by zhang on 16/9/19.
 //  Copyright © 2016年 北京校酷网络科技公司. All rights reserved.
 //
 
 import UIKit
 
-class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource {
-
+class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSource {
+    
     let rootTableView = UITableView()
     
-    let nameArray = ["工作性质","工作地点","职位类型","行业类别","期望薪资","工作状态"]
-    let detailArray = ["全职","北京","产品经理","互联网","4k-6k/月","离职，可立即上岗"]
+    let nameArray = ["项目名称","开始时间","结束时间","项目描述"]
+    let detailArray = ["输入项目名称","","",""]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource {
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
-        self.title = "求职意向"
+        self.title = "项目经验"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Done, target: self, action: #selector(clickSaveBtn))
         
         rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height)
@@ -68,28 +68,39 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource {
         cell?.textLabel?.textAlignment = .Left
         cell?.textLabel?.text = nameArray[indexPath.row]
         
-        cell?.detailTextLabel?.font = UIFont.systemFontOfSize(14)
-        cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
-        cell?.detailTextLabel?.textAlignment = .Right
-        cell?.detailTextLabel?.text = detailArray[indexPath.row]
+        if indexPath.row == 0 {
+            
+            let projectNameTf = UITextField(frame: CGRectMake(0, 0, 150, 50))
+            projectNameTf.font = UIFont.systemFontOfSize(14)
+            projectNameTf.placeholder = detailArray[indexPath.row]
+            projectNameTf.textAlignment = .Right
+            cell?.accessoryView = projectNameTf
+        }else{
+            
+            
+            cell?.detailTextLabel?.font = UIFont.systemFontOfSize(14)
+            cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
+            cell?.detailTextLabel?.textAlignment = .Right
+            cell?.detailTextLabel?.text = detailArray[indexPath.row]
+        }
         
         return cell!
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

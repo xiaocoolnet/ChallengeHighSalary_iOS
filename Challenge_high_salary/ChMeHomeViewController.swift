@@ -14,6 +14,13 @@ class ChMeHomeViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.setSubviews()
+    }
+    
+
+    
+    func setSubviews() {
+        self.view.backgroundColor = UIColor.whiteColor()
     }
 
     override func didReceiveMemoryWarning() {

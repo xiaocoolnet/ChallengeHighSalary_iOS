@@ -24,6 +24,12 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         setSubviews()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.customizeDropDown()
+    }
+    
     // MARK: 设置子视图
     func setSubviews() {
         
@@ -32,8 +38,6 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         self.navigationItem.title = "人才"
         
         self.view.backgroundColor = UIColor(red: 209/255.0, green: 209/255.0, blue: 209/255.0, alpha: 1)
-        
-        customizeDropDown()
         
         // 经验
         let experienceBtn = UIButton()

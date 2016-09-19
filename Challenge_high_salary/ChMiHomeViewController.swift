@@ -14,6 +14,18 @@ class ChMiHomeViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        self.setSubviews()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.hidden = true
+    }
+    
+    func setSubviews() {
+        self.view.backgroundColor = UIColor.whiteColor()
     }
 
     override func didReceiveMemoryWarning() {

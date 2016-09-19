@@ -44,6 +44,9 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         self.navigationController?.navigationBar.hidden = false
         self.tabBarController?.tabBar.hidden = false
+        
+        // 自定义下拉列表样式
+        customizeDropDown()
     }
     
     // MARK: 设置 NavigationBar
@@ -116,9 +119,6 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     
     // MARK: 设置子视图_找工作
     func setSubviews_findJob() {
-        
-        // 自定义下拉列表样式
-        customizeDropDown()
         
         // 薪资
         let salaryBtn = UIButton()

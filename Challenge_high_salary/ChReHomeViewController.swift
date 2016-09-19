@@ -130,7 +130,11 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         if indexPath.row == 0 {
             self.navigationController?.pushViewController(CHSReJobIntensionViewController(), animated: true)
         }else if indexPath.row == 2 {
-            
+            self.navigationController?.pushViewController(CHSReJobExperienceViewController(), animated: true)
+        }else if indexPath.row == 3 {
+            self.navigationController?.pushViewController(CHSReProjectExperienceViewController(), animated: true)
+        }else if indexPath.row == 4 {
+            self.navigationController?.pushViewController(CHSReMyAdvantagesViewController(), animated: true)
         }
     }
 
