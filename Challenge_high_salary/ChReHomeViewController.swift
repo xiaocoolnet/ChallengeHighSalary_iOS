@@ -20,6 +20,13 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         setSubviews()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.hidden = false
+        self.tabBarController?.tabBar.hidden = false
+    }
+    
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
@@ -93,7 +100,7 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationController?.pushViewController(CHSReEditPersonalInfoViewController(), animated: true)
     }
     
-    // tableView DataSource
+    // MARK:- tableView DataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return resumeItemArray.count
     }
@@ -118,9 +125,12 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell!
     }
     
+    // MARK:- tableView DataSource
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 0 {
             self.navigationController?.pushViewController(CHSReJobIntensionViewController(), animated: true)
+        }else if indexPath.row == 2 {
+            
         }
     }
 

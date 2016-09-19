@@ -14,6 +14,8 @@ class ChChFindJobTableViewCell: UITableViewCell {
     
     @IBOutlet weak var bottomLine: UIView!
     
+    @IBOutlet weak var companyBtn: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

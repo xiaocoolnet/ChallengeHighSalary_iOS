@@ -15,18 +15,19 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource {
     let nameArray = ["工作性质","工作地点","职位类型","行业类别","期望薪资","工作状态"]
     let detailArray = ["全职","北京","产品经理","互联网","4k-6k/月","离职，可立即上岗"]
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.tabBarController?.tabBar.hidden = true
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         
         setSubviews()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.hidden = false
+        self.tabBarController?.tabBar.hidden = true
     }
     
     func setSubviews() {

@@ -24,6 +24,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.navigationController?.navigationBar.hidden = false
         self.tabBarController?.tabBar.hidden = true
     }
     
@@ -119,6 +120,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         companyBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
         companyBtn.contentHorizontalAlignment = .Right
         companyBtn.setTitle("北京互联科技有限公司", forState: .Normal)
+        companyBtn.addTarget(self, action: #selector(companyBtnClick), forControlEvents: .TouchUpInside)
         companyView.addSubview(companyBtn)
         
         drawDashed(companyView, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(8, CGRectGetMaxY(companyBtn.frame)), toPoint: CGPointMake(screenSize.width-8, CGRectGetMaxY(companyBtn.frame)), lineWidth: 1)
@@ -163,6 +165,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         positionBtn.setTitleColor(baseColor, forState: .Normal)
         positionBtn.titleLabel?.font = UIFont.systemFontOfSize(13)
         positionBtn.setTitle("共7个职位", forState: .Normal)
+        positionBtn.addTarget(self, action: #selector(positionBtnClick), forControlEvents: .TouchUpInside)
         companyView.addSubview(positionBtn)
         
         drawDashed(companyView, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(8, CGRectGetMaxY(headerBtn.frame)+8), toPoint: CGPointMake(screenSize.width-8, CGRectGetMaxY(headerBtn.frame)+8), lineWidth: 1)
@@ -238,6 +241,18 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         utilView.addSubview(chatBtn)
     }
     //MARK:-
+    
+    //MARK: 公司主页点击事件
+    func companyBtnClick() {
+        
+        self.navigationController?.pushViewController(CHSChCompanyHomeViewController(), animated: true)
+    }
+    
+    //MARK: 公司职位点击事件
+    func positionBtnClick() {
+        
+        self.navigationController?.pushViewController(CHSChCompanyPositionListViewController(), animated: true)
+    }
     
     // MARK:- 分享视图
     func shareBtnClick() {

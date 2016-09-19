@@ -41,6 +41,8 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.hidden = false
         self.tabBarController?.tabBar.hidden = false
     }
     
@@ -300,6 +302,8 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             let cell = tableView.dequeueReusableCellWithIdentifier("ChChFindJobTableViewCell") as! ChChFindJobTableViewCell
             cell.selectionStyle = .None
             
+            cell.companyBtn.addTarget(self, action: #selector(companyBtnClick), forControlEvents: .TouchUpInside)
+            
             return cell
         }else{
             let cell = tableView.dequeueReusableCellWithIdentifier("ChChFindEmployerTableViewCell") as! ChChFindEmployerTableViewCell
@@ -320,7 +324,16 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.navigationController?.pushViewController(CHSChPersonalInfoViewController(), animated: true)
+        if tableView.tag == 101 {
+            self.navigationController?.pushViewController(CHSChPersonalInfoViewController(), animated: true)
+        }else{
+            self.companyBtnClick()
+        }
+    }
+    
+    // MARK:- companyBtnClick
+    func companyBtnClick() {
+        self.navigationController?.pushViewController(CHSChCompanyHomeViewController(), animated: true)
     }
 
     override func didReceiveMemoryWarning() {
