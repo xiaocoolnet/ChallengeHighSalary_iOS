@@ -110,7 +110,7 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
+//        tableView.cellForRowAtIndexPath(indexPath)
         let cityBtnMargin:CGFloat = 10
         var cityBtnX:CGFloat = cityBtnMargin
         var cityBtnY:CGFloat = cityBtnMargin

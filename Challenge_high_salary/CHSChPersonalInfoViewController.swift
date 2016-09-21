@@ -292,7 +292,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
             shareBtn_1.tag = 1000+i
 //            shareBtn_1.addTarget(self, action: #selector(shareBtnClick(_:)), forControlEvents: .TouchUpInside)
             bottomView.addSubview(shareBtn_1)
-            print(shareBtn_1.frame)
+            print("挑战高薪-机会-个人信息页-分享视图-按钮 \(i) frame == \(shareBtn_1.frame)")
             
             let shareLab_1 = UILabel(frame: CGRectMake(
                 CGRectGetMinX(shareBtn_1.frame)-margin/2.0,

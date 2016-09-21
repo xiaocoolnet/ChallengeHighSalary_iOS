@@ -54,12 +54,18 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
         interviewEvaluateBtn.backgroundColor = baseColor
         interviewEvaluateBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         interviewEvaluateBtn.setTitle("面试评价(2)", forState: .Normal)
+        interviewEvaluateBtn.addTarget(self, action: #selector(interviewEvaluateBtnClick), forControlEvents: .TouchUpInside)
         self.view.addSubview(interviewEvaluateBtn)
     }
     
     // MARK:- backBtn 点击事件
     func backBtnClick() {
         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    // MARK:- interviewEvaluateBtn 点击事件
+    func interviewEvaluateBtnClick() {
+        self.navigationController?.pushViewController(CHSChCompanyInterviewEvaluationViewController(), animated: true)
     }
     
     // MARK:- 设置tableview 头视图

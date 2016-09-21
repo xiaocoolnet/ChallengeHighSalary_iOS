@@ -45,6 +45,10 @@
 		1FDB00211D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB00201D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift */; };
 		1FDB00241D8FCB4A007043B4 /* CHSMiHomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB00231D8FCB4A007043B4 /* CHSMiHomeTableViewCell.swift */; };
 		1FDB00261D8FD2A0007043B4 /* CHSMiSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB00251D8FD2A0007043B4 /* CHSMiSettingViewController.swift */; };
+		1FEC64DA1D9120A60045038C /* CHSMiSetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC64D91D9120A60045038C /* CHSMiSetPasswordViewController.swift */; };
+		1FEC64DC1D9120C50045038C /* CHSMiPhoneBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC64DB1D9120C50045038C /* CHSMiPhoneBindingViewController.swift */; };
+		1FEC64DE1D9121460045038C /* CHSMiCheckPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC64DD1D9121460045038C /* CHSMiCheckPasswordViewController.swift */; };
+		1FEC64E01D912AF70045038C /* CHSMiMessageRemindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC64DF1D912AF70045038C /* CHSMiMessageRemindViewController.swift */; };
 		1FEF80981D810A0400486F9C /* FTRoHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF80971D810A0400486F9C /* FTRoHomeViewController.swift */; };
 		1FEF809D1D810A4D00486F9C /* FTTaHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF809C1D810A4D00486F9C /* FTTaHomeViewController.swift */; };
 		1FEF809F1D810A5B00486F9C /* FTMeHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEF809E1D810A5B00486F9C /* FTMeHomeViewController.swift */; };
@@ -66,6 +70,14 @@
 		1FF06CD91D7D609A0032943B /* DropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CD11D7D609A0032943B /* DropDownCell.swift */; };
 		1FF06CDD1D7D6D970032943B /* ChChFindJobTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CDB1D7D6D970032943B /* ChChFindJobTableViewCell.swift */; };
 		1FF06CDE1D7D6D970032943B /* ChChFindJobTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF06CDC1D7D6D970032943B /* ChChFindJobTableViewCell.xib */; };
+		1FF3C69D1D9262100069DD23 /* CHSMiAboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3C69C1D9262100069DD23 /* CHSMiAboutUsViewController.swift */; };
+		1FF3C69F1D9264E70069DD23 /* CHSMiMyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3C69E1D9264E70069DD23 /* CHSMiMyCollectionViewController.swift */; };
+		1FF3C6A11D9269F70069DD23 /* CHSMiMyDeliveryRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3C6A01D9269F70069DD23 /* CHSMiMyDeliveryRecordViewController.swift */; };
+		1FF3C6A31D926E210069DD23 /* CHSChCompanyInterviewEvaluationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3C6A21D926E210069DD23 /* CHSChCompanyInterviewEvaluationViewController.swift */; };
+		1FF3C6A61D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3C6A41D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.swift */; };
+		1FF3C6A71D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF3C6A51D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.xib */; };
+		1FF3C6AC1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3C6AA1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.swift */; };
+		1FF3C6AD1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF3C6AB1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.xib */; };
 		1FF524D11D88DBD800E1B70F /* LoginNetUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF524D01D88DBD800E1B70F /* LoginNetUtil.swift */; };
 		1FF524D51D88E8C700E1B70F /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF524D41D88E8C700E1B70F /* LoginModel.swift */; };
 		1FF524D71D88EC2B00E1B70F /* D3Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF524D61D88EC2B00E1B70F /* D3Model.swift */; };
@@ -140,6 +152,10 @@
 		1FDB00201D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReMyAdvantagesViewController.swift; sourceTree = "<group>"; };
 		1FDB00231D8FCB4A007043B4 /* CHSMiHomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiHomeTableViewCell.swift; sourceTree = "<group>"; };
 		1FDB00251D8FD2A0007043B4 /* CHSMiSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiSettingViewController.swift; sourceTree = "<group>"; };
+		1FEC64D91D9120A60045038C /* CHSMiSetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiSetPasswordViewController.swift; sourceTree = "<group>"; };
+		1FEC64DB1D9120C50045038C /* CHSMiPhoneBindingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiPhoneBindingViewController.swift; sourceTree = "<group>"; };
+		1FEC64DD1D9121460045038C /* CHSMiCheckPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiCheckPasswordViewController.swift; sourceTree = "<group>"; };
+		1FEC64DF1D912AF70045038C /* CHSMiMessageRemindViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiMessageRemindViewController.swift; sourceTree = "<group>"; };
 		1FEF80971D810A0400486F9C /* FTRoHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTRoHomeViewController.swift; sourceTree = "<group>"; };
 		1FEF809C1D810A4D00486F9C /* FTTaHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaHomeViewController.swift; sourceTree = "<group>"; };
 		1FEF809E1D810A5B00486F9C /* FTMeHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeHomeViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +179,14 @@
 		1FF06CD11D7D609A0032943B /* DropDownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownCell.swift; sourceTree = "<group>"; };
 		1FF06CDB1D7D6D970032943B /* ChChFindJobTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChFindJobTableViewCell.swift; sourceTree = "<group>"; };
 		1FF06CDC1D7D6D970032943B /* ChChFindJobTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChChFindJobTableViewCell.xib; sourceTree = "<group>"; };
+		1FF3C69C1D9262100069DD23 /* CHSMiAboutUsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiAboutUsViewController.swift; sourceTree = "<group>"; };
+		1FF3C69E1D9264E70069DD23 /* CHSMiMyCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiMyCollectionViewController.swift; sourceTree = "<group>"; };
+		1FF3C6A01D9269F70069DD23 /* CHSMiMyDeliveryRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiMyDeliveryRecordViewController.swift; sourceTree = "<group>"; };
+		1FF3C6A21D926E210069DD23 /* CHSChCompanyInterviewEvaluationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChCompanyInterviewEvaluationViewController.swift; sourceTree = "<group>"; };
+		1FF3C6A41D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChInterviewEvaHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		1FF3C6A51D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSChInterviewEvaHeaderTableViewCell.xib; sourceTree = "<group>"; };
+		1FF3C6AA1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChInterviewEvaTableViewCell.swift; sourceTree = "<group>"; };
+		1FF3C6AB1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSChInterviewEvaTableViewCell.xib; sourceTree = "<group>"; };
 		1FF524D01D88DBD800E1B70F /* LoginNetUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginNetUtil.swift; sourceTree = "<group>"; };
 		1FF524D41D88E8C700E1B70F /* LoginModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		1FF524D61D88EC2B00E1B70F /* D3Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D3Model.swift; sourceTree = "<group>"; };
@@ -529,6 +553,13 @@
 			children = (
 				1FF06CB91D7D16A20032943B /* ChMiHomeViewController.swift */,
 				1FDB00251D8FD2A0007043B4 /* CHSMiSettingViewController.swift */,
+				1FEC64D91D9120A60045038C /* CHSMiSetPasswordViewController.swift */,
+				1FEC64DB1D9120C50045038C /* CHSMiPhoneBindingViewController.swift */,
+				1FEC64DD1D9121460045038C /* CHSMiCheckPasswordViewController.swift */,
+				1FEC64DF1D912AF70045038C /* CHSMiMessageRemindViewController.swift */,
+				1FF3C69C1D9262100069DD23 /* CHSMiAboutUsViewController.swift */,
+				1FF3C69E1D9264E70069DD23 /* CHSMiMyCollectionViewController.swift */,
+				1FF3C6A01D9269F70069DD23 /* CHSMiMyDeliveryRecordViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -564,6 +595,7 @@
 				1F180F6F1D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift */,
 				1FDB00121D8F7490007043B4 /* CHSChCompanyHomeViewController.swift */,
 				1FDB001A1D8FB0EE007043B4 /* CHSChCompanyPositionListViewController.swift */,
+				1FF3C6A21D926E210069DD23 /* CHSChCompanyInterviewEvaluationViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -629,6 +661,10 @@
 				1F482B9B1D8002560079A62B /* ChChSearchTableViewCell.swift */,
 				1FDB00161D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift */,
 				1FDB00171D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.xib */,
+				1FF3C6A41D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.swift */,
+				1FF3C6A51D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.xib */,
+				1FF3C6AA1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.swift */,
+				1FF3C6AB1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -771,9 +807,11 @@
 				1FF06CD61D7D609A0032943B /* DropDownCell.xib in Resources */,
 				1FF06CDE1D7D6D970032943B /* ChChFindJobTableViewCell.xib in Resources */,
 				1F482B901D7FE9C80079A62B /* ChChCityTableViewCell.xib in Resources */,
+				1FF3C6A71D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.xib in Resources */,
 				1FDB00191D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.xib in Resources */,
 				1FCDFECA1D73E6DB0067970B /* LaunchScreen.storyboard in Resources */,
 				1FA93F521D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.xib in Resources */,
+				1FF3C6AD1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.xib in Resources */,
 				1FCDFEC71D73E6DB0067970B /* Assets.xcassets in Resources */,
 				1FCDFEC51D73E6DB0067970B /* Main.storyboard in Resources */,
 				1FF06CD51D7D609A0032943B /* Info.plist in Resources */,
@@ -866,14 +904,17 @@
 				1FF524D71D88EC2B00E1B70F /* D3Model.swift in Sources */,
 				1FEF809F1D810A5B00486F9C /* FTMeHomeViewController.swift in Sources */,
 				1FF06CD31D7D609A0032943B /* DPDKeyboardListener.swift in Sources */,
+				1FEC64DA1D9120A60045038C /* CHSMiSetPasswordViewController.swift in Sources */,
 				1FF06CD21D7D609A0032943B /* DPDConstants.swift in Sources */,
 				1FF06CC41D7D50E20032943B /* LFLUISegmentedControl.m in Sources */,
 				1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */,
 				1FD7FBD61D795BA70032221D /* WeHomeViewController.swift in Sources */,
 				1FF06CD71D7D609A0032943B /* DropDown+Appearance.swift in Sources */,
+				1FF3C6A61D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.swift in Sources */,
 				1F4FD2681D76C01D00FF7040 /* UIColor+BButton.m in Sources */,
 				1FDB001F1D8FC5D7007043B4 /* CHSReProjectExperienceViewController.swift in Sources */,
 				1FEF80981D810A0400486F9C /* FTRoHomeViewController.swift in Sources */,
+				1FF3C6A11D9269F70069DD23 /* CHSMiMyDeliveryRecordViewController.swift in Sources */,
 				1FF06CD91D7D609A0032943B /* DropDownCell.swift in Sources */,
 				1FDB001B1D8FB0EE007043B4 /* CHSChCompanyPositionListViewController.swift in Sources */,
 				1FDB00181D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift in Sources */,
@@ -885,14 +926,21 @@
 				1FF06CDD1D7D6D970032943B /* ChChFindJobTableViewCell.swift in Sources */,
 				1FF06CBC1D7D17760032943B /* ChMeHomeViewController.swift in Sources */,
 				1FF06CB41D7D16540032943B /* CHRoHomeViewController.swift in Sources */,
+				1FF3C6AC1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.swift in Sources */,
 				1F482B9C1D8002560079A62B /* ChChSearchTableViewCell.swift in Sources */,
 				1F87411D1D82C22B007B8793 /* LoRegisterViewController.swift in Sources */,
+				1FEC64DE1D9121460045038C /* CHSMiCheckPasswordViewController.swift in Sources */,
 				1FDB00131D8F7490007043B4 /* CHSChCompanyHomeViewController.swift in Sources */,
+				1FF3C69F1D9264E70069DD23 /* CHSMiMyCollectionViewController.swift in Sources */,
+				1FF3C6A31D926E210069DD23 /* CHSChCompanyInterviewEvaluationViewController.swift in Sources */,
 				1F9CE7C11D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift in Sources */,
+				1FF3C69D1D9262100069DD23 /* CHSMiAboutUsViewController.swift in Sources */,
 				1F4FD2661D76C01D00FF7040 /* NSString+FontAwesome.m in Sources */,
+				1FEC64E01D912AF70045038C /* CHSMiMessageRemindViewController.swift in Sources */,
 				1F180F6C1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift in Sources */,
 				1FF06CD81D7D609A0032943B /* DropDown.swift in Sources */,
 				1FF06CBA1D7D16A20032943B /* ChMiHomeViewController.swift in Sources */,
+				1FEC64DC1D9120C50045038C /* CHSMiPhoneBindingViewController.swift in Sources */,
 				1FCDFF011D7411160067970B /* LoHomeViewController.swift in Sources */,
 				1FF524D51D88E8C700E1B70F /* LoginModel.swift in Sources */,
 				1FEF80A11D810A7600486F9C /* FTMiHomeViewController.swift in Sources */,

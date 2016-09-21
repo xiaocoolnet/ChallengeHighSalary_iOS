@@ -126,6 +126,18 @@ class ChMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        switch (indexPath.section,indexPath.row) {
+        case (0,0):
+            self.navigationController?.pushViewController(CHSMiMyCollectionViewController(), animated: true)
+        case (0,1):
+            self.navigationController?.pushViewController(CHSMiCheckPasswordViewController(), animated: true)
+        case (1,0):
+            self.navigationController?.pushViewController(CHSMiMyDeliveryRecordViewController(), animated: true)
+        case (1,1):
+            self.navigationController?.pushViewController(CHSMiAboutUsViewController(), animated: true)
+        default:
+            print("挑战高薪-我的-didSelectRowAtIndexPath  default")
+        }
     }
     
     override func didReceiveMemoryWarning() {

@@ -1,17 +1,17 @@
 //
-//  CHSMiSettingViewController.swift
+//  CHSMiMessageRemindViewController.swift
 //  Challenge_high_salary
 //
-//  Created by zhang on 16/9/19.
+//  Created by zhang on 16/9/20.
 //  Copyright © 2016年 北京校酷网络科技公司. All rights reserved.
 //
 
 import UIKit
 
-class CHSMiSettingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CHSMiMessageRemindViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let rootTableView = UITableView(frame: CGRectMake(0, 64, screenSize.width, screenSize.height-64), style: .Grouped)
-    let nameArray = [["手机绑定","设置密码","消息提醒"],["关于我们"],["切换身份"],["退出当前账号"]]
+    let nameArray = ["职位邀约","投递反馈","聊天"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,7 @@ class CHSMiSettingViewController: UIViewController, UITableViewDataSource, UITab
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
-        self.title = "设置"
+        self.title = "消息提醒"
         
         rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height-64)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
@@ -50,7 +50,7 @@ class CHSMiSettingViewController: UIViewController, UITableViewDataSource, UITab
     
     // MARK:- tableview datasource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return nameArray[section].count
+        return 1
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -65,69 +65,37 @@ class CHSMiSettingViewController: UIViewController, UITableViewDataSource, UITab
         }
         cell!.selectionStyle = .None
         
-        cell?.textLabel!.text = nameArray[indexPath.section][indexPath.row]
+        cell?.backgroundColor = UIColor.whiteColor()
         
-        if indexPath.section == nameArray.endIndex-1 {
-            cell!.accessoryType = .None
-
-            cell?.textLabel?.font = UIFont.systemFontOfSize(16)
-            cell?.textLabel?.textAlignment = .Center
-            cell?.textLabel?.textColor = UIColor.whiteColor()
-            cell?.backgroundColor = baseColor
-        }else{
-            cell!.accessoryType = .DisclosureIndicator
-            
-            cell?.textLabel?.font = UIFont.systemFontOfSize(15)
-            cell?.textLabel?.textAlignment = .Left
-            cell?.textLabel?.textColor = UIColor.blackColor()
-            cell?.backgroundColor = UIColor.whiteColor()
-        }
+        cell?.textLabel!.text = nameArray[indexPath.section]
+        cell?.textLabel?.font = UIFont.systemFontOfSize(15)
+        cell?.textLabel?.textAlignment = .Left
+        cell?.textLabel?.textColor = UIColor.blackColor()
+        
+        let swi = UISwitch.init(frame: CGRectMake(screenSize.width-51-10, 29/2.0, 51, 31))
+        swi.on = NSUserDefaults.standardUserDefaults().boolForKey(CHSMiMessageRemindSetting_key_pre+String(indexPath.section*100+indexPath.row))
+        swi.tag = indexPath.section*100+indexPath.row
+        swi.addTarget(self, action: #selector(switchValueChanged(_:)), forControlEvents: .ValueChanged)
+//        print("消息提醒设置，indexPath.section === \(indexPath.section)，indexPath.row === \(indexPath.row)，swi.on = \(swi.on)")
+        cell!.contentView.addSubview(swi)
+        
         
         return cell!
+    }
+    
+    func switchValueChanged(swi:UISwitch) {
+        NSUserDefaults.standardUserDefaults().setBool(swi.on, forKey: CHSMiMessageRemindSetting_key_pre+String(swi.tag))
+//        print("消息提醒设置，swi.tag === \(swi.tag)，swi.on = \(swi.on) && \(NSUserDefaults.standardUserDefaults().boolForKey("CHSMiMessageRemindSetting\(swi.tag)"))")
     }
     
     // MARK:- tableview delegate
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        if section == nameArray.endIndex-1 {
-            return kHeightScale*90
-        }else{
-            return kHeightScale*15
-        }
+        return kHeightScale*10
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        switch (indexPath.section,indexPath.row) {
-        case (0,0):
-            self.navigationController?.pushViewController(CHSMiPhoneBindingViewController(), animated: true)
-        case (0,1):
-            self.navigationController?.pushViewController(CHSMiCheckPasswordViewController(), animated: true)
-        case (0,2):
-            self.navigationController?.pushViewController(CHSMiMessageRemindViewController(), animated: true)
-        case (1,0):
-            self.navigationController?.pushViewController(CHSMiAboutUsViewController(), animated: true)
-        case (3,0):
-            
-            let signOutAlert = UIAlertController(title: "", message: "确定退出登录？", preferredStyle: .Alert)
-            self.presentViewController(signOutAlert, animated: true, completion: nil)
-            
-            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
-            signOutAlert.addAction(cancelAction)
-            
-            let sureAction = UIAlertAction(title: "确定", style: .Default, handler: { (sureAction) in
-                
-                UIApplication.sharedApplication().keyWindow?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
-            })
-            signOutAlert.addAction(sureAction)
-            
-            
-        default:
-            print("挑战高薪-我的-设置-didSelectRowAtIndexPath  default")
-        }
     }
     
     override func didReceiveMemoryWarning() {

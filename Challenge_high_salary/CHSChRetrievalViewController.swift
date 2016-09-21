@@ -51,7 +51,7 @@ class CHSChRetrievalViewController: UIViewController {
             cateBtn.tag = 1000+i
             //            shareBtn_1.addTarget(self, action: #selector(shareBtnClick(_:)), forControlEvents: .TouchUpInside)
             btnBgView.addSubview(cateBtn)
-            print(cateBtn.frame)
+//            print(cateBtn.frame)
             
             cateBtnMaxX = CGRectGetMaxX(cateBtn.frame)
             cateBtnMaxY = CGRectGetMaxY(cateBtn.frame)

@@ -199,6 +199,7 @@ class LoRegisterViewController: UIViewController {
                     checkCodeHud.mode = .Text
                     checkCodeHud.labelText = response as! String
                     checkCodeHud.hide(true, afterDelay: 1)
+                    TimeManager.shareManager.taskDic["register"]?.leftTime = 0
                 })
             }else{
                 
@@ -242,8 +243,8 @@ class LoRegisterViewController: UIViewController {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        TimeManager.shareManager.taskDic["forget"]?.FHandle = nil
-        TimeManager.shareManager.taskDic["forget"]?.PHandle = nil
+        TimeManager.shareManager.taskDic["register"]?.FHandle = nil
+        TimeManager.shareManager.taskDic["register"]?.PHandle = nil
     }
     
     override func didReceiveMemoryWarning() {

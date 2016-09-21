@@ -25,6 +25,8 @@ let kPortPrefix = "\(kDomainName)index.php?g=apps&m=index&a="
 //MARK:- APP数据
 var positioningCity = "未知"
 var myCity = NSUserDefaults.standardUserDefaults().stringForKey("myCity")
+// 挑战高薪-我的-设置-消息提醒设置 key 前缀
+let CHSMiMessageRemindSetting_key_pre = "CHSMiMessageRemindSetting"
 
 //MARK:- 公用方法
 typealias ResponseClosures = (success:Bool,response:AnyObject?)->Void
@@ -145,7 +147,6 @@ func calculateHeight(string:String,size:CGFloat,width:  CGFloat) -> CGFloat {
     let options : NSStringDrawingOptions = NSStringDrawingOptions.UsesLineFragmentOrigin
     //let screenBounds:CGRect = UIScreen.mainScreen().bounds
     let boundingRect = String(string).boundingRectWithSize(CGSizeMake(width, 0), options: options, attributes: [NSFontAttributeName:UIFont.systemFontOfSize(size)], context: nil)
-    print(boundingRect.height)
     return boundingRect.height
 }
 
