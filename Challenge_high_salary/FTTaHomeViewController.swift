@@ -21,6 +21,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         // Do any additional setup after loading the view.
         
+        setNavigationBar()
         setSubviews()
     }
     
@@ -30,12 +31,29 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         self.customizeDropDown()
     }
     
+    // MARK: 设置 NavigationBar
+    func setNavigationBar() {
+        
+        self.navigationItem.title = "人才"
+
+        // rightBarButtonItem
+        let retrievalBtn = UIButton(frame: CGRectMake(0, 0, 50, 24))
+        retrievalBtn.setTitle("检索", forState: .Normal)
+        retrievalBtn.addTarget(self, action: #selector(retrievalBtnClick), forControlEvents: .TouchUpInside)
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: retrievalBtn)
+    }
+    
+    // MARK: 检索按钮点击事件
+    func retrievalBtnClick() {
+        print("ChChHomeViewController searchBtnClick")
+        self.navigationController?.pushViewController(FTTaRetrievalViewController(), animated: true)
+    }
+    
     // MARK: 设置子视图
     func setSubviews() {
         
         self.automaticallyAdjustsScrollViewInsets = false
-        
-        self.navigationItem.title = "人才"
         
         self.view.backgroundColor = UIColor(red: 209/255.0, green: 209/255.0, blue: 209/255.0, alpha: 1)
         
@@ -89,7 +107,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         // tableView
         myTableView.frame = CGRectMake(0, CGRectGetMaxY(segChoose.frame)+1, screenSize.width, screenSize.height-20-44-49-37)
-        myTableView.registerNib(UINib.init(nibName: "ChChFindEmployerTableViewCell", bundle: nil), forCellReuseIdentifier: "ChChFindEmployerTableViewCell")
+        myTableView.registerNib(UINib.init(nibName: "FTTalentTableViewCell", bundle: nil), forCellReuseIdentifier: "FTTalentCell")
         myTableView.registerClass(FTTaNoPositionTableViewCell.self, forCellReuseIdentifier: "FTTaNoPositionTableViewCell")
         myTableView.separatorStyle = .None
         myTableView.rowHeight = 250
@@ -128,11 +146,11 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     
     // MARK: UITableView DataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if hasPosition {
-            return 1
-        }else{
-            return 1
-        }
+//        if hasPosition {
+//            return 1
+//        }else{
+//        }
+        return 1
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -146,7 +164,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if hasPosition {
-            let cell = tableView.dequeueReusableCellWithIdentifier("ChChFindEmployerTableViewCell") as! ChChFindEmployerTableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("FTTalentCell") as! FTTalentTableViewCell
             cell.selectionStyle = .None
             
             return cell
@@ -154,6 +172,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             let cell = tableView.dequeueReusableCellWithIdentifier("FTTaNoPositionTableViewCell") as! FTTaNoPositionTableViewCell
             cell.selectionStyle = .None
 //            cell.textLabel?.text = "空空如也"
+            cell.publishJobBtn.addTarget(self, action: #selector(publishJobBtnClick), forControlEvents: .TouchUpInside)
             return cell
         }
         
@@ -170,6 +189,13 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
+    }
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.publishJobBtnClick()
+    }
+    // MARK:- 发布职位按钮点击事件
+    func publishJobBtnClick() {
+        self.navigationController?.pushViewController(FTTaPositionViewController(), animated: true)
     }
     
 

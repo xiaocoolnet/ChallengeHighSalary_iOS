@@ -23,6 +23,7 @@ let kDomainName = "http://app.chinanurse.cn/"
 let kPortPrefix = "\(kDomainName)index.php?g=apps&m=index&a="
 
 //MARK:- APP数据
+let isNoFirstLaunch_key = "isNoFirstLaunch"
 var positioningCity = "未知"
 var myCity = NSUserDefaults.standardUserDefaults().stringForKey("myCity")
 // 挑战高薪-我的-设置-消息提醒设置 key 前缀

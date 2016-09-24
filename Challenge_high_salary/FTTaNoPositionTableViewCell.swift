@@ -10,6 +10,8 @@ import UIKit
 
 class FTTaNoPositionTableViewCell: UITableViewCell {
 
+    let publishJobBtn = UIButton()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -45,21 +47,21 @@ class FTTaNoPositionTableViewCell: UITableViewCell {
         self.contentView.addSubview(nothingLab)
         
         // 发布职位 Button
-        let publishJob = UIButton(frame: CGRectMake((screenSize.width-screenSize.width*270/375)/2.0, CGRectGetMaxY(nothingLab.frame)+screenSize.height*100/667, screenSize.width*270/375, screenSize.height*40/667))
-        publishJob.backgroundColor = baseColor
-        publishJob.layer.cornerRadius = 6
-        publishJob.setTitle("发布职位", forState: .Normal)
-        self.contentView.addSubview(publishJob)
+        publishJobBtn.frame = CGRectMake((screenSize.width-screenSize.width*270/375)/2.0, CGRectGetMaxY(nothingLab.frame)+screenSize.height*100/667, screenSize.width*270/375, screenSize.height*40/667)
+        publishJobBtn.backgroundColor = baseColor
+        publishJobBtn.layer.cornerRadius = 6
+        publishJobBtn.setTitle("发布职位", forState: .Normal)
+        self.contentView.addSubview(publishJobBtn)
         
-        // 提示 label
-        let tipLabel = UILabel(frame: CGRectMake(0, 0, 20, 25))
-        tipLabel.textColor = UIColor(red: 136/255.0, green: 136/255.0, blue: 136/255.0, alpha: 1)
-        tipLabel.font = UIFont.systemFontOfSize(13)
-        tipLabel.text = "发布职位后 会为您推荐最合适的人才"
-        tipLabel.sizeToFit()
-        tipLabel.center.x = self.contentView.center.x
-        tipLabel.frame.origin.y = CGRectGetMaxY(publishJob.frame)+5
-        self.contentView.addSubview(tipLabel)
+//        // 提示 label
+//        let tipLabel = UILabel(frame: CGRectMake(0, 0, 20, 25))
+//        tipLabel.textColor = UIColor(red: 136/255.0, green: 136/255.0, blue: 136/255.0, alpha: 1)
+//        tipLabel.font = UIFont.systemFontOfSize(13)
+//        tipLabel.text = "发布职位后 会为您推荐最合适的人才"
+//        tipLabel.sizeToFit()
+//        tipLabel.center.x = self.contentView.center.x
+//        tipLabel.frame.origin.y = CGRectGetMaxY(publishJobBtn.frame)+5
+//        self.contentView.addSubview(tipLabel)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

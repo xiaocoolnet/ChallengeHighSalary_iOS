@@ -23,9 +23,9 @@ class CHSMiHomeTableViewCell: UITableViewCell {
         for view in self.contentView.subviews {
             view.removeFromSuperview()
         }
-        titImage.frame = CGRectMake(10, 10, 40, 40)
+        titImage.frame = CGRectMake(10, 10, 30, 30)
         titImage.backgroundColor = UIColor.grayColor()
-        titLab.frame = CGRectMake(57, 15, screenSize.width/2, 30)
+        titLab.frame = CGRectMake(57, 10, screenSize.width-60, 30)
         titLab.font = UIFont.systemFontOfSize(18)
         
         self.addSubview(titImage)
