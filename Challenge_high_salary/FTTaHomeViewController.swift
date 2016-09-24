@@ -14,7 +14,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     var eduDrop = DropDown()
     let myTableView = UITableView(frame: CGRectMake(screenSize.width, 0, screenSize.width, screenSize.height-20-44-49-37), style: .Plain)
     
-    var hasPosition = false
+    var hasPosition = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -190,9 +190,15 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
     }
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.publishJobBtnClick()
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if hasPosition {
+            return 139
+        }else{
+            return screenSize.height-64-37-49
+        }
     }
+
     // MARK:- 发布职位按钮点击事件
     func publishJobBtnClick() {
         self.navigationController?.pushViewController(FTTaPositionViewController(), animated: true)

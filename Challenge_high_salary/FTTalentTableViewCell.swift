@@ -10,7 +10,7 @@ import UIKit
 
 class FTTalentTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var testLab: UILabel!
+    @IBOutlet weak var noteLab: UILabel!
     @IBOutlet weak var topLine: UIImageView!
     
     @IBOutlet weak var bottomLine: UIView!
@@ -29,10 +29,10 @@ class FTTalentTableViewCell: UITableViewCell {
         let attStr = NSMutableAttributedString(string: str)
 
         attStr.addAttributes([NSForegroundColorAttributeName: UIColor.blackColor()], range: NSMakeRange(0, nsStr.length))
-        attStr.addAttributes([NSForegroundColorAttributeName: UIColor.greenColor()], range: NSMakeRange(nsStr.rangeOfString("现任 ").length, nsStr.rangeOfString(" | ").location-nsStr.rangeOfString("现任 ").length))
+        attStr.addAttributes([NSForegroundColorAttributeName: baseColor], range: NSMakeRange(nsStr.rangeOfString("现任 ").length, nsStr.rangeOfString(" | ").location-nsStr.rangeOfString("现任 ").length))
         attStr.addAttributes([NSForegroundColorAttributeName: UIColor.lightGrayColor()], range: nsStr.rangeOfString(" | "))
         
-        self.testLab.attributedText = attStr
+        self.noteLab.attributedText = attStr
 
     }
     

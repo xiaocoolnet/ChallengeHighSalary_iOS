@@ -42,41 +42,82 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejB-yg-Mpb">
-                        <rect key="frame" x="73" y="41" width="28" height="25"/>
+                        <rect key="frame" x="73" y="41" width="213" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="25i-bU-iyk"/>
                         </constraints>
                         <attributedString key="attributedText">
-                            <fragment content="现">
+                            <fragment content="现任 ">
                                 <attributes>
                                     <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <font key="NSFont" size="14" name="PingFangSC-Regular"/>
+                                    <integer key="NSLigature" value="0"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" defaultTabInterval="43.299999999999997" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                        <tabStops>
+                                            <textTab alignment="left" location="43.299999237060547">
+                                                <options/>
+                                            </textTab>
+                                        </tabStops>
+                                    </paragraphStyle>
                                 </attributes>
                             </fragment>
-                            <fragment content="任">
+                            <fragment content="网页设计">
                                 <attributes>
-                                    <color key="NSColor" red="0.0" green="0.97781032986111116" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="NSColor" red="0.41176470588235292" green="0.84705882352941175" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                     <font key="NSFont" size="14" name="PingFangSC-Regular"/>
+                                    <integer key="NSLigature" value="0"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" defaultTabInterval="43.299999999999997" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                        <tabStops>
+                                            <textTab alignment="left" location="43.299999237060547">
+                                                <options/>
+                                            </textTab>
+                                        </tabStops>
+                                    </paragraphStyle>
+                                </attributes>
+                            </fragment>
+                            <fragment content=" ">
+                                <attributes>
+                                    <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="14" name="PingFangSC-Regular"/>
+                                    <integer key="NSLigature" value="0"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" defaultTabInterval="43.299999999999997" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                        <tabStops>
+                                            <textTab alignment="left" location="43.299999237060547">
+                                                <options/>
+                                            </textTab>
+                                        </tabStops>
+                                    </paragraphStyle>
+                                </attributes>
+                            </fragment>
+                            <fragment content="|">
+                                <attributes>
+                                    <color key="NSColor" red="0.81960784313725488" green="0.81960784313725488" blue="0.81960784313725488" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="14" name="PingFangSC-Regular"/>
+                                    <integer key="NSLigature" value="0"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" defaultTabInterval="43.299999999999997" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                        <tabStops>
+                                            <textTab alignment="left" location="43.299999237060547">
+                                                <options/>
+                                            </textTab>
+                                        </tabStops>
+                                    </paragraphStyle>
+                                </attributes>
+                            </fragment>
+                            <fragment content=" 北京互联有限公司">
+                                <attributes>
+                                    <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="14" name="PingFangSC-Regular"/>
+                                    <integer key="NSLigature" value="0"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" defaultTabInterval="43.299999999999997" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                        <tabStops>
+                                            <textTab alignment="left" location="43.299999237060547">
+                                                <options/>
+                                            </textTab>
+                                        </tabStops>
+                                    </paragraphStyle>
                                 </attributes>
                             </fragment>
                         </attributedString>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OJ8-2Y-Axe">
-                        <rect key="frame" x="177" y="43" width="1" height="21"/>
-                        <color key="backgroundColor" red="0.81960784310000001" green="0.81960784310000001" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="hnN-vD-yUr"/>
-                            <constraint firstAttribute="width" constant="1" id="ujg-yg-w9U"/>
-                        </constraints>
-                    </view>
-                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="北京互联网络公司" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ryl-Nn-eVq">
-                        <rect key="frame" x="188" y="41" width="112" height="25"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="25" id="bme-xc-KPi"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TA还一句话没有介绍哦" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q6D-18-p2X">
@@ -157,15 +198,6 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="网页设计" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biN-i2-fNB">
-                        <rect key="frame" x="111" y="41" width="56" height="25"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="25" id="a32-B3-Shw"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.41176470588235292" green="0.84705882352941175" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="VCy-5B-oNk" firstAttribute="leading" secondItem="5yT-uf-WNp" secondAttribute="trailing" constant="5" id="0hu-Me-ixW"/>
@@ -179,9 +211,6 @@
                     <constraint firstItem="DGg-Mq-Haz" firstAttribute="top" secondItem="eVz-kn-Nco" secondAttribute="bottom" constant="10" id="FZC-4s-Xb5"/>
                     <constraint firstItem="UOP-o7-Hit" firstAttribute="trailing" secondItem="Ufn-ag-sGh" secondAttribute="trailingMargin" id="Jfd-aS-ziS"/>
                     <constraint firstItem="qzI-b6-2g0" firstAttribute="trailing" secondItem="Ufn-ag-sGh" secondAttribute="trailingMargin" id="KIn-AP-xU7"/>
-                    <constraint firstItem="Ryl-Nn-eVq" firstAttribute="leading" secondItem="OJ8-2Y-Axe" secondAttribute="trailing" constant="10" id="LOf-IQ-Ybi"/>
-                    <constraint firstItem="biN-i2-fNB" firstAttribute="leading" secondItem="ejB-yg-Mpb" secondAttribute="trailing" constant="10" id="NR2-lr-6j4"/>
-                    <constraint firstItem="OJ8-2Y-Axe" firstAttribute="leading" secondItem="biN-i2-fNB" secondAttribute="trailing" constant="10" id="Pje-oG-kwG"/>
                     <constraint firstItem="VhR-22-Jn8" firstAttribute="top" secondItem="Ufn-ag-sGh" secondAttribute="topMargin" id="SxP-A8-Cmp"/>
                     <constraint firstItem="eVz-kn-Nco" firstAttribute="leading" secondItem="Ufn-ag-sGh" secondAttribute="leadingMargin" id="VVp-qL-E0x"/>
                     <constraint firstItem="qqj-NJ-Hpi" firstAttribute="centerY" secondItem="YNN-gF-jca" secondAttribute="centerY" id="ZM9-Ob-Dzh"/>
@@ -190,8 +219,6 @@
                     <constraint firstItem="ejB-yg-Mpb" firstAttribute="top" secondItem="b0w-fQ-R6b" secondAttribute="bottom" constant="10" id="azu-zr-Zf4"/>
                     <constraint firstItem="ejB-yg-Mpb" firstAttribute="leading" secondItem="eVz-kn-Nco" secondAttribute="trailing" constant="15" id="bxP-ZZ-HEa"/>
                     <constraint firstItem="6HR-ph-0mn" firstAttribute="centerY" secondItem="kc4-16-xlq" secondAttribute="centerY" id="d8G-NY-MEc"/>
-                    <constraint firstItem="biN-i2-fNB" firstAttribute="top" secondItem="b0w-fQ-R6b" secondAttribute="bottom" constant="10" id="dQc-Ay-BHB"/>
-                    <constraint firstItem="Ryl-Nn-eVq" firstAttribute="top" secondItem="b0w-fQ-R6b" secondAttribute="bottom" constant="10" id="dbz-5g-ZYf"/>
                     <constraint firstAttribute="trailingMargin" secondItem="b0w-fQ-R6b" secondAttribute="trailing" id="e8C-Yy-Gsg"/>
                     <constraint firstItem="b0w-fQ-R6b" firstAttribute="top" secondItem="qzI-b6-2g0" secondAttribute="bottom" constant="5" id="f5H-ZP-ldX"/>
                     <constraint firstItem="qqj-NJ-Hpi" firstAttribute="leading" secondItem="YNN-gF-jca" secondAttribute="trailing" constant="5" id="fEr-DV-Z4R"/>
@@ -199,20 +226,19 @@
                     <constraint firstItem="6HR-ph-0mn" firstAttribute="top" secondItem="DGg-Mq-Haz" secondAttribute="bottom" constant="8" id="k6m-7X-Pht"/>
                     <constraint firstItem="YNN-gF-jca" firstAttribute="leading" secondItem="Ufn-ag-sGh" secondAttribute="leadingMargin" id="klM-bG-Tge"/>
                     <constraint firstItem="qqj-NJ-Hpi" firstAttribute="top" secondItem="DGg-Mq-Haz" secondAttribute="bottom" constant="8" id="lMN-NA-aki"/>
-                    <constraint firstItem="Q6D-18-p2X" firstAttribute="top" secondItem="biN-i2-fNB" secondAttribute="bottom" constant="5" id="lf9-sY-MWo"/>
                     <constraint firstItem="VCy-5B-oNk" firstAttribute="centerY" secondItem="5yT-uf-WNp" secondAttribute="centerY" id="n0L-br-vP0"/>
+                    <constraint firstItem="Q6D-18-p2X" firstAttribute="top" secondItem="ejB-yg-Mpb" secondAttribute="bottom" constant="5" id="qaN-1L-Z4a"/>
                     <constraint firstItem="DGg-Mq-Haz" firstAttribute="leading" secondItem="Ufn-ag-sGh" secondAttribute="leadingMargin" id="u8w-ur-9Qw"/>
                     <constraint firstItem="UOP-o7-Hit" firstAttribute="top" secondItem="b0w-fQ-R6b" secondAttribute="bottom" constant="10" id="uPV-zJ-67O"/>
                     <constraint firstItem="iWo-p9-hRF" firstAttribute="centerY" secondItem="B6t-SY-oZW" secondAttribute="centerY" id="vCH-bV-Y3n"/>
                     <constraint firstItem="5yT-uf-WNp" firstAttribute="centerX" secondItem="Ufn-ag-sGh" secondAttribute="centerX" constant="40" id="y0L-GG-YZS"/>
                     <constraint firstItem="eVz-kn-Nco" firstAttribute="top" secondItem="b0w-fQ-R6b" secondAttribute="bottom" constant="10" id="zCl-lU-yiA"/>
                     <constraint firstItem="qzI-b6-2g0" firstAttribute="top" secondItem="Ufn-ag-sGh" secondAttribute="topMargin" id="zcN-Vw-M5e"/>
-                    <constraint firstItem="OJ8-2Y-Axe" firstAttribute="top" secondItem="b0w-fQ-R6b" secondAttribute="bottom" constant="12" id="zqN-4u-GjG"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="bottomLine" destination="DGg-Mq-Haz" id="OQk-MZ-9AP"/>
-                <outlet property="testLab" destination="ejB-yg-Mpb" id="ZtH-b1-8dg"/>
+                <outlet property="noteLab" destination="ejB-yg-Mpb" id="hQV-sd-Rlb"/>
                 <outlet property="topLine" destination="b0w-fQ-R6b" id="WlS-GK-XJR"/>
             </connections>
             <point key="canvasLocation" x="54.5" y="283"/>
