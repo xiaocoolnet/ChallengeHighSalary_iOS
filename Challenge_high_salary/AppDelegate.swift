@@ -32,9 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         
         loadLocation()
-//        self.window?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
         
-        NSUserDefaults.standardUserDefaults().removeObjectForKey("appVersion")
+//        NSUserDefaults.standardUserDefaults().removeObjectForKey("appVersion")
         
         // 得到当前应用的版本号
         let infoDictionary = NSBundle.mainBundle().infoDictionary
@@ -53,7 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guideViewController.guideImageArray = ["GuideImage1","GuideImage2","GuideImage3"]
             self.window?.rootViewController = guideViewController
         }else{
-            self.window?.rootViewController = FTRoHomeViewController()
+//            self.window?.rootViewController = FTRoHomeViewController()
+            self.window?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
+
         }
         
         return true

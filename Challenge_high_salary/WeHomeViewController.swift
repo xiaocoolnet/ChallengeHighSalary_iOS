@@ -22,7 +22,11 @@ class WeHomeViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         // 挑战高薪 头部
-        let topLab = UILabel()
+        let topLab = UILabel(frame: CGRectMake(
+            0,
+            0,
+            screenSize.width,
+            screenSize.height*0.4185))
         topLab.text = "挑战高薪"
         topLab.font = UIFont.systemFontOfSize(24)
         topLab.textAlignment = .Center
@@ -30,57 +34,47 @@ class WeHomeViewController: UIViewController {
         topLab.textColor = UIColor.whiteColor()
         self.view.addSubview(topLab)
         
-        topLab.snp_makeConstraints { (make) in
-            make.top.left.right.equalTo(self.view)
-            make.height.equalTo(self.view).multipliedBy(0.4185)
-        }
-        
         // 抢人才按钮
-        let forTalentBtn = UIButton()
+        let forTalentBtn = UIButton(frame: CGRectMake(
+            0,
+            screenSize.height*0.5,
+            screenSize.width*0.858,
+            screenSize.height*0.066))
         forTalentBtn.backgroundColor = baseColor
         forTalentBtn.layer.cornerRadius = 8
         forTalentBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         forTalentBtn.setImage(UIImage(named: "1"), forState: .Normal)
         forTalentBtn.setTitle("抢人才", forState: .Normal)
         forTalentBtn.addTarget(self, action: #selector(forTalentBtnClick), forControlEvents: .TouchUpInside)
+        forTalentBtn.center.x = self.view.center.x
         self.view.addSubview(forTalentBtn)
         
-        forTalentBtn.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view).inset(screenSize.height*0.5)
-            make.centerX.equalTo(self.view)
-            make.width.equalTo(self.view).multipliedBy(0.858)
-            make.height.equalTo(self.view).multipliedBy(0.066)
-        }
-        
         // 挑战高薪 按钮
-        let cHSalaryBtn = UIButton()
+        let cHSalaryBtn = UIButton(frame: CGRectMake(
+            0,
+            screenSize.height*0.6,
+            screenSize.width*0.858,
+            screenSize.height*0.066))
         cHSalaryBtn.backgroundColor = baseColor
         cHSalaryBtn.layer.cornerRadius = 8
         cHSalaryBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         cHSalaryBtn.setImage(UIImage(named: "1"), forState: .Normal)
         cHSalaryBtn.setTitle("挑战高薪", forState: .Normal)
         cHSalaryBtn.addTarget(self, action: #selector(chSalaryBtnClick), forControlEvents: .TouchUpInside)
+        cHSalaryBtn.center.x = self.view.center.x
         self.view.addSubview(cHSalaryBtn)
         
-        cHSalaryBtn.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view).inset(screenSize.height*0.6)
-            make.centerX.equalTo(self.view)
-            make.width.equalTo(self.view).multipliedBy(0.858)
-            make.height.equalTo(self.view).multipliedBy(0.066)
-        }
-        
         // 退出登录 按钮
-        let signOutBtn = UIButton()
+        let signOutBtn = UIButton(frame: CGRectMake(
+            0,
+            screenSize.height*0.934,
+            screenSize.width,
+            screenSize.height*0.066))
         signOutBtn.backgroundColor = UIColor.whiteColor()
         signOutBtn.setTitleColor(baseColor, forState: .Normal)
         signOutBtn.setImage(UIImage(named: "1"), forState: .Normal)
         signOutBtn.setTitle("退出登录", forState: .Normal)
         self.view.addSubview(signOutBtn)
-        
-        signOutBtn.snp_makeConstraints { (make) in
-            make.left.right.bottom.equalTo(self.view)
-            make.height.equalTo(self.view).multipliedBy(0.066)
-        }
     }
     
     // MARK: 找人才 按钮 点击事件
