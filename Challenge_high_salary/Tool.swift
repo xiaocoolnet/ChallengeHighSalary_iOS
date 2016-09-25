@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import SnapKit
 
 //MARK:- 基础数据
 let screenSize = UIScreen.mainScreen().bounds.size
