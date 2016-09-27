@@ -40,6 +40,7 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         previewBtn.titleLabel?.font = UIFont.systemFontOfSize(13)
         previewBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         previewBtn.setTitle("预览", forState: .Normal)
+        previewBtn.addTarget(self, action: #selector(clickPreviewBtn), forControlEvents: .TouchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: previewBtn)
         
         // top imageBgView
@@ -100,6 +101,11 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationController?.pushViewController(CHSReEditPersonalInfoViewController(), animated: true)
     }
     
+    // MARK: 点击预览按钮
+    func clickPreviewBtn() {
+        self.navigationController?.pushViewController(CHSReResumePreviewViewController(), animated: true)
+    }
+    
     // MARK:- tableView DataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return resumeItemArray.count
@@ -129,6 +135,8 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 0 {
             self.navigationController?.pushViewController(CHSReJobIntensionViewController(), animated: true)
+        }else if indexPath.row == 1 {
+            self.navigationController?.pushViewController(CHSReEduExperienceViewController(), animated: true)
         }else if indexPath.row == 2 {
             self.navigationController?.pushViewController(CHSReJobExperienceViewController(), animated: true)
         }else if indexPath.row == 3 {

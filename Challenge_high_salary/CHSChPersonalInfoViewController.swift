@@ -34,13 +34,13 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         self.title = "个人信息"
         
         // rightBarButtonItems
-        let shareBtn = UIButton(frame: CGRectMake(0, 0, 50, 24))
-        shareBtn.setTitle("分享", forState: .Normal)
+        let shareBtn = UIButton(frame: CGRectMake(0, 0, 24, 24))
+        shareBtn.setImage(UIImage(named: "ic-分享"), forState: .Normal)
         shareBtn.addTarget(self, action: #selector(shareBtnClick), forControlEvents: .TouchUpInside)
         let shareItem = UIBarButtonItem(customView: shareBtn)
         
-        let collectionBtn = UIButton(frame: CGRectMake(0, 0, 50, 24))
-        collectionBtn.setTitle("收藏", forState: .Normal)
+        let collectionBtn = UIButton(frame: CGRectMake(0, 0, 24, 24))
+        collectionBtn.setImage(UIImage(named: "ic-收藏"), forState: .Normal)
         //        searchBtn.addTarget(self, action: #selector(searchBtnClick), forControlEvents: .TouchUpInside)
         let collectionItem = UIBarButtonItem(customView: collectionBtn)
         
@@ -80,12 +80,14 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         noteView.addSubview(salaryLab)
         
         let overviewNameArray = ["北京","1-3年","本科","全职"]
+        let overviewImgNameArray = ["ic_地点","ic_工作经验","ic_学历","ic_全职"]
         for (i,overviewName) in overviewNameArray.enumerate() {
             let overviewBtn = UIButton(frame: CGRectMake(
                 screenSize.width/CGFloat(overviewNameArray.count)*CGFloat(i),
                 CGRectGetMaxY(salaryLab.frame)+CGRectGetMinY(salaryLab.frame),
                 screenSize.width/CGFloat(overviewNameArray.count),
                 kHeightScale*35))
+            overviewBtn.setImage(UIImage(named: overviewImgNameArray[i]), forState: .Normal)
             overviewBtn.titleLabel?.font = UIFont.systemFontOfSize(14)
             overviewBtn.setTitleColor(UIColor(red: 95/255.0, green: 95/255.0, blue: 95/255.0, alpha: 1), forState: .Normal)
             overviewBtn.setTitle(overviewName, forState: .Normal)
@@ -137,7 +139,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         nameBtn.contentHorizontalAlignment = .Left
         nameBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
         nameBtn.setTitle("王小妞", forState: .Normal)
-        nameBtn.setImage(UIImage(named: "1"), forState: .Normal)
+        nameBtn.setImage(UIImage(named: "ic_女士"), forState: .Normal)
         nameBtn.titleLabel?.sizeToFit()
         nameBtn.imageEdgeInsets = UIEdgeInsetsMake(0, nameBtn.titleLabel!.bounds.size.width, 0, -nameBtn.titleLabel!.bounds.size.width)
         nameBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -(nameBtn.currentImage?.size.width)!, 0, (nameBtn.currentImage?.size.width)!)

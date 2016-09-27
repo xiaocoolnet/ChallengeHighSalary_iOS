@@ -34,6 +34,7 @@ class CHSReMyAdvantagesViewController: UIViewController, UITableViewDataSource, 
         self.customizeDropDown()
     }
     
+    // MARK:- 设置子视图
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)

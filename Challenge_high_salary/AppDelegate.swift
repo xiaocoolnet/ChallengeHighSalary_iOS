@@ -52,8 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guideViewController.guideImageArray = ["GuideImage1","GuideImage2","GuideImage3"]
             self.window?.rootViewController = guideViewController
         }else{
-//            self.window?.rootViewController = FTRoHomeViewController()
-            self.window?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
+            self.window?.rootViewController = CHRoHomeViewController()
+//            self.window?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
 
         }
         
@@ -71,16 +71,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //    NSArray *images=@[@"introductoryPage1",@"introductoryPage2",@"introductoryPage3",@"introductoryPage4"];
 //    [introductoryPagesHelper showIntroductoryPageView:images];
 //    }
-    // MARK:- 引导页
-    func setupIntroductoryPage() {
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(isNoFirstLaunch_key)
-        if NSUserDefaults.standardUserDefaults().boolForKey(isNoFirstLaunch_key) {
-            return
-        }
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: isNoFirstLaunch_key)
-        let images = ["introductoryPage1","introductoryPage2","introductoryPage3","introductoryPage4"]
-        
-    }
+//    // MARK:- 引导页
+//    func setupIntroductoryPage() {
+//        NSUserDefaults.standardUserDefaults().removeObjectForKey(isNoFirstLaunch_key)
+//        if NSUserDefaults.standardUserDefaults().boolForKey(isNoFirstLaunch_key) {
+//            return
+//        }
+//        NSUserDefaults.standardUserDefaults().setBool(true, forKey: isNoFirstLaunch_key)
+//        let images = ["introductoryPage1","introductoryPage2","introductoryPage3","introductoryPage4"]
+//        
+//    }
     
     
     func applicationWillResignActive(application: UIApplication) {

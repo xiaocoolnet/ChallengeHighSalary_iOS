@@ -66,13 +66,13 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         self.navigationItem.titleView = seg
         
         // rightBarButtonItems
-        let retrievalBtn = UIButton(frame: CGRectMake(0, 0, 50, 24))
-        retrievalBtn.setTitle("检索", forState: .Normal)
+        let retrievalBtn = UIButton(frame: CGRectMake(0, 0, 24, 24))
+        retrievalBtn.setImage(UIImage(named: "ic_筛选"), forState: .Normal)
         retrievalBtn.addTarget(self, action: #selector(retrievalBtnClick), forControlEvents: .TouchUpInside)
         let retrievalItem = UIBarButtonItem(customView: retrievalBtn)
         
-        let searchBtn = UIButton(frame: CGRectMake(0, 0, 50, 24))
-        searchBtn.setTitle("搜索", forState: .Normal)
+        let searchBtn = UIButton(frame: CGRectMake(0, 0, 24, 24))
+        searchBtn.setImage(UIImage(named: "ic_搜索"), forState: .Normal)
         searchBtn.addTarget(self, action: #selector(searchBtnClick), forControlEvents: .TouchUpInside)
         let searchItem = UIBarButtonItem(customView: searchBtn)
 

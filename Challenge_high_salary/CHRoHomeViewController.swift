@@ -16,16 +16,16 @@ class CHRoHomeViewController: UITabBarController, UIViewControllerTransitioningD
         // Do any additional setup after loading the view.
         
         let chanceNVC = UINavigationController(rootViewController: ChChHomeViewController())
-        chanceNVC.tabBarItem = UITabBarItem(title: "机会", image: nil, selectedImage: nil)
+        chanceNVC.tabBarItem = UITabBarItem(title: "机会", image: UIImage(named: "tabbar_机会"), selectedImage: UIImage(named: "tabbar_机会_sel"))
         
         let resumeNVC = UINavigationController(rootViewController: ChReHomeViewController())
-        resumeNVC.tabBarItem = UITabBarItem(title: "简历", image: nil, selectedImage: nil)
+        resumeNVC.tabBarItem = UITabBarItem(title: "简历", image: UIImage(named: "tabbar_简历"), selectedImage: UIImage(named: "tabbar_简历_sel"))
         
         let messageNVC = UINavigationController(rootViewController: ChMeHomeViewController())
-        messageNVC.tabBarItem = UITabBarItem(title: "消息", image: nil, selectedImage: nil)
+        messageNVC.tabBarItem = UITabBarItem(title: "消息", image: UIImage(named: "tabbar_消息"), selectedImage: UIImage(named: "tabbar_消息_sel"))
         
         let mineNVC = UINavigationController(rootViewController: ChMiHomeViewController())
-        mineNVC.tabBarItem = UITabBarItem(title: "我的", image: nil, selectedImage: nil)
+        mineNVC.tabBarItem = UITabBarItem(title: "我的", image: UIImage(named: "tabbar_我的"), selectedImage: UIImage(named: "tabbar_我的_sel"))
         
         self.viewControllers = [chanceNVC,resumeNVC,messageNVC,mineNVC]
     }

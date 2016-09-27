@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -18,24 +18,23 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D7m-bf-IaE">
                         <rect key="frame" x="13" y="0.0" width="333" height="129"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pUw-RY-f5M">
-                                <rect key="frame" x="8" y="8" width="27" height="22"/>
-                                <color key="backgroundColor" red="0.41176470588235292" green="0.84705882352941175" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pUw-RY-f5M">
+                                <rect key="frame" x="0.0" y="8" width="27" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="jpp-eF-vPr"/>
                                     <constraint firstAttribute="width" constant="27" id="l4A-2a-1Os"/>
                                 </constraints>
-                                <state key="normal" title="聘">
+                                <state key="normal" image="ic_聘">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="网页设计师" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ExN-Df-rVO">
-                                <rect key="frame" x="43" y="9" width="85" height="21"/>
+                                <rect key="frame" x="35" y="9" width="85" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2DD-jQ-kLC">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_地点" translatesAutoresizingMaskIntoConstraints="NO" id="2DD-jQ-kLC">
                                 <rect key="frame" x="8" y="38" width="15" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="15" id="7oN-08-D9f"/>
@@ -48,20 +47,13 @@
                                 <color key="textColor" red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IFG-6S-brK">
-                                <rect key="frame" x="65" y="38" width="15" height="15"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="15" id="CzB-F1-UGG"/>
-                                    <constraint firstAttribute="height" constant="15" id="meT-PM-b4Z"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1-3年" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XaJ-Bh-Hmh">
                                 <rect key="frame" x="88" y="38" width="34" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jzC-gf-y2t">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_学历" translatesAutoresizingMaskIntoConstraints="NO" id="jzC-gf-y2t">
                                 <rect key="frame" x="130" y="38" width="15" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="eFN-zk-e0A"/>
@@ -74,7 +66,7 @@
                                 <color key="textColor" red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0c8-rT-icg">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_全职" translatesAutoresizingMaskIntoConstraints="NO" id="0c8-rT-icg">
                                 <rect key="frame" x="187" y="38" width="15" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="15" id="PdF-VX-JvW"/>
@@ -119,6 +111,13 @@
                                 <color key="textColor" red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_工作经验" translatesAutoresizingMaskIntoConstraints="NO" id="IFG-6S-brK">
+                                <rect key="frame" x="65" y="38" width="15" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="15" id="CzB-F1-UGG"/>
+                                    <constraint firstAttribute="height" constant="15" id="meT-PM-b4Z"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -133,7 +132,7 @@
                             <constraint firstItem="iV6-K5-Nqq" firstAttribute="leading" secondItem="2DD-jQ-kLC" secondAttribute="trailing" constant="8" id="PRj-52-9WX"/>
                             <constraint firstItem="IFG-6S-brK" firstAttribute="leading" secondItem="iV6-K5-Nqq" secondAttribute="trailing" constant="8" id="Q4h-rv-0UT"/>
                             <constraint firstItem="2DD-jQ-kLC" firstAttribute="top" secondItem="pUw-RY-f5M" secondAttribute="bottom" constant="8" id="bcZ-M2-VJC"/>
-                            <constraint firstItem="pUw-RY-f5M" firstAttribute="leading" secondItem="D7m-bf-IaE" secondAttribute="leading" constant="8" id="cIq-mZ-AAo"/>
+                            <constraint firstItem="pUw-RY-f5M" firstAttribute="leading" secondItem="D7m-bf-IaE" secondAttribute="leading" id="cIq-mZ-AAo"/>
                             <constraint firstItem="tdM-h2-kEF" firstAttribute="top" secondItem="D7m-bf-IaE" secondAttribute="top" constant="9" id="cc5-5E-Qzi"/>
                             <constraint firstItem="jzC-gf-y2t" firstAttribute="centerY" secondItem="2DD-jQ-kLC" secondAttribute="centerY" id="dm1-Sb-ifQ"/>
                             <constraint firstItem="IFG-6S-brK" firstAttribute="centerY" secondItem="2DD-jQ-kLC" secondAttribute="centerY" id="fPB-Kq-ziy"/>
@@ -170,4 +169,11 @@
             <point key="canvasLocation" x="294.5" y="366"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="ic_全职" width="19" height="19"/>
+        <image name="ic_地点" width="19" height="19"/>
+        <image name="ic_学历" width="19" height="19"/>
+        <image name="ic_工作经验" width="19" height="19"/>
+        <image name="ic_聘" width="25" height="19"/>
+    </resources>
 </document>

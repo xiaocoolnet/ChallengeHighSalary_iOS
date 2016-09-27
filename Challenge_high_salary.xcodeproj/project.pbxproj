@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F1224D41D976FEA0094C6CE /* CHSReResumePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1224D21D976FEA0094C6CE /* CHSReResumePreviewViewController.swift */; };
+		1F1224D51D976FEA0094C6CE /* CHSReResumePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F1224D31D976FEA0094C6CE /* CHSReResumePreviewViewController.xib */; };
+		1F1224D71D979CA60094C6CE /* CHSRePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1224D61D979CA60094C6CE /* CHSRePreviewViewController.swift */; };
+		1F1224D91D97AE5A0094C6CE /* CHSReEduExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1224D81D97AE590094C6CE /* CHSReEduExperienceViewController.swift */; };
+		1F1224DB1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1224DA1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift */; };
 		1F14AF431D93CD0A00456A80 /* FTTaRetrievalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F14AF421D93CD0A00456A80 /* FTTaRetrievalViewController.swift */; };
 		1F180F6C1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F180F6B1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift */; };
 		1F180F701D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F180F6F1D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift */; };
@@ -115,6 +120,11 @@
 
 /* Begin PBXFileReference section */
 		02CC2341262A77985746D107 /* Pods_Challenge_high_salary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Challenge_high_salary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F1224D21D976FEA0094C6CE /* CHSReResumePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReResumePreviewViewController.swift; sourceTree = "<group>"; };
+		1F1224D31D976FEA0094C6CE /* CHSReResumePreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSReResumePreviewViewController.xib; sourceTree = "<group>"; };
+		1F1224D61D979CA60094C6CE /* CHSRePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSRePreviewViewController.swift; sourceTree = "<group>"; };
+		1F1224D81D97AE590094C6CE /* CHSReEduExperienceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReEduExperienceViewController.swift; sourceTree = "<group>"; };
+		1F1224DA1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReEditEduExperienceViewController.swift; sourceTree = "<group>"; };
 		1F14AF421D93CD0A00456A80 /* FTTaRetrievalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaRetrievalViewController.swift; sourceTree = "<group>"; };
 		1F180F6B1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChRetrievalViewController.swift; sourceTree = "<group>"; };
 		1F180F6F1D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChPersonalInfoViewController.swift; sourceTree = "<group>"; };
@@ -613,6 +623,11 @@
 				1FDB001C1D8FB712007043B4 /* CHSReJobExperienceViewController.swift */,
 				1FDB001E1D8FC5D7007043B4 /* CHSReProjectExperienceViewController.swift */,
 				1FDB00201D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift */,
+				1F1224D21D976FEA0094C6CE /* CHSReResumePreviewViewController.swift */,
+				1F1224D31D976FEA0094C6CE /* CHSReResumePreviewViewController.xib */,
+				1F1224D61D979CA60094C6CE /* CHSRePreviewViewController.swift */,
+				1F1224D81D97AE590094C6CE /* CHSReEduExperienceViewController.swift */,
+				1F1224DA1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -857,6 +872,7 @@
 				1FF3C6AD1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.xib in Resources */,
 				1FCDFEC71D73E6DB0067970B /* Assets.xcassets in Resources */,
 				1FCDFEC51D73E6DB0067970B /* Main.storyboard in Resources */,
+				1F1224D51D976FEA0094C6CE /* CHSReResumePreviewViewController.xib in Resources */,
 				1FF06CD51D7D609A0032943B /* Info.plist in Resources */,
 				1F482B8C1D7FBE400079A62B /* citydict.plist in Resources */,
 				1F4FD2671D76C01D00FF7040 /* FontAwesome.ttf in Resources */,
@@ -937,6 +953,7 @@
 				1FDB00261D8FD2A0007043B4 /* CHSMiSettingViewController.swift in Sources */,
 				1F482B921D7FF7B80079A62B /* ChChSearchViewController.swift in Sources */,
 				1FF524D11D88DBD800E1B70F /* LoginNetUtil.swift in Sources */,
+				1F1224DB1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift in Sources */,
 				1F87411B1D82AF47007B8793 /* LoForgetPasswordViewController.swift in Sources */,
 				1FDB00211D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift in Sources */,
 				1FF9DB181D96216500F0C69D /* FTMiSettingViewController.swift in Sources */,
@@ -970,11 +987,13 @@
 				1FA93F511D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.swift in Sources */,
 				1FF06CD41D7D609A0032943B /* DPDUIView+Extension.swift in Sources */,
 				1FF524DE1D88F6EC00E1B70F /* MBProgressHUD.m in Sources */,
+				1F1224D71D979CA60094C6CE /* CHSRePreviewViewController.swift in Sources */,
 				1F482B891D7FBD630079A62B /* ChChCityViewController.swift in Sources */,
 				1FF06CDD1D7D6D970032943B /* ChChFindJobTableViewCell.swift in Sources */,
 				1FF06CBC1D7D17760032943B /* ChMeHomeViewController.swift in Sources */,
 				1FF06CB41D7D16540032943B /* CHRoHomeViewController.swift in Sources */,
 				1FF3C6AC1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.swift in Sources */,
+				1F1224D41D976FEA0094C6CE /* CHSReResumePreviewViewController.swift in Sources */,
 				1F482B9C1D8002560079A62B /* ChChSearchTableViewCell.swift in Sources */,
 				1F87411D1D82C22B007B8793 /* LoRegisterViewController.swift in Sources */,
 				1FEC64DE1D9121460045038C /* CHSMiCheckPasswordViewController.swift in Sources */,
@@ -999,6 +1018,7 @@
 				1F180F701D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift in Sources */,
 				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,
 				1F4FD25B1D767CC500FF7040 /* Tool.swift in Sources */,
+				1F1224D91D97AE5A0094C6CE /* CHSReEduExperienceViewController.swift in Sources */,
 				1F9CE7C31D8802FC002E6632 /* CHSReJobIntensionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
