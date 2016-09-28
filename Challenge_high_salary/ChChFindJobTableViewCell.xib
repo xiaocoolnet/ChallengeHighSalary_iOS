@@ -61,8 +61,8 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ic_交流" translatesAutoresizingMaskIntoConstraints="NO" id="yPM-3I-8Dk">
-                        <rect key="frame" x="206" y="41" width="17" height="15"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_交流" translatesAutoresizingMaskIntoConstraints="NO" id="yPM-3I-8Dk">
+                        <rect key="frame" x="208" y="41" width="17" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="17" id="6Vq-O2-Hb7"/>
                             <constraint firstAttribute="height" constant="15" id="n9L-FS-g5t"/>
@@ -151,9 +151,6 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ekm-US-vRG">
-                        <rect key="frame" x="8" y="0.0" width="359" height="30"/>
-                    </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_V" translatesAutoresizingMaskIntoConstraints="NO" id="dT8-MW-SFY" userLabel="V">
                         <rect key="frame" x="54" y="87" width="15" height="15"/>
                         <constraints>
@@ -161,6 +158,9 @@
                             <constraint firstAttribute="width" constant="15" id="yc3-xK-A4L"/>
                         </constraints>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ekm-US-vRG">
+                        <rect key="frame" x="8" y="0.0" width="359" height="30"/>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="1dQ-6W-Hzj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="0es-zT-rVs"/>

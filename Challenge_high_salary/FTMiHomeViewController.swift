@@ -144,8 +144,8 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         switch (indexPath.section,indexPath.row) {
         case (1,0):
             self.navigationController?.pushViewController(FTMiMyCollectionViewController(), animated: true)
-        case (1,2):
-            break
+        case (1,1):
+            self.navigationController?.pushViewController(FTMiMyRewardViewController(), animated: true)
         case (2,0):
             self.navigationController?.pushViewController(FTMiMyHiringRecordViewController(), animated: true)
             break

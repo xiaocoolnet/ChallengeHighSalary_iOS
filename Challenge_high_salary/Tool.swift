@@ -18,18 +18,42 @@ let kHeightScale = screenSize.height/667
 let baseColor = UIColor(red: 105/255.0, green: 216/255.0, blue: 147/255.0, alpha: 1)
 
 //MARK:- 网络数据
-let kDomainName = "http://app.chinanurse.cn/"
+let kDomainName = "http://122.114.156.127/"
 let kPortPrefix = "\(kDomainName)index.php?g=apps&m=index&a="
 
 //MARK:- APP数据
-let isNoFirstLaunch_key = "isNoFirstLaunch"
-var positioningCity = "未知"
+// MARK: Key
 var myCity = NSUserDefaults.standardUserDefaults().stringForKey("myCity")
+let isLogin_key = "isLogin"
+let logInfo_key = "login_info"
+let userName_key = "login_name"
+let userPwd_key = "login_password"
 // 挑战高薪-我的-设置-消息提醒设置 key 前缀
 let CHSMiMessageRemindSetting_key_pre = "CHSMiMessageRemindSetting"
 
+var isLogin = NSUserDefaults.standardUserDefaults().boolForKey(isLogin_key)
+var positioningCity = "未知"
+
 //MARK:- 公用方法
 typealias ResponseClosures = (success:Bool,response:AnyObject?)->Void
+
+@objc(StatusModel)
+class StatusModel: D3Model {
+    
+    var status: String = ""
+    
+}
+
+@objc(errorModel)
+class errorModel: D3Model {
+    
+    
+    var status: String = ""
+    
+    var data: String = ""
+    
+    
+}
 
 typealias TimerHandle = (timeInterVal:Int)->Void
 
@@ -157,4 +181,35 @@ func calculateWidth(string:String,size:CGFloat,height:  CGFloat) -> CGFloat {
     let boundingRect = String(string).boundingRectWithSize(CGSizeMake(0, height), options: options, attributes: [NSFontAttributeName:UIFont.systemFontOfSize(size)], context: nil)
     
     return boundingRect.width
+}
+
+//MARK: 交换 button 位置 （图片靠右）
+var exchangedBtnArray = [UIButton]()
+func exchangeBtnImageAndTitle(button: UIButton, margin: CGFloat) {
+    
+    // 防止重复交换
+    for exchangedBtn in exchangedBtnArray {
+        if exchangedBtn == button {
+            return
+        }
+    }
+    
+    if (button.currentImage != nil) {
+        
+        button.titleLabel?.sizeToFit()
+
+        if button.bounds.size.width >= button.titleLabel!.bounds.size.width+(button.currentImage?.size.width)!+margin || button.bounds.size.width == 0 {
+            
+            button.imageEdgeInsets = UIEdgeInsetsMake(0, button.titleLabel!.bounds.size.width+margin, 0, -button.titleLabel!.bounds.size.width+margin)
+            button.titleEdgeInsets = UIEdgeInsetsMake(0, -(button.currentImage?.size.width)!, 0, (button.currentImage?.size.width)!)
+        }else{ // 针对 button.title 过长的解决办法
+            
+            button.imageEdgeInsets = UIEdgeInsetsMake(0, button.bounds.size.width-(button.currentImage?.size.width)!, 0, -button.bounds.size.width-(button.currentImage?.size.width)!)
+            button.titleLabel?.bounds.size.width = button.bounds.size.width-(button.currentImage?.size.width)!-margin
+            button.titleEdgeInsets = UIEdgeInsetsMake(0, -(button.currentImage?.size.width)!, 0, (button.currentImage?.size.width)!)
+        }
+        exchangedBtnArray.append(button)
+    }
+    
+//    }
 }

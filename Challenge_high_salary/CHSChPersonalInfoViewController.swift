@@ -28,11 +28,18 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         self.tabBarController?.tabBar.hidden = true
     }
     
+    // MARK: popViewcontroller
+    func popViewcontroller() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+   
     // MARK: 设置 NavigationBar
     func setNavigationBar() {
         
         self.title = "个人信息"
         
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+
         // rightBarButtonItems
         let shareBtn = UIButton(frame: CGRectMake(0, 0, 24, 24))
         shareBtn.setImage(UIImage(named: "ic-分享"), forState: .Normal)
@@ -140,9 +147,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         nameBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
         nameBtn.setTitle("王小妞", forState: .Normal)
         nameBtn.setImage(UIImage(named: "ic_女士"), forState: .Normal)
-        nameBtn.titleLabel?.sizeToFit()
-        nameBtn.imageEdgeInsets = UIEdgeInsetsMake(0, nameBtn.titleLabel!.bounds.size.width, 0, -nameBtn.titleLabel!.bounds.size.width)
-        nameBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -(nameBtn.currentImage?.size.width)!, 0, (nameBtn.currentImage?.size.width)!)
+        exchangeBtnImageAndTitle(nameBtn, margin: 5)
         companyView.addSubview(nameBtn)
         
         let hrNoteLab = UILabel(frame: CGRectMake(

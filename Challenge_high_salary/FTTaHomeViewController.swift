@@ -38,7 +38,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
 
         // rightBarButtonItem
         let retrievalBtn = UIButton(frame: CGRectMake(0, 0, 50, 24))
-        retrievalBtn.setTitle("检索", forState: .Normal)
+        retrievalBtn.setImage(UIImage(named: "ic_筛选"), forState: .Normal)
         retrievalBtn.addTarget(self, action: #selector(retrievalBtnClick), forControlEvents: .TouchUpInside)
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: retrievalBtn)

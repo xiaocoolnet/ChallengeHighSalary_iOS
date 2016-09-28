@@ -1,14 +1,14 @@
 //
-//  FTMiMyHiringRecordViewController.swift
+//  FTMiMyRewardViewController.swift
 //  Challenge_high_salary
 //
-//  Created by zhang on 2016/9/24.
+//  Created by zhang on 2016/9/28.
 //  Copyright © 2016年 北京校酷网络科技公司. All rights reserved.
 //
 
 import UIKit
 
-class FTMiMyHiringRecordViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FTMiMyRewardViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let rootTableView = UITableView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height-20-44-49-37), style: .Grouped)
     
@@ -31,28 +31,15 @@ class FTMiMyHiringRecordViewController: UIViewController, UITableViewDataSource,
     // MARK: 设置 NavigationBar
     func setNavigationBar() {
         
-        self.title = "我的招聘"
+        self.title = "我的悬赏"
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
-
-//        // rightBarButtonItem
-//        let deleteBtn = UIButton(frame: CGRectMake(0, 0, 50, 24))
-//        deleteBtn.setTitle("删除", forState: .Normal)
-//        deleteBtn.addTarget(self, action: #selector(deleteBtnClick), forControlEvents: .TouchUpInside)
-//        
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: deleteBtn)
     }
     
     // MARK: popViewcontroller
     func popViewcontroller() {
         self.navigationController?.popViewControllerAnimated(true)
     }
-    
-//    // MARK: 删除按钮点击事件
-//    func deleteBtnClick() {
-//        print("ChChHomeViewController searchBtnClick")
-//        //        self.navigationController?.pushViewController(ChChSearchViewController(), animated: true)
-//    }
     
     // MARK: 设置子视图
     func setSubviews() {
@@ -62,9 +49,9 @@ class FTMiMyHiringRecordViewController: UIViewController, UITableViewDataSource,
         
         // tableView
         rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height-20-44)
-        rootTableView.registerNib(UINib.init(nibName: "FTMiMyHiringRecordTableViewCell", bundle: nil), forCellReuseIdentifier: "FTMiMyHiringRecordCell")
+        rootTableView.registerNib(UINib.init(nibName: "FTMiMyRewardTableViewCell", bundle: nil), forCellReuseIdentifier: "FTMiMyRewardCell")
         rootTableView.separatorStyle = .None
-        rootTableView.rowHeight = 70
+        rootTableView.rowHeight = 145
         rootTableView.dataSource = self
         rootTableView.delegate = self
         self.view.addSubview(rootTableView)
@@ -81,7 +68,7 @@ class FTMiMyHiringRecordViewController: UIViewController, UITableViewDataSource,
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("FTMiMyHiringRecordCell") as! FTMiMyHiringRecordTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("FTMiMyRewardCell") as! FTMiMyRewardTableViewCell
         cell.selectionStyle = .None
         
         return cell

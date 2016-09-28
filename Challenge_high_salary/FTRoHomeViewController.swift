@@ -19,10 +19,10 @@ class FTRoHomeViewController: UITabBarController {
         talentNVC.tabBarItem = UITabBarItem(title: "人才", image: nil, selectedImage: nil)
         
         let messageNVC = UINavigationController(rootViewController: FTMeHomeViewController())
-        messageNVC.tabBarItem = UITabBarItem(title: "消息", image: nil, selectedImage: nil)
+        messageNVC.tabBarItem = UITabBarItem(title: "消息", image: UIImage(named: "tabbar_消息"), selectedImage: UIImage(named: "tabbar_消息_sel"))
         
         let mineNVC = UINavigationController(rootViewController: FTMiHomeViewController())
-        mineNVC.tabBarItem = UITabBarItem(title: "我的", image: nil, selectedImage: nil)
+        mineNVC.tabBarItem = UITabBarItem(title: "我的", image: UIImage(named: "tabbar_我的"), selectedImage: UIImage(named: "tabbar_我的_sel"))
         
         self.viewControllers = [talentNVC,messageNVC,mineNVC]
 

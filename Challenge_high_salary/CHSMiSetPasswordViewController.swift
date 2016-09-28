@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CHSMiSetPasswordViewController: UIViewController {
+class CHSMiSetPasswordViewController: UIViewController, UITextFieldDelegate {
 
     // 新密码输入框
     let newPwdTF = UITextField()
@@ -23,9 +23,17 @@ class CHSMiSetPasswordViewController: UIViewController {
         self.setSubviews()
     }
     
+    // MARK: popViewcontroller
+    func popViewcontroller() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     // MARK:- 设置子视图
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
         self.title = "修改密码"
@@ -50,6 +58,9 @@ class CHSMiSetPasswordViewController: UIViewController {
         newPwdTF.frame = CGRectMake(kWidthScale*110, 0, screenSize.width-kWidthScale*kWidthScale*130, newPwdBgView.frame.size.height)
         newPwdTF.font = UIFont.systemFontOfSize(14)
         newPwdTF.placeholder = "请设置登录密码"
+        newPwdTF.keyboardType = .Default
+        newPwdTF.returnKeyType = .Next
+        newPwdTF.delegate = self
         newPwdBgView.addSubview(newPwdTF)
         
         // MARK: 确认密码 背景
@@ -76,6 +87,9 @@ class CHSMiSetPasswordViewController: UIViewController {
             newPwdBgView.frame.size.height)
         sureNewPwdTF.font = UIFont.systemFontOfSize(14)
         sureNewPwdTF.placeholder = "再次输入密码"
+        sureNewPwdTF.keyboardType = .Default
+        sureNewPwdTF.returnKeyType = .Next
+        sureNewPwdTF.delegate = self
         surePwdBgView.addSubview(sureNewPwdTF)
         
         // 修改密码 按钮
@@ -90,8 +104,58 @@ class CHSMiSetPasswordViewController: UIViewController {
         
     }
     
+    // MARK: UITextField delegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == newPwdTF {
+            sureNewPwdTF.becomeFirstResponder()
+        }else if textField == sureNewPwdTF {
+            sureNewPwdTF.resignFirstResponder()
+            changePwdBtnClick()
+        }
+        return true
+    }
+    
+    // MARK: 修改密码 按钮 点击事件
     func changePwdBtnClick() {
-        self.navigationController?.popToViewController((self.navigationController?.viewControllers[(self.navigationController?.viewControllers.endIndex)!-3])!, animated: true)
+        
+        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        
+        if newPwdTF.text!.isEmpty {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入登录密码"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if sureNewPwdTF.text!.isEmpty {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入确认密码"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if newPwdTF.text! != sureNewPwdTF.text! {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "两次密码输入不一致"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }
+        
+        CHSMiNetUtil().changePassword(newPwdTF.text!) { (success, response) in
+            if success {
+                checkCodeHud.mode = .Text
+                checkCodeHud.labelText = "密码修改成功"
+                checkCodeHud.hide(true, afterDelay: 1)
+                
+                let time: NSTimeInterval = 1.0
+                let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                
+                dispatch_after(delay, dispatch_get_main_queue()) {
+                    self.navigationController?.popToViewController((self.navigationController?.viewControllers[(self.navigationController?.viewControllers.endIndex)!-3])!, animated: true)
+                }
+            }else{
+                checkCodeHud.mode = .Text
+                checkCodeHud.labelText = String(response!)
+                checkCodeHud.hide(true, afterDelay: 1)
+            }
+        }
     }
     
 

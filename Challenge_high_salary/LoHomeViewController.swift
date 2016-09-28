@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoHomeViewController: UIViewController {
+class LoHomeViewController: UIViewController, UITextFieldDelegate {
 
     let lightGrayColor = UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
     
@@ -43,6 +43,10 @@ class LoHomeViewController: UIViewController {
         // 电话号码输入框
         telTF.frame = CGRectMake(CGRectGetMaxX(telLab.frame)+5, telLab.frame.origin.y, CGRectGetMaxX(inputBgView.frame)-CGRectGetMaxX(telLab.frame)+5, telLab.frame.size.height)
         telTF.placeholder = "请输入手机号"
+        telTF.text = CHSUserInfo.currentUserInfo.phoneNumber
+        telTF.keyboardType = .NumberPad
+        telTF.returnKeyType = .Next
+        telTF.delegate = self
         inputBgView.addSubview(telTF)
         
         // 中间虚线
@@ -57,6 +61,8 @@ class LoHomeViewController: UIViewController {
         // 密码输入框
         pwdTF.frame = CGRectMake(CGRectGetMaxX(pwdLab.frame)+5, pwdLab.frame.origin.y, CGRectGetMaxX(inputBgView.frame)-CGRectGetMaxX(pwdLab.frame)+5, pwdLab.frame.size.height)
         pwdTF.placeholder = "请输入密码"
+        pwdTF.keyboardType = .Default
+        pwdTF.delegate = self
         inputBgView.addSubview(pwdTF)
         
         // 登录按钮
@@ -170,6 +176,17 @@ class LoHomeViewController: UIViewController {
 //            frame: CGRectMake(CGRectGetMinX(threeImg.frame), CGRectGetMaxY(threeImg.frame), CGRectGetWidth(threeImg.frame), )
         }
 
+        autoLogin()
+    }
+    
+    // MARK: UITextFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == telTF {
+            pwdTF.becomeFirstResponder()
+        }else if textField == pwdTF {
+            loginBtnClick()
+        }
+        return true
     }
     
     // MARK: 登录按钮点击事件
@@ -193,28 +210,51 @@ class LoHomeViewController: UIViewController {
             return
         }
         
-
+        LoginMethod(telTF.text!, password: pwdTF.text!, hud: checkCodeHud)
+    }
+    
+    // MARK: 自动登录
+    func autoLogin() {
         
-        LoginNetUtil().applogin(telTF.text!, password: pwdTF.text!) { (success, response) in
+        let logInfo = NSUserDefaults.standardUserDefaults().objectForKey(logInfo_key) as? Dictionary<String,String>
+        
+        if logInfo != nil {
+            let usernameStr = logInfo![userName_key] ?? ""
+            let passwordStr = logInfo![userPwd_key] ?? ""
+            telTF.text = usernameStr
+            pwdTF.text = passwordStr
             
-            dispatch_async(dispatch_get_main_queue(), { 
+            let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            checkCodeHud.removeFromSuperViewOnHide = true
+            
+            LoginMethod(telTF.text!, password: pwdTF.text!, hud: checkCodeHud)
+        }
+    }
+    // MARK: 登录方法
+    func LoginMethod(phone: String, password:String, hud: MBProgressHUD){
+        
+        LoginNetUtil().applogin(phone, password: password) { (success, response) in
+            
+            dispatch_async(dispatch_get_main_queue(), {
                 
                 if success {
                     
-                    checkCodeHud.hide(true)
-                    
+                    hud.hide(true)
+                    NSUserDefaults.standardUserDefaults().setObject([userName_key:phone,userPwd_key:password], forKey: logInfo_key)
+
                     self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
                 }else{
                     
-                    checkCodeHud.mode = .Text
-                    checkCodeHud.labelFont = UIFont.systemFontOfSize(14)
-                    checkCodeHud.labelText = "登录失败"
-                    checkCodeHud.detailsLabelFont = UIFont.systemFontOfSize(16)
-                    checkCodeHud.detailsLabelText = response as! String
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    hud.mode = .Text
+                    hud.labelFont = UIFont.systemFontOfSize(14)
+                    hud.labelText = "登录失败"
+                    hud.detailsLabelFont = UIFont.systemFontOfSize(16)
+                    hud.detailsLabelText = response as! String
+                    hud.hide(true, afterDelay: 1)
                 }
             })
         }
+        
     }
     
     // MARK: 忘记密码按钮点击事件

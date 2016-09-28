@@ -65,16 +65,17 @@ class WeHomeViewController: UIViewController {
         self.view.addSubview(cHSalaryBtn)
         
         // 退出登录 按钮
-        let signOutBtn = UIButton(frame: CGRectMake(
+        let logOutBtn = UIButton(frame: CGRectMake(
             0,
             screenSize.height*0.934,
             screenSize.width,
             screenSize.height*0.066))
-        signOutBtn.backgroundColor = UIColor.whiteColor()
-        signOutBtn.setTitleColor(baseColor, forState: .Normal)
-        signOutBtn.setImage(UIImage(named: "1"), forState: .Normal)
-        signOutBtn.setTitle("退出登录", forState: .Normal)
-        self.view.addSubview(signOutBtn)
+        logOutBtn.backgroundColor = UIColor.whiteColor()
+        logOutBtn.setTitleColor(baseColor, forState: .Normal)
+        logOutBtn.setImage(UIImage(named: "1"), forState: .Normal)
+        logOutBtn.setTitle("退出登录", forState: .Normal)
+        logOutBtn.addTarget(self, action: #selector(logOutBtnClick), forControlEvents: .TouchUpInside)
+        self.view.addSubview(logOutBtn)
     }
     
     // MARK: 找人才 按钮 点击事件
@@ -137,6 +138,14 @@ class WeHomeViewController: UIViewController {
                     self.presentViewController(toVC, animated: false, completion: nil)
                 }
         }
+    }
+    
+    // MARK: 退出 按钮 点击事件
+    func logOutBtnClick() {
+        NSUserDefaults.standardUserDefaults().setBool(false, forKey: isLogin_key)
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(logInfo_key)
+//        self.presentViewController(UINavigationController(rootViewController: LoHomeViewController()), animated: true, completion: nil)
+        UIApplication.sharedApplication().keyWindow?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
     }
 
     override func didReceiveMemoryWarning() {

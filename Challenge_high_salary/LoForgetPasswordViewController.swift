@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoForgetPasswordViewController: UIViewController {
+class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
 
     let lightGrayColor = UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
     
@@ -36,8 +36,17 @@ class LoForgetPasswordViewController: UIViewController {
         self.setSubviews()
     }
     
+    // MARK: popViewcontroller
+    func popViewcontroller() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    // MARK:- 设置子视图
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        
         self.view.backgroundColor = lightGrayColor
         self.title = "忘记密码"
         
@@ -64,6 +73,9 @@ class LoForgetPasswordViewController: UIViewController {
         // 电话号码输入框
         telTF.frame = CGRectMake(CGRectGetMaxX(telLab.frame)+5, 0, kWidthScale*185, subHeight)
         telTF.placeholder = "请输入手机号"
+        telTF.keyboardType = .NumberPad
+        telTF.returnKeyType = .Next
+        telTF.delegate = self
         inputBgView.addSubview(telTF)
         
         // 获取验证码 按钮
@@ -95,6 +107,9 @@ class LoForgetPasswordViewController: UIViewController {
             screenSize.width-kWidthScale*11-CGRectGetMaxX(telLab.frame)+5,
             subHeight)
         checkCodeTF.placeholder = "请输入验证码"
+        checkCodeTF.keyboardType = .NumberPad
+        checkCodeTF.returnKeyType = .Next
+        checkCodeTF.delegate = self
         inputBgView.addSubview(checkCodeTF)
         
         // 中间虚线
@@ -117,6 +132,8 @@ class LoForgetPasswordViewController: UIViewController {
             screenSize.width-kWidthScale*11-CGRectGetMaxX(checkCodeLab.frame)+5,
             subHeight)
         newPwdTF.placeholder = "请输入新密码"
+        newPwdTF.keyboardType = .Default
+        newPwdTF.delegate = self
         inputBgView.addSubview(newPwdTF)
         
         // 中间虚线
@@ -139,6 +156,8 @@ class LoForgetPasswordViewController: UIViewController {
             screenSize.width-kWidthScale*11-CGRectGetMaxX(checkCodeLab.frame)+5,
             subHeight)
         surePwdTF.placeholder = "请输入确认密码"
+        surePwdTF.keyboardType = .Default
+        surePwdTF.delegate = self
         inputBgView.addSubview(surePwdTF)
         
         // 完成按钮
@@ -161,6 +180,23 @@ class LoForgetPasswordViewController: UIViewController {
         agreementBtn.setTitleColor(baseColor, forState: .Normal)
         agreementBtn.addTarget(self, action: #selector(agreementBtnClick), forControlEvents: .TouchUpInside)
         self.view.addSubview(agreementBtn)
+    }
+    
+    // MARK: UITextFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == telTF {
+            checkCodeTF.becomeFirstResponder()
+            if self.getCheckCodeBtn.userInteractionEnabled {
+                getCheckCodeBtnClick()
+            }
+        }else if textField == checkCodeTF {
+            newPwdTF.becomeFirstResponder()
+        }else if textField == newPwdTF {
+            surePwdTF.becomeFirstResponder()
+        }else if textField == surePwdTF {
+            doneBtnClick()
+        }
+        return true
     }
     
     //  倒计时功能

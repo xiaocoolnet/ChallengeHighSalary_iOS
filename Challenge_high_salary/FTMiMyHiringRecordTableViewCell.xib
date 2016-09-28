@@ -21,9 +21,8 @@
                         <color key="textColor" red="0.98823529409999999" green="0.42745098040000001" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z7l-3U-qUH">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_地点" translatesAutoresizingMaskIntoConstraints="NO" id="Z7l-3U-qUH">
                         <rect key="frame" x="8" y="46" width="15" height="20"/>
-                        <color key="backgroundColor" red="0.4039215686" green="0.4039215686" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="wa4-rD-vTd"/>
                             <constraint firstAttribute="width" constant="15" id="wla-pi-ZaM"/>
@@ -35,9 +34,8 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ipK-Ki-AqO">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_工作经验" translatesAutoresizingMaskIntoConstraints="NO" id="ipK-Ki-AqO">
                         <rect key="frame" x="105" y="46" width="15" height="20"/>
-                        <color key="backgroundColor" red="0.4039215686" green="0.4039215686" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="an6-EG-3Ik"/>
                             <constraint firstAttribute="width" constant="15" id="lQJ-DQ-oZH"/>
@@ -49,9 +47,8 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dey-20-UiB">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_学历" translatesAutoresizingMaskIntoConstraints="NO" id="dey-20-UiB">
                         <rect key="frame" x="220" y="46" width="15" height="20"/>
-                        <color key="backgroundColor" red="0.4039215686" green="0.4039215686" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="bTX-cP-8qa"/>
                             <constraint firstAttribute="width" constant="15" id="pz4-0B-asD"/>
@@ -63,9 +60,8 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f2O-bX-JUq">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_全职" translatesAutoresizingMaskIntoConstraints="NO" id="f2O-bX-JUq">
                         <rect key="frame" x="319" y="46" width="15" height="20"/>
-                        <color key="backgroundColor" red="0.4039215686" green="0.4039215686" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="15" id="IhI-oL-6X4"/>
                             <constraint firstAttribute="height" constant="20" id="nh5-n2-mdu"/>
@@ -117,4 +113,10 @@
             <point key="canvasLocation" x="54.5" y="283"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="ic_全职" width="19" height="19"/>
+        <image name="ic_地点" width="19" height="19"/>
+        <image name="ic_学历" width="19" height="19"/>
+        <image name="ic_工作经验" width="19" height="19"/>
+    </resources>
 </document>

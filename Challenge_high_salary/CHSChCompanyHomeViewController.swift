@@ -29,12 +29,22 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
         self.tabBarController?.tabBar.hidden = true
     }
     
+    // MARK: popViewcontroller
+    func popViewcontroller() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     // MARK:- 设置子视图
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        
+        self.title = "公司主页"
+
         self.view.backgroundColor = UIColor.whiteColor()
         
-        rootTableView.frame = CGRectMake(0, 20, screenSize.width, screenSize.height-20-45)
+        rootTableView.frame = CGRectMake(0, 0, screenSize.width, screenSize.height-45)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         rootTableView.separatorStyle = .None
         rootTableView.registerNib(UINib(nibName: "CHSChCompanyPositionTableViewCell", bundle: nil), forCellReuseIdentifier: "CHSChCompanyPositionCell")
@@ -46,7 +56,8 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
         setHeaderView()
         
         let backBtn = UIButton(frame: CGRectMake(8, 28, kHeightScale*25, kHeightScale*25))
-        backBtn.backgroundColor = baseColor
+//        backBtn.backgroundColor = baseColor
+        backBtn.setImage(UIImage(named: "ic_返回_green"), forState: .Normal)
         backBtn.addTarget(self, action: #selector(backBtnClick), forControlEvents: .TouchUpInside)
         self.view.addSubview(backBtn)
         
@@ -229,6 +240,21 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 2 {
             self.navigationController?.pushViewController(CHSChPersonalInfoViewController(), animated: true)
+        }
+    }
+    
+    // MARK: scrollview delegate
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if scrollView.contentOffset.y >= 64 {
+            UIView.animateWithDuration(0.5, animations: { 
+                
+                self.navigationController?.navigationBar.hidden = false
+            })
+        }else{
+            UIView.animateWithDuration(0.5, animations: {
+                
+                self.navigationController?.navigationBar.hidden = true
+            })
         }
     }
 

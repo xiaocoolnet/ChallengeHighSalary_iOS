@@ -8,24 +8,6 @@
 
 import UIKit
 
-@objc(StatusModel)
-class StatusModel: D3Model {
-    
-    var status: String = ""
-    
-}
-
-@objc(errorModel)
-class errorModel: D3Model {
-    
-    
-    var status: String = ""
-    
-    var data: String = ""
-    
-    
-}
-
 @objc(CheckphoneModel)
 class CheckphoneModel: D3Model {
     

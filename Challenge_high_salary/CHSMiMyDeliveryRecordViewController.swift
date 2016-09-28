@@ -27,10 +27,18 @@ class CHSMiMyDeliveryRecordViewController: UIViewController, UITableViewDataSour
         self.tabBarController?.tabBar.hidden = true
     }
     
+    // MARK: popViewcontroller
+    func popViewcontroller() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     // MARK: 设置子视图
     func setSubviews() {
         
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+
         self.view.backgroundColor = UIColor.whiteColor()
         
         self.title = "我的投递记录"

@@ -26,9 +26,15 @@ class ChChSearchViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: 设置 NavigationBar
     func setNavigationBar() {
         
-        let cityBtn = UIButton(frame: CGRectMake(0, 0, 50, 44))
+        let cityBtn = UIButton(frame: CGRectMake(0, 0, 65, 44))
+        cityBtn.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 10)
+        cityBtn.contentHorizontalAlignment = .Center
+        cityBtn.titleLabel?.font = UIFont.systemFontOfSize(17)
         cityBtn.setTitle("烟台", forState: .Normal)
+        cityBtn.titleLabel!.lineBreakMode =  .ByTruncatingTail
         cityBtn.addTarget(self, action: #selector(cityBtnClick), forControlEvents: .TouchUpInside)
+        cityBtn.setImage(UIImage(named: "城市下拉箭头"), forState: .Normal)
+        exchangeBtnImageAndTitle(cityBtn, margin: 5)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cityBtn)
         
         //        let seg = UISegmentedControl(frame: CGRectMake(0, 0, 160, 44))

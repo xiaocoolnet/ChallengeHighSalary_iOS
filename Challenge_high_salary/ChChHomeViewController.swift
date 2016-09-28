@@ -53,8 +53,11 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     func setNavigationBar() {
         
         // 城市按钮
-        cityBtn.frame = CGRectMake(0, 0, 60, 44)
+        cityBtn.frame = CGRectMake(0, 0, 100, 44)
+        cityBtn.contentHorizontalAlignment = .Left
         cityBtn.setTitle(positioningCity, forState: .Normal)
+        cityBtn.setImage(UIImage(named: "城市下拉箭头"), forState: .Normal)
+        exchangeBtnImageAndTitle(cityBtn, margin: 5)
         cityBtn.addTarget(self, action: #selector(cityBtnClick), forControlEvents: .TouchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cityBtn)
         
@@ -124,6 +127,8 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         let salaryBtn = UIButton()
         salaryBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         salaryBtn.setTitle("薪资", forState: .Normal)
+        salaryBtn.setImage(UIImage(named: "ic_下拉"), forState: .Normal)
+        exchangeBtnImageAndTitle(salaryBtn, margin: 5)
         
         // 薪资 下拉
         salaryDrop.anchorView = salaryBtn
@@ -144,6 +149,8 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         let redEnvelopeBtn = UIButton()
         redEnvelopeBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         redEnvelopeBtn.setTitle("红包", forState: .Normal)
+        redEnvelopeBtn.setImage(UIImage(named: "ic_下拉"), forState: .Normal)
+        exchangeBtnImageAndTitle(redEnvelopeBtn, margin: 5)
         
         // 红包 下拉
         redEnvelopeDrop.anchorView = redEnvelopeBtn
@@ -186,6 +193,8 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         let scaleBtn = UIButton()
         scaleBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         scaleBtn.setTitle("规模", forState: .Normal)
+        scaleBtn.setImage(UIImage(named: "ic_下拉"), forState: .Normal)
+        exchangeBtnImageAndTitle(scaleBtn, margin: 5)
         
         // 规模 下拉
         scaleDrop.anchorView = scaleBtn
@@ -206,6 +215,8 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         let nearbyBtn = UIButton()
         nearbyBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         nearbyBtn.setTitle("附近", forState: .Normal)
+        nearbyBtn.setImage(UIImage(named: "ic_下拉"), forState: .Normal)
+        exchangeBtnImageAndTitle(nearbyBtn, margin: 5)
         
         // 附近 下拉
         nearbyDrop.anchorView = nearbyBtn

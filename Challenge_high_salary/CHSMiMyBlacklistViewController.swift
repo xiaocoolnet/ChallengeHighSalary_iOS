@@ -1,14 +1,14 @@
 //
-//  CHSChCompanyPositionListViewController.swift
+//  CHSMiMyBlacklistViewController.swift
 //  Challenge_high_salary
 //
-//  Created by zhang on 16/9/19.
+//  Created by zhang on 2016/9/28.
 //  Copyright © 2016年 北京校酷网络科技公司. All rights reserved.
 //
 
 import UIKit
 
-class CHSChCompanyPositionListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CHSMiMyBlacklistViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let rootTableView = UITableView()
     
@@ -17,7 +17,7 @@ class CHSChCompanyPositionListViewController: UIViewController, UITableViewDataS
         
         // Do any additional setup after loading the view.
         
-        self.setSubviews()
+        setSubviews()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -32,48 +32,37 @@ class CHSChCompanyPositionListViewController: UIViewController, UITableViewDataS
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    // MARK:- 设置子视图
+    // MARK: 设置子视图
     func setSubviews() {
+        
         self.automaticallyAdjustsScrollViewInsets = false
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
         
         self.view.backgroundColor = UIColor.whiteColor()
         
-        self.title = "热招职位"
+        self.title = "我的黑名单"
         
-        rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height-64)
-        rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
-        rootTableView.separatorStyle = .None
-        rootTableView.registerNib(UINib(nibName: "CHSChCompanyPositionTableViewCell", bundle: nil), forCellReuseIdentifier: "CHSChCompanyPositionCell")
+        // tableView
+        rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height-20-44)
+        rootTableView.registerNib(UINib.init(nibName: "CHSMiMyBlacklistTableViewCell", bundle: nil), forCellReuseIdentifier: "CHSMiMyBlacklistCell")
+        rootTableView.rowHeight = 89
         rootTableView.dataSource = self
         rootTableView.delegate = self
-        rootTableView.tableHeaderView = UIView(frame: CGRectMake(0, 0, screenSize.width, 16))
-        rootTableView.tableFooterView = UIView(frame: CGRectZero)
         self.view.addSubview(rootTableView)
     }
     
-    // MARK:- tableview datasource
+    // MARK: UITableView DataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        return 10
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("CHSChCompanyPositionCell") as! CHSChCompanyPositionTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("CHSMiMyBlacklistCell") as! CHSMiMyBlacklistTableViewCell
         cell.selectionStyle = .None
+        
         return cell
-    }
-    
-    // MARK:- tableview delegate
-    
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 146
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.navigationController?.pushViewController(CHSChPersonalInfoViewController(), animated: true)
     }
     
     override func didReceiveMemoryWarning() {

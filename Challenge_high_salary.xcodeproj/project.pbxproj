@@ -35,6 +35,17 @@
 		1FA93F521D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FA93F501D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.xib */; };
 		1FB311531D96615400217DDA /* FTTaPositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB311521D96615400217DDA /* FTTaPositionViewController.swift */; };
 		1FB311551D9666F400217DDA /* FTTaCompanyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB311541D9666F400217DDA /* FTTaCompanyInfoViewController.swift */; };
+		1FB6D5EB1D9B5B2A00262BBD /* CHSUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB6D5EA1D9B5B2A00262BBD /* CHSUserInfo.swift */; };
+		1FB6D5EE1D9B8D0700262BBD /* CHSMiNetUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB6D5ED1D9B8D0700262BBD /* CHSMiNetUtil.swift */; };
+		1FB6D5F01D9B985C00262BBD /* CHSMiMyBonusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB6D5EF1D9B985C00262BBD /* CHSMiMyBonusViewController.swift */; };
+		1FB6D5F31D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB6D5F11D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.swift */; };
+		1FB6D5F41D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FB6D5F21D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.xib */; };
+		1FB6D5F61D9B9E1900262BBD /* CHSMiMyBlacklistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB6D5F51D9B9E1900262BBD /* CHSMiMyBlacklistViewController.swift */; };
+		1FB6D5F91D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB6D5F71D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.swift */; };
+		1FB6D5FA1D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FB6D5F81D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.xib */; };
+		1FB6D5FC1D9BC31400262BBD /* FTMiMyRewardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB6D5FB1D9BC31400262BBD /* FTMiMyRewardViewController.swift */; };
+		1FB6D5FF1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB6D5FD1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.swift */; };
+		1FB6D6001D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FB6D5FE1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.xib */; };
 		1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */; };
 		1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC11D73E6DB0067970B /* ViewController.swift */; };
 		1FCDFEC51D73E6DB0067970B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC31D73E6DB0067970B /* Main.storyboard */; };
@@ -152,6 +163,17 @@
 		1FA93F501D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChChFindEmployerTableViewCell.xib; sourceTree = "<group>"; };
 		1FB311521D96615400217DDA /* FTTaPositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaPositionViewController.swift; sourceTree = "<group>"; };
 		1FB311541D9666F400217DDA /* FTTaCompanyInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaCompanyInfoViewController.swift; sourceTree = "<group>"; };
+		1FB6D5EA1D9B5B2A00262BBD /* CHSUserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSUserInfo.swift; sourceTree = "<group>"; };
+		1FB6D5ED1D9B8D0700262BBD /* CHSMiNetUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiNetUtil.swift; sourceTree = "<group>"; };
+		1FB6D5EF1D9B985C00262BBD /* CHSMiMyBonusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiMyBonusViewController.swift; sourceTree = "<group>"; };
+		1FB6D5F11D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiMyBounsTableViewCell.swift; sourceTree = "<group>"; };
+		1FB6D5F21D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSMiMyBounsTableViewCell.xib; sourceTree = "<group>"; };
+		1FB6D5F51D9B9E1900262BBD /* CHSMiMyBlacklistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiMyBlacklistViewController.swift; sourceTree = "<group>"; };
+		1FB6D5F71D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiMyBlacklistTableViewCell.swift; sourceTree = "<group>"; };
+		1FB6D5F81D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSMiMyBlacklistTableViewCell.xib; sourceTree = "<group>"; };
+		1FB6D5FB1D9BC31400262BBD /* FTMiMyRewardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiMyRewardViewController.swift; sourceTree = "<group>"; };
+		1FB6D5FD1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiMyRewardTableViewCell.swift; sourceTree = "<group>"; };
+		1FB6D5FE1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTMiMyRewardTableViewCell.xib; sourceTree = "<group>"; };
 		1FCDFEBC1D73E6DB0067970B /* Challenge_high_salary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Challenge_high_salary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FCDFEC11D73E6DB0067970B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -297,6 +319,14 @@
 			name = 3rd;
 			sourceTree = "<group>";
 		};
+		1FB6D5EC1D9B8CED00262BBD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1FB6D5ED1D9B8D0700262BBD /* CHSMiNetUtil.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		1FCDFEB31D73E6DB0067970B = {
 			isa = PBXGroup;
 			children = (
@@ -422,6 +452,7 @@
 		1FCDFEF41D740CA40067970B /* Mine(我的) */ = {
 			isa = PBXGroup;
 			children = (
+				1FB6D5EC1D9B8CED00262BBD /* Model */,
 				1FDB00221D8FCB1D007043B4 /* View */,
 				1FF06CB51D7D165D0032943B /* Controller */,
 			);
@@ -490,6 +521,7 @@
 				1F33D77A1D7587370028444A /* Challenge_high_salary-Bridging-Header.h */,
 				1F4FD25A1D767CC500FF7040 /* Tool.swift */,
 				1FF9DB151D96145D00F0C69D /* GuideViewController.swift */,
+				1FB6D5EA1D9B5B2A00262BBD /* CHSUserInfo.swift */,
 			);
 			name = "Tool(工具)";
 			sourceTree = "<group>";
@@ -514,6 +546,10 @@
 			isa = PBXGroup;
 			children = (
 				1FDB00231D8FCB4A007043B4 /* CHSMiHomeTableViewCell.swift */,
+				1FB6D5F11D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.swift */,
+				1FB6D5F21D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.xib */,
+				1FB6D5F71D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.swift */,
+				1FB6D5F81D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -560,6 +596,7 @@
 				1FF9DB171D96216500F0C69D /* FTMiSettingViewController.swift */,
 				1FF9DB191D9622CA00F0C69D /* FTMiMyCollectionViewController.swift */,
 				1FF9DB231D96298300F0C69D /* FTMiMyHiringRecordViewController.swift */,
+				1FB6D5FB1D9BC31400262BBD /* FTMiMyRewardViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -602,6 +639,8 @@
 				1FF3C69C1D9262100069DD23 /* CHSMiAboutUsViewController.swift */,
 				1FF3C69E1D9264E70069DD23 /* CHSMiMyCollectionViewController.swift */,
 				1FF3C6A01D9269F70069DD23 /* CHSMiMyDeliveryRecordViewController.swift */,
+				1FB6D5EF1D9B985C00262BBD /* CHSMiMyBonusViewController.swift */,
+				1FB6D5F51D9B9E1900262BBD /* CHSMiMyBlacklistViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -730,6 +769,8 @@
 			children = (
 				1FF9DB261D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.swift */,
 				1FF9DB271D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.xib */,
+				1FB6D5FD1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.swift */,
+				1FB6D5FE1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -861,6 +902,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FF06CD61D7D609A0032943B /* DropDownCell.xib in Resources */,
+				1FB6D6001D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.xib in Resources */,
+				1FB6D5F41D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.xib in Resources */,
 				1FF9DB291D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.xib in Resources */,
 				1FF9DB221D9624DB00F0C69D /* FTTalentTableViewCell.xib in Resources */,
 				1FF06CDE1D7D6D970032943B /* ChChFindJobTableViewCell.xib in Resources */,
@@ -875,6 +918,7 @@
 				1F1224D51D976FEA0094C6CE /* CHSReResumePreviewViewController.xib in Resources */,
 				1FF06CD51D7D609A0032943B /* Info.plist in Resources */,
 				1F482B8C1D7FBE400079A62B /* citydict.plist in Resources */,
+				1FB6D5FA1D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.xib in Resources */,
 				1F4FD2671D76C01D00FF7040 /* FontAwesome.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -956,9 +1000,12 @@
 				1F1224DB1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift in Sources */,
 				1F87411B1D82AF47007B8793 /* LoForgetPasswordViewController.swift in Sources */,
 				1FDB00211D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift in Sources */,
+				1FB6D5FF1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.swift in Sources */,
 				1FF9DB181D96216500F0C69D /* FTMiSettingViewController.swift in Sources */,
 				1FF06CBE1D7D17860032943B /* ChReHomeViewController.swift in Sources */,
+				1FB6D5F91D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.swift in Sources */,
 				1FDB00241D8FCB4A007043B4 /* CHSMiHomeTableViewCell.swift in Sources */,
+				1FB6D5FC1D9BC31400262BBD /* FTMiMyRewardViewController.swift in Sources */,
 				1FDB001D1D8FB712007043B4 /* CHSReJobExperienceViewController.swift in Sources */,
 				1FF06CC01D7D17960032943B /* ChChHomeViewController.swift in Sources */,
 				1FF9DB1A1D9622CA00F0C69D /* FTMiMyCollectionViewController.swift in Sources */,
@@ -969,6 +1016,8 @@
 				1FEC64DA1D9120A60045038C /* CHSMiSetPasswordViewController.swift in Sources */,
 				1FF06CD21D7D609A0032943B /* DPDConstants.swift in Sources */,
 				1FF06CC41D7D50E20032943B /* LFLUISegmentedControl.m in Sources */,
+				1FB6D5F01D9B985C00262BBD /* CHSMiMyBonusViewController.swift in Sources */,
+				1FB6D5F31D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.swift in Sources */,
 				1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */,
 				1FD7FBD61D795BA70032221D /* WeHomeViewController.swift in Sources */,
 				1FF06CD71D7D609A0032943B /* DropDown+Appearance.swift in Sources */,
@@ -986,6 +1035,7 @@
 				1FEF809D1D810A4D00486F9C /* FTTaHomeViewController.swift in Sources */,
 				1FA93F511D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.swift in Sources */,
 				1FF06CD41D7D609A0032943B /* DPDUIView+Extension.swift in Sources */,
+				1FB6D5F61D9B9E1900262BBD /* CHSMiMyBlacklistViewController.swift in Sources */,
 				1FF524DE1D88F6EC00E1B70F /* MBProgressHUD.m in Sources */,
 				1F1224D71D979CA60094C6CE /* CHSRePreviewViewController.swift in Sources */,
 				1F482B891D7FBD630079A62B /* ChChCityViewController.swift in Sources */,
@@ -994,6 +1044,7 @@
 				1FF06CB41D7D16540032943B /* CHRoHomeViewController.swift in Sources */,
 				1FF3C6AC1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.swift in Sources */,
 				1F1224D41D976FEA0094C6CE /* CHSReResumePreviewViewController.swift in Sources */,
+				1FB6D5EE1D9B8D0700262BBD /* CHSMiNetUtil.swift in Sources */,
 				1F482B9C1D8002560079A62B /* ChChSearchTableViewCell.swift in Sources */,
 				1F87411D1D82C22B007B8793 /* LoRegisterViewController.swift in Sources */,
 				1FEC64DE1D9121460045038C /* CHSMiCheckPasswordViewController.swift in Sources */,
@@ -1002,6 +1053,7 @@
 				1FF3C6A31D926E210069DD23 /* CHSChCompanyInterviewEvaluationViewController.swift in Sources */,
 				1F9CE7C11D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift in Sources */,
 				1FF3C69D1D9262100069DD23 /* CHSMiAboutUsViewController.swift in Sources */,
+				1FB6D5EB1D9B5B2A00262BBD /* CHSUserInfo.swift in Sources */,
 				1FB311551D9666F400217DDA /* FTTaCompanyInfoViewController.swift in Sources */,
 				1F4FD2661D76C01D00FF7040 /* NSString+FontAwesome.m in Sources */,
 				1FEC64E01D912AF70045038C /* CHSMiMessageRemindViewController.swift in Sources */,

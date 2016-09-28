@@ -97,6 +97,11 @@ class LoginNetUtil: NSObject {
                 let status:StatusModel = StatusModel.jsonToModelWithData(json)
                 if status.status == "success" {
                     let login:LoginModel = LoginModel.jsonToModelWithData(json)
+                    
+                    NSUserDefaults.standardUserDefaults().setBool(true, forKey: isLogin_key)
+
+                    CHSUserInfo.currentUserInfo.phoneNumber = (login.data?.phone)!
+                    CHSUserInfo.currentUserInfo.userid = (login.data?.userid)!
 
                     handle(success: true, response: login.data)
                 }else{
@@ -131,4 +136,28 @@ class LoginNetUtil: NSObject {
             }
         }
     }
+    
+//    // MARK: 修改手机号
+//    func updateUserPhone(phone:String, handle:ResponseClosures) {
+//        
+//        let url = kPortPrefix+"updateUserPhone"
+//        let param = [
+//            "userid":CHSUserInfo.currentUserInfo.userid,
+//            "phone":phone
+//        ];
+//        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+//            
+//            if(error != nil){
+//                handle(success: false, response: error?.description)
+//            }else{
+//                let status:StatusModel = StatusModel.jsonToModelWithData(json)
+//                if status.status == "success" {
+//                    handle(success: true, response: "")
+//                }else{
+//                    let error:errorModel = errorModel.jsonToModelWithData(json)
+//                    handle(success: false, response: error.data)
+//                }
+//            }
+//        }
+//    }
 }

@@ -51,11 +51,19 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
         })
     }
     
+    // MARK: popViewcontroller
+    func popViewcontroller() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    // MARK:- 设置子视图
     func setSubView() {
         
         self.title = "更多城市"
         
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
         
         let searchBar = UISearchBar(frame: CGRectMake(0, 64, screenSize.width, 70))
         searchBar.placeholder = "输入城市或拼音查询"

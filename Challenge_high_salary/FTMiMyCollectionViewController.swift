@@ -33,19 +33,26 @@ class FTMiMyCollectionViewController: UIViewController, UITableViewDataSource, U
         
         self.title = "我的收藏"
         
-        // rightBarButtonItem
-        let deleteBtn = UIButton(frame: CGRectMake(0, 0, 50, 24))
-        deleteBtn.setTitle("删除", forState: .Normal)
-        deleteBtn.addTarget(self, action: #selector(deleteBtnClick), forControlEvents: .TouchUpInside)
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: deleteBtn)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+
+//        // rightBarButtonItem
+//        let deleteBtn = UIButton(frame: CGRectMake(0, 0, 50, 24))
+//        deleteBtn.setTitle("删除", forState: .Normal)
+//        deleteBtn.addTarget(self, action: #selector(deleteBtnClick), forControlEvents: .TouchUpInside)
+//        
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: deleteBtn)
     }
     
-    // MARK: 删除按钮点击事件
-    func deleteBtnClick() {
-        print("ChChHomeViewController searchBtnClick")
-//        self.navigationController?.pushViewController(ChChSearchViewController(), animated: true)
+    // MARK: popViewcontroller
+    func popViewcontroller() {
+        self.navigationController?.popViewControllerAnimated(true)
     }
+    
+//    // MARK: 删除按钮点击事件
+//    func deleteBtnClick() {
+//        print("ChChHomeViewController searchBtnClick")
+////        self.navigationController?.pushViewController(ChChSearchViewController(), animated: true)
+//    }
     
     // MARK: 设置子视图
     func setSubviews() {

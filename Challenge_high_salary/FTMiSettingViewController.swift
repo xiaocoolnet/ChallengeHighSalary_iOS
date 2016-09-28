@@ -28,9 +28,17 @@ class FTMiSettingViewController: UIViewController, UITableViewDataSource, UITabl
         self.tabBarController?.tabBar.hidden = true
     }
     
+    // MARK: popViewcontroller
+    func popViewcontroller() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     // MARK:- 设置子视图
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         self.title = "设置"
         
@@ -115,13 +123,17 @@ class FTMiSettingViewController: UIViewController, UITableViewDataSource, UITabl
             
             let sureAction = UIAlertAction(title: "确定", style: .Default, handler: { (sureAction) in
                 
+                NSUserDefaults.standardUserDefaults().setBool(false, forKey: isLogin_key)
+                NSUserDefaults.standardUserDefaults().removeObjectForKey(logInfo_key)
+//                self.presentViewController(UINavigationController(rootViewController: LoHomeViewController()), animated: true, completion: nil)
+                
                 UIApplication.sharedApplication().keyWindow?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
             })
             signOutAlert.addAction(sureAction)
             
             
         default:
-            print("挑战高薪-我的-设置-didSelectRowAtIndexPath  default")
+            print("抢人才-我的-设置-didSelectRowAtIndexPath  default")
         }
     }
     

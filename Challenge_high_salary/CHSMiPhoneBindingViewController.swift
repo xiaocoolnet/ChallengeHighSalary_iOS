@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CHSMiPhoneBindingViewController: UIViewController {
+class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
     
     // 电话号码输入框
     let telTF = UITextField()
@@ -30,9 +30,17 @@ class CHSMiPhoneBindingViewController: UIViewController {
         self.setSubviews()
     }
     
+    // MARK: popViewcontroller
+    func popViewcontroller() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     // MARK:- 设置子视图
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
         self.title = "手机绑定"
@@ -75,6 +83,9 @@ class CHSMiPhoneBindingViewController: UIViewController {
         // 电话号码输入框
         telTF.frame = CGRectMake(CGRectGetMaxX(telLab.frame)+5, 0, screenSize.width-kWidthScale*59, newPhoneBgView.frame.size.height)
         telTF.placeholder = "请输入手机号"
+        telTF.keyboardType = .NumberPad
+        telTF.returnKeyType = .Next
+        telTF.delegate = self
         newPhoneBgView.addSubview(telTF)
         
         // MARK: 验证码 背景
@@ -101,7 +112,10 @@ class CHSMiPhoneBindingViewController: UIViewController {
             0,
             newPhoneBgView.frame.size.width-kWidthScale*110-CGRectGetMaxX(telLab.frame)+5,
             newPhoneBgView.frame.size.height)
-        checkCodeTF.placeholder = "请输入验证码"
+        checkCodeTF.placeholder = "验证码"
+        checkCodeTF.keyboardType = .NumberPad
+        checkCodeTF.returnKeyType = .Done
+        checkCodeTF.delegate = self
         checkCodeBgView.addSubview(checkCodeTF)
         
         // 获取验证码 按钮
@@ -117,7 +131,7 @@ class CHSMiPhoneBindingViewController: UIViewController {
         getCheckCodeBtn.titleLabel?.font = UIFont.systemFontOfSize(16)
         getCheckCodeBtn.setTitleColor(baseColor, forState: .Normal)
         getCheckCodeBtn.setTitle("获取验证码", forState: .Normal)
-        //        getCheckCodeBtn.addTarget(self, action: #selector(getCheckCodeBtnClick), forControlEvents: .TouchUpInside)
+        getCheckCodeBtn.addTarget(self, action: #selector(getCheckCodeBtnClick), forControlEvents: .TouchUpInside)
         checkCodeBgView.addSubview(getCheckCodeBtn)
         
         // 确认更换 按钮
@@ -127,7 +141,7 @@ class CHSMiPhoneBindingViewController: UIViewController {
         sureChangeBtn.titleLabel?.font = UIFont.systemFontOfSize(16)
         sureChangeBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         sureChangeBtn.setTitle("确认更换", forState: .Normal)
-        //        getCheckCodeBtn.addTarget(self, action: #selector(getCheckCodeBtnClick), forControlEvents: .TouchUpInside)
+        sureChangeBtn.addTarget(self, action: #selector(sureChangeBtnClick), forControlEvents: .TouchUpInside)
         self.view.addSubview(sureChangeBtn)
         
         // 提示 Label
@@ -141,6 +155,19 @@ class CHSMiPhoneBindingViewController: UIViewController {
         tipLab.text = "修改手机号后，可以使用新的手机号登录"
         tipLab.textAlignment = .Center
         self.view.addSubview(tipLab)
+    }
+    
+    // MARK: UITextFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == telTF {
+            checkCodeTF.becomeFirstResponder()
+            if self.getCheckCodeBtn.userInteractionEnabled {
+                getCheckCodeBtnClick()
+            }
+        }else if textField == checkCodeTF {
+            sureChangeBtnClick()
+        }
+        return true
     }
     
     //  倒计时功能
@@ -227,7 +254,49 @@ class CHSMiPhoneBindingViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    // MARK:- 确认更换按钮点击事件
+    func sureChangeBtnClick() {
+        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
         
+        // 判断手机号是否为空
+        if telTF.text!.isEmpty {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入手机号"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if !isPhoneNumber(telTF.text!) {// 判断手机号格式是否正确
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "手机号输入有误"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if checkCodeTF.text!.isEmpty {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入验证码"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }
+        
+        CHSMiNetUtil().updateUserPhone(telTF.text!, code: checkCodeTF.text!) { (success, response) in
+            if success {
+                checkCodeHud.mode = .Text
+                checkCodeHud.labelText = "更换手机号成功"
+                checkCodeHud.hide(true, afterDelay: 1)
+                
+                let time: NSTimeInterval = 1.0
+                let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                
+                dispatch_after(delay, dispatch_get_main_queue()) {
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+            }else{
+                checkCodeHud.mode = .Text
+                checkCodeHud.labelText = String(response!)
+                checkCodeHud.hide(true, afterDelay: 1)
+            }
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {

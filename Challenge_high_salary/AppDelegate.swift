@@ -52,36 +52,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guideViewController.guideImageArray = ["GuideImage1","GuideImage2","GuideImage3"]
             self.window?.rootViewController = guideViewController
         }else{
-            self.window?.rootViewController = CHRoHomeViewController()
-//            self.window?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
+//            self.window?.rootViewController = CHRoHomeViewController()
+            self.window?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
 
         }
         
         return true
     }
-    
-//    #pragma mark 引导页
-//    -(void)setupIntroductoryPage
-//    {
-//    if (BBUserDefault.isNoFirstLaunch)
-//    {
-//    return;
-//    }
-//    BBUserDefault.isNoFirstLaunch=YES;
-//    NSArray *images=@[@"introductoryPage1",@"introductoryPage2",@"introductoryPage3",@"introductoryPage4"];
-//    [introductoryPagesHelper showIntroductoryPageView:images];
-//    }
-//    // MARK:- 引导页
-//    func setupIntroductoryPage() {
-//        NSUserDefaults.standardUserDefaults().removeObjectForKey(isNoFirstLaunch_key)
-//        if NSUserDefaults.standardUserDefaults().boolForKey(isNoFirstLaunch_key) {
-//            return
-//        }
-//        NSUserDefaults.standardUserDefaults().setBool(true, forKey: isNoFirstLaunch_key)
-//        let images = ["introductoryPage1","introductoryPage2","introductoryPage3","introductoryPage4"]
-//        
-//    }
-    
     
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
