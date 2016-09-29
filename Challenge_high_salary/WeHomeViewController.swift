@@ -98,13 +98,19 @@ class WeHomeViewController: UIViewController {
         toVC.viewControllers![0].view.frame.origin.x = -screenSize.width
         self.view.addSubview(toVC.view)
         
-        UIView.animateWithDuration(2, animations: {
-            toVC.view.frame.origin.x = 0
-            toVC.viewControllers![0].view.frame.origin.x = 0
+        let time: NSTimeInterval = 1.0
+        let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+        
+        dispatch_after(delay, dispatch_get_main_queue()) {
             
-        }) { (finished) in
-            if finished {
-                self.presentViewController(toVC, animated: false, completion: nil)
+            UIView.animateWithDuration(1, animations: {
+                toVC.view.frame.origin.x = 0
+                toVC.viewControllers![0].view.frame.origin.x = 0
+                
+            }) { (finished) in
+                if finished {
+                    self.presentViewController(toVC, animated: false, completion: nil)
+                }
             }
         }
     }
@@ -129,14 +135,20 @@ class WeHomeViewController: UIViewController {
         toVC.viewControllers![0].view.frame.origin.x = -screenSize.width
         self.view.addSubview(toVC.view)
         
-        UIView.animateWithDuration(2, animations: {
-            toVC.view.frame.origin.x = 0
-            toVC.viewControllers![0].view.frame.origin.x = 0
+        let time: NSTimeInterval = 1.0
+        let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+        
+        dispatch_after(delay, dispatch_get_main_queue()) {
 
+            UIView.animateWithDuration(1, animations: {
+                toVC.view.frame.origin.x = 0
+                toVC.viewControllers![0].view.frame.origin.x = 0
+                
             }) { (finished) in
                 if finished {
                     self.presentViewController(toVC, animated: false, completion: nil)
                 }
+            }
         }
     }
     

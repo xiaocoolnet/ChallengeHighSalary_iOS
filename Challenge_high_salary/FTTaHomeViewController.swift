@@ -10,11 +10,11 @@ import UIKit
 
 class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, UITableViewDataSource, UITableViewDelegate  {
     
-    var experienceDrop = DropDown()
-    var eduDrop = DropDown()
+    var onlineStateDrop = DropDown()
+    
     let myTableView = UITableView(frame: CGRectMake(screenSize.width, 0, screenSize.width, screenSize.height-20-44-49-37), style: .Plain)
     
-    var hasPosition = true
+    var hasPosition = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,48 +57,30 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         self.view.backgroundColor = UIColor(red: 209/255.0, green: 209/255.0, blue: 209/255.0, alpha: 1)
         
-        // 经验
-        let experienceBtn = UIButton()
-        experienceBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        experienceBtn.setTitle("经验", forState: .Normal)
+        // 在线状态
+        let onlineStateBtn = UIButton()
+        onlineStateBtn.titleLabel?.adjustsFontSizeToFitWidth = true
+        onlineStateBtn.setTitle("经验", forState: .Normal)
+        onlineStateBtn.setImage(UIImage(named: "ic_下拉"), forState: .Normal)
+        exchangeBtnImageAndTitle(onlineStateBtn, margin: 5)
         
         // 经验 下拉
-        experienceDrop.anchorView = experienceBtn
+        onlineStateDrop.anchorView = onlineStateBtn
         
-        experienceDrop.bottomOffset = CGPoint(x: 0, y: 38)
-        experienceDrop.width = screenSize.width
-        experienceDrop.direction = .Bottom
+        onlineStateDrop.bottomOffset = CGPoint(x: 0, y: 38)
+        onlineStateDrop.width = screenSize.width
+        onlineStateDrop.direction = .Bottom
         
-        experienceDrop.dataSource = ["不限","一年","2年","3年"]
-        
-        // 下拉列表选中后的回调方法
-        experienceDrop.selectionAction = { (index, item) in
-            
-            experienceBtn.setTitle(item, forState: .Normal)
-        }
-        
-        // 学历
-        let eduBtn = UIButton()
-        eduBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        eduBtn.setTitle("学历", forState: .Normal)
-        
-        // 学历 下拉
-        eduDrop.anchorView = eduBtn
-        
-        eduDrop.bottomOffset = CGPoint(x: 0, y: 38)
-        eduDrop.width = screenSize.width
-        eduDrop.direction = .Bottom
-        
-        eduDrop.dataSource = ["测试用","本科","专科","研究生"]
+        onlineStateDrop.dataSource = ["在线","不在线"]
         
         // 下拉列表选中后的回调方法
-        eduDrop.selectionAction = { (index, item) in
+        onlineStateDrop.selectionAction = { (index, item) in
             
-            eduBtn.setTitle(item, forState: .Normal)
+            onlineStateBtn.setTitle(item, forState: .Normal)
         }
         
         // 选择菜单
-        let segChoose = LFLUISegmentedControl.segmentWithFrame(CGRectMake(0, 64,screenSize.width ,37), titleArray: ["最新",experienceBtn,eduBtn], defaultSelect: 0)
+        let segChoose = LFLUISegmentedControl.segmentWithFrame(CGRectMake(0, 64,screenSize.width ,37), titleArray: ["推荐","最近","最热","最新","好评",onlineStateBtn], defaultSelect: 0)
         segChoose.tag = 102
         segChoose.lineColor(baseColor)
         segChoose.titleColor(UIColor.blackColor(), selectTitleColor: baseColor, backGroundColor: UIColor.whiteColor(), titleFontSize: 14)
@@ -137,10 +119,8 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     func uisegumentSelectionChange(selection: Int, segmentTag: Int) {
         print("ChChHomeViewController click \(selection) item")
         
-        if selection == 1 {
-            experienceDrop.show()
-        }else if selection == 2 {
-            eduDrop.show()
+        if selection == 5 {
+            onlineStateDrop.show()
         }
     }
     

@@ -46,6 +46,19 @@
 		1FB6D5FC1D9BC31400262BBD /* FTMiMyRewardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB6D5FB1D9BC31400262BBD /* FTMiMyRewardViewController.swift */; };
 		1FB6D5FF1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB6D5FD1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.swift */; };
 		1FB6D6001D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FB6D5FE1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.xib */; };
+		1FC3CCA41D9CA055004AA4C6 /* FTMiMyInterviewInvitationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCA31D9CA055004AA4C6 /* FTMiMyInterviewInvitationViewController.swift */; };
+		1FC3CCA61D9CAEEE004AA4C6 /* FTMiMyInterviewWaitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCA51D9CAEEE004AA4C6 /* FTMiMyInterviewWaitViewController.swift */; };
+		1FC3CCA81D9CAF07004AA4C6 /* FTMiMyInterviewFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCA71D9CAF07004AA4C6 /* FTMiMyInterviewFinishViewController.swift */; };
+		1FC3CCAB1D9CB5CE004AA4C6 /* FTMyInterviewInvitationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCA91D9CB5CE004AA4C6 /* FTMyInterviewInvitationTableViewCell.swift */; };
+		1FC3CCAC1D9CB5CE004AA4C6 /* FTMyInterviewInvitationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FC3CCAA1D9CB5CE004AA4C6 /* FTMyInterviewInvitationTableViewCell.xib */; };
+		1FC3CCAE1D9CBE40004AA4C6 /* FTMiMyInterviewAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCAD1D9CBE40004AA4C6 /* FTMiMyInterviewAllViewController.swift */; };
+		1FC3CCB01D9CDCBD004AA4C6 /* FTMiMyBlacklistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCAF1D9CDCBD004AA4C6 /* FTMiMyBlacklistViewController.swift */; };
+		1FC3CCB31D9CDD29004AA4C6 /* FTMiMyBlacklistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCB11D9CDD29004AA4C6 /* FTMiMyBlacklistTableViewCell.swift */; };
+		1FC3CCB41D9CDD29004AA4C6 /* FTMiMyBlacklistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FC3CCB21D9CDD29004AA4C6 /* FTMiMyBlacklistTableViewCell.xib */; };
+		1FC3CCB61D9CE453004AA4C6 /* FTTaPositionTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCB51D9CE453004AA4C6 /* FTTaPositionTypeViewController.swift */; };
+		1FC3CCB81D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCB71D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift */; };
+		1FC3CCBA1D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCB91D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift */; };
+		1FC3CCBC1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCBB1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift */; };
 		1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */; };
 		1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC11D73E6DB0067970B /* ViewController.swift */; };
 		1FCDFEC51D73E6DB0067970B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC31D73E6DB0067970B /* Main.storyboard */; };
@@ -174,6 +187,19 @@
 		1FB6D5FB1D9BC31400262BBD /* FTMiMyRewardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiMyRewardViewController.swift; sourceTree = "<group>"; };
 		1FB6D5FD1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiMyRewardTableViewCell.swift; sourceTree = "<group>"; };
 		1FB6D5FE1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTMiMyRewardTableViewCell.xib; sourceTree = "<group>"; };
+		1FC3CCA31D9CA055004AA4C6 /* FTMiMyInterviewInvitationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiMyInterviewInvitationViewController.swift; sourceTree = "<group>"; };
+		1FC3CCA51D9CAEEE004AA4C6 /* FTMiMyInterviewWaitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiMyInterviewWaitViewController.swift; sourceTree = "<group>"; };
+		1FC3CCA71D9CAF07004AA4C6 /* FTMiMyInterviewFinishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiMyInterviewFinishViewController.swift; sourceTree = "<group>"; };
+		1FC3CCA91D9CB5CE004AA4C6 /* FTMyInterviewInvitationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMyInterviewInvitationTableViewCell.swift; sourceTree = "<group>"; };
+		1FC3CCAA1D9CB5CE004AA4C6 /* FTMyInterviewInvitationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTMyInterviewInvitationTableViewCell.xib; sourceTree = "<group>"; };
+		1FC3CCAD1D9CBE40004AA4C6 /* FTMiMyInterviewAllViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiMyInterviewAllViewController.swift; sourceTree = "<group>"; };
+		1FC3CCAF1D9CDCBD004AA4C6 /* FTMiMyBlacklistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiMyBlacklistViewController.swift; sourceTree = "<group>"; };
+		1FC3CCB11D9CDD29004AA4C6 /* FTMiMyBlacklistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiMyBlacklistTableViewCell.swift; sourceTree = "<group>"; };
+		1FC3CCB21D9CDD29004AA4C6 /* FTMiMyBlacklistTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTMiMyBlacklistTableViewCell.xib; sourceTree = "<group>"; };
+		1FC3CCB51D9CE453004AA4C6 /* FTTaPositionTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaPositionTypeViewController.swift; sourceTree = "<group>"; };
+		1FC3CCB71D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaChoosePositionViewController.swift; sourceTree = "<group>"; };
+		1FC3CCB91D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaPositionNameViewController.swift; sourceTree = "<group>"; };
+		1FC3CCBB1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaSkillRequiredViewController.swift; sourceTree = "<group>"; };
 		1FCDFEBC1D73E6DB0067970B /* Challenge_high_salary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Challenge_high_salary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FCDFEC11D73E6DB0067970B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -577,6 +603,10 @@
 				1FEF809C1D810A4D00486F9C /* FTTaHomeViewController.swift */,
 				1FB311521D96615400217DDA /* FTTaPositionViewController.swift */,
 				1FB311541D9666F400217DDA /* FTTaCompanyInfoViewController.swift */,
+				1FC3CCB51D9CE453004AA4C6 /* FTTaPositionTypeViewController.swift */,
+				1FC3CCB71D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift */,
+				1FC3CCB91D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift */,
+				1FC3CCBB1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -597,6 +627,11 @@
 				1FF9DB191D9622CA00F0C69D /* FTMiMyCollectionViewController.swift */,
 				1FF9DB231D96298300F0C69D /* FTMiMyHiringRecordViewController.swift */,
 				1FB6D5FB1D9BC31400262BBD /* FTMiMyRewardViewController.swift */,
+				1FC3CCA31D9CA055004AA4C6 /* FTMiMyInterviewInvitationViewController.swift */,
+				1FC3CCA51D9CAEEE004AA4C6 /* FTMiMyInterviewWaitViewController.swift */,
+				1FC3CCA71D9CAF07004AA4C6 /* FTMiMyInterviewFinishViewController.swift */,
+				1FC3CCAD1D9CBE40004AA4C6 /* FTMiMyInterviewAllViewController.swift */,
+				1FC3CCAF1D9CDCBD004AA4C6 /* FTMiMyBlacklistViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -771,6 +806,10 @@
 				1FF9DB271D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.xib */,
 				1FB6D5FD1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.swift */,
 				1FB6D5FE1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.xib */,
+				1FC3CCA91D9CB5CE004AA4C6 /* FTMyInterviewInvitationTableViewCell.swift */,
+				1FC3CCAA1D9CB5CE004AA4C6 /* FTMyInterviewInvitationTableViewCell.xib */,
+				1FC3CCB11D9CDD29004AA4C6 /* FTMiMyBlacklistTableViewCell.swift */,
+				1FC3CCB21D9CDD29004AA4C6 /* FTMiMyBlacklistTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -904,6 +943,7 @@
 				1FF06CD61D7D609A0032943B /* DropDownCell.xib in Resources */,
 				1FB6D6001D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.xib in Resources */,
 				1FB6D5F41D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.xib in Resources */,
+				1FC3CCB41D9CDD29004AA4C6 /* FTMiMyBlacklistTableViewCell.xib in Resources */,
 				1FF9DB291D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.xib in Resources */,
 				1FF9DB221D9624DB00F0C69D /* FTTalentTableViewCell.xib in Resources */,
 				1FF06CDE1D7D6D970032943B /* ChChFindJobTableViewCell.xib in Resources */,
@@ -919,6 +959,7 @@
 				1FF06CD51D7D609A0032943B /* Info.plist in Resources */,
 				1F482B8C1D7FBE400079A62B /* citydict.plist in Resources */,
 				1FB6D5FA1D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.xib in Resources */,
+				1FC3CCAC1D9CB5CE004AA4C6 /* FTMyInterviewInvitationTableViewCell.xib in Resources */,
 				1F4FD2671D76C01D00FF7040 /* FontAwesome.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -994,13 +1035,17 @@
 			files = (
 				1F482B8F1D7FE9C80079A62B /* ChChCityTableViewCell.swift in Sources */,
 				1F4FD2651D76C01D00FF7040 /* BButton.m in Sources */,
+				1FC3CCAE1D9CBE40004AA4C6 /* FTMiMyInterviewAllViewController.swift in Sources */,
 				1FDB00261D8FD2A0007043B4 /* CHSMiSettingViewController.swift in Sources */,
 				1F482B921D7FF7B80079A62B /* ChChSearchViewController.swift in Sources */,
 				1FF524D11D88DBD800E1B70F /* LoginNetUtil.swift in Sources */,
+				1FC3CCB01D9CDCBD004AA4C6 /* FTMiMyBlacklistViewController.swift in Sources */,
+				1FC3CCBC1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift in Sources */,
 				1F1224DB1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift in Sources */,
 				1F87411B1D82AF47007B8793 /* LoForgetPasswordViewController.swift in Sources */,
 				1FDB00211D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift in Sources */,
 				1FB6D5FF1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.swift in Sources */,
+				1FC3CCB31D9CDD29004AA4C6 /* FTMiMyBlacklistTableViewCell.swift in Sources */,
 				1FF9DB181D96216500F0C69D /* FTMiSettingViewController.swift in Sources */,
 				1FF06CBE1D7D17860032943B /* ChReHomeViewController.swift in Sources */,
 				1FB6D5F91D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.swift in Sources */,
@@ -1008,6 +1053,7 @@
 				1FB6D5FC1D9BC31400262BBD /* FTMiMyRewardViewController.swift in Sources */,
 				1FDB001D1D8FB712007043B4 /* CHSReJobExperienceViewController.swift in Sources */,
 				1FF06CC01D7D17960032943B /* ChChHomeViewController.swift in Sources */,
+				1FC3CCA41D9CA055004AA4C6 /* FTMiMyInterviewInvitationViewController.swift in Sources */,
 				1FF9DB1A1D9622CA00F0C69D /* FTMiMyCollectionViewController.swift in Sources */,
 				1FEF80A41D810E5700486F9C /* FTTaNoPositionTableViewCell.swift in Sources */,
 				1FF524D71D88EC2B00E1B70F /* D3Model.swift in Sources */,
@@ -1016,11 +1062,14 @@
 				1FEC64DA1D9120A60045038C /* CHSMiSetPasswordViewController.swift in Sources */,
 				1FF06CD21D7D609A0032943B /* DPDConstants.swift in Sources */,
 				1FF06CC41D7D50E20032943B /* LFLUISegmentedControl.m in Sources */,
+				1FC3CCB61D9CE453004AA4C6 /* FTTaPositionTypeViewController.swift in Sources */,
 				1FB6D5F01D9B985C00262BBD /* CHSMiMyBonusViewController.swift in Sources */,
 				1FB6D5F31D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.swift in Sources */,
 				1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */,
 				1FD7FBD61D795BA70032221D /* WeHomeViewController.swift in Sources */,
+				1FC3CCBA1D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift in Sources */,
 				1FF06CD71D7D609A0032943B /* DropDown+Appearance.swift in Sources */,
+				1FC3CCAB1D9CB5CE004AA4C6 /* FTMyInterviewInvitationTableViewCell.swift in Sources */,
 				1FF3C6A61D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.swift in Sources */,
 				1F4FD2681D76C01D00FF7040 /* UIColor+BButton.m in Sources */,
 				1FF9DB161D96145D00F0C69D /* GuideViewController.swift in Sources */,
@@ -1053,11 +1102,13 @@
 				1FF3C6A31D926E210069DD23 /* CHSChCompanyInterviewEvaluationViewController.swift in Sources */,
 				1F9CE7C11D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift in Sources */,
 				1FF3C69D1D9262100069DD23 /* CHSMiAboutUsViewController.swift in Sources */,
+				1FC3CCB81D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift in Sources */,
 				1FB6D5EB1D9B5B2A00262BBD /* CHSUserInfo.swift in Sources */,
 				1FB311551D9666F400217DDA /* FTTaCompanyInfoViewController.swift in Sources */,
 				1F4FD2661D76C01D00FF7040 /* NSString+FontAwesome.m in Sources */,
 				1FEC64E01D912AF70045038C /* CHSMiMessageRemindViewController.swift in Sources */,
 				1F180F6C1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift in Sources */,
+				1FC3CCA61D9CAEEE004AA4C6 /* FTMiMyInterviewWaitViewController.swift in Sources */,
 				1FB311531D96615400217DDA /* FTTaPositionViewController.swift in Sources */,
 				1FF06CD81D7D609A0032943B /* DropDown.swift in Sources */,
 				1FF06CBA1D7D16A20032943B /* ChMiHomeViewController.swift in Sources */,
@@ -1068,6 +1119,7 @@
 				1FEF80A11D810A7600486F9C /* FTMiHomeViewController.swift in Sources */,
 				1FF9DB211D9624DB00F0C69D /* FTTalentTableViewCell.swift in Sources */,
 				1F180F701D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift in Sources */,
+				1FC3CCA81D9CAF07004AA4C6 /* FTMiMyInterviewFinishViewController.swift in Sources */,
 				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,
 				1F4FD25B1D767CC500FF7040 /* Tool.swift in Sources */,
 				1F1224D91D97AE5A0094C6CE /* CHSReEduExperienceViewController.swift in Sources */,

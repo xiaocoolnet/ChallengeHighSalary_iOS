@@ -148,7 +148,11 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             self.navigationController?.pushViewController(FTMiMyRewardViewController(), animated: true)
         case (2,0):
             self.navigationController?.pushViewController(FTMiMyHiringRecordViewController(), animated: true)
-            break
+        case (2,1):
+            self.navigationController?.pushViewController(FTMiMyInterviewInvitationViewController(), animated: true)
+        case (3,0):
+            self.navigationController?.pushViewController(FTMiMyBlacklistViewController(), animated: true)
+            
         default:
             print("抢人才-我的-didSelectRowAtIndexPath  default")
         }

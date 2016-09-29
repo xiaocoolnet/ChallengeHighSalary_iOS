@@ -198,10 +198,18 @@ func exchangeBtnImageAndTitle(button: UIButton, margin: CGFloat) {
         
         button.titleLabel?.sizeToFit()
 
+        
         if button.bounds.size.width >= button.titleLabel!.bounds.size.width+(button.currentImage?.size.width)!+margin || button.bounds.size.width == 0 {
             
-            button.imageEdgeInsets = UIEdgeInsetsMake(0, button.titleLabel!.bounds.size.width+margin, 0, -button.titleLabel!.bounds.size.width+margin)
-            button.titleEdgeInsets = UIEdgeInsetsMake(0, -(button.currentImage?.size.width)!, 0, (button.currentImage?.size.width)!)
+            if button.contentHorizontalAlignment == .Right {
+                
+                button.imageEdgeInsets = UIEdgeInsetsMake(0, button.titleLabel!.bounds.size.width, 0, -button.titleLabel!.bounds.size.width)
+                button.titleEdgeInsets = UIEdgeInsetsMake(0, -(button.currentImage?.size.width)!-margin, 0, (button.currentImage?.size.width)!+margin)
+            }else{
+                
+                button.imageEdgeInsets = UIEdgeInsetsMake(0, button.titleLabel!.bounds.size.width+margin, 0, -button.titleLabel!.bounds.size.width-margin)
+                button.titleEdgeInsets = UIEdgeInsetsMake(0, -(button.currentImage?.size.width)!, 0, (button.currentImage?.size.width)!)
+            }
         }else{ // 针对 button.title 过长的解决办法
             
             button.imageEdgeInsets = UIEdgeInsetsMake(0, button.bounds.size.width-(button.currentImage?.size.width)!, 0, -button.bounds.size.width-(button.currentImage?.size.width)!)

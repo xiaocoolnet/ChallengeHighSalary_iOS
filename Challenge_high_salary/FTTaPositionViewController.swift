@@ -28,9 +28,17 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         self.tabBarController?.tabBar.hidden = true
     }
     
+    // MARK: popViewcontroller
+    func popViewcontroller() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     // MARK:- 设置子视图
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         self.title = "发布职位"
         
@@ -93,12 +101,12 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         switch (indexPath.section,indexPath.row) {
         case (0,0):
             self.navigationController?.pushViewController(FTTaCompanyInfoViewController(), animated: true)
-//        case (0,1):
-//            self.navigationController?.pushViewController(CHSMiCheckPasswordViewController(), animated: true)
-//        case (0,2):
-//            self.navigationController?.pushViewController(CHSMiMessageRemindViewController(), animated: true)
-//        case (1,0):
-//            self.navigationController?.pushViewController(CHSMiAboutUsViewController(), animated: true)
+        case (1,0):
+            self.navigationController?.pushViewController(FTTaPositionTypeViewController(), animated: true)
+        case (1,1):
+            self.navigationController?.pushViewController(FTTaPositionNameViewController(), animated: true)
+        case (1,2):
+            self.navigationController?.pushViewController(FTTaSkillRequiredViewController(), animated: true)
 //        case (3,0):
 //            
 //            let signOutAlert = UIAlertController(title: "", message: "确定退出登录？", preferredStyle: .Alert)
