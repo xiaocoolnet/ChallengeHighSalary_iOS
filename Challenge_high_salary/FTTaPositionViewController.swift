@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     let rootTableView = UITableView(frame: CGRectMake(0, 64, screenSize.width, screenSize.height-64), style: .Grouped)
     let nameArray = [["公司信息"],["职位类型","职位名称","技能要求","薪资范围"],["经验要求","学历要求"],["工作城市","工作地点","职位描述"]]
@@ -107,6 +107,139 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
             self.navigationController?.pushViewController(FTTaPositionNameViewController(), animated: true)
         case (1,2):
             self.navigationController?.pushViewController(FTTaSkillRequiredViewController(), animated: true)
+        case (1,3):
+            let bigBgView = UIButton(frame: self.view.bounds)
+            bigBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
+            bigBgView.tag = 1000
+            bigBgView.addTarget(self, action: #selector(pickerCancelClick), forControlEvents: .TouchUpInside)
+            self.view.addSubview(bigBgView)
+            
+            let pickerBgView = UIView(frame: CGRectMake(0, screenSize.height-kHeightScale*240, screenSize.width, kHeightScale*240))
+            pickerBgView.backgroundColor = UIColor.whiteColor()
+            bigBgView.addSubview(pickerBgView)
+            
+            let pickerLab = UILabel(frame: CGRectMake(0, 0, screenSize.width, 43))
+            pickerLab.textAlignment = .Center
+            pickerLab.text = "薪资范围（月薪，单位：千元）"
+            pickerBgView.addSubview(pickerLab)
+            
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(0, 43), toPoint: CGPointMake(screenSize.width, 43), lineWidth: 1)
+            
+            let pickerView = UIPickerView(frame: CGRectMake(0, 44, screenSize.width, kHeightScale*240-88))
+            pickerView.tag = 101
+            
+//            pickerView.subviews[0].layer.borderWidth = 0.5
+//            
+//            pickerView.subviews[0].layer.borderColor = UIColor.redColor().CGColor
+            //指定Picker的代理
+            pickerView.dataSource = self
+            pickerView.delegate = self
+            
+            pickerBgView.addSubview(pickerView)
+            
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(0, kHeightScale*240-44), toPoint: CGPointMake(screenSize.width, kHeightScale*240-44), lineWidth: 1)
+            
+            let cancelBtn = UIButton(frame: CGRectMake(0, kHeightScale*240-43, screenSize.width/2.0-0.5, 43))
+            cancelBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            cancelBtn.setTitle("取消", forState: .Normal)
+            cancelBtn.addTarget(self, action: #selector(pickerCancelClick), forControlEvents: .TouchUpInside)
+            pickerBgView.addSubview(cancelBtn)
+            
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(screenSize.width/2.0-0.5, kHeightScale*240-43), toPoint: CGPointMake(screenSize.width/2.0-0.5, kHeightScale*240), lineWidth: 1)
+            
+            let sureBtn = UIButton(frame: CGRectMake(screenSize.width/2.0-0.5, kHeightScale*240-43, screenSize.width/2.0-0.5, 43))
+            sureBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            sureBtn.setTitle("确定", forState: .Normal)
+            pickerBgView.addSubview(sureBtn)
+        case (2,0):
+            let bigBgView = UIButton(frame: self.view.bounds)
+            bigBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
+            bigBgView.tag = 1000
+            bigBgView.addTarget(self, action: #selector(pickerCancelClick), forControlEvents: .TouchUpInside)
+            self.view.addSubview(bigBgView)
+            
+            let pickerBgView = UIView(frame: CGRectMake(0, screenSize.height-kHeightScale*240, screenSize.width, kHeightScale*240))
+            pickerBgView.backgroundColor = UIColor.whiteColor()
+            bigBgView.addSubview(pickerBgView)
+            
+            let pickerLab = UILabel(frame: CGRectMake(0, 0, screenSize.width, 43))
+            pickerLab.textAlignment = .Center
+            pickerLab.text = "经验要求"
+            pickerBgView.addSubview(pickerLab)
+            
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(0, 43), toPoint: CGPointMake(screenSize.width, 43), lineWidth: 1)
+            
+            let pickerView = UIPickerView(frame: CGRectMake(0, 44, screenSize.width, kHeightScale*240-88))
+            pickerView.tag = 102
+            
+            //            pickerView.subviews[0].layer.borderWidth = 0.5
+            //
+            //            pickerView.subviews[0].layer.borderColor = UIColor.redColor().CGColor
+            //指定Picker的代理
+            pickerView.dataSource = self
+            pickerView.delegate = self
+            
+            pickerBgView.addSubview(pickerView)
+            
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(0, kHeightScale*240-44), toPoint: CGPointMake(screenSize.width, kHeightScale*240-44), lineWidth: 1)
+            
+            let cancelBtn = UIButton(frame: CGRectMake(0, kHeightScale*240-43, screenSize.width/2.0-0.5, 43))
+            cancelBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            cancelBtn.setTitle("取消", forState: .Normal)
+            cancelBtn.addTarget(self, action: #selector(pickerCancelClick), forControlEvents: .TouchUpInside)
+            pickerBgView.addSubview(cancelBtn)
+            
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(screenSize.width/2.0-0.5, kHeightScale*240-43), toPoint: CGPointMake(screenSize.width/2.0-0.5, kHeightScale*240), lineWidth: 1)
+            
+            let sureBtn = UIButton(frame: CGRectMake(screenSize.width/2.0-0.5, kHeightScale*240-43, screenSize.width/2.0-0.5, 43))
+            sureBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            sureBtn.setTitle("确定", forState: .Normal)
+            pickerBgView.addSubview(sureBtn)
+        case (2,1):
+            let bigBgView = UIButton(frame: self.view.bounds)
+            bigBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
+            bigBgView.tag = 1000
+            bigBgView.addTarget(self, action: #selector(pickerCancelClick), forControlEvents: .TouchUpInside)
+            self.view.addSubview(bigBgView)
+            
+            let pickerBgView = UIView(frame: CGRectMake(0, screenSize.height-kHeightScale*240, screenSize.width, kHeightScale*240))
+            pickerBgView.backgroundColor = UIColor.whiteColor()
+            bigBgView.addSubview(pickerBgView)
+            
+            let pickerLab = UILabel(frame: CGRectMake(0, 0, screenSize.width, 43))
+            pickerLab.textAlignment = .Center
+            pickerLab.text = "学历要求"
+            pickerBgView.addSubview(pickerLab)
+            
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(0, 43), toPoint: CGPointMake(screenSize.width, 43), lineWidth: 1)
+            
+            let pickerView = UIPickerView(frame: CGRectMake(0, 44, screenSize.width, kHeightScale*240-88))
+            pickerView.tag = 103
+            
+            //            pickerView.subviews[0].layer.borderWidth = 0.5
+            //
+            //            pickerView.subviews[0].layer.borderColor = UIColor.redColor().CGColor
+            //指定Picker的代理
+            pickerView.dataSource = self
+            pickerView.delegate = self
+            
+            pickerBgView.addSubview(pickerView)
+            
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(0, kHeightScale*240-44), toPoint: CGPointMake(screenSize.width, kHeightScale*240-44), lineWidth: 1)
+            
+            let cancelBtn = UIButton(frame: CGRectMake(0, kHeightScale*240-43, screenSize.width/2.0-0.5, 43))
+            cancelBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            cancelBtn.setTitle("取消", forState: .Normal)
+            cancelBtn.addTarget(self, action: #selector(pickerCancelClick), forControlEvents: .TouchUpInside)
+            pickerBgView.addSubview(cancelBtn)
+            
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(screenSize.width/2.0-0.5, kHeightScale*240-43), toPoint: CGPointMake(screenSize.width/2.0-0.5, kHeightScale*240), lineWidth: 1)
+            
+            let sureBtn = UIButton(frame: CGRectMake(screenSize.width/2.0-0.5, kHeightScale*240-43, screenSize.width/2.0-0.5, 43))
+            sureBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            sureBtn.setTitle("确定", forState: .Normal)
+            pickerBgView.addSubview(sureBtn)
+            
 //        case (3,0):
 //            
 //            let signOutAlert = UIAlertController(title: "", message: "确定退出登录？", preferredStyle: .Alert)
@@ -126,6 +259,152 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
             print("找人才-人才-发布职位-didSelectRowAtIndexPath  default")
         }
     }
+    
+    func pickerCancelClick() {
+        self.view.viewWithTag(1000)?.removeFromSuperview()
+    }
+    
+    func changeSeparatorWithView(view: UIView) {
+        
+        if view.bounds.size.height <= 1 {
+            view.backgroundColor = baseColor
+        }
+        
+        for subview in view.subviews {
+            self.changeSeparatorWithView(subview)
+        }
+    }
+    
+    let pickLowArray = ["1","2","3","4","5"]
+    var pickSupArray = ["1","2","3","4","5"]
+    
+    let pickExpRequiredArray = ["不限","应届生","1年以内","1-3年"]
+    let pickEduRequiredArray = ["不限","大专","本科","研究生"]
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        
+        if pickerView.tag == 101 {
+            return 3
+        }else if pickerView.tag == 102 {
+            return 1
+        }else if pickerView.tag == 103 {
+            return 1
+        }else{
+            return 0
+        }
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
+        if pickerView.tag == 101 {
+            
+            if component == 0 {
+                return pickLowArray.count
+            }else if component == 1 {
+                return 1
+            }else{
+                return pickSupArray.count
+            }
+        }else if pickerView.tag == 102 {
+            
+            return pickExpRequiredArray.count
+        }else if pickerView.tag == 103 {
+            
+            return pickEduRequiredArray.count
+        }else{
+            return 0
+        }
+        
+    }
+    
+//    func pickerView(pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+//        return 50
+//    }
+    
+    func pickerView(pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 25
+    }
+    
+//    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        
+//        if pickerView.tag == 101 {
+//            
+//            if component == 0 {
+//                return pickLowArray[row]
+//            }else if component == 1 {
+//                return "至"
+//            }else{
+//                return pickSupArray[row]
+//            }
+//        }else if pickerView.tag == 102 {
+//            
+//            return pickExpRequiredArray[row]
+//        }else{
+//            return pickExpRequiredArray[row]
+//        }
+//        
+//    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        if pickerView.tag == 101 {
+            
+            if component == 0 {
+                pickSupArray = Array(pickLowArray[row ..< pickLowArray.count])
+                
+            }
+        }else if pickerView.tag == 102 {
+            
+            
+        }else if pickerView.tag == 103 {
+            
+            
+        }else{
+            
+        }
+        
+        pickerView.reloadAllComponents()
+    }
+    
+    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+        
+        self.changeSeparatorWithView(pickerView)
+
+        print("-==-=-=-= \(row)")
+        let view = UILabel(frame: CGRectMake(0, 0, 20, 25))
+//        view.backgroundColor = UIColor.cyanColor()
+        view.frame.size = pickerView.rowSizeForComponent(component)
+        view.textAlignment = .Center
+        
+        if row == pickerView.selectedRowInComponent(component) {
+            view.textColor = baseColor
+        }else{
+            view.textColor = UIColor.lightGrayColor()
+        }
+        
+        if pickerView.tag == 101 {
+            
+            if component == 0 {
+                view.text = pickLowArray[row]
+            }else if component == 1 {
+                view.text = "至"
+            }else{
+                view.text = pickSupArray[row]
+            }
+        }else if pickerView.tag == 102 {
+            
+            view.text = pickExpRequiredArray[row]
+        }else if pickerView.tag == 103 {
+            
+            view.text = pickEduRequiredArray[row]
+        }else{
+            
+        }
+        
+        return view
+    }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

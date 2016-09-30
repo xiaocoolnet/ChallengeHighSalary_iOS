@@ -28,6 +28,8 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.navigationController?.navigationBar.hidden = false
+        self.tabBarController?.tabBar.hidden = false
         self.customizeDropDown()
     }
     
