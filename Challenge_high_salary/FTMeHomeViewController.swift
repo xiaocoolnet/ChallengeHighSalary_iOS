@@ -118,6 +118,12 @@ class FTMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         switch self.dataArray[indexPath.row]["type"]! {
         case "1":
             self.navigationController?.pushViewController(FTMeSysMessageViewController(), animated: true)
+        case "2":
+            self.navigationController?.pushViewController(FTMeResumeNotificationViewController(), animated: true)
+        case "3":
+            self.navigationController?.pushViewController(FTMeCollectionMeViewController(), animated: true)
+        case "4":
+            self.navigationController?.pushViewController(FTMeLookMeViewController(), animated: true)
         default:
             break
         }

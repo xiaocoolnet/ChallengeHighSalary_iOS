@@ -43,7 +43,7 @@ class FTTaSkillRequiredViewController: UIViewController {
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .Done, target: self, action: #selector(saveBtnClick))
         
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
@@ -176,6 +176,33 @@ class FTTaSkillRequiredViewController: UIViewController {
     func addBtnClick() {
         
         print("抢人才-发布职位-技能要求- 点击添加按钮 ")
+    }
+    
+    // MARK: 点击保存按钮
+    func saveBtnClick() {
+        
+        var count = 0
+        for selectSkillName in selectSkillArray {
+            if selectSkillName != "" {
+                count += 1
+            }
+        }
+        
+        if count == 0 {
+            let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            checkCodeHud.removeFromSuperViewOnHide = true
+            
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请选择技能标签"
+            checkCodeHud.hide(true, afterDelay: 1)
+        }else{
+            
+            var FTPublishJobSelectedNameArray = NSUserDefaults.standardUserDefaults().arrayForKey(FTPublishJobSelectedNameArray_key) as! [Array<String>]
+            FTPublishJobSelectedNameArray[1][2] = "\(count)个技能"
+            NSUserDefaults.standardUserDefaults().setValue(FTPublishJobSelectedNameArray, forKey: FTPublishJobSelectedNameArray_key)
+            
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
 
 

@@ -30,6 +30,7 @@ let userName_key = "login_name"
 let userPwd_key = "login_password"
 // 挑战高薪-我的-设置-消息提醒设置 key 前缀
 let CHSMiMessageRemindSetting_key_pre = "CHSMiMessageRemindSetting"
+let FTPublishJobSelectedNameArray_key = "publishJobSelectedNameArray"
 
 var isLogin = NSUserDefaults.standardUserDefaults().boolForKey(isLogin_key)
 var positioningCity = "未知"

@@ -12,6 +12,11 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
     
     let rootTableView = UITableView(frame: CGRectMake(0, 64, screenSize.width, screenSize.height-64), style: .Grouped)
     let nameArray = [["公司信息"],["职位类型","职位名称","技能要求","薪资范围"],["经验要求","学历要求"],["工作城市","工作地点","职位描述"]]
+    var selectedNameArray = [["公司信息"],["职位类型","职位名称","技能要求","薪资范围"],["经验要求","学历要求"],["工作城市","工作地点","职位描述"]] {
+        didSet {
+            self.rootTableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +32,8 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         
         self.navigationController?.navigationBar.hidden = false
         self.tabBarController?.tabBar.hidden = true
+        
+        selectedNameArray = NSUserDefaults.standardUserDefaults().arrayForKey(FTPublishJobSelectedNameArray_key) as! [Array<String>]
     }
     
     private var areaDic = [String:[String:Array<String>]]() // 地区 字典
@@ -34,7 +41,11 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
     private var cityArray=Array<String>()  // 市
     private var areaArray=Array<String>() // 区县州
     
+    // MARK: 加载数据
     func loadData() {
+        
+        NSUserDefaults.standardUserDefaults().setValue(selectedNameArray, forKey: FTPublishJobSelectedNameArray_key)
+        
         areaDic = NSDictionary.init(contentsOfFile: NSBundle.mainBundle().pathForAuxiliaryExecutable("area.plist")!)!  as! [String:[String:Array<String>]]
         provinceArray = Array(areaDic.keys)
         provinceArray = provinceArray.sort({ (str1, str2) -> Bool in
@@ -87,7 +98,7 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         
         var cell = tableView.dequeueReusableCellWithIdentifier("CHSMiSettingCell")
         if cell == nil {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: "CHSMiSettingCell")
+            cell = UITableViewCell(style: .Value1, reuseIdentifier: "CHSMiSettingCell")
         }
         cell!.selectionStyle = .None
         
@@ -99,6 +110,21 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         cell?.textLabel?.textAlignment = .Left
         cell?.textLabel?.textColor = UIColor.blackColor()
         cell?.backgroundColor = UIColor.whiteColor()
+        
+        if indexPath.section == 0 {
+            
+        }else if indexPath.section == selectedNameArray.count-1 && indexPath.row == (selectedNameArray.last?.count)!-1 {
+            
+        }else{
+            
+            cell?.detailTextLabel?.font = UIFont.systemFontOfSize(14)
+            cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
+            cell?.detailTextLabel?.textAlignment = .Right
+            cell?.detailTextLabel?.text = selectedNameArray[indexPath.section][indexPath.row]
+        }
+//        if indexPath.section != 0 && (indexPath.section == selectedNameArray.count-1 && indexPath.row != (selectedNameArray.last?.count)!-1)  {
+//            
+//        }
         
         return cell!
     }

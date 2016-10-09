@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             userDefaults.setValue(currentAppVersion, forKey: "appVersion")
             
             let guideViewController = GuideViewController()
-            guideViewController.guideImageArray = ["GuideImage1","GuideImage2","GuideImage3"]
+            guideViewController.guideImageArray = ["guideImage1","guideImage2","guideImage3"]
             self.window?.rootViewController = guideViewController
         }else{
 //            self.window?.rootViewController = CHRoHomeViewController()

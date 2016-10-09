@@ -52,7 +52,6 @@ class FTMeSysMessageViewController: UIViewController, UITableViewDataSource, UIT
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         rootTableView.registerNib(UINib.init(nibName: "FTMeSysMessageTableViewCell", bundle: nil), forCellReuseIdentifier: "FTMeSysMessageCell")
         rootTableView.separatorStyle = .None
-        rootTableView.rowHeight = 316
         rootTableView.dataSource = self
         rootTableView.delegate = self
         self.view.addSubview(rootTableView)
@@ -66,7 +65,7 @@ class FTMeSysMessageViewController: UIViewController, UITableViewDataSource, UIT
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 10
     }
-    
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("FTMeSysMessageCell") as! FTMeSysMessageTableViewCell
@@ -77,19 +76,31 @@ class FTMeSysMessageViewController: UIViewController, UITableViewDataSource, UIT
     
     // MARK: UITableView Delegate
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        return 35
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+//        let cell = FTMeSysMessageTableViewCell()
+        
+        return 286
+    }
+    
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionHeaderLab = UILabel(frame: CGRectMake(8, 8, screenSize.width-16, 20))
+        let sectionHeaderLab = UILabel(frame: CGRectMake(8, 0, screenSize.width-16, 35))
         
         sectionHeaderLab.textAlignment = .Center
-        sectionHeaderLab.font = UIFont.systemFontOfSize(10)
+        sectionHeaderLab.textColor = UIColor.lightGrayColor()
+        sectionHeaderLab.font = UIFont.systemFontOfSize(12)
         sectionHeaderLab.text = "2016-07-28"
+        sectionHeaderLab.sizeToFit()
+//        sectionHeaderLab.frame.origin.y = 10-sectionHeaderLab.frame.size.height/2.0
+//        sectionHeaderLab.center.x = rootTableView.center.x
         
         return sectionHeaderLab
     }

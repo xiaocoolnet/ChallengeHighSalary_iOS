@@ -11,6 +11,7 @@ import UIKit
 class FTTaWorkplaceViewController: UIViewController {
     
     let countLab = UILabel()
+    let positionNameTf = UITextField()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +40,7 @@ class FTTaWorkplaceViewController: UIViewController {
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .Done, target: self, action: #selector(saveBtnClick))
         
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
@@ -49,23 +50,50 @@ class FTTaWorkplaceViewController: UIViewController {
         positionNameBgView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(positionNameBgView)
         
-        let positionNameTf = UITextField(frame: CGRectMake(8, 0, screenSize.width-16, 44))
+        positionNameTf.frame = CGRectMake(8, 0, screenSize.width-16, 44)
         positionNameTf.backgroundColor = UIColor.whiteColor()
+        
+        positionNameTf.placeholder = "请输入工作地点"
+        
+        var FTPublishJobSelectedNameArray = NSUserDefaults.standardUserDefaults().arrayForKey(FTPublishJobSelectedNameArray_key) as! [Array<String>]
+        if FTPublishJobSelectedNameArray[1][1] != "工作地点" {
+            positionNameTf.text = FTPublishJobSelectedNameArray[1][1]
+        }
+        
         positionNameTf.addTarget(self, action: #selector(positionNameTfValueChanged), forControlEvents: .EditingChanged)
         positionNameBgView.addSubview(positionNameTf)
         
         let tipLab = UILabel(frame: CGRectMake(8, CGRectGetMaxY(positionNameTf.frame)+10, screenSize.width*0.6, 30))
         tipLab.textColor = UIColor(red: 170/255.0, green: 170/255.0, blue: 170/255.0, alpha: 1)
-        tipLab.text = "请填写您的职位名称"
+        tipLab.text = "请填写您的工作地点"
         tipLab.font = UIFont.systemFontOfSize(14)
         positionNameBgView.addSubview(tipLab)
         
         countLab.frame = CGRectMake(CGRectGetMaxX(tipLab.frame), CGRectGetMaxY(positionNameTf.frame)+10, screenSize.width-CGRectGetMaxX(tipLab.frame)-8, 30)
         countLab.textAlignment = .Right
-        countLab.text = "0/50"
+        countLab.text = "\((positionNameTf.text?.characters.count)!)/50"
         positionNameBgView.addSubview(countLab)
     }
     
+    // MARK: 点击保存按钮
+    func saveBtnClick() {
+        if self.positionNameTf.text!.isEmpty {
+            let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            checkCodeHud.removeFromSuperViewOnHide = true
+            
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入工作地点"
+            checkCodeHud.hide(true, afterDelay: 1)
+        }else{
+            var FTPublishJobSelectedNameArray = NSUserDefaults.standardUserDefaults().arrayForKey(FTPublishJobSelectedNameArray_key) as! [Array<String>]
+            FTPublishJobSelectedNameArray[3][1] = self.positionNameTf.text!
+            NSUserDefaults.standardUserDefaults().setValue(FTPublishJobSelectedNameArray, forKey: FTPublishJobSelectedNameArray_key)
+            
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+    }
+    
+    // MARK: 限制输入字数
     let maxCount = 50
     
     func positionNameTfValueChanged(textField: UITextField) {

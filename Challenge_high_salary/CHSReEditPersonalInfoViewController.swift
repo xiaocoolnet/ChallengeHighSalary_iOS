@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSource {
+class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     let rootTableView = UITableView()
 
@@ -28,16 +28,26 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
         setSubviews()
     }
     
+    // MARK: popViewcontroller
+    func popViewcontroller() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    // MARK: 设置子视图
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+
         self.title = "个人信息"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Done, target: self, action: #selector(clickSaveBtn))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .Done, target: self, action: #selector(clickSaveBtn))
         
         rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         rootTableView.rowHeight = 60
         rootTableView.dataSource = self
+        rootTableView.delegate = self
         self.view.addSubview(rootTableView)
         
         rootTableView.tableFooterView = UIView(frame: CGRectZero)
@@ -62,6 +72,8 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
         if cell == nil {
             cell = UITableViewCell(style: .Default, reuseIdentifier: "myInfoCell")
         }
+        
+        cell?.selectionStyle = .None
         cell?.accessoryType = .DetailDisclosureButton
         switch indexPath.section {
         case 0:
@@ -69,7 +81,7 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
             case 0:
                 let headerImg = UIImageView(frame: CGRectMake(0, 0, 50, 50))
                 headerImg.layer.cornerRadius = 25
-                headerImg.backgroundColor = UIColor.orangeColor()
+                headerImg.image = UIImage(named: "temp_default_headerImg")
                 cell?.accessoryView = headerImg
             case 1:
                 let nameLab = UILabel(frame: CGRectMake(0, 0, 80, 50))
@@ -80,11 +92,19 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
                 let sexView = UIView(frame: CGRectMake(0, 0, 100, 50))
                 
                 let womanBtn = UIButton(frame: CGRectMake(0, 0, 50, 50))
+                womanBtn.contentHorizontalAlignment = .Right
+                womanBtn.setImage(UIImage(named: "ic_选择_nor"), forState: .Normal)
+                womanBtn.setImage(UIImage(named: "ic_选择_sel"), forState: .Selected)
                 womanBtn.setTitle("女", forState: .Normal)
                 womanBtn.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
                 sexView.addSubview(womanBtn)
                 
+                womanBtn.selected = true
+                
                 let manBtn = UIButton(frame: CGRectMake(50, 0, 50, 50))
+                manBtn.contentHorizontalAlignment = .Right
+                manBtn.setImage(UIImage(named: "ic_选择_nor"), forState: .Normal)
+                manBtn.setImage(UIImage(named: "ic_选择_sel"), forState: .Selected)
                 manBtn.setTitle("男", forState: .Normal)
                 manBtn.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
                 sexView.addSubview(manBtn)
@@ -138,6 +158,63 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
         }else{
             return nil
         }
+    }
+    
+    // MARK:- tableView delegate
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        switch (indexPath.section,indexPath.row) {
+        case (0,0):
+            
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+            
+            let cameraAction = UIAlertAction(title: "拍照", style: .Default, handler: { (action) in
+                
+                if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+                    let picker = UIImagePickerController()
+                    picker.delegate = self
+                    picker.allowsEditing = true
+                    picker.sourceType = .Camera
+                    self.presentViewController(picker, animated: true, completion: nil)
+                }else{
+                    print("无法打开相机")
+                }
+            })
+            alert.addAction(cameraAction)
+            
+            let photoLibraryAction = UIAlertAction(title: "从手机相册选择", style: .Default, handler: { (action) in
+                
+                let picker = UIImagePickerController()
+                picker.sourceType = .PhotoLibrary
+                picker.delegate = self
+                picker.allowsEditing = true
+                self.presentViewController(picker, animated: true, completion: nil)
+            })
+            alert.addAction(photoLibraryAction)
+            
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            alert.addAction(cancelAction)
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+            
+        default:
+            break
+        }
+    }
+    
+    // MARK: UIImagePickerControllerDelegate
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
+        let type = info[UIImagePickerControllerMediaType] as! String
+        if type != "public.image" {
+            return
+        }
+        
+        //裁剪后图片
+//        selectedImage = (info[UIImagePickerControllerEditedImage] as! UIImage)
+//        
+//        self.uploadBtn.setImage(selectedImage, forState: .Normal)
+        
+        picker.dismissViewControllerAnimated(true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {

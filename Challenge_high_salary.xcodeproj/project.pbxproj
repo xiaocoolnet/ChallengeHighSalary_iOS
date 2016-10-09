@@ -26,6 +26,31 @@
 		1F4FD2661D76C01D00FF7040 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4FD2601D76C01D00FF7040 /* NSString+FontAwesome.m */; };
 		1F4FD2671D76C01D00FF7040 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F4FD2621D76C01D00FF7040 /* FontAwesome.ttf */; };
 		1F4FD2681D76C01D00FF7040 /* UIColor+BButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4FD2641D76C01D00FF7040 /* UIColor+BButton.m */; };
+		1F577B0E1DA9E29B00AB5D99 /* FTMeResumeNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B0D1DA9E29B00AB5D99 /* FTMeResumeNotificationViewController.swift */; };
+		1F577B111DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B0F1DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.swift */; };
+		1F577B121DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F577B101DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.xib */; };
+		1F577B141DA9E7C600AB5D99 /* FTMeCollectionMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B131DA9E7C600AB5D99 /* FTMeCollectionMeViewController.swift */; };
+		1F577B161DA9E82600AB5D99 /* FTMeLookMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B151DA9E82600AB5D99 /* FTMeLookMeViewController.swift */; };
+		1F577B191DA9E89400AB5D99 /* FTMeCollectionMeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B171DA9E89400AB5D99 /* FTMeCollectionMeTableViewCell.swift */; };
+		1F577B1A1DA9E89400AB5D99 /* FTMeCollectionMeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F577B181DA9E89400AB5D99 /* FTMeCollectionMeTableViewCell.xib */; };
+		1F577B1D1DA9E8A700AB5D99 /* FTMeLookMeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B1B1DA9E8A700AB5D99 /* FTMeLookMeTableViewCell.swift */; };
+		1F577B1E1DA9E8A700AB5D99 /* FTMeLookMeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F577B1C1DA9E8A700AB5D99 /* FTMeLookMeTableViewCell.xib */; };
+		1F577B201DA9F1D000AB5D99 /* CHSMeSysMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B1F1DA9F1D000AB5D99 /* CHSMeSysMessageViewController.swift */; };
+		1F577B241DA9F20F00AB5D99 /* CHSMeCollectionMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B231DA9F20F00AB5D99 /* CHSMeCollectionMeViewController.swift */; };
+		1F577B261DA9F22300AB5D99 /* CHSMeLookMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B251DA9F22300AB5D99 /* CHSMeLookMeViewController.swift */; };
+		1F577B281DA9F25100AB5D99 /* CHSMeInvitedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B271DA9F25100AB5D99 /* CHSMeInvitedViewController.swift */; };
+		1F577B2C1DA9F31700AB5D99 /* CHSMeHomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B2A1DA9F31700AB5D99 /* CHSMeHomeTableViewCell.swift */; };
+		1F577B2D1DA9F31700AB5D99 /* CHSMeHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F577B2B1DA9F31700AB5D99 /* CHSMeHomeTableViewCell.xib */; };
+		1F577B301DA9F32D00AB5D99 /* CHSMeSysMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B2E1DA9F32D00AB5D99 /* CHSMeSysMessageTableViewCell.swift */; };
+		1F577B311DA9F32D00AB5D99 /* CHSMeSysMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F577B2F1DA9F32D00AB5D99 /* CHSMeSysMessageTableViewCell.xib */; };
+		1F577B381DA9F35E00AB5D99 /* CHSMeCollectionMeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B361DA9F35E00AB5D99 /* CHSMeCollectionMeTableViewCell.swift */; };
+		1F577B391DA9F35E00AB5D99 /* CHSMeCollectionMeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F577B371DA9F35E00AB5D99 /* CHSMeCollectionMeTableViewCell.xib */; };
+		1F577B3C1DA9F37000AB5D99 /* CHSMeLookMeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B3A1DA9F37000AB5D99 /* CHSMeLookMeTableViewCell.swift */; };
+		1F577B3D1DA9F37000AB5D99 /* CHSMeLookMeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F577B3B1DA9F37000AB5D99 /* CHSMeLookMeTableViewCell.xib */; };
+		1F577B401DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B3E1DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.swift */; };
+		1F577B411DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F577B3F1DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.xib */; };
+		1F5B672C1DAA352600F74666 /* FTNetUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B672B1DAA352600F74666 /* FTNetUtil.swift */; };
+		1F5B672E1DAA354A00F74666 /* FTModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B672D1DAA354A00F74666 /* FTModel.swift */; };
 		1F7B303A1D7FA36600D0BF56 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7B30391D7FA36600D0BF56 /* MapKit.framework */; };
 		1F87411B1D82AF47007B8793 /* LoForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */; };
 		1F87411D1D82C22B007B8793 /* LoRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */; };
@@ -175,6 +200,31 @@
 		1F4FD2621D76C01D00FF7040 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 		1F4FD2631D76C01D00FF7040 /* UIColor+BButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+BButton.h"; sourceTree = "<group>"; };
 		1F4FD2641D76C01D00FF7040 /* UIColor+BButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+BButton.m"; sourceTree = "<group>"; };
+		1F577B0D1DA9E29B00AB5D99 /* FTMeResumeNotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeResumeNotificationViewController.swift; sourceTree = "<group>"; };
+		1F577B0F1DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeResumeNotificationTableViewCell.swift; sourceTree = "<group>"; };
+		1F577B101DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTMeResumeNotificationTableViewCell.xib; sourceTree = "<group>"; };
+		1F577B131DA9E7C600AB5D99 /* FTMeCollectionMeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeCollectionMeViewController.swift; sourceTree = "<group>"; };
+		1F577B151DA9E82600AB5D99 /* FTMeLookMeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeLookMeViewController.swift; sourceTree = "<group>"; };
+		1F577B171DA9E89400AB5D99 /* FTMeCollectionMeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeCollectionMeTableViewCell.swift; sourceTree = "<group>"; };
+		1F577B181DA9E89400AB5D99 /* FTMeCollectionMeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTMeCollectionMeTableViewCell.xib; sourceTree = "<group>"; };
+		1F577B1B1DA9E8A700AB5D99 /* FTMeLookMeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeLookMeTableViewCell.swift; sourceTree = "<group>"; };
+		1F577B1C1DA9E8A700AB5D99 /* FTMeLookMeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTMeLookMeTableViewCell.xib; sourceTree = "<group>"; };
+		1F577B1F1DA9F1D000AB5D99 /* CHSMeSysMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMeSysMessageViewController.swift; sourceTree = "<group>"; };
+		1F577B231DA9F20F00AB5D99 /* CHSMeCollectionMeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMeCollectionMeViewController.swift; sourceTree = "<group>"; };
+		1F577B251DA9F22300AB5D99 /* CHSMeLookMeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMeLookMeViewController.swift; sourceTree = "<group>"; };
+		1F577B271DA9F25100AB5D99 /* CHSMeInvitedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMeInvitedViewController.swift; sourceTree = "<group>"; };
+		1F577B2A1DA9F31700AB5D99 /* CHSMeHomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMeHomeTableViewCell.swift; sourceTree = "<group>"; };
+		1F577B2B1DA9F31700AB5D99 /* CHSMeHomeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSMeHomeTableViewCell.xib; sourceTree = "<group>"; };
+		1F577B2E1DA9F32D00AB5D99 /* CHSMeSysMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMeSysMessageTableViewCell.swift; sourceTree = "<group>"; };
+		1F577B2F1DA9F32D00AB5D99 /* CHSMeSysMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSMeSysMessageTableViewCell.xib; sourceTree = "<group>"; };
+		1F577B361DA9F35E00AB5D99 /* CHSMeCollectionMeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMeCollectionMeTableViewCell.swift; sourceTree = "<group>"; };
+		1F577B371DA9F35E00AB5D99 /* CHSMeCollectionMeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSMeCollectionMeTableViewCell.xib; sourceTree = "<group>"; };
+		1F577B3A1DA9F37000AB5D99 /* CHSMeLookMeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMeLookMeTableViewCell.swift; sourceTree = "<group>"; };
+		1F577B3B1DA9F37000AB5D99 /* CHSMeLookMeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSMeLookMeTableViewCell.xib; sourceTree = "<group>"; };
+		1F577B3E1DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMeInvitedTableViewCell.swift; sourceTree = "<group>"; };
+		1F577B3F1DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSMeInvitedTableViewCell.xib; sourceTree = "<group>"; };
+		1F5B672B1DAA352600F74666 /* FTNetUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTNetUtil.swift; sourceTree = "<group>"; };
+		1F5B672D1DAA354A00F74666 /* FTModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTModel.swift; sourceTree = "<group>"; };
 		1F7B30391D7FA36600D0BF56 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoForgetPasswordViewController.swift; sourceTree = "<group>"; };
 		1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoRegisterViewController.swift; sourceTree = "<group>"; };
@@ -349,6 +399,32 @@
 			path = resources;
 			sourceTree = "<group>";
 		};
+		1F577B291DA9F2E600AB5D99 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1F577B2A1DA9F31700AB5D99 /* CHSMeHomeTableViewCell.swift */,
+				1F577B2B1DA9F31700AB5D99 /* CHSMeHomeTableViewCell.xib */,
+				1F577B2E1DA9F32D00AB5D99 /* CHSMeSysMessageTableViewCell.swift */,
+				1F577B2F1DA9F32D00AB5D99 /* CHSMeSysMessageTableViewCell.xib */,
+				1F577B361DA9F35E00AB5D99 /* CHSMeCollectionMeTableViewCell.swift */,
+				1F577B371DA9F35E00AB5D99 /* CHSMeCollectionMeTableViewCell.xib */,
+				1F577B3A1DA9F37000AB5D99 /* CHSMeLookMeTableViewCell.swift */,
+				1F577B3B1DA9F37000AB5D99 /* CHSMeLookMeTableViewCell.xib */,
+				1F577B3E1DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.swift */,
+				1F577B3F1DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		1F5B672A1DAA34EA00F74666 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1F5B672B1DAA352600F74666 /* FTNetUtil.swift */,
+				1F5B672D1DAA354A00F74666 /* FTModel.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		1F8741191D82A02A007B8793 /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,6 +521,7 @@
 		1FCDFEEF1D740BCC0067970B /* ForTalent(抢人才) */ = {
 			isa = PBXGroup;
 			children = (
+				1F5B672A1DAA34EA00F74666 /* Model */,
 				1FEF80931D81096F00486F9C /* Root(根) */,
 				1FCDFEEE1D740B820067970B /* Talent(人才) */,
 				1FCDFEF51D740CC90067970B /* Message(消息) */,
@@ -486,6 +563,7 @@
 		1FCDFEF31D740C820067970B /* Message(消息) */ = {
 			isa = PBXGroup;
 			children = (
+				1F577B291DA9F2E600AB5D99 /* View */,
 				1FF06CB61D7D16670032943B /* Controller */,
 			);
 			name = "Message(消息)";
@@ -636,6 +714,9 @@
 			children = (
 				1FEF809E1D810A5B00486F9C /* FTMeHomeViewController.swift */,
 				1FF1CE211DA8CCC8000F0A9A /* FTMeSysMessageViewController.swift */,
+				1F577B0D1DA9E29B00AB5D99 /* FTMeResumeNotificationViewController.swift */,
+				1F577B131DA9E7C600AB5D99 /* FTMeCollectionMeViewController.swift */,
+				1F577B151DA9E82600AB5D99 /* FTMeLookMeViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -705,6 +786,10 @@
 			isa = PBXGroup;
 			children = (
 				1FF06CBB1D7D17760032943B /* ChMeHomeViewController.swift */,
+				1F577B1F1DA9F1D000AB5D99 /* CHSMeSysMessageViewController.swift */,
+				1F577B231DA9F20F00AB5D99 /* CHSMeCollectionMeViewController.swift */,
+				1F577B251DA9F22300AB5D99 /* CHSMeLookMeViewController.swift */,
+				1F577B271DA9F25100AB5D99 /* CHSMeInvitedViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -818,6 +903,12 @@
 				1FF1CE1E1DA8C5D1000F0A9A /* FTMeHomeTableViewCell.xib */,
 				1FF1CE231DA8CE78000F0A9A /* FTMeSysMessageTableViewCell.swift */,
 				1FF1CE241DA8CE78000F0A9A /* FTMeSysMessageTableViewCell.xib */,
+				1F577B0F1DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.swift */,
+				1F577B101DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.xib */,
+				1F577B171DA9E89400AB5D99 /* FTMeCollectionMeTableViewCell.swift */,
+				1F577B181DA9E89400AB5D99 /* FTMeCollectionMeTableViewCell.xib */,
+				1F577B1B1DA9E8A700AB5D99 /* FTMeLookMeTableViewCell.swift */,
+				1F577B1C1DA9E8A700AB5D99 /* FTMeLookMeTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -975,9 +1066,11 @@
 				1FF06CD61D7D609A0032943B /* DropDownCell.xib in Resources */,
 				1FF1CE151DA88D1B000F0A9A /* area.plist in Resources */,
 				1FB6D6001D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.xib in Resources */,
+				1F577B121DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.xib in Resources */,
 				1FB6D5F41D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.xib in Resources */,
 				1FC3CCB41D9CDD29004AA4C6 /* FTMiMyBlacklistTableViewCell.xib in Resources */,
 				1FF9DB291D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.xib in Resources */,
+				1F577B3D1DA9F37000AB5D99 /* CHSMeLookMeTableViewCell.xib in Resources */,
 				1FF9DB221D9624DB00F0C69D /* FTTalentTableViewCell.xib in Resources */,
 				1FF06CDE1D7D6D970032943B /* ChChFindJobTableViewCell.xib in Resources */,
 				1F482B901D7FE9C80079A62B /* ChChCityTableViewCell.xib in Resources */,
@@ -989,12 +1082,18 @@
 				1FF3C6AD1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.xib in Resources */,
 				1FCDFEC71D73E6DB0067970B /* Assets.xcassets in Resources */,
 				1FCDFEC51D73E6DB0067970B /* Main.storyboard in Resources */,
+				1F577B391DA9F35E00AB5D99 /* CHSMeCollectionMeTableViewCell.xib in Resources */,
 				1F1224D51D976FEA0094C6CE /* CHSReResumePreviewViewController.xib in Resources */,
+				1F577B1E1DA9E8A700AB5D99 /* FTMeLookMeTableViewCell.xib in Resources */,
+				1F577B311DA9F32D00AB5D99 /* CHSMeSysMessageTableViewCell.xib in Resources */,
+				1F577B1A1DA9E89400AB5D99 /* FTMeCollectionMeTableViewCell.xib in Resources */,
 				1FF06CD51D7D609A0032943B /* Info.plist in Resources */,
 				1FF1CE261DA8CE78000F0A9A /* FTMeSysMessageTableViewCell.xib in Resources */,
+				1F577B2D1DA9F31700AB5D99 /* CHSMeHomeTableViewCell.xib in Resources */,
 				1F482B8C1D7FBE400079A62B /* citydict.plist in Resources */,
 				1FB6D5FA1D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.xib in Resources */,
 				1FC3CCAC1D9CB5CE004AA4C6 /* FTMyInterviewInvitationTableViewCell.xib in Resources */,
+				1F577B411DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.xib in Resources */,
 				1F4FD2671D76C01D00FF7040 /* FontAwesome.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1075,12 +1174,15 @@
 				1F482B921D7FF7B80079A62B /* ChChSearchViewController.swift in Sources */,
 				1FF524D11D88DBD800E1B70F /* LoginNetUtil.swift in Sources */,
 				1FC3CCB01D9CDCBD004AA4C6 /* FTMiMyBlacklistViewController.swift in Sources */,
+				1F5B672E1DAA354A00F74666 /* FTModel.swift in Sources */,
 				1FC3CCBC1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift in Sources */,
+				1F577B241DA9F20F00AB5D99 /* CHSMeCollectionMeViewController.swift in Sources */,
 				1F1224DB1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift in Sources */,
 				1F87411B1D82AF47007B8793 /* LoForgetPasswordViewController.swift in Sources */,
 				1FDB00211D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift in Sources */,
 				1FB6D5FF1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.swift in Sources */,
 				1FC3CCB31D9CDD29004AA4C6 /* FTMiMyBlacklistTableViewCell.swift in Sources */,
+				1F577B2C1DA9F31700AB5D99 /* CHSMeHomeTableViewCell.swift in Sources */,
 				1FF9DB181D96216500F0C69D /* FTMiSettingViewController.swift in Sources */,
 				1FF06CBE1D7D17860032943B /* ChReHomeViewController.swift in Sources */,
 				1FB6D5F91D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.swift in Sources */,
@@ -1102,6 +1204,7 @@
 				1FB6D5F01D9B985C00262BBD /* CHSMiMyBonusViewController.swift in Sources */,
 				1FB6D5F31D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.swift in Sources */,
 				1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */,
+				1F577B301DA9F32D00AB5D99 /* CHSMeSysMessageTableViewCell.swift in Sources */,
 				1FF1CE221DA8CCC8000F0A9A /* FTMeSysMessageViewController.swift in Sources */,
 				1FD7FBD61D795BA70032221D /* WeHomeViewController.swift in Sources */,
 				1FC3CCBA1D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift in Sources */,
@@ -1117,9 +1220,12 @@
 				1FDB001B1D8FB0EE007043B4 /* CHSChCompanyPositionListViewController.swift in Sources */,
 				1F14AF431D93CD0A00456A80 /* FTTaRetrievalViewController.swift in Sources */,
 				1FDB00181D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift in Sources */,
+				1F577B141DA9E7C600AB5D99 /* FTMeCollectionMeViewController.swift in Sources */,
 				1FF9DB281D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.swift in Sources */,
 				1FEF809D1D810A4D00486F9C /* FTTaHomeViewController.swift in Sources */,
+				1F577B111DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.swift in Sources */,
 				1FA93F511D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.swift in Sources */,
+				1F5B672C1DAA352600F74666 /* FTNetUtil.swift in Sources */,
 				1FF06CD41D7D609A0032943B /* DPDUIView+Extension.swift in Sources */,
 				1FB6D5F61D9B9E1900262BBD /* CHSMiMyBlacklistViewController.swift in Sources */,
 				1FF524DE1D88F6EC00E1B70F /* MBProgressHUD.m in Sources */,
@@ -1133,12 +1239,19 @@
 				1FB6D5EE1D9B8D0700262BBD /* CHSMiNetUtil.swift in Sources */,
 				1F482B9C1D8002560079A62B /* ChChSearchTableViewCell.swift in Sources */,
 				1F87411D1D82C22B007B8793 /* LoRegisterViewController.swift in Sources */,
+				1F577B161DA9E82600AB5D99 /* FTMeLookMeViewController.swift in Sources */,
+				1F577B0E1DA9E29B00AB5D99 /* FTMeResumeNotificationViewController.swift in Sources */,
 				1FEC64DE1D9121460045038C /* CHSMiCheckPasswordViewController.swift in Sources */,
+				1F577B1D1DA9E8A700AB5D99 /* FTMeLookMeTableViewCell.swift in Sources */,
 				1FDB00131D8F7490007043B4 /* CHSChCompanyHomeViewController.swift in Sources */,
+				1F577B381DA9F35E00AB5D99 /* CHSMeCollectionMeTableViewCell.swift in Sources */,
 				1FF3C69F1D9264E70069DD23 /* CHSMiMyCollectionViewController.swift in Sources */,
 				1FF3C6A31D926E210069DD23 /* CHSChCompanyInterviewEvaluationViewController.swift in Sources */,
 				1F9CE7C11D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift in Sources */,
+				1F577B201DA9F1D000AB5D99 /* CHSMeSysMessageViewController.swift in Sources */,
 				1FF3C69D1D9262100069DD23 /* CHSMiAboutUsViewController.swift in Sources */,
+				1F577B191DA9E89400AB5D99 /* FTMeCollectionMeTableViewCell.swift in Sources */,
+				1F577B261DA9F22300AB5D99 /* CHSMeLookMeViewController.swift in Sources */,
 				1FC3CCB81D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift in Sources */,
 				1FB6D5EB1D9B5B2A00262BBD /* CHSUserInfo.swift in Sources */,
 				1FB311551D9666F400217DDA /* FTTaCompanyInfoViewController.swift in Sources */,
@@ -1151,17 +1264,20 @@
 				1FF06CD81D7D609A0032943B /* DropDown.swift in Sources */,
 				1FF1CE191DA8BA8E000F0A9A /* FTTaJobDescriptionsViewController.swift in Sources */,
 				1FF06CBA1D7D16A20032943B /* ChMiHomeViewController.swift in Sources */,
+				1F577B401DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.swift in Sources */,
 				1FEC64DC1D9120C50045038C /* CHSMiPhoneBindingViewController.swift in Sources */,
 				1FCDFF011D7411160067970B /* LoHomeViewController.swift in Sources */,
 				1FF9DB241D96298300F0C69D /* FTMiMyHiringRecordViewController.swift in Sources */,
 				1FF1CE171DA89E21000F0A9A /* FTTaWorkplaceViewController.swift in Sources */,
 				1FF524D51D88E8C700E1B70F /* LoginModel.swift in Sources */,
+				1F577B3C1DA9F37000AB5D99 /* CHSMeLookMeTableViewCell.swift in Sources */,
 				1FEF80A11D810A7600486F9C /* FTMiHomeViewController.swift in Sources */,
 				1FF9DB211D9624DB00F0C69D /* FTTalentTableViewCell.swift in Sources */,
 				1F180F701D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift in Sources */,
 				1FC3CCA81D9CAF07004AA4C6 /* FTMiMyInterviewFinishViewController.swift in Sources */,
 				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,
 				1F4FD25B1D767CC500FF7040 /* Tool.swift in Sources */,
+				1F577B281DA9F25100AB5D99 /* CHSMeInvitedViewController.swift in Sources */,
 				1F1224D91D97AE5A0094C6CE /* CHSReEduExperienceViewController.swift in Sources */,
 				1F9CE7C31D8802FC002E6632 /* CHSReJobIntensionViewController.swift in Sources */,
 			);

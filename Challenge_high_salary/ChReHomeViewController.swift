@@ -24,6 +24,7 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.hidden = false
+        self.navigationController?.navigationBar.alpha = 1
         self.tabBarController?.tabBar.hidden = false
     }
     
@@ -44,15 +45,17 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: previewBtn)
         
         // top imageBgView
-        let topBgImageView = UIImageView(frame: CGRectMake(0, 64, screenSize.width, screenSize.height*0.319))
+        let topBgImageView = UIImageView(frame: CGRectMake(0, 64, screenSize.width, kHeightScale*213))
         topBgImageView.userInteractionEnabled = true
-        topBgImageView.backgroundColor = UIColor.whiteColor()
+//        topBgImageView.backgroundColor = UIColor.whiteColor()
+        topBgImageView.image = UIImage(named: "ic_简历_home_bg")
         self.view.addSubview(topBgImageView)
         
         // header imageview
         let headerImageView = UIImageView(frame: CGRectMake((screenSize.width-screenSize.width*0.16)/2.0, screenSize.height*0.087, screenSize.width*0.16, screenSize.width*0.16))
         headerImageView.layer.cornerRadius = screenSize.width*0.08
-        headerImageView.backgroundColor = UIColor.orangeColor()
+        headerImageView.clipsToBounds = true
+        headerImageView.image = UIImage(named: "temp_default_headerImg")
         topBgImageView.addSubview(headerImageView)
         
         // name Label
@@ -76,8 +79,8 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         topBgImageView.addSubview(overviewLab)
         
         // 编辑 按钮
-        let editBtn = UIButton(frame: CGRectMake(CGRectGetMaxX(overviewLab.frame)+5, 0, 25, 25))
-        editBtn.backgroundColor = baseColor
+        let editBtn = UIButton(frame: CGRectMake(CGRectGetMaxX(overviewLab.frame)+5, 0, 15.5, 20))
+        editBtn.setImage(UIImage(named: "ic_编辑"), forState: .Normal)
         editBtn.center.y = overviewLab.center.y
         editBtn.addTarget(self, action: #selector(clickEditBtn), forControlEvents: .TouchUpInside)
         topBgImageView.addSubview(editBtn)

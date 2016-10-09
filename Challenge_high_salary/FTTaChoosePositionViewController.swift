@@ -135,6 +135,12 @@ class FTTaChoosePositionViewController: UIViewController, UITableViewDataSource,
         }else{
             
             secondCurrentSelectedRow = indexPath.row
+            
+            var FTPublishJobSelectedNameArray = NSUserDefaults.standardUserDefaults().arrayForKey(FTPublishJobSelectedNameArray_key) as! [Array<String>]
+            FTPublishJobSelectedNameArray[1][0] = secondArray[indexPath.row]
+            NSUserDefaults.standardUserDefaults().setValue(FTPublishJobSelectedNameArray, forKey: FTPublishJobSelectedNameArray_key)
+            
+            self.navigationController?.popToViewController((self.navigationController?.viewControllers[(self.navigationController?.viewControllers.endIndex)!-3])!, animated: true)
         }
         secondTableView.reloadData()
         firstTableView.reloadData()
