@@ -1,14 +1,14 @@
 //
-//  CHSReMyAdvantagesViewController.swift
+//  FTTaJobDescriptionsViewController.swift
 //  Challenge_high_salary
 //
-//  Created by zhang on 16/9/19.
+//  Created by zhang on 2016/10/8.
 //  Copyright © 2016年 北京校酷网络科技公司. All rights reserved.
 //
 
 import UIKit
 
-class CHSReMyAdvantagesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FTTaJobDescriptionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let rootTableView = UITableView()
     
@@ -31,12 +31,19 @@ class CHSReMyAdvantagesViewController: UIViewController, UITableViewDataSource, 
         self.customizeDropDown()
     }
     
+    // MARK: popViewcontroller
+    func popViewcontroller() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     // MARK:- 设置子视图
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
-        self.title = "我的优势"
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        
+        self.title = "职位描述"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Done, target: self, action: #selector(clickSaveBtn))
         
         rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height)
@@ -61,7 +68,7 @@ class CHSReMyAdvantagesViewController: UIViewController, UITableViewDataSource, 
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
+        
         var cell = tableView.dequeueReusableCellWithIdentifier("jobContentCell")
         if cell == nil {
             cell = UITableViewCell(style: .Value1, reuseIdentifier: "jobContentCell")
@@ -106,7 +113,7 @@ class CHSReMyAdvantagesViewController: UIViewController, UITableViewDataSource, 
     
     // MARK:- tableView delegate
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-
+        
         if indexPath.row == 0 {
             return 116
         }else if indexPath.row == 1 {

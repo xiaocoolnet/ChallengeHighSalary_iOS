@@ -1,14 +1,14 @@
 //
-//  FTTaPositionNameViewController.swift
+//  FTTaWorkplaceViewController.swift
 //  Challenge_high_salary
 //
-//  Created by zhang on 2016/9/29.
+//  Created by zhang on 2016/10/8.
 //  Copyright © 2016年 北京校酷网络科技公司. All rights reserved.
 //
 
 import UIKit
 
-class FTTaPositionNameViewController: UIViewController {
+class FTTaWorkplaceViewController: UIViewController {
     
     let countLab = UILabel()
     
@@ -40,10 +40,10 @@ class FTTaPositionNameViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
-
+        
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
-        self.title = "职位名称"
+        self.title = "工作地点"
         
         let positionNameBgView = UIView(frame: CGRectMake(0, 64+10, screenSize.width, 44))
         positionNameBgView.backgroundColor = UIColor.whiteColor()
@@ -56,17 +56,17 @@ class FTTaPositionNameViewController: UIViewController {
         
         let tipLab = UILabel(frame: CGRectMake(8, CGRectGetMaxY(positionNameTf.frame)+10, screenSize.width*0.6, 30))
         tipLab.textColor = UIColor(red: 170/255.0, green: 170/255.0, blue: 170/255.0, alpha: 1)
-        tipLab.text = "请填写您的工作地点"
+        tipLab.text = "请填写您的职位名称"
         tipLab.font = UIFont.systemFontOfSize(14)
         positionNameBgView.addSubview(tipLab)
-
+        
         countLab.frame = CGRectMake(CGRectGetMaxX(tipLab.frame), CGRectGetMaxY(positionNameTf.frame)+10, screenSize.width-CGRectGetMaxX(tipLab.frame)-8, 30)
         countLab.textAlignment = .Right
-        countLab.text = "0/4"
+        countLab.text = "0/50"
         positionNameBgView.addSubview(countLab)
     }
     
-    let maxCount = 4
+    let maxCount = 50
     
     func positionNameTfValueChanged(textField: UITextField) {
         

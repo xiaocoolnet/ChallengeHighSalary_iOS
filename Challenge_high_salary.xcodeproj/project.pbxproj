@@ -102,6 +102,14 @@
 		1FF06CD91D7D609A0032943B /* DropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CD11D7D609A0032943B /* DropDownCell.swift */; };
 		1FF06CDD1D7D6D970032943B /* ChChFindJobTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF06CDB1D7D6D970032943B /* ChChFindJobTableViewCell.swift */; };
 		1FF06CDE1D7D6D970032943B /* ChChFindJobTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF06CDC1D7D6D970032943B /* ChChFindJobTableViewCell.xib */; };
+		1FF1CE151DA88D1B000F0A9A /* area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FF1CE141DA88D1B000F0A9A /* area.plist */; };
+		1FF1CE171DA89E21000F0A9A /* FTTaWorkplaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1CE161DA89E21000F0A9A /* FTTaWorkplaceViewController.swift */; };
+		1FF1CE191DA8BA8E000F0A9A /* FTTaJobDescriptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1CE181DA8BA8E000F0A9A /* FTTaJobDescriptionsViewController.swift */; };
+		1FF1CE1F1DA8C5D1000F0A9A /* FTMeHomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1CE1D1DA8C5D1000F0A9A /* FTMeHomeTableViewCell.swift */; };
+		1FF1CE201DA8C5D1000F0A9A /* FTMeHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF1CE1E1DA8C5D1000F0A9A /* FTMeHomeTableViewCell.xib */; };
+		1FF1CE221DA8CCC8000F0A9A /* FTMeSysMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1CE211DA8CCC8000F0A9A /* FTMeSysMessageViewController.swift */; };
+		1FF1CE251DA8CE78000F0A9A /* FTMeSysMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1CE231DA8CE78000F0A9A /* FTMeSysMessageTableViewCell.swift */; };
+		1FF1CE261DA8CE78000F0A9A /* FTMeSysMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF1CE241DA8CE78000F0A9A /* FTMeSysMessageTableViewCell.xib */; };
 		1FF3C69D1D9262100069DD23 /* CHSMiAboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3C69C1D9262100069DD23 /* CHSMiAboutUsViewController.swift */; };
 		1FF3C69F1D9264E70069DD23 /* CHSMiMyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3C69E1D9264E70069DD23 /* CHSMiMyCollectionViewController.swift */; };
 		1FF3C6A11D9269F70069DD23 /* CHSMiMyDeliveryRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3C6A01D9269F70069DD23 /* CHSMiMyDeliveryRecordViewController.swift */; };
@@ -251,6 +259,14 @@
 		1FF06CD11D7D609A0032943B /* DropDownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownCell.swift; sourceTree = "<group>"; };
 		1FF06CDB1D7D6D970032943B /* ChChFindJobTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChFindJobTableViewCell.swift; sourceTree = "<group>"; };
 		1FF06CDC1D7D6D970032943B /* ChChFindJobTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChChFindJobTableViewCell.xib; sourceTree = "<group>"; };
+		1FF1CE141DA88D1B000F0A9A /* area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = area.plist; sourceTree = "<group>"; };
+		1FF1CE161DA89E21000F0A9A /* FTTaWorkplaceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaWorkplaceViewController.swift; sourceTree = "<group>"; };
+		1FF1CE181DA8BA8E000F0A9A /* FTTaJobDescriptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaJobDescriptionsViewController.swift; sourceTree = "<group>"; };
+		1FF1CE1D1DA8C5D1000F0A9A /* FTMeHomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeHomeTableViewCell.swift; sourceTree = "<group>"; };
+		1FF1CE1E1DA8C5D1000F0A9A /* FTMeHomeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTMeHomeTableViewCell.xib; sourceTree = "<group>"; };
+		1FF1CE211DA8CCC8000F0A9A /* FTMeSysMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeSysMessageViewController.swift; sourceTree = "<group>"; };
+		1FF1CE231DA8CE78000F0A9A /* FTMeSysMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeSysMessageTableViewCell.swift; sourceTree = "<group>"; };
+		1FF1CE241DA8CE78000F0A9A /* FTMeSysMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTMeSysMessageTableViewCell.xib; sourceTree = "<group>"; };
 		1FF3C69C1D9262100069DD23 /* CHSMiAboutUsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiAboutUsViewController.swift; sourceTree = "<group>"; };
 		1FF3C69E1D9264E70069DD23 /* CHSMiMyCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiMyCollectionViewController.swift; sourceTree = "<group>"; };
 		1FF3C6A01D9269F70069DD23 /* CHSMiMyDeliveryRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiMyDeliveryRecordViewController.swift; sourceTree = "<group>"; };
@@ -488,6 +504,7 @@
 		1FCDFEF51D740CC90067970B /* Message(消息) */ = {
 			isa = PBXGroup;
 			children = (
+				1FF1CE1A1DA8C594000F0A9A /* View */,
 				1FEF809A1D810A1F00486F9C /* Controller */,
 			);
 			name = "Message(消息)";
@@ -544,6 +561,7 @@
 		1FCDFEFD1D740EEA0067970B /* Tool(工具) */ = {
 			isa = PBXGroup;
 			children = (
+				1FF1CE141DA88D1B000F0A9A /* area.plist */,
 				1F33D77A1D7587370028444A /* Challenge_high_salary-Bridging-Header.h */,
 				1F4FD25A1D767CC500FF7040 /* Tool.swift */,
 				1FF9DB151D96145D00F0C69D /* GuideViewController.swift */,
@@ -607,6 +625,8 @@
 				1FC3CCB71D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift */,
 				1FC3CCB91D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift */,
 				1FC3CCBB1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift */,
+				1FF1CE161DA89E21000F0A9A /* FTTaWorkplaceViewController.swift */,
+				1FF1CE181DA8BA8E000F0A9A /* FTTaJobDescriptionsViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -615,6 +635,7 @@
 			isa = PBXGroup;
 			children = (
 				1FEF809E1D810A5B00486F9C /* FTMeHomeViewController.swift */,
+				1FF1CE211DA8CCC8000F0A9A /* FTMeSysMessageViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -790,6 +811,17 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		1FF1CE1A1DA8C594000F0A9A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1FF1CE1D1DA8C5D1000F0A9A /* FTMeHomeTableViewCell.swift */,
+				1FF1CE1E1DA8C5D1000F0A9A /* FTMeHomeTableViewCell.xib */,
+				1FF1CE231DA8CE78000F0A9A /* FTMeSysMessageTableViewCell.swift */,
+				1FF1CE241DA8CE78000F0A9A /* FTMeSysMessageTableViewCell.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		1FF524D81D88F6EC00E1B70F /* MBProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -941,6 +973,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FF06CD61D7D609A0032943B /* DropDownCell.xib in Resources */,
+				1FF1CE151DA88D1B000F0A9A /* area.plist in Resources */,
 				1FB6D6001D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.xib in Resources */,
 				1FB6D5F41D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.xib in Resources */,
 				1FC3CCB41D9CDD29004AA4C6 /* FTMiMyBlacklistTableViewCell.xib in Resources */,
@@ -952,11 +985,13 @@
 				1FDB00191D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.xib in Resources */,
 				1FCDFECA1D73E6DB0067970B /* LaunchScreen.storyboard in Resources */,
 				1FA93F521D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.xib in Resources */,
+				1FF1CE201DA8C5D1000F0A9A /* FTMeHomeTableViewCell.xib in Resources */,
 				1FF3C6AD1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.xib in Resources */,
 				1FCDFEC71D73E6DB0067970B /* Assets.xcassets in Resources */,
 				1FCDFEC51D73E6DB0067970B /* Main.storyboard in Resources */,
 				1F1224D51D976FEA0094C6CE /* CHSReResumePreviewViewController.xib in Resources */,
 				1FF06CD51D7D609A0032943B /* Info.plist in Resources */,
+				1FF1CE261DA8CE78000F0A9A /* FTMeSysMessageTableViewCell.xib in Resources */,
 				1F482B8C1D7FBE400079A62B /* citydict.plist in Resources */,
 				1FB6D5FA1D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.xib in Resources */,
 				1FC3CCAC1D9CB5CE004AA4C6 /* FTMyInterviewInvitationTableViewCell.xib in Resources */,
@@ -1051,6 +1086,7 @@
 				1FB6D5F91D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.swift in Sources */,
 				1FDB00241D8FCB4A007043B4 /* CHSMiHomeTableViewCell.swift in Sources */,
 				1FB6D5FC1D9BC31400262BBD /* FTMiMyRewardViewController.swift in Sources */,
+				1FF1CE1F1DA8C5D1000F0A9A /* FTMeHomeTableViewCell.swift in Sources */,
 				1FDB001D1D8FB712007043B4 /* CHSReJobExperienceViewController.swift in Sources */,
 				1FF06CC01D7D17960032943B /* ChChHomeViewController.swift in Sources */,
 				1FC3CCA41D9CA055004AA4C6 /* FTMiMyInterviewInvitationViewController.swift in Sources */,
@@ -1066,6 +1102,7 @@
 				1FB6D5F01D9B985C00262BBD /* CHSMiMyBonusViewController.swift in Sources */,
 				1FB6D5F31D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.swift in Sources */,
 				1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */,
+				1FF1CE221DA8CCC8000F0A9A /* FTMeSysMessageViewController.swift in Sources */,
 				1FD7FBD61D795BA70032221D /* WeHomeViewController.swift in Sources */,
 				1FC3CCBA1D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift in Sources */,
 				1FF06CD71D7D609A0032943B /* DropDown+Appearance.swift in Sources */,
@@ -1108,13 +1145,16 @@
 				1F4FD2661D76C01D00FF7040 /* NSString+FontAwesome.m in Sources */,
 				1FEC64E01D912AF70045038C /* CHSMiMessageRemindViewController.swift in Sources */,
 				1F180F6C1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift in Sources */,
+				1FF1CE251DA8CE78000F0A9A /* FTMeSysMessageTableViewCell.swift in Sources */,
 				1FC3CCA61D9CAEEE004AA4C6 /* FTMiMyInterviewWaitViewController.swift in Sources */,
 				1FB311531D96615400217DDA /* FTTaPositionViewController.swift in Sources */,
 				1FF06CD81D7D609A0032943B /* DropDown.swift in Sources */,
+				1FF1CE191DA8BA8E000F0A9A /* FTTaJobDescriptionsViewController.swift in Sources */,
 				1FF06CBA1D7D16A20032943B /* ChMiHomeViewController.swift in Sources */,
 				1FEC64DC1D9120C50045038C /* CHSMiPhoneBindingViewController.swift in Sources */,
 				1FCDFF011D7411160067970B /* LoHomeViewController.swift in Sources */,
 				1FF9DB241D96298300F0C69D /* FTMiMyHiringRecordViewController.swift in Sources */,
+				1FF1CE171DA89E21000F0A9A /* FTTaWorkplaceViewController.swift in Sources */,
 				1FF524D51D88E8C700E1B70F /* LoginModel.swift in Sources */,
 				1FEF80A11D810A7600486F9C /* FTMiHomeViewController.swift in Sources */,
 				1FF9DB211D9624DB00F0C69D /* FTTalentTableViewCell.swift in Sources */,
