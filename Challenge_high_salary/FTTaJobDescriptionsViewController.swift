@@ -8,9 +8,10 @@
 
 import UIKit
 
-class FTTaJobDescriptionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FTTaJobDescriptionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
     
     let rootTableView = UITableView()
+    let jobDescriptionTv = UIPlaceHolderTextView()
     
     var othersDrop = DropDown()
     
@@ -44,7 +45,7 @@ class FTTaJobDescriptionsViewController: UIViewController, UITableViewDataSource
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
         
         self.title = "职位描述"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Done, target: self, action: #selector(clickSaveBtn))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .Done, target: self, action: #selector(clickSaveBtn))
         
         rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
@@ -59,7 +60,21 @@ class FTTaJobDescriptionsViewController: UIViewController, UITableViewDataSource
     
     // MARK: 点击保存按钮
     func clickSaveBtn() {
-        self.navigationController?.popViewControllerAnimated(true)
+        
+        if self.jobDescriptionTv.text!.isEmpty {
+            let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            checkCodeHud.removeFromSuperViewOnHide = true
+            
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入职位描述"
+            checkCodeHud.hide(true, afterDelay: 1)
+        }else{
+            var FTPublishJobSelectedNameArray = NSUserDefaults.standardUserDefaults().arrayForKey(FTPublishJobSelectedNameArray_key) as! [Array<String>]
+            FTPublishJobSelectedNameArray[3][2] = self.jobDescriptionTv.text!
+            NSUserDefaults.standardUserDefaults().setValue(FTPublishJobSelectedNameArray, forKey: FTPublishJobSelectedNameArray_key)
+            
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     // MARK:- tableView dataSource
@@ -77,8 +92,18 @@ class FTTaJobDescriptionsViewController: UIViewController, UITableViewDataSource
         cell?.selectionStyle = .None
         
         if indexPath.row == 0 {
-            let myAdvantagesTv = UITextView(frame: CGRectMake(0, 0, screenSize.width, kHeightScale*115))
-            cell?.contentView.addSubview(myAdvantagesTv)
+            jobDescriptionTv.frame = CGRectMake(0, 0, screenSize.width, kHeightScale*115)
+            jobDescriptionTv.placeholder = "请输入职位描述"
+            
+            var FTPublishJobSelectedNameArray = NSUserDefaults.standardUserDefaults().arrayForKey(FTPublishJobSelectedNameArray_key) as! [Array<String>]
+            if FTPublishJobSelectedNameArray[3][2] != "职位描述" {
+                jobDescriptionTv.text = FTPublishJobSelectedNameArray[3][2]
+            }
+            
+            jobDescriptionTv.delegate = self
+//            myAdvantagesTv.addTarget(self, action: #selector(positionNameTfValueChanged), forControlEvents: .EditingChanged)
+
+            cell?.contentView.addSubview(jobDescriptionTv)
             
             drawDashed((cell?.contentView)!, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(8, 115), toPoint: CGPointMake(screenSize.width-8, 115), lineWidth: 1/UIScreen.mainScreen().scale)
             
@@ -92,7 +117,7 @@ class FTTaJobDescriptionsViewController: UIViewController, UITableViewDataSource
             cell?.detailTextLabel?.font = UIFont.systemFontOfSize(13)
             cell?.detailTextLabel?.textColor = baseColor
             cell?.detailTextLabel?.textAlignment = .Right
-            cell?.detailTextLabel?.text = "0/120"
+            cell?.detailTextLabel?.text = "\((jobDescriptionTv.text?.characters.count)!)/\(maxCount)"
             othersDrop.anchorView = cell
             othersDrop.bottomOffset = CGPoint(x: 8, y: 45)
             othersDrop.width = screenSize.width-16
@@ -103,7 +128,8 @@ class FTTaJobDescriptionsViewController: UIViewController, UITableViewDataSource
             // 下拉列表选中后的回调方法
             othersDrop.selectionAction = { (index, item) in
                 
-                //                    salaryBtn.setTitle(item, forState: .Normal)
+                self.jobDescriptionTv.text = item
+                self.positionNameTfValueChanged()
             }
         }
         
@@ -129,6 +155,33 @@ class FTTaJobDescriptionsViewController: UIViewController, UITableViewDataSource
         }
     }
     
+    // MARK: 限制输入字数
+    let maxCount = 120
+    
+    func positionNameTfValueChanged() {
+        
+        let lang = textInputMode?.primaryLanguage
+        if lang == "zh-Hans" {
+            let range = self.jobDescriptionTv.markedTextRange
+            if range == nil {
+                if self.jobDescriptionTv.text?.characters.count >= maxCount {
+                    self.jobDescriptionTv.text = self.jobDescriptionTv.text?.substringToIndex((self.jobDescriptionTv.text?.startIndex.advancedBy(maxCount))!)
+                }
+            }
+        }
+        else {
+            if self.jobDescriptionTv.text?.characters.count >= maxCount {
+                self.jobDescriptionTv.text = self.jobDescriptionTv.text?.substringToIndex((self.jobDescriptionTv.text?.startIndex.advancedBy(maxCount))!)
+            }
+        }
+        
+        let cell = rootTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
+        cell?.detailTextLabel?.text = "\((self.jobDescriptionTv.text?.characters.count)!)/\(maxCount)"
+    }
+    
+    func textViewDidChange(textView: UITextView) {
+        positionNameTfValueChanged()
+    }
     // MARK:自定义下拉列表样式
     func customizeDropDown() {
         let appearance = DropDown.appearance()

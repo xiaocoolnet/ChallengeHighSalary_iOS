@@ -55,7 +55,7 @@ class FTNetUtil: NSObject {
     
     // MARK: 添加公司信息
     // userid,logo,company_name,company_web,industry,count,financing
-    func SendMobileCode(
+    func company_info(
         userid:String,
         logo:String,
         company_name:String,

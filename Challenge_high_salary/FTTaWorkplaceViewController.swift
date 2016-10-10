@@ -56,8 +56,8 @@ class FTTaWorkplaceViewController: UIViewController {
         positionNameTf.placeholder = "请输入工作地点"
         
         var FTPublishJobSelectedNameArray = NSUserDefaults.standardUserDefaults().arrayForKey(FTPublishJobSelectedNameArray_key) as! [Array<String>]
-        if FTPublishJobSelectedNameArray[1][1] != "工作地点" {
-            positionNameTf.text = FTPublishJobSelectedNameArray[1][1]
+        if FTPublishJobSelectedNameArray[3][1] != "工作地点" {
+            positionNameTf.text = FTPublishJobSelectedNameArray[3][1]
         }
         
         positionNameTf.addTarget(self, action: #selector(positionNameTfValueChanged), forControlEvents: .EditingChanged)

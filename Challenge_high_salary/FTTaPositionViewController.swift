@@ -18,6 +18,16 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
+    var pickSelectedRowArray = [[0,0],[0],[0],[0,0]]
+    
+    let pickLowArray = ["1","2","3","4","5"]
+    var pickSupArray = ["1","2","3","4","5"]
+    
+    let pickExpRequiredArray = ["不限","应届生","1年以内","1-3年"]
+    let pickEduRequiredArray = ["不限","大专","本科","研究生"]
+    
+    var pickerView = UIPickerView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,7 +92,65 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         postPositionBtn.titleLabel?.font = UIFont.systemFontOfSize(16)
         postPositionBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         postPositionBtn.setTitle("发布职位", forState: .Normal)
+        postPositionBtn.addTarget(self, action: #selector(postPositionBtnClick), forControlEvents: .TouchUpInside)
         self.view.addSubview(postPositionBtn)
+    }
+    
+    // MARK: 发布职位按钮 点击事件
+    func postPositionBtnClick() {
+        
+        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        
+//        [["公司信息"],["职位类型","职位名称","技能要求","薪资范围"],["经验要求","学历要求"],["工作城市","工作地点","职位描述"]] 
+        if  selectedNameArray[1][0] == "职位类型" ||
+            selectedNameArray[1][1] == "职位名称" ||
+            selectedNameArray[1][2] == "技能要求" ||
+            selectedNameArray[1][3] == "薪资范围" ||
+            selectedNameArray[2][0] == "经验要求" ||
+            selectedNameArray[2][1] == "学历要求" ||
+            selectedNameArray[3][0] == "工作城市" ||
+            selectedNameArray[3][1] == "工作地点" ||
+            selectedNameArray[3][2] == "职位描述"{
+            
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请完善职位信息"
+            checkCodeHud.hide(true, afterDelay: 1)
+        }else{
+            
+            checkCodeHud.labelText = "正在发布职位"
+            
+            FTNetUtil().publishjob(
+                CHSUserInfo.currentUserInfo.userid,
+                jobtype: selectedNameArray[1][0],
+                title: selectedNameArray[1][1],
+                skill: selectedNameArray[1][2],
+                salary: selectedNameArray[1][3],
+                experience: selectedNameArray[2][0],
+                education: selectedNameArray[2][1],
+                city: selectedNameArray[3][0],
+                address: selectedNameArray[3][1],
+                description: selectedNameArray[3][2]) { (success, response) in
+                    if success {
+                        
+                        checkCodeHud.mode = .Text
+                        checkCodeHud.labelText = "发布职位成功"
+                        checkCodeHud.hide(true, afterDelay: 1)
+                        
+                        let time: NSTimeInterval = 1.0
+                        let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                        
+                        dispatch_after(delay, dispatch_get_main_queue()) {
+                            self.navigationController?.popViewControllerAnimated(true)
+                        }
+                    }else{
+                        
+                        checkCodeHud.mode = .Text
+                        checkCodeHud.labelText = "发布职位失败"
+                        checkCodeHud.hide(true, afterDelay: 1)
+                    }
+            }
+        }
     }
     
     // MARK:- tableview datasource
@@ -174,7 +242,7 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
             
             drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(0, 43), toPoint: CGPointMake(screenSize.width, 43), lineWidth: 1)
             
-            let pickerView = UIPickerView(frame: CGRectMake(0, 44, screenSize.width, kHeightScale*240-88))
+            pickerView = UIPickerView(frame: CGRectMake(0, 44, screenSize.width, kHeightScale*240-88))
             
             //            pickerView.subviews[0].layer.borderWidth = 0.5
             //
@@ -198,24 +266,34 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
             let sureBtn = UIButton(frame: CGRectMake(screenSize.width/2.0-0.5, kHeightScale*240-43, screenSize.width/2.0-0.5, 43))
             sureBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
             sureBtn.setTitle("确定", forState: .Normal)
+            sureBtn.addTarget(self, action: #selector(sureBtnClick), forControlEvents: .TouchUpInside)
             pickerBgView.addSubview(sureBtn)
             
             switch (indexPath.section,indexPath.row) {
             case (1,3):
                 pickerLab.text = "薪资范围（月薪，单位：千元）"
+                
                 pickerView.tag = 101
-
+                pickerView.selectRow(pickSelectedRowArray[0][0], inComponent: 0, animated: false)
+                pickerView.selectRow(pickSelectedRowArray[0][1], inComponent: 2, animated: false)
             case (2,0):
+                
                 pickerLab.text = "经验要求"
+                
                 pickerView.tag = 102
-
+                pickerView.selectRow(pickSelectedRowArray[1][0], inComponent: 0, animated: false)
             case (2,1):
                 pickerLab.text = "学历要求"
-                pickerView.tag = 103
                 
+                pickerView.tag = 103
+                pickerView.selectRow(pickSelectedRowArray[2][0], inComponent: 0, animated: false)
             case (3,0):
+                
                 pickerLab.text = "工作城市"
+                
                 pickerView.tag = 104
+                pickerView.selectRow(pickSelectedRowArray[3][0], inComponent: 0, animated: false)
+                pickerView.selectRow(pickSelectedRowArray[3][1], inComponent: 1, animated: false)
             default:
                 print("找人才-人才-发布职位-didSelectRowAtIndexPath  default")
             }
@@ -223,10 +301,46 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
+    // MARK: 取消按钮点击事件
     func pickerCancelClick() {
         self.view.viewWithTag(1000)?.removeFromSuperview()
     }
     
+    // MARK: 确定按钮点击事件
+    func sureBtnClick() {
+        
+        if pickerView.tag == 101 {
+            
+            selectedNameArray[1][3] = "\(pickLowArray[pickerView.selectedRowInComponent(0)])至\(pickSupArray[pickerView.selectedRowInComponent(2)])"
+            
+            pickSelectedRowArray[0][0] = pickerView.selectedRowInComponent(0)
+            pickSelectedRowArray[0][1] = pickerView.selectedRowInComponent(2)
+        }else if pickerView.tag == 102 {
+            
+            selectedNameArray[2][0] = pickExpRequiredArray[pickerView.selectedRowInComponent(0)]
+            
+            pickSelectedRowArray[1][0] = pickerView.selectedRowInComponent(0)
+        }else if pickerView.tag == 103 {
+            
+            selectedNameArray[2][1] = pickEduRequiredArray[pickerView.selectedRowInComponent(0)]
+            
+            pickSelectedRowArray[2][0] = pickerView.selectedRowInComponent(0)
+        }else if pickerView.tag == 104 {
+            
+            selectedNameArray[3][0] = "\(provinceArray[pickerView.selectedRowInComponent(0)])-\(cityArray[pickerView.selectedRowInComponent(1)])"
+
+            pickSelectedRowArray[3][0] = pickerView.selectedRowInComponent(0)
+            pickSelectedRowArray[3][1] = pickerView.selectedRowInComponent(1)
+        }
+        
+        NSUserDefaults.standardUserDefaults().setValue(selectedNameArray, forKey: FTPublishJobSelectedNameArray_key)
+
+//        pickerView.removeFromSuperview()
+        
+        self.view.viewWithTag(1000)?.removeFromSuperview()
+    }
+    
+    // MARK: 改变分割线颜色
     func changeSeparatorWithView(view: UIView) {
         
         if view.bounds.size.height <= 1 {
@@ -238,12 +352,7 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-    let pickLowArray = ["1","2","3","4","5"]
-    var pickSupArray = ["1","2","3","4","5"]
-    
-    let pickExpRequiredArray = ["不限","应届生","1年以内","1-3年"]
-    let pickEduRequiredArray = ["不限","大专","本科","研究生"]
-    
+    // MARK:- UIPickerView DataSource
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         
         if pickerView.tag == 101 {
@@ -289,33 +398,10 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         
     }
     
-//    func pickerView(pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-//        return 50
-//    }
-    
+    // MARK:- UIPickerView Delegate
     func pickerView(pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 25
     }
-    
-//    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        
-//        if pickerView.tag == 101 {
-//            
-//            if component == 0 {
-//                return pickLowArray[row]
-//            }else if component == 1 {
-//                return "至"
-//            }else{
-//                return pickSupArray[row]
-//            }
-//        }else if pickerView.tag == 102 {
-//            
-//            return pickExpRequiredArray[row]
-//        }else{
-//            return pickExpRequiredArray[row]
-//        }
-//        
-//    }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
@@ -387,7 +473,7 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         
         return view
     }
-    
+    // MARK:-
     
     
     override func didReceiveMemoryWarning() {
