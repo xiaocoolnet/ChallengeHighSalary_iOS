@@ -105,6 +105,19 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.dequeueReusableCellWithIdentifier("CHSMeHomeCell") as! CHSMeHomeTableViewCell
         cell.selectionStyle = .None
         
+        switch self.dataArray[indexPath.row]["type"]! {
+        case "1":
+            cell.iconImg.image = UIImage(named: "ic_message_home_系统")
+        case "2":
+            cell.iconImg.image = UIImage(named: "ic_message_home_面试")
+        case "3":
+            cell.iconImg.image = UIImage(named: "ic_message_home_收藏")
+        case "4":
+            cell.iconImg.image = UIImage(named: "ic_message_home_查看")
+        default:
+            break
+        }
+        
         cell.titleLab.text = self.dataArray[indexPath.row]["title"]!
         cell.descriptionLab.text = self.dataArray[indexPath.row]["description"]!
         cell.timeLab.text = self.dataArray[indexPath.row]["time"]!

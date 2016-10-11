@@ -33,7 +33,7 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_红包" translatesAutoresizingMaskIntoConstraints="NO" id="pDg-fB-Wwe">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pDg-fB-Wwe">
                         <rect key="frame" x="8" y="8" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="ZeC-TU-Iwl"/>
@@ -61,7 +61,4 @@
             <point key="canvasLocation" x="255.5" y="482"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="ic_红包" width="15" height="14"/>
-    </resources>
 </document>
