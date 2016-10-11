@@ -264,7 +264,47 @@ class LoRegisterViewController: UIViewController, UITextFieldDelegate {
     
     // MAKE: 注册按钮点击事件
     func registerBtnClick() {
-        //        self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
+        
+        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        
+        // 判断手机号是否为空
+        if telTF.text!.isEmpty {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入手机号"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if !isPhoneNumber(telTF.text!) {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "手机号输入有误"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if checkCodeTF.text!.isEmpty {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入验证码"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if pwdTF.text!.isEmpty {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入密码"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }
+        
+        LoginNetUtil().AppRegister(telTF.text!, password: pwdTF.text!, code: checkCodeTF.text!) { (success, response) in
+            if success {
+
+                checkCodeHud.hide(false)
+                
+                self.navigationController?.pushViewController(LoReChooseIdentityViewController(), animated: true)
+            }else{
+                
+                checkCodeHud.mode = .Text
+                checkCodeHud.labelText = "注册失败"
+                checkCodeHud.detailsLabelText = response as! String
+                checkCodeHud.hide(true, afterDelay: 1)
+            }
+        }
     }
     
     // MAKE: 用户协议按钮点击事件

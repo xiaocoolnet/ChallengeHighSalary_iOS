@@ -69,75 +69,13 @@ class LoReChooseIdentityViewController: UIViewController {
     // MARK: 找人才 按钮 点击事件
     func forTalentBtnClick() {
         
-        // 找人才 过渡界面
-        let welLab = UILabel(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
-        welLab.backgroundColor = baseColor
-        welLab.numberOfLines = 0
-        welLab.textColor = UIColor.whiteColor()
-        welLab.font = UIFont.boldSystemFontOfSize(20)
-        welLab.adjustsFontSizeToFitWidth = true
-        welLab.textAlignment = .Center
-        welLab.text = "机不可失失不再来，快抢人才！"
-        self.view.addSubview(welLab)
-        
-        
-        let toVC = FTRoHomeViewController()
-        toVC.view.frame.origin.x = -screenSize.width
-        toVC.viewControllers![0].view.frame.origin.x = -screenSize.width
-        self.view.addSubview(toVC.view)
-        
-        let time: NSTimeInterval = 1.0
-        let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
-        
-        dispatch_after(delay, dispatch_get_main_queue()) {
-            
-            UIView.animateWithDuration(1, animations: {
-                toVC.view.frame.origin.x = 0
-                toVC.viewControllers![0].view.frame.origin.x = 0
-                
-            }) { (finished) in
-                if finished {
-                    self.presentViewController(toVC, animated: false, completion: nil)
-                }
-            }
-        }
+        self.navigationController?.pushViewController(LoReFTPersonalInfoViewController(), animated: true)
     }
     
     // MARK: 挑战高薪 按钮 点击事件
     func chSalaryBtnClick() {
         
-        // 挑战高薪 过渡界面
-        let welLab = UILabel(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
-        welLab.backgroundColor = baseColor
-        welLab.numberOfLines = 0
-        welLab.textColor = UIColor.whiteColor()
-        welLab.font = UIFont.boldSystemFontOfSize(20)
-        welLab.adjustsFontSizeToFitWidth = true
-        welLab.textAlignment = .Center
-        welLab.text = "千万不要低估了自己\n也不要高估了那些拿到高薪的人~！\n查看职位还有可能获得奖金哦！"
-        self.view.addSubview(welLab)
-        
-        
-        let toVC = CHRoHomeViewController()
-        toVC.view.frame.origin.x = -screenSize.width
-        toVC.viewControllers![0].view.frame.origin.x = -screenSize.width
-        self.view.addSubview(toVC.view)
-        
-        let time: NSTimeInterval = 1.0
-        let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
-        
-        dispatch_after(delay, dispatch_get_main_queue()) {
-            
-            UIView.animateWithDuration(1, animations: {
-                toVC.view.frame.origin.x = 0
-                toVC.viewControllers![0].view.frame.origin.x = 0
-                
-            }) { (finished) in
-                if finished {
-                    self.presentViewController(toVC, animated: false, completion: nil)
-                }
-            }
-        }
+        self.navigationController?.pushViewController(LoReCHSPersonalInfoViewController(), animated: true)
     }
     
     override func didReceiveMemoryWarning() {

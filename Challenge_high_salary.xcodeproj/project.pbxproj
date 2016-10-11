@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		1F0B59451DAB2FC700A172E3 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B59441DAB2FC700A172E3 /* UIPlaceHolderTextView.m */; };
 		1F0B59471DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B59461DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift */; };
+		1F0B59491DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B59481DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift */; };
+		1F0B594B1DAB435800A172E3 /* LoReCHSPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B594A1DAB435800A172E3 /* LoReCHSPersonalInfoViewController.swift */; };
+		1F0B594D1DAB8AA100A172E3 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B594C1DAB8AA100A172E3 /* UIImage+Extension.swift */; };
+		1F0B594F1DAB979800A172E3 /* LoReCHSChooseCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B594E1DAB979800A172E3 /* LoReCHSChooseCityViewController.swift */; };
 		1F1224D41D976FEA0094C6CE /* CHSReResumePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1224D21D976FEA0094C6CE /* CHSReResumePreviewViewController.swift */; };
 		1F1224D51D976FEA0094C6CE /* CHSReResumePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F1224D31D976FEA0094C6CE /* CHSReResumePreviewViewController.xib */; };
 		1F1224D71D979CA60094C6CE /* CHSRePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1224D61D979CA60094C6CE /* CHSRePreviewViewController.swift */; };
@@ -182,6 +186,10 @@
 		1F0B59431DAB2FC700A172E3 /* UIPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceHolderTextView.h; sourceTree = "<group>"; };
 		1F0B59441DAB2FC700A172E3 /* UIPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPlaceHolderTextView.m; sourceTree = "<group>"; };
 		1F0B59461DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReChooseIdentityViewController.swift; sourceTree = "<group>"; };
+		1F0B59481DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReFTPersonalInfoViewController.swift; sourceTree = "<group>"; };
+		1F0B594A1DAB435800A172E3 /* LoReCHSPersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReCHSPersonalInfoViewController.swift; sourceTree = "<group>"; };
+		1F0B594C1DAB8AA100A172E3 /* UIImage+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		1F0B594E1DAB979800A172E3 /* LoReCHSChooseCityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReCHSChooseCityViewController.swift; sourceTree = "<group>"; };
 		1F1224D21D976FEA0094C6CE /* CHSReResumePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReResumePreviewViewController.swift; sourceTree = "<group>"; };
 		1F1224D31D976FEA0094C6CE /* CHSReResumePreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSReResumePreviewViewController.xib; sourceTree = "<group>"; };
 		1F1224D61D979CA60094C6CE /* CHSRePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSRePreviewViewController.swift; sourceTree = "<group>"; };
@@ -442,6 +450,7 @@
 		1F8741191D82A02A007B8793 /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
+				1F0B594C1DAB8AA100A172E3 /* UIImage+Extension.swift */,
 				1F0B59421DAB2FC700A172E3 /* UIPlaceHolderTextView */,
 				1FF524D81D88F6EC00E1B70F /* MBProgressHUD */,
 				1FF524D61D88EC2B00E1B70F /* D3Model.swift */,
@@ -648,6 +657,9 @@
 				1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */,
 				1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */,
 				1F0B59461DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift */,
+				1F0B59481DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift */,
+				1F0B594A1DAB435800A172E3 /* LoReCHSPersonalInfoViewController.swift */,
+				1F0B594E1DAB979800A172E3 /* LoReCHSChooseCityViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1230,6 +1242,7 @@
 				1FF3C6A61D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.swift in Sources */,
 				1F4FD2681D76C01D00FF7040 /* UIColor+BButton.m in Sources */,
 				1FF9DB161D96145D00F0C69D /* GuideViewController.swift in Sources */,
+				1F0B594D1DAB8AA100A172E3 /* UIImage+Extension.swift in Sources */,
 				1FDB001F1D8FC5D7007043B4 /* CHSReProjectExperienceViewController.swift in Sources */,
 				1FEF80981D810A0400486F9C /* FTRoHomeViewController.swift in Sources */,
 				1FF3C6A11D9269F70069DD23 /* CHSMiMyDeliveryRecordViewController.swift in Sources */,
@@ -1263,6 +1276,8 @@
 				1FDB00131D8F7490007043B4 /* CHSChCompanyHomeViewController.swift in Sources */,
 				1F577B381DA9F35E00AB5D99 /* CHSMeCollectionMeTableViewCell.swift in Sources */,
 				1FF3C69F1D9264E70069DD23 /* CHSMiMyCollectionViewController.swift in Sources */,
+				1F0B594F1DAB979800A172E3 /* LoReCHSChooseCityViewController.swift in Sources */,
+				1F0B594B1DAB435800A172E3 /* LoReCHSPersonalInfoViewController.swift in Sources */,
 				1FF3C6A31D926E210069DD23 /* CHSChCompanyInterviewEvaluationViewController.swift in Sources */,
 				1F9CE7C11D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift in Sources */,
 				1F577B201DA9F1D000AB5D99 /* CHSMeSysMessageViewController.swift in Sources */,
@@ -1291,6 +1306,7 @@
 				1FEF80A11D810A7600486F9C /* FTMiHomeViewController.swift in Sources */,
 				1FF9DB211D9624DB00F0C69D /* FTTalentTableViewCell.swift in Sources */,
 				1F180F701D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift in Sources */,
+				1F0B59491DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift in Sources */,
 				1FC3CCA81D9CAF07004AA4C6 /* FTMiMyInterviewFinishViewController.swift in Sources */,
 				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,
 				1F4FD25B1D767CC500FF7040 /* Tool.swift in Sources */,

@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = guideViewController
         }else{
 //            self.window?.rootViewController = CHRoHomeViewController()
-            self.window?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
+            self.window?.rootViewController = UINavigationController(rootViewController: LoReChooseIdentityViewController())
 
         }
         

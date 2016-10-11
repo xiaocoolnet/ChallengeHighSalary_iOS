@@ -51,11 +51,6 @@ class CHSMiSettingViewController: UIViewController, UITableViewDataSource, UITab
         self.view.addSubview(rootTableView)
     }
     
-    // MARK:- 设置按钮点击事件
-    func setBtnClick() {
-        self.navigationController?.pushViewController(CHSMiSettingViewController(), animated: true)
-    }
-    
     // MARK:- tableview datasource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return nameArray[section].count

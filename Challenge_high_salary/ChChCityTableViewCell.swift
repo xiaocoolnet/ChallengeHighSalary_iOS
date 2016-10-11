@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol ChChCityTableViewCellDelegate {
+    func cityTableViewCellCityBtnClick(cityBtn:UIButton)
+}
+
 class ChChCityTableViewCell: UITableViewCell {
+    
+    var delegate:ChChCityTableViewCellDelegate?
     
     var cityBtnsTitleArray = Array<String>() {
         didSet {
@@ -39,6 +45,7 @@ class ChChCityTableViewCell: UITableViewCell {
             cityBtn.titleLabel?.font = UIFont.systemFontOfSize(14)
             cityBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
             cityBtn.setTitle(city, forState: .Normal)
+            cityBtn.addTarget(self, action: #selector(cityBtnClick(_:)), forControlEvents: .TouchUpInside)
             self.contentView.addSubview(cityBtn)
             
             if i+1 < cityBtnsTitleArray.count {
@@ -55,6 +62,11 @@ class ChChCityTableViewCell: UITableViewCell {
             }
             
         }
+    }
+    
+    func cityBtnClick(cityBtn:UIButton) {
+        print(cityBtn.currentTitle)
+        self.delegate?.cityTableViewCellCityBtnClick(cityBtn)
     }
     
     override func awakeFromNib() {
