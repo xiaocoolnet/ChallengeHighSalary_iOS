@@ -8,13 +8,46 @@
 
 import UIKit
 
-class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, LoReFTInfoInputViewControllerDelegate {
     
     let rootTableView = UITableView()
     let headerImg = UIImageView()
     var selectedImage:UIImage?
     
     let nameArray = [["个人头像","真实姓名"],["我的职位","接收简历邮箱","当前公司"],["QQ","微信","微博"]]
+    
+    var nameText:String? {
+        didSet {
+            self.rootTableView.reloadData()
+        }
+    }
+    
+    var positionText:String? {
+        didSet {
+            self.rootTableView.reloadData()
+        }
+    }
+    
+    var emailText:String? {
+        didSet {
+            self.rootTableView.reloadData()
+        }
+    }
+    
+    var companyText:String? {
+        didSet {
+            self.rootTableView.reloadData()
+        }
+    }
+    
+    let QQTf = UITextField()
+    var QQNumber:String?
+    
+    let wechatTf = UITextField()
+    var wechatNumber:String?
+    
+    let weiboTf = UITextField()
+    var weiboNumber:String?
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -28,7 +61,21 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
         
         // Do any additional setup after loading the view.
         
+        loadData()
         setSubviews()
+    }
+    
+    // MARK: 加载数据
+    func loadData() {
+        
+        selectedImage = CHSUserInfo.currentUserInfo.avatar == "" ? nil:UIImage(data: NSData(contentsOfURL: NSURL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!)!)
+        nameText = CHSUserInfo.currentUserInfo.realName == "" ? nil:CHSUserInfo.currentUserInfo.realName
+        positionText = CHSUserInfo.currentUserInfo.myjob == "" ? nil:CHSUserInfo.currentUserInfo.myjob
+        emailText = CHSUserInfo.currentUserInfo.email == "" ? nil:CHSUserInfo.currentUserInfo.email
+        companyText = CHSUserInfo.currentUserInfo.company == "" ? nil:CHSUserInfo.currentUserInfo.company
+        QQNumber = CHSUserInfo.currentUserInfo.qqNumber == "" ? nil:CHSUserInfo.currentUserInfo.qqNumber
+        wechatNumber = CHSUserInfo.currentUserInfo.weixinNumber == "" ? nil:CHSUserInfo.currentUserInfo.weixinNumber
+        weiboNumber = CHSUserInfo.currentUserInfo.weiboNumber == "" ? nil:CHSUserInfo.currentUserInfo.weiboNumber
     }
     
     // MARK: popViewcontroller
@@ -74,6 +121,21 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
             checkCodeHud.mode = .Text
             checkCodeHud.labelText = "请先上传头像"
             checkCodeHud.hide(true, afterDelay: 1)
+        }else if nameText == nil {
+            
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入真实姓名"
+            checkCodeHud.hide(true, afterDelay: 1)
+        }else if positionText == nil {
+            
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入职位名"
+            checkCodeHud.hide(true, afterDelay: 1)
+        }else if companyText == nil {
+            
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入公司名"
+            checkCodeHud.hide(true, afterDelay: 1)
         }else{
             
             checkCodeHud.labelText = "正在上传头像"
@@ -86,16 +148,39 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
             LoginNetUtil().uploadImage(imageName, image: selectedImage!) { (success, response) in
                 if success {
                     
-                    checkCodeHud.mode = .Text
-                    checkCodeHud.labelText = "上传头像成功"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.labelText = "正在保存个人信息"
                     
-                    let time: NSTimeInterval = 1.0
-                    let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
-                    
-                    dispatch_after(delay, dispatch_get_main_queue()) {
-                        self.navigationController?.popViewControllerAnimated(true)
-                    }
+                    LoginNetUtil().savecompanyinfo(
+                        CHSUserInfo.currentUserInfo.userid,
+                        avatar: imageName,
+                        realname: self.nameText!,
+                        myjob: self.positionText!,
+                        email: self.emailText == nil ? "":self.emailText!,
+                        company: self.companyText!,
+                        qq: self.QQTf.text!,
+                        weixin: self.wechatTf.text!,
+                        weibo: self.weiboTf.text!,
+                        handle: { (success, response) in
+                            
+                            if success {
+                                
+                                checkCodeHud.mode = .Text
+                                checkCodeHud.labelText = "保存个人信息成功"
+                                checkCodeHud.hide(true, afterDelay: 1)
+                                
+                                let time: NSTimeInterval = 1.0
+                                let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                                
+                                dispatch_after(delay, dispatch_get_main_queue()) {
+                                    self.presentViewController(FTRoHomeViewController(), animated: true, completion: nil)
+                                }
+                            }else{
+                                
+                                checkCodeHud.mode = .Text
+                                checkCodeHud.labelText = "保存个人信息失败"
+                                checkCodeHud.hide(true, afterDelay: 1)
+                            }
+                    })
                 }else{
                     
                     checkCodeHud.mode = .Text
@@ -105,6 +190,22 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
             }
         }
         
+    }
+    
+    // MARK: LoReFTInfoInputViewControllerDelegate
+    func LoReFTInfoInputClickSaveBtn(infoType: InfoType, text: String) {
+        switch infoType {
+        case .Name:
+            nameText = text
+        case .Position:
+            positionText = text
+        case .Email:
+            emailText = text
+        case .CompanyName:
+            companyText = text
+        default:
+            break
+        }
     }
     
     // MARK:- tableView dataSource
@@ -119,7 +220,7 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("myInfoCell")
         if cell == nil {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: "myInfoCell")
+            cell = UITableViewCell(style: .Value1, reuseIdentifier: "myInfoCell")
         }
         
         cell?.selectionStyle = .None
@@ -131,49 +232,80 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
                 headerImg.frame = CGRectMake(0, 0, 50, 50)
                 headerImg.layer.cornerRadius = 25
                 headerImg.clipsToBounds = true
-                headerImg.image = UIImage(named: "temp_default_headerImg")
+                headerImg.image = selectedImage == nil ? UIImage(named: "temp_default_headerImg"):selectedImage
                 cell?.accessoryView = headerImg
             case 1:
-                let nameTf = UITextField(frame: CGRectMake(0, 0, 150, 50))
-                nameTf.placeholder = "请输入真实姓名"
-                nameTf.textAlignment = .Right
-                cell?.accessoryView = nameTf
+                cell?.detailTextLabel?.font = UIFont.systemFontOfSize(16)
+                cell?.detailTextLabel?.textAlignment = .Right
+                
+                if (nameText != nil) {
+                    cell?.detailTextLabel?.textColor = UIColor.blackColor()
+                    cell?.detailTextLabel?.text = nameText!
+                }else{
+                    cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
+                    cell?.detailTextLabel?.text = "请输入真实姓名"
+                }
+//                let nameTf = UITextField(frame: CGRectMake(0, 0, 150, 50))
+//                nameTf.placeholder = "请输入真实姓名"
+//                nameTf.textAlignment = .Right
+                cell?.accessoryView = nil
             default:
                 cell?.accessoryView = nil
             }
         case 1:
+            
+            cell?.detailTextLabel?.font = UIFont.systemFontOfSize(16)
+            cell?.detailTextLabel?.textAlignment = .Right
+            cell?.detailTextLabel?.text = "选填"
+            cell?.accessoryView = nil
+            
             switch indexPath.row {
             case 0:
-                cell?.accessoryView = nil
+                if (positionText != nil) {
+                    cell?.detailTextLabel?.textColor = UIColor.blackColor()
+                    cell?.detailTextLabel?.text = positionText!
+                }else{
+                    cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
+                    cell?.detailTextLabel?.text = "请输入我的职位"
+                }
             case 1:
-                let emailTf = UITextField(frame: CGRectMake(0, 0, 150, 50))
-                emailTf.placeholder = "选填"
-                emailTf.textAlignment = .Right
-                cell?.accessoryView = emailTf
+                if (emailText != nil) {
+                    cell?.detailTextLabel?.textColor = UIColor.blackColor()
+                    cell?.detailTextLabel?.text = emailText!
+                }else{
+                    cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
+                    cell?.detailTextLabel?.text = "选填"
+                }
             case 2:
-                let companyTf = UITextField(frame: CGRectMake(0, 0, 150, 50))
-                companyTf.placeholder = "请输入公司名称"
-                companyTf.textAlignment = .Right
-                cell?.accessoryView = companyTf
+                if (companyText != nil) {
+                    cell?.detailTextLabel?.textColor = UIColor.blackColor()
+                    cell?.detailTextLabel?.text = companyText!
+                }else{
+                    cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
+                    cell?.detailTextLabel?.text = "请输入公司名称"
+                }
             default:
-                cell?.accessoryView = nil
+                break
             }
         case 2:
             switch indexPath.row {
             case 0:
-                let QQTf = UITextField(frame: CGRectMake(0, 0, 150, 50))
+                QQTf.frame = CGRectMake(0, 0, screenSize.width*0.5, 50)
                 QQTf.placeholder = "请输入QQ账号"
                 QQTf.textAlignment = .Right
+                QQTf.text = QQTf.text == "" ?  QQNumber:QQTf.text
                 cell?.accessoryView = QQTf
             case 1:
-                let wechatTf = UITextField(frame: CGRectMake(0, 0, 150, 50))
+                wechatTf.frame = CGRectMake(0, 0, screenSize.width*0.5, 50)
                 wechatTf.placeholder = "请输入微信账号"
                 wechatTf.textAlignment = .Right
+                wechatTf.text = wechatTf.text == "" ?  wechatNumber:wechatTf.text!
                 cell?.accessoryView = wechatTf
             case 2:
-                let weiboTf = UITextField(frame: CGRectMake(0, 0, 150, 50))
+                weiboTf.frame = CGRectMake(0, 0, screenSize.width*0.5, 50)
                 weiboTf.placeholder = "请输入微博账号"
                 weiboTf.textAlignment = .Right
+                weiboTf.text = weiboTf.text == "" ? weiboNumber:weiboTf.text!
                 cell?.accessoryView = weiboTf
             default:
                 cell?.accessoryView = nil
@@ -233,7 +365,70 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
             alert.addAction(cancelAction)
             
             self.presentViewController(alert, animated: true, completion: nil)
+        case (0,1):
             
+            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            
+            let vc = LoReFTInfoInputViewController()
+            vc.infoType = .Name
+            vc.selfTitle = "姓名"
+            vc.placeHolder = "请输入真实姓名"
+            vc.tfText = cell?.detailTextLabel?.textColor == UIColor.blackColor() ? (cell?.detailTextLabel?.text)!:""
+            vc.tipText = "请填写您的真实的姓名"
+            vc.hudTipText = "请输入真实姓名"
+            vc.maxCount = 4
+            
+            vc.delegate = self
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        case (1,0):
+            
+            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            
+            let vc = LoReFTInfoInputViewController()
+            vc.infoType = .Position
+            vc.selfTitle = "职位选择"
+            vc.placeHolder = "请输入职位名"
+            vc.tfText = cell?.detailTextLabel?.textColor == UIColor.blackColor() ? (cell?.detailTextLabel?.text)!:""
+            vc.tipText = "请填写您的现任职位，不能包含特殊符号"
+            vc.hudTipText = "请输入职位名"
+            vc.maxCount = 10
+            
+            vc.delegate = self
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        case (1,1):
+            
+            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            
+            let vc = LoReFTInfoInputViewController()
+            vc.infoType = .Email
+            vc.selfTitle = "职位选择"
+            vc.placeHolder = "请输入职位名"
+            vc.tfText = cell?.detailTextLabel?.textColor == UIColor.blackColor() ? (cell?.detailTextLabel?.text)!:""
+            vc.tipText = "请填写您的现任职位，不能包含特殊符号"
+            vc.hudTipText = "请输入职位名"
+            vc.maxCount = 20
+            
+            vc.delegate = self
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        case (1,2):
+            
+            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            
+            let vc = LoReFTInfoInputViewController()
+            vc.infoType = .CompanyName
+            vc.selfTitle = "当前公司"
+            vc.placeHolder = "请输入公司全称"
+            vc.tfText = cell?.detailTextLabel?.textColor == UIColor.blackColor() ? (cell?.detailTextLabel?.text)!:""
+            vc.tipText = "公司全称是您所在公司的营业执照或劳动合同上的公司名称，请确保您的填写完全匹配"
+            vc.hudTipText = "请输入公司全称"
+            vc.maxCount = 50
+            
+            vc.delegate = self
+            
+            self.navigationController?.pushViewController(vc, animated: true)
         default:
             break
         }

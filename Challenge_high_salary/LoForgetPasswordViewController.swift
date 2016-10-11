@@ -244,27 +244,37 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        LoginNetUtil().SendMobileCode(self.telTF.text!) { (success, response) in
-            
-            dispatch_async(dispatch_get_main_queue(), { 
+        LoginNetUtil().checkphone(self.telTF.text!) { (success, response) in
+            if success {
                 
-                if success {
+                LoginNetUtil().SendMobileCode(self.telTF.text!) { (success, response) in
                     
-                    // 验证码传到手机,执行倒计时操作
-                    TimeManager.shareManager.begainTimerWithKey("forgetPassword", timeInterval: 30, process: self.processHandle!, finish: self.finishHandle!)
-                    checkCodeHud.hide(true)
-                    print("success")
-                }else{
-                    
-                    print("no success")
-                    checkCodeHud.labelText = "获取验证码失败"
-                    checkCodeHud.hide(true, afterDelay: 1)
-                    
-                    TimeManager.shareManager.taskDic["forgetPassword"]?.leftTime = 0
-                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        
+                        if success {
+                            
+                            // 验证码传到手机,执行倒计时操作
+                            TimeManager.shareManager.begainTimerWithKey("forgetPassword", timeInterval: 30, process: self.processHandle!, finish: self.finishHandle!)
+                            checkCodeHud.hide(true)
+                            print("success")
+                        }else{
+                            
+                            print("no success")
+                            checkCodeHud.labelText = "获取验证码失败"
+                            checkCodeHud.hide(true, afterDelay: 1)
+                            
+                            TimeManager.shareManager.taskDic["forgetPassword"]?.leftTime = 0
+                            
+                        }
+                    })
                 }
-            })
+            }else{
+                checkCodeHud.mode = .Text
+                checkCodeHud.labelText = "手机号尚未注册"
+                checkCodeHud.hide(true, afterDelay: 1)
+            }
         }
+        
     }
     
     // MAKE: 完成按钮点击事件

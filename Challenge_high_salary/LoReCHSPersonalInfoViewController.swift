@@ -8,13 +8,36 @@
 
 import UIKit
 
-class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     let rootTableView = UITableView()
     let headerImg = UIImageView()
     var selectedImage:UIImage?
     
-    var currentCity = ""
+    let nameTf = UITextField()
+    var nameText:String?
+    
+    let womanBtn = UIButton()
+    let manBtn = UIButton()
+    
+    var currentCity = "请选择目前所在城市"
+    
+    var jobTime = "请选择工作年限"
+    
+    var pickerView = UIPickerView()
+    
+    var pickSelectedRow = 0
+    
+    let pickJobTimeRequiredArray = ["不限","应届生","1年以内","1-3年"]
+    
+    let QQTf = UITextField()
+    var QQNumber:String?
+    
+    let wechatTf = UITextField()
+    var wechatNumber:String?
+    
+    let weiboTf = UITextField()
+    var weiboNumber:String?
     
     let nameArray = [["个人头像","真实姓名","性别","目前所在城市","工作年限"],["QQ","微信","微博"]]
     
@@ -30,6 +53,7 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
         
         // Do any additional setup after loading the view.
         
+        loadData()
         setSubviews()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(currentCityChanged(_:)), name: "currentCityChanged", object: nil)
@@ -38,6 +62,19 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
     func currentCityChanged(noti:NSNotification) {
         currentCity = noti.object as! String
         self.rootTableView.reloadData()
+    }
+    
+    // MARK: 加载数据
+    func loadData() {
+        
+        selectedImage = CHSUserInfo.currentUserInfo.avatar == "" ? nil:UIImage(data: NSData(contentsOfURL: NSURL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!)!)
+        nameText = CHSUserInfo.currentUserInfo.realName == "" ? nil:CHSUserInfo.currentUserInfo.realName
+        womanBtn.selected = CHSUserInfo.currentUserInfo.sex == "0" ? true:false
+        currentCity = CHSUserInfo.currentUserInfo.city == "" ? "请选择目前所在城市":CHSUserInfo.currentUserInfo.city
+        jobTime = CHSUserInfo.currentUserInfo.work_life == "" ? "请选择工作年限":CHSUserInfo.currentUserInfo.work_life
+        QQNumber = CHSUserInfo.currentUserInfo.qqNumber == "" ? nil:CHSUserInfo.currentUserInfo.qqNumber
+        wechatNumber = CHSUserInfo.currentUserInfo.weixinNumber == "" ? nil:CHSUserInfo.currentUserInfo.weixinNumber
+        weiboNumber = CHSUserInfo.currentUserInfo.weiboNumber == "" ? nil:CHSUserInfo.currentUserInfo.weiboNumber
     }
     
     // MARK: popViewcontroller
@@ -67,7 +104,7 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
         postPositionBtn.backgroundColor = baseColor
         postPositionBtn.titleLabel?.font = UIFont.systemFontOfSize(16)
         postPositionBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        postPositionBtn.setTitle("保存", forState: .Normal)
+        postPositionBtn.setTitle("创建微简历", forState: .Normal)
         postPositionBtn.addTarget(self, action: #selector(clickSaveBtn), forControlEvents: .TouchUpInside)
         self.view.addSubview(postPositionBtn)
     }
@@ -83,6 +120,21 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
             checkCodeHud.mode = .Text
             checkCodeHud.labelText = "请先上传头像"
             checkCodeHud.hide(true, afterDelay: 1)
+        }else if nameTf.text!.isEmpty {
+            
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入真实姓名"
+            checkCodeHud.hide(true, afterDelay: 1)
+        }else if currentCity == "请选择目前所在城市" {
+            
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请选择目前所在城市"
+            checkCodeHud.hide(true, afterDelay: 1)
+        }else if jobTime == "请选择工作年限" {
+            
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请选择工作年限"
+            checkCodeHud.hide(true, afterDelay: 1)
         }else{
             
             checkCodeHud.labelText = "正在上传头像"
@@ -95,16 +147,38 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
             LoginNetUtil().uploadImage(imageName, image: selectedImage!) { (success, response) in
                 if success {
                     
-                    checkCodeHud.mode = .Text
-                    checkCodeHud.labelText = "上传头像成功"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.labelText = "正在创建微简历"
                     
-                    let time: NSTimeInterval = 1.0
-                    let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                    LoginNetUtil().savepersonalinfo(
+                        CHSUserInfo.currentUserInfo.userid,
+                        avatar: imageName,
+                        realname: self.nameTf.text!,
+                        sex: self.womanBtn.selected ? "0":"1",
+                        city: self.currentCity,
+                        work_life: self.jobTime,
+                        qq: self.QQTf.text!,
+                        weixin: self.wechatTf.text!,
+                        weibo: self.weiboTf.text!, handle: { (success, response) in
+                            if success {
+                                
+                                checkCodeHud.mode = .Text
+                                checkCodeHud.labelText = "创建微简历成功"
+                                checkCodeHud.hide(true, afterDelay: 1)
+                                
+                                let time: NSTimeInterval = 1.0
+                                let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                                
+                                dispatch_after(delay, dispatch_get_main_queue()) {
+                                    self.presentViewController(CHRoHomeViewController(), animated: true, completion: nil)
+                                }
+                            }else{
+                                
+                                checkCodeHud.mode = .Text
+                                checkCodeHud.labelText = "创建微简历失败"
+                                checkCodeHud.hide(true, afterDelay: 1)
+                            }
+                    })
                     
-                    dispatch_after(delay, dispatch_get_main_queue()) {
-                        self.navigationController?.popViewControllerAnimated(true)
-                    }
                 }else{
                     
                     checkCodeHud.mode = .Text
@@ -139,43 +213,58 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
             case 0:
                 headerImg.frame = CGRectMake(0, 0, 50, 50)
                 headerImg.layer.cornerRadius = 25
-                headerImg.image = UIImage(named: "temp_default_headerImg")
+                headerImg.clipsToBounds = true
+                headerImg.image = selectedImage == nil ? UIImage(named: "temp_default_headerImg"):selectedImage
                 cell?.accessoryView = headerImg
             case 1:
-                let nameLab = UILabel(frame: CGRectMake(0, 0, 80, 50))
-                nameLab.text = "王小妞"
-                nameLab.textAlignment = .Right
-                cell?.accessoryView = nameLab
+                nameTf.frame = CGRectMake(0, 0, screenSize.width*0.5, 50)
+                nameTf.placeholder = "请输入真实姓名"
+                nameTf.textAlignment = .Right
+                nameTf.text = nameTf.text == "" ?  nameText:nameTf.text
+                cell?.accessoryView = nameTf
             case 2:
                 let sexView = UIView(frame: CGRectMake(0, 0, 100, 50))
                 
-                let womanBtn = UIButton(frame: CGRectMake(0, 0, 50, 50))
+                womanBtn.frame = CGRectMake(0, 0, 50, 50)
                 womanBtn.contentHorizontalAlignment = .Right
                 womanBtn.setImage(UIImage(named: "ic_选择_nor"), forState: .Normal)
                 womanBtn.setImage(UIImage(named: "ic_选择_sel"), forState: .Selected)
                 womanBtn.setTitle("女", forState: .Normal)
                 womanBtn.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+                womanBtn.addTarget(self, action: #selector(sexBtnClick(_:)), forControlEvents: .TouchUpInside)
                 sexView.addSubview(womanBtn)
                 
-                womanBtn.selected = true
-                
-                let manBtn = UIButton(frame: CGRectMake(50, 0, 50, 50))
+                manBtn.frame = CGRectMake(50, 0, 50, 50)
                 manBtn.contentHorizontalAlignment = .Right
                 manBtn.setImage(UIImage(named: "ic_选择_nor"), forState: .Normal)
                 manBtn.setImage(UIImage(named: "ic_选择_sel"), forState: .Selected)
                 manBtn.setTitle("男", forState: .Normal)
                 manBtn.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+                manBtn.addTarget(self, action: #selector(sexBtnClick(_:)), forControlEvents: .TouchUpInside)
                 sexView.addSubview(manBtn)
+                
+                womanBtn.selected = womanBtn.selected ? true:false
+                manBtn.selected = womanBtn.selected ? false:true
                 
                 cell?.accessoryView = sexView
             case 3:
-                let cityLab = UILabel(frame: CGRectMake(0, 0, screenSize.width-200, 50))
+                let cityLab = UILabel(frame: CGRectMake(0, 0, screenSize.width*0.5, 50))
                 cityLab.text = currentCity
+                if currentCity == "请选择目前所在城市" {
+                    cityLab.textColor = UIColor.lightGrayColor()
+                }else{
+                    cityLab.textColor = UIColor.blackColor()
+                }
                 cityLab.textAlignment = .Right
                 cell?.accessoryView = cityLab
             case 4:
-                let jobTimeLab = UILabel(frame: CGRectMake(0, 0, 50, 50))
-                jobTimeLab.text = "1年"
+                let jobTimeLab = UILabel(frame: CGRectMake(0, 0, screenSize.width*0.5, 50))
+                jobTimeLab.text = jobTime
+                if jobTime == "请选择工作年限" {
+                    jobTimeLab.textColor = UIColor.lightGrayColor()
+                }else{
+                    jobTimeLab.textColor = UIColor.blackColor()
+                }
                 jobTimeLab.textAlignment = .Right
                 cell?.accessoryView = jobTimeLab
             default:
@@ -184,19 +273,22 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
         case 1:
             switch indexPath.row {
             case 0:
-                let QQTf = UITextField(frame: CGRectMake(0, 0, 150, 50))
+                QQTf.frame = CGRectMake(0, 0, screenSize.width*0.5, 50)
                 QQTf.placeholder = "请输入QQ账号"
                 QQTf.textAlignment = .Right
+                QQTf.text = QQTf.text == "" ?  QQNumber:QQTf.text
                 cell?.accessoryView = QQTf
             case 1:
-                let wechatTf = UITextField(frame: CGRectMake(0, 0, 150, 50))
+                wechatTf.frame = CGRectMake(0, 0, screenSize.width*0.5, 50)
                 wechatTf.placeholder = "请输入微信账号"
                 wechatTf.textAlignment = .Right
+                wechatTf.text = wechatTf.text == "" ?  wechatNumber:wechatTf.text!
                 cell?.accessoryView = wechatTf
             case 2:
-                let weiboTf = UITextField(frame: CGRectMake(0, 0, 150, 50))
+                weiboTf.frame = CGRectMake(0, 0, screenSize.width*0.5, 50)
                 weiboTf.placeholder = "请输入微博账号"
                 weiboTf.textAlignment = .Right
+                weiboTf.text = weiboTf.text == "" ? weiboNumber:weiboTf.text!
                 cell?.accessoryView = weiboTf
             default:
                 cell?.accessoryView = nil
@@ -257,6 +349,55 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
         case (0,3):
             
             self.presentViewController(UINavigationController(rootViewController: LoReCHSChooseCityViewController()), animated: true, completion: nil)
+        case (0,4):
+            let bigBgView = UIButton(frame: self.view.bounds)
+            bigBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
+            bigBgView.tag = 1000
+            bigBgView.addTarget(self, action: #selector(pickerCancelClick), forControlEvents: .TouchUpInside)
+            self.view.addSubview(bigBgView)
+            
+            let pickerBgView = UIView(frame: CGRectMake(0, screenSize.height-kHeightScale*240, screenSize.width, kHeightScale*240))
+            pickerBgView.backgroundColor = UIColor.whiteColor()
+            bigBgView.addSubview(pickerBgView)
+            
+            let pickerLab = UILabel(frame: CGRectMake(0, 0, screenSize.width, 43))
+            pickerLab.textAlignment = .Center
+            pickerBgView.addSubview(pickerLab)
+            
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(0, 43), toPoint: CGPointMake(screenSize.width, 43), lineWidth: 1)
+            
+            pickerView = UIPickerView(frame: CGRectMake(0, 44, screenSize.width, kHeightScale*240-88))
+            
+            //            pickerView.subviews[0].layer.borderWidth = 0.5
+            //
+            //            pickerView.subviews[0].layer.borderColor = UIColor.redColor().CGColor
+            //指定Picker的代理
+            pickerView.dataSource = self
+            pickerView.delegate = self
+            
+            pickerBgView.addSubview(pickerView)
+            
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(0, kHeightScale*240-44), toPoint: CGPointMake(screenSize.width, kHeightScale*240-44), lineWidth: 1)
+            
+            let cancelBtn = UIButton(frame: CGRectMake(0, kHeightScale*240-43, screenSize.width/2.0-0.5, 43))
+            cancelBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            cancelBtn.setTitle("取消", forState: .Normal)
+            cancelBtn.addTarget(self, action: #selector(pickerCancelClick), forControlEvents: .TouchUpInside)
+            pickerBgView.addSubview(cancelBtn)
+            
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(screenSize.width/2.0-0.5, kHeightScale*240-43), toPoint: CGPointMake(screenSize.width/2.0-0.5, kHeightScale*240), lineWidth: 1)
+            
+            let sureBtn = UIButton(frame: CGRectMake(screenSize.width/2.0-0.5, kHeightScale*240-43, screenSize.width/2.0-0.5, 43))
+            sureBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            sureBtn.setTitle("确定", forState: .Normal)
+            sureBtn.addTarget(self, action: #selector(sureBtnClick), forControlEvents: .TouchUpInside)
+            pickerBgView.addSubview(sureBtn)
+            
+            pickerLab.text = "参加工作年份"
+            
+            pickerView.tag = 101
+            pickerView.selectRow(pickSelectedRow, inComponent: 0, animated: false)
+            
         default:
             break
         }
@@ -278,12 +419,105 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    // MARK: 上传图片
-    func uploadImage() {
+    // MARK: 性别按钮点击事件
+    func sexBtnClick(sexBtn:UIButton) {
         
+        if sexBtn == womanBtn {
+            womanBtn.selected = true
+            manBtn.selected = false
+        }else{
+            womanBtn.selected = false
+            manBtn.selected = true
+        }
+    }
+    // MARK: pickerView 取消按钮点击事件
+    func pickerCancelClick() {
+        self.view.viewWithTag(1000)?.removeFromSuperview()
+    }
+    
+    // MARK: pickerView 确定按钮点击事件
+    func sureBtnClick() {
         
+        if pickerView.tag == 101 {
+            
+            jobTime = pickJobTimeRequiredArray[pickerView.selectedRowInComponent(0)]
+            self.rootTableView.reloadData()
+            
+            pickSelectedRow = pickerView.selectedRowInComponent(0)
+        }
+        
+        //        pickerView.removeFromSuperview()
+        
+        self.view.viewWithTag(1000)?.removeFromSuperview()
+    }
+    
+    // MARK: 改变分割线颜色
+    func changeSeparatorWithView(view: UIView) {
+        
+        if view.bounds.size.height <= 1 {
+            view.backgroundColor = baseColor
+        }
+        
+        for subview in view.subviews {
+            self.changeSeparatorWithView(subview)
+        }
+    }
+    
+    // MARK:- UIPickerView DataSource
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        
+        if pickerView.tag == 101 {
+            return 1
+        }else{
+            return 0
+        }
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
+        if pickerView.tag == 101 {
+           
+            return pickJobTimeRequiredArray.count
+        }else{
+            return 0
+        }
         
     }
+    
+    // MARK:- UIPickerView Delegate
+    func pickerView(pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 25
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        pickerView.reloadAllComponents()
+    }
+    
+    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+        
+        self.changeSeparatorWithView(pickerView)
+        
+        let view = UILabel(frame: CGRectMake(0, 0, 20, 25))
+        //        view.backgroundColor = UIColor.cyanColor()
+        view.frame.size = pickerView.rowSizeForComponent(component)
+        view.textAlignment = .Center
+        
+        if row == pickerView.selectedRowInComponent(component) {
+            view.textColor = baseColor
+        }else{
+            view.textColor = UIColor.lightGrayColor()
+        }
+        
+        if pickerView.tag == 101 {
+            
+            view.text = pickJobTimeRequiredArray[row]
+        }
+        
+        return view
+    }
+    // MARK:-
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

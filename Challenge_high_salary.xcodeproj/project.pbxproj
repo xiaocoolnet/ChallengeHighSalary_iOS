@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F0002961DAC952E00D57CE6 /* LoReFTInfoInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0002951DAC952E00D57CE6 /* LoReFTInfoInputViewController.swift */; };
 		1F0B59451DAB2FC700A172E3 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B59441DAB2FC700A172E3 /* UIPlaceHolderTextView.m */; };
 		1F0B59471DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B59461DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift */; };
 		1F0B59491DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B59481DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift */; };
@@ -183,6 +184,7 @@
 
 /* Begin PBXFileReference section */
 		02CC2341262A77985746D107 /* Pods_Challenge_high_salary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Challenge_high_salary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F0002951DAC952E00D57CE6 /* LoReFTInfoInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReFTInfoInputViewController.swift; sourceTree = "<group>"; };
 		1F0B59431DAB2FC700A172E3 /* UIPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceHolderTextView.h; sourceTree = "<group>"; };
 		1F0B59441DAB2FC700A172E3 /* UIPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPlaceHolderTextView.m; sourceTree = "<group>"; };
 		1F0B59461DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReChooseIdentityViewController.swift; sourceTree = "<group>"; };
@@ -660,6 +662,7 @@
 				1F0B59481DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift */,
 				1F0B594A1DAB435800A172E3 /* LoReCHSPersonalInfoViewController.swift */,
 				1F0B594E1DAB979800A172E3 /* LoReCHSChooseCityViewController.swift */,
+				1F0002951DAC952E00D57CE6 /* LoReFTInfoInputViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1272,6 +1275,7 @@
 				1F577B161DA9E82600AB5D99 /* FTMeLookMeViewController.swift in Sources */,
 				1F577B0E1DA9E29B00AB5D99 /* FTMeResumeNotificationViewController.swift in Sources */,
 				1FEC64DE1D9121460045038C /* CHSMiCheckPasswordViewController.swift in Sources */,
+				1F0002961DAC952E00D57CE6 /* LoReFTInfoInputViewController.swift in Sources */,
 				1F577B1D1DA9E8A700AB5D99 /* FTMeLookMeTableViewCell.swift in Sources */,
 				1FDB00131D8F7490007043B4 /* CHSChCompanyHomeViewController.swift in Sources */,
 				1F577B381DA9F35E00AB5D99 /* CHSMeCollectionMeTableViewCell.swift in Sources */,

@@ -60,7 +60,28 @@ class LoginData: D3Model {
     var devicestate: String = ""
 
     var password: String = ""
+    
+    var sex: String = ""
 
+    var realname: String = ""
+
+    var work_life: String = ""
+
+    var weixin: String = ""
+
+    var company: String = ""
+
+    var weibo: String = ""
+
+    var city: String = ""
+
+    var qq: String = ""
+
+    var email: String = ""
+
+    var photo: String = ""
+
+    var myjob: String = ""
 }
 
 

@@ -43,7 +43,11 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
         // 电话号码输入框
         telTF.frame = CGRectMake(CGRectGetMaxX(telLab.frame)+5, telLab.frame.origin.y, CGRectGetMaxX(inputBgView.frame)-CGRectGetMaxX(telLab.frame)+5, telLab.frame.size.height)
         telTF.placeholder = "请输入手机号"
-        telTF.text = CHSUserInfo.currentUserInfo.phoneNumber
+//        telTF.text = CHSUserInfo.currentUserInfo.phoneNumber
+//        if NSUserDefaults.standardUserDefaults().dictionaryForKey(logInfo_key) {
+//            
+//        }
+        telTF.text = NSUserDefaults.standardUserDefaults().stringForKey(userName_key)
         telTF.keyboardType = .NumberPad
         telTF.returnKeyType = .Next
         telTF.delegate = self
@@ -241,6 +245,7 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
                     
                     hud.hide(true)
                     NSUserDefaults.standardUserDefaults().setObject([userName_key:phone,userPwd_key:password], forKey: logInfo_key)
+                    NSUserDefaults.standardUserDefaults().setValue(phone, forKey: userName_key)
 
                     self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
                 }else{

@@ -20,6 +20,7 @@ let baseColor = UIColor(red: 105/255.0, green: 216/255.0, blue: 147/255.0, alpha
 //MARK:- 网络数据
 let kDomainName = "http://122.114.156.127/"
 let kPortPrefix = "\(kDomainName)index.php?g=apps&m=index&a="
+let kImagePrefix = "\(kDomainName)/uploads/microblog/"
 
 //MARK:- APP数据
 // MARK: Key
