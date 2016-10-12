@@ -120,21 +120,25 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
             checkCodeHud.mode = .Text
             checkCodeHud.labelText = "请先上传头像"
             checkCodeHud.hide(true, afterDelay: 1)
+            return
         }else if nameTf.text!.isEmpty {
             
             checkCodeHud.mode = .Text
             checkCodeHud.labelText = "请输入真实姓名"
             checkCodeHud.hide(true, afterDelay: 1)
+            return
         }else if currentCity == "请选择目前所在城市" {
             
             checkCodeHud.mode = .Text
             checkCodeHud.labelText = "请选择目前所在城市"
             checkCodeHud.hide(true, afterDelay: 1)
+            return
         }else if jobTime == "请选择工作年限" {
             
             checkCodeHud.mode = .Text
             checkCodeHud.labelText = "请选择工作年限"
             checkCodeHud.hide(true, afterDelay: 1)
+            return
         }else{
             
             checkCodeHud.labelText = "正在上传头像"
@@ -302,15 +306,32 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
         return cell!
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    // MARK:- tableView delegate
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 1 {
-            return "账号关联"
+            return 35
+        }else{
+            return 0.0001
+        }
+    }
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if section == 1 {
+            
+            let sectionHeaderBgView = UIView(frame: CGRectMake(0, 0, screenSize.width, 35))
+            
+            let sectionHeaderLab = UILabel(frame: CGRectMake(20, 0, screenSize.width-40, 35))
+            sectionHeaderLab.font = UIFont.systemFontOfSize(15)
+            sectionHeaderLab.textColor = UIColor.lightGrayColor()
+            sectionHeaderLab.text = "账号关联"
+            sectionHeaderBgView.addSubview(sectionHeaderLab)
+            
+            return sectionHeaderBgView
         }else{
             return nil
         }
     }
-    
-    // MARK:- tableView delegate
+
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch (indexPath.section,indexPath.row) {
         case (0,0):

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource {
+class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,UITableViewDelegate {
 
     let rootTableView = UITableView()
     
@@ -40,6 +40,7 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource {
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         rootTableView.rowHeight = 60
         rootTableView.dataSource = self
+        rootTableView.delegate = self
         self.view.addSubview(rootTableView)
         
         rootTableView.tableFooterView = UIView(frame: CGRectZero)

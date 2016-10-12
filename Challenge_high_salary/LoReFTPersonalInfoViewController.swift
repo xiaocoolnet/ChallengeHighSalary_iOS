@@ -121,21 +121,25 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
             checkCodeHud.mode = .Text
             checkCodeHud.labelText = "请先上传头像"
             checkCodeHud.hide(true, afterDelay: 1)
+            return
         }else if nameText == nil {
             
             checkCodeHud.mode = .Text
             checkCodeHud.labelText = "请输入真实姓名"
             checkCodeHud.hide(true, afterDelay: 1)
+            return
         }else if positionText == nil {
             
             checkCodeHud.mode = .Text
             checkCodeHud.labelText = "请输入职位名"
             checkCodeHud.hide(true, afterDelay: 1)
+            return
         }else if companyText == nil {
             
             checkCodeHud.mode = .Text
             checkCodeHud.labelText = "请输入公司名"
             checkCodeHud.hide(true, afterDelay: 1)
+            return
         }else{
             
             checkCodeHud.labelText = "正在上传头像"
@@ -319,18 +323,45 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
         return cell!
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    // MARK:- tableView delegate
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 1 {
+            return 35
+        }else if section == 2 {
+            return 35
+        }else{
+            return 0.0001
+        }
+    }
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if section == 1 {
-            return "我的职业信息"
+            
+            let sectionHeaderBgView = UIView(frame: CGRectMake(0, 0, screenSize.width, 35))
+            
+            let sectionHeaderLab = UILabel(frame: CGRectMake(20, 0, screenSize.width-40, 35))
+            sectionHeaderLab.font = UIFont.systemFontOfSize(15)
+            sectionHeaderLab.textColor = UIColor.lightGrayColor()
+            sectionHeaderLab.text = "我的职业信息"
+            sectionHeaderBgView.addSubview(sectionHeaderLab)
+            
+            return sectionHeaderBgView
         }else if section == 2 {
-            return "账号关联"
+            
+            let sectionHeaderBgView = UIView(frame: CGRectMake(0, 0, screenSize.width, 35))
+            
+            let sectionHeaderLab = UILabel(frame: CGRectMake(20, 0, screenSize.width-40, 35))
+            sectionHeaderLab.font = UIFont.systemFontOfSize(15)
+            sectionHeaderLab.textColor = UIColor.lightGrayColor()
+            sectionHeaderLab.text = "账号关联"
+            sectionHeaderBgView.addSubview(sectionHeaderLab)
+            
+            return sectionHeaderBgView
         }else{
             return nil
         }
     }
-    
-    // MARK:- tableView delegate
+
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch (indexPath.section,indexPath.row) {
         case (0,0):

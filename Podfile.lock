@@ -3,6 +3,9 @@ PODS:
   - D3Model (2.0.3)
   - PagingMenuController (0.9.1)
   - PickerView (0.2.3)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
@@ -10,6 +13,7 @@ DEPENDENCIES:
   - D3Model (~> 2.0.3)
   - PagingMenuController (~> 0.9.1)
   - PickerView (~> 0.2.3)
+  - SDWebImage (~> 3.8)
   - SwiftyJSON (~> 2.3)
 
 SPEC CHECKSUMS:
@@ -17,8 +21,9 @@ SPEC CHECKSUMS:
   D3Model: c82b45de2df793bc5c6906dfb74955eb8aa9e3e9
   PagingMenuController: 95bab00761e1ba4f4f9fa6bf22ac71b065a675aa
   PickerView: 0e70263bcea25b3809634e7b7c4b1710a657de5a
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: f0424d22c47dc90e29177e7b33f4336c5c7ccea0
+PODFILE CHECKSUM: 88080d27800111cc509cf0a485faf484dcd4a398
 
 COCOAPODS: 1.0.1

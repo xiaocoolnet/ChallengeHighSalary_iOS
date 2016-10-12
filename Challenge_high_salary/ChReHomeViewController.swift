@@ -55,13 +55,15 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         let headerImageView = UIImageView(frame: CGRectMake((screenSize.width-screenSize.width*0.16)/2.0, screenSize.height*0.087, screenSize.width*0.16, screenSize.width*0.16))
         headerImageView.layer.cornerRadius = screenSize.width*0.08
         headerImageView.clipsToBounds = true
-        headerImageView.image = UIImage(named: "temp_default_headerImg")
+
+        headerImageView.sd_setImageWithURL(NSURL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!, placeholderImage: UIImage(named: "temp_default_headerImg"))
+
         topBgImageView.addSubview(headerImageView)
         
         // name Label
         let nameLab = UILabel(frame: CGRectMake(0, 0, 30, 25))
         nameLab.textColor = baseColor
-        nameLab.text = "王小妞"
+        nameLab.text = CHSUserInfo.currentUserInfo.realName
         nameLab.font = UIFont.boldSystemFontOfSize(16)
         nameLab.sizeToFit()
         nameLab.center.x = self.view.center.x
@@ -71,7 +73,11 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         // Overview Label
         let overviewLab = UILabel(frame: CGRectMake(0, 0, 30, 25))
         overviewLab.textColor = UIColor(red: 159/255.0, green: 159/255.0, blue: 159/255.0, alpha: 1)
-        overviewLab.text = "女 | 1年工作经验 | 北京"
+        let sexStr = CHSUserInfo.currentUserInfo.sex == "0" ? "女":"男"
+        let jobExpStr = CHSUserInfo.currentUserInfo.work_life
+        let cityStr = CHSUserInfo.currentUserInfo.city
+        
+        overviewLab.text = "\(sexStr) | \(jobExpStr)工作经验 | \(cityStr)"
         overviewLab.font = UIFont.systemFontOfSize(14)
         overviewLab.sizeToFit()
         overviewLab.center.x = self.view.center.x

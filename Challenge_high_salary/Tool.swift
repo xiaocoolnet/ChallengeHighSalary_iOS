@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SDWebImage
 
 //MARK:- 基础数据
 let screenSize = UIScreen.mainScreen().bounds.size
