@@ -91,6 +91,11 @@
 		1FC3CCB81D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCB71D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift */; };
 		1FC3CCBA1D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCB91D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift */; };
 		1FC3CCBC1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCBB1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift */; };
+		1FCCC5951DADE72A0065A799 /* CHSReChoosePositionTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC5941DADE72A0065A799 /* CHSReChoosePositionTypeViewController.swift */; };
+		1FCCC5971DADE73C0065A799 /* CHSReChoosePositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC5961DADE73C0065A799 /* CHSReChoosePositionViewController.swift */; };
+		1FCCC5991DAE002C0065A799 /* CHSReChooseIndustryCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC5981DAE002C0065A799 /* CHSReChooseIndustryCategoriesViewController.swift */; };
+		1FCCC59C1DAE05E70065A799 /* CHSNetUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC59B1DAE05E70065A799 /* CHSNetUtil.swift */; };
+		1FCCC59E1DAE05F40065A799 /* CHSModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC59D1DAE05F40065A799 /* CHSModel.swift */; };
 		1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */; };
 		1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC11D73E6DB0067970B /* ViewController.swift */; };
 		1FCDFEC51D73E6DB0067970B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC31D73E6DB0067970B /* Main.storyboard */; };
@@ -273,6 +278,11 @@
 		1FC3CCB71D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaChoosePositionViewController.swift; sourceTree = "<group>"; };
 		1FC3CCB91D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaPositionNameViewController.swift; sourceTree = "<group>"; };
 		1FC3CCBB1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaSkillRequiredViewController.swift; sourceTree = "<group>"; };
+		1FCCC5941DADE72A0065A799 /* CHSReChoosePositionTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReChoosePositionTypeViewController.swift; sourceTree = "<group>"; };
+		1FCCC5961DADE73C0065A799 /* CHSReChoosePositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReChoosePositionViewController.swift; sourceTree = "<group>"; };
+		1FCCC5981DAE002C0065A799 /* CHSReChooseIndustryCategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReChooseIndustryCategoriesViewController.swift; sourceTree = "<group>"; };
+		1FCCC59B1DAE05E70065A799 /* CHSNetUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSNetUtil.swift; sourceTree = "<group>"; };
+		1FCCC59D1DAE05F40065A799 /* CHSModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSModel.swift; sourceTree = "<group>"; };
 		1FCDFEBC1D73E6DB0067970B /* Challenge_high_salary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Challenge_high_salary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FCDFEC11D73E6DB0067970B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -471,6 +481,15 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		1FCCC59A1DAE05C50065A799 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1FCCC59B1DAE05E70065A799 /* CHSNetUtil.swift */,
+				1FCCC59D1DAE05F40065A799 /* CHSModel.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		1FCDFEB31D73E6DB0067970B = {
 			isa = PBXGroup;
 			children = (
@@ -559,6 +578,7 @@
 		1FCDFEF01D740C120067970B /* ChallengeHighSalary(挑战高薪) */ = {
 			isa = PBXGroup;
 			children = (
+				1FCCC59A1DAE05C50065A799 /* Model */,
 				1FF06CB11D7D15CF0032943B /* Root(根) */,
 				1FCDFEF11D740C300067970B /* Chance(机会) */,
 				1FCDFEF21D740C6E0067970B /* Resume(简历) */,
@@ -839,6 +859,9 @@
 				1F1224D61D979CA60094C6CE /* CHSRePreviewViewController.swift */,
 				1F1224D81D97AE590094C6CE /* CHSReEduExperienceViewController.swift */,
 				1F1224DA1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift */,
+				1FCCC5941DADE72A0065A799 /* CHSReChoosePositionTypeViewController.swift */,
+				1FCCC5961DADE73C0065A799 /* CHSReChoosePositionViewController.swift */,
+				1FCCC5981DAE002C0065A799 /* CHSReChooseIndustryCategoriesViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1210,6 +1233,7 @@
 				1F577B241DA9F20F00AB5D99 /* CHSMeCollectionMeViewController.swift in Sources */,
 				1F1224DB1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift in Sources */,
 				1F87411B1D82AF47007B8793 /* LoForgetPasswordViewController.swift in Sources */,
+				1FCCC5991DAE002C0065A799 /* CHSReChooseIndustryCategoriesViewController.swift in Sources */,
 				1FDB00211D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift in Sources */,
 				1FB6D5FF1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.swift in Sources */,
 				1FC3CCB31D9CDD29004AA4C6 /* FTMiMyBlacklistTableViewCell.swift in Sources */,
@@ -1258,6 +1282,7 @@
 				1FEF809D1D810A4D00486F9C /* FTTaHomeViewController.swift in Sources */,
 				1F577B111DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.swift in Sources */,
 				1FA93F511D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.swift in Sources */,
+				1FCCC5951DADE72A0065A799 /* CHSReChoosePositionTypeViewController.swift in Sources */,
 				1F5B672C1DAA352600F74666 /* FTNetUtil.swift in Sources */,
 				1FF06CD41D7D609A0032943B /* DPDUIView+Extension.swift in Sources */,
 				1FB6D5F61D9B9E1900262BBD /* CHSMiMyBlacklistViewController.swift in Sources */,
@@ -1301,10 +1326,13 @@
 				1FF1CE191DA8BA8E000F0A9A /* FTTaJobDescriptionsViewController.swift in Sources */,
 				1FF06CBA1D7D16A20032943B /* ChMiHomeViewController.swift in Sources */,
 				1F577B401DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.swift in Sources */,
+				1FCCC5971DADE73C0065A799 /* CHSReChoosePositionViewController.swift in Sources */,
 				1FEC64DC1D9120C50045038C /* CHSMiPhoneBindingViewController.swift in Sources */,
+				1FCCC59E1DAE05F40065A799 /* CHSModel.swift in Sources */,
 				1FCDFF011D7411160067970B /* LoHomeViewController.swift in Sources */,
 				1FF9DB241D96298300F0C69D /* FTMiMyHiringRecordViewController.swift in Sources */,
 				1FF1CE171DA89E21000F0A9A /* FTTaWorkplaceViewController.swift in Sources */,
+				1FCCC59C1DAE05E70065A799 /* CHSNetUtil.swift in Sources */,
 				1FF524D51D88E8C700E1B70F /* LoginModel.swift in Sources */,
 				1F577B3C1DA9F37000AB5D99 /* CHSMeLookMeTableViewCell.swift in Sources */,
 				1FEF80A11D810A7600486F9C /* FTMiHomeViewController.swift in Sources */,

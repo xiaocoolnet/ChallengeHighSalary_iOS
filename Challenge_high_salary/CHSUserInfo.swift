@@ -25,10 +25,18 @@ class CHSUserInfo {
     var work_life = ""
     var company = ""
     var myjob = ""
+    var work_property = ""//工作性质
+    var address = ""//工作地点
+    var position_type = ""//职位类型
+    var categories = ""//行业类别
+    var wantsalary = ""//期望薪资
+    var jobstate = ""//工作状态
     
     
+    
+//    userid,work_property,address,position_type,categories,wantsalary,jobstate
     var userName = ""
-    var address = ""
+//    var address = ""
     var time = ""
     var level = ""
     var attentionCount = ""
