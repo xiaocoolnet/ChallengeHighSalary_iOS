@@ -31,16 +31,24 @@ class CHSReEduExperienceViewController: UIViewController, UITableViewDataSource,
         
     }
     
+    // MARK: popViewcontroller
+    func popViewcontroller() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    // MARK: 设置子视图
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+
         self.title = "教育经历"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Done, target: self, action: #selector(clickSaveBtn))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .Done, target: self, action: #selector(clickSaveBtn))
         
         rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
-        rootTableView.rowHeight = 50
+        rootTableView.rowHeight = 60
         rootTableView.separatorStyle = .None
         rootTableView.dataSource = self
         rootTableView.delegate = self
@@ -66,13 +74,24 @@ class CHSReEduExperienceViewController: UIViewController, UITableViewDataSource,
             var cell = tableView.dequeueReusableCellWithIdentifier("ChChSearchTableViewCell_clearHistory")
             if cell == nil {
                 cell = UITableViewCell(style: .Default, reuseIdentifier: "ChChSearchTableViewCell_clearHistory")
+                
+                cell!.selectionStyle = .None
+                
+                let btn = UIButton(frame: CGRectMake(0, 0, screenSize.width, 60))
+                btn.setImage(UIImage(named: "ic_添加"), forState: .Normal)
+                btn.titleLabel?.font = UIFont.systemFontOfSize(17)
+                btn.setTitleColor(baseColor, forState: .Normal)
+                btn.setTitle("添加教育经历", forState: .Normal)
+                btn.enabled = false
+                cell?.contentView.addSubview(btn)
             }
-            cell!.selectionStyle = .None
-            cell?.backgroundColor = UIColor.whiteColor()
-            cell?.textLabel?.textAlignment = .Center
-            cell?.textLabel?.textColor = baseColor
-            cell?.textLabel?.font = UIFont.systemFontOfSize(14)
-            cell?.textLabel?.text = "添加教育经历"
+//            cell?.backgroundColor = UIColor.whiteColor()
+//            cell?.textLabel?.textAlignment = .Center
+//            cell?.textLabel?.textColor = baseColor
+//            cell?.textLabel?.font = UIFont.systemFontOfSize(14)
+//            cell?.textLabel?.text = "添加教育经历"
+            
+            
             return cell!
         }else {
             
@@ -89,22 +108,13 @@ class CHSReEduExperienceViewController: UIViewController, UITableViewDataSource,
             cell?.textLabel?.textAlignment = .Left
             cell?.textLabel?.text = nameArray[indexPath.row]
             
-            if indexPath.row == 0 {
-                
-                let companyNameTf = UITextField(frame: CGRectMake(0, 0, 150, 50))
-                companyNameTf.font = UIFont.systemFontOfSize(14)
-                companyNameTf.placeholder = detailArray[indexPath.row]
-                companyNameTf.textAlignment = .Right
-                cell?.accessoryView = companyNameTf
-            }else{
-                
-                cell?.detailTextLabel?.font = UIFont.systemFontOfSize(14)
-                cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
-                cell?.detailTextLabel?.textAlignment = .Right
-                cell?.detailTextLabel?.text = detailArray[indexPath.row]
-            }
-            
-            if indexPath.row < nameArray.count-1 {
+
+            cell?.detailTextLabel?.font = UIFont.systemFontOfSize(14)
+            cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
+            cell?.detailTextLabel?.textAlignment = .Right
+            cell?.detailTextLabel?.text = detailArray[indexPath.row]
+                        
+            if indexPath.row < nameArray.count {
                 drawDashed((cell?.contentView)!, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(8, 59), toPoint: CGPointMake(screenSize.width-8, 59), lineWidth: 1/UIScreen.mainScreen().scale)
             }
             

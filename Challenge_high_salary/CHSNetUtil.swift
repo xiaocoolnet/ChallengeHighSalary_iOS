@@ -37,7 +37,7 @@ class CHSNetUtil: NSObject {
             if(error != nil){
                 handle(success: false, response: error?.description)
             }else{
-                let checkCode:CheckphoneModel = CheckphoneModel.jsonToModelWithData(json)
+                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
                 if checkCode.status == "success" {
                     handle(success: true, response: nil)
                 }else{
@@ -48,4 +48,39 @@ class CHSNetUtil: NSObject {
         }
     }
 
+    // MARK: 发布 教育经历
+    // userid,school,major,degree,time,experience
+    func PublishEducation(
+        userid:String,
+        school:String,
+        major:String,
+        degree:String,
+        time:String,
+        experience:String,
+        handle:ResponseClosures) {
+        
+        let url = kPortPrefix+"PublishEducation"
+        let param = [
+            "userid":userid,
+            "school":school,
+            "major":major,
+            "degree":degree,
+            "time":time,
+            "experience":experience
+        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                if checkCode.status == "success" {
+                    handle(success: true, response: nil)
+                }else{
+                    
+                    handle(success: false, response: nil)
+                }
+            }
+        }
+    }
 }

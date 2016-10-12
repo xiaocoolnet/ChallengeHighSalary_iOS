@@ -32,6 +32,12 @@ class CHSUserInfo {
     var wantsalary = ""//期望薪资
     var jobstate = ""//工作状态
     
+//    var school = ""//学校
+//    var major = ""//专业
+//    var degree = ""//学历
+//    var time = ""//时间段
+//    var experience = ""//在校经历
+    
     
     
 //    userid,work_property,address,position_type,categories,wantsalary,jobstate

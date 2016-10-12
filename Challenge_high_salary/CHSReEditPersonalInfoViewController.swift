@@ -330,7 +330,6 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
     }
     
     // MARK:- tableView delegate
-    
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 1 {
             return 35

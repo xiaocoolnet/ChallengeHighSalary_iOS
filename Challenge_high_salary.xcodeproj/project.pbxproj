@@ -490,6 +490,26 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		1FCCC59F1DAE0B060065A799 /* 求职意向 */ = {
+			isa = PBXGroup;
+			children = (
+				1F9CE7C21D8802FC002E6632 /* CHSReJobIntensionViewController.swift */,
+				1FCCC5941DADE72A0065A799 /* CHSReChoosePositionTypeViewController.swift */,
+				1FCCC5961DADE73C0065A799 /* CHSReChoosePositionViewController.swift */,
+				1FCCC5981DAE002C0065A799 /* CHSReChooseIndustryCategoriesViewController.swift */,
+			);
+			name = "求职意向";
+			sourceTree = "<group>";
+		};
+		1FCCC5A01DAE0C880065A799 /* 教育经历 */ = {
+			isa = PBXGroup;
+			children = (
+				1F1224D81D97AE590094C6CE /* CHSReEduExperienceViewController.swift */,
+				1F1224DA1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift */,
+			);
+			name = "教育经历";
+			sourceTree = "<group>";
+		};
 		1FCDFEB31D73E6DB0067970B = {
 			isa = PBXGroup;
 			children = (
@@ -849,19 +869,15 @@
 			isa = PBXGroup;
 			children = (
 				1FF06CBD1D7D17860032943B /* ChReHomeViewController.swift */,
+				1FCCC5A01DAE0C880065A799 /* 教育经历 */,
+				1FCCC59F1DAE0B060065A799 /* 求职意向 */,
 				1F9CE7C01D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift */,
-				1F9CE7C21D8802FC002E6632 /* CHSReJobIntensionViewController.swift */,
 				1FDB001C1D8FB712007043B4 /* CHSReJobExperienceViewController.swift */,
 				1FDB001E1D8FC5D7007043B4 /* CHSReProjectExperienceViewController.swift */,
 				1FDB00201D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift */,
 				1F1224D21D976FEA0094C6CE /* CHSReResumePreviewViewController.swift */,
 				1F1224D31D976FEA0094C6CE /* CHSReResumePreviewViewController.xib */,
 				1F1224D61D979CA60094C6CE /* CHSRePreviewViewController.swift */,
-				1F1224D81D97AE590094C6CE /* CHSReEduExperienceViewController.swift */,
-				1F1224DA1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift */,
-				1FCCC5941DADE72A0065A799 /* CHSReChoosePositionTypeViewController.swift */,
-				1FCCC5961DADE73C0065A799 /* CHSReChoosePositionViewController.swift */,
-				1FCCC5981DAE002C0065A799 /* CHSReChooseIndustryCategoriesViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";

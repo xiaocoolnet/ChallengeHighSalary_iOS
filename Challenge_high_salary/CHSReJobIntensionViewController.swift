@@ -173,7 +173,6 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
                     checkCodeHud.hide(true, afterDelay: 1)
                 }
         }
-        
     }
     
     // MARK:- tableView dataSource
