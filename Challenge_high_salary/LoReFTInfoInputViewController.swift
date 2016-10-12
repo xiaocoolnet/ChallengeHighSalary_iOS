@@ -13,6 +13,7 @@ enum InfoType {
     case Position
     case Email
     case CompanyName
+    case JobExp_CompanyName
     case Default
 }
 

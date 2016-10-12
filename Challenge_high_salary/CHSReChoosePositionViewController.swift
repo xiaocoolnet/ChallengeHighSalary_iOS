@@ -10,6 +10,8 @@ import UIKit
 
 class CHSReChoosePositionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    var vcType:FromVCType = .Default
+
     let firstTableView = UITableView() // 左 tableview tag = 101
     let secondTableView = UITableView() // 右 tableview tag = 102
     
@@ -136,7 +138,14 @@ class CHSReChoosePositionViewController: UIViewController, UITableViewDataSource
             
             secondCurrentSelectedRow = indexPath.row
             
-            NSNotificationCenter.defaultCenter().postNotificationName("PersonalChangeJobIntensionNotification", object: nil, userInfo: ["type":"PositionType","value":secondArray[indexPath.row]])
+            
+            if self.vcType == .Intension {
+                NSNotificationCenter.defaultCenter().postNotificationName("PersonalChangeJobIntensionNotification", object: nil, userInfo: ["type":"PositionType","value":secondArray[indexPath.row]])
+                
+            }else if self.vcType == .JobExperience {
+                NSNotificationCenter.defaultCenter().postNotificationName("PersonalChangeJobExperienceNotification", object: nil, userInfo: ["type":"PositionType","value":secondArray[indexPath.row]])
+                
+            }
             
             self.navigationController?.popToViewController((self.navigationController?.viewControllers[(self.navigationController?.viewControllers.endIndex)!-3])!, animated: true)
         }

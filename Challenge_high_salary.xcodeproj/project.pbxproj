@@ -96,6 +96,7 @@
 		1FCCC5991DAE002C0065A799 /* CHSReChooseIndustryCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC5981DAE002C0065A799 /* CHSReChooseIndustryCategoriesViewController.swift */; };
 		1FCCC59C1DAE05E70065A799 /* CHSNetUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC59B1DAE05E70065A799 /* CHSNetUtil.swift */; };
 		1FCCC59E1DAE05F40065A799 /* CHSModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC59D1DAE05F40065A799 /* CHSModel.swift */; };
+		1FCCC5A71DAE3AEF0065A799 /* CHSReJobExpSkillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC5A61DAE3AEF0065A799 /* CHSReJobExpSkillViewController.swift */; };
 		1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */; };
 		1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC11D73E6DB0067970B /* ViewController.swift */; };
 		1FCDFEC51D73E6DB0067970B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC31D73E6DB0067970B /* Main.storyboard */; };
@@ -283,6 +284,7 @@
 		1FCCC5981DAE002C0065A799 /* CHSReChooseIndustryCategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReChooseIndustryCategoriesViewController.swift; sourceTree = "<group>"; };
 		1FCCC59B1DAE05E70065A799 /* CHSNetUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSNetUtil.swift; sourceTree = "<group>"; };
 		1FCCC59D1DAE05F40065A799 /* CHSModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSModel.swift; sourceTree = "<group>"; };
+		1FCCC5A61DAE3AEF0065A799 /* CHSReJobExpSkillViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReJobExpSkillViewController.swift; sourceTree = "<group>"; };
 		1FCDFEBC1D73E6DB0067970B /* Challenge_high_salary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Challenge_high_salary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FCDFEC11D73E6DB0067970B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -494,9 +496,6 @@
 			isa = PBXGroup;
 			children = (
 				1F9CE7C21D8802FC002E6632 /* CHSReJobIntensionViewController.swift */,
-				1FCCC5941DADE72A0065A799 /* CHSReChoosePositionTypeViewController.swift */,
-				1FCCC5961DADE73C0065A799 /* CHSReChoosePositionViewController.swift */,
-				1FCCC5981DAE002C0065A799 /* CHSReChooseIndustryCategoriesViewController.swift */,
 			);
 			name = "求职意向";
 			sourceTree = "<group>";
@@ -508,6 +507,49 @@
 				1F1224DA1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift */,
 			);
 			name = "教育经历";
+			sourceTree = "<group>";
+		};
+		1FCCC5A11DAE25530065A799 /* 工作/实习经历 */ = {
+			isa = PBXGroup;
+			children = (
+				1FDB001C1D8FB712007043B4 /* CHSReJobExperienceViewController.swift */,
+				1FCCC5A61DAE3AEF0065A799 /* CHSReJobExpSkillViewController.swift */,
+			);
+			name = "工作/实习经历";
+			sourceTree = "<group>";
+		};
+		1FCCC5A21DAE25AF0065A799 /* 个人信息 */ = {
+			isa = PBXGroup;
+			children = (
+				1F9CE7C01D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift */,
+			);
+			name = "个人信息";
+			sourceTree = "<group>";
+		};
+		1FCCC5A31DAE25C90065A799 /* 项目经验 */ = {
+			isa = PBXGroup;
+			children = (
+				1FDB001E1D8FC5D7007043B4 /* CHSReProjectExperienceViewController.swift */,
+			);
+			name = "项目经验";
+			sourceTree = "<group>";
+		};
+		1FCCC5A41DAE25E70065A799 /* 我的优势 */ = {
+			isa = PBXGroup;
+			children = (
+				1FDB00201D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift */,
+			);
+			name = "我的优势";
+			sourceTree = "<group>";
+		};
+		1FCCC5A51DAE25FD0065A799 /* 预览 */ = {
+			isa = PBXGroup;
+			children = (
+				1F1224D21D976FEA0094C6CE /* CHSReResumePreviewViewController.swift */,
+				1F1224D31D976FEA0094C6CE /* CHSReResumePreviewViewController.xib */,
+				1F1224D61D979CA60094C6CE /* CHSRePreviewViewController.swift */,
+			);
+			name = "预览";
 			sourceTree = "<group>";
 		};
 		1FCDFEB31D73E6DB0067970B = {
@@ -869,15 +911,16 @@
 			isa = PBXGroup;
 			children = (
 				1FF06CBD1D7D17860032943B /* ChReHomeViewController.swift */,
-				1FCCC5A01DAE0C880065A799 /* 教育经历 */,
+				1FCCC5981DAE002C0065A799 /* CHSReChooseIndustryCategoriesViewController.swift */,
+				1FCCC5941DADE72A0065A799 /* CHSReChoosePositionTypeViewController.swift */,
+				1FCCC5961DADE73C0065A799 /* CHSReChoosePositionViewController.swift */,
+				1FCCC5A51DAE25FD0065A799 /* 预览 */,
+				1FCCC5A21DAE25AF0065A799 /* 个人信息 */,
 				1FCCC59F1DAE0B060065A799 /* 求职意向 */,
-				1F9CE7C01D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift */,
-				1FDB001C1D8FB712007043B4 /* CHSReJobExperienceViewController.swift */,
-				1FDB001E1D8FC5D7007043B4 /* CHSReProjectExperienceViewController.swift */,
-				1FDB00201D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift */,
-				1F1224D21D976FEA0094C6CE /* CHSReResumePreviewViewController.swift */,
-				1F1224D31D976FEA0094C6CE /* CHSReResumePreviewViewController.xib */,
-				1F1224D61D979CA60094C6CE /* CHSRePreviewViewController.swift */,
+				1FCCC5A01DAE0C880065A799 /* 教育经历 */,
+				1FCCC5A11DAE25530065A799 /* 工作/实习经历 */,
+				1FCCC5A31DAE25C90065A799 /* 项目经验 */,
+				1FCCC5A41DAE25E70065A799 /* 我的优势 */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1253,6 +1296,7 @@
 				1FDB00211D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift in Sources */,
 				1FB6D5FF1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.swift in Sources */,
 				1FC3CCB31D9CDD29004AA4C6 /* FTMiMyBlacklistTableViewCell.swift in Sources */,
+				1FCCC5A71DAE3AEF0065A799 /* CHSReJobExpSkillViewController.swift in Sources */,
 				1F577B2C1DA9F31700AB5D99 /* CHSMeHomeTableViewCell.swift in Sources */,
 				1FF9DB181D96216500F0C69D /* FTMiSettingViewController.swift in Sources */,
 				1FF06CBE1D7D17860032943B /* ChReHomeViewController.swift in Sources */,

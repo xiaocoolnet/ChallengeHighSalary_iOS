@@ -317,6 +317,7 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
             return nil
         }
     }
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         if indexPath.section == 0 {
@@ -334,7 +335,6 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
         }
     }
     
-    // MARK:- tableview delegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch (indexPath.section,indexPath.row) {
         case (0,1):

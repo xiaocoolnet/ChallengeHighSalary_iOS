@@ -8,9 +8,19 @@
 
 import UIKit
 
+enum FromVCType {
+    case Intension
+    case JobExperience
+    case Default
+}
+
 class CHSReChooseIndustryCategoriesViewController: UIViewController {
     
     let industryNameArray = ["数据分析","移动产品","电子商务","智能硬件","电子商务","电子商务","智能硬件","智能硬件","项目管理","产品经理","交互设计","APP","用户研究","产品助理","交互设计","游戏策划","产品总监","产品助理","产品助理","在线教育","网页设计","游戏策划","产品总监","游戏策划","产品总监","无线产品","在线教育","网页设计","在线教育","网页设计","无线产品","无线产品","数据分析","移动产品","电子商务","智能硬件","电子商务","电子商务","智能硬件","智能硬件","项目管理","产品经理","交互设计","APP","用户研究","产品助理","交互设计","游戏策划","产品总监","产品助理","产品助理","在线教育","网页设计","游戏策划","产品总监","游戏策划","产品总监","无线产品","在线教育","网页设计","在线教育","网页设计","无线产品","无线产品"]
+    
+    var navTitle = ""
+    
+    var vcType:FromVCType = .Default
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +51,7 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
         
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
-        self.title = "行业选择"
+        self.title = navTitle
         
         let scrollView = UIScrollView(frame: CGRectMake(0, 64, screenSize.width, screenSize.height-64-44))
         
@@ -111,7 +121,13 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
             industryBtn.backgroundColor = UIColor.clearColor()
         }
         
-        NSNotificationCenter.defaultCenter().postNotificationName("PersonalChangeJobIntensionNotification", object: nil, userInfo: ["type":"Categories","value":industryNameArray[industryBtn.tag-100]])
+        if self.vcType == .Intension {
+            NSNotificationCenter.defaultCenter().postNotificationName("PersonalChangeJobIntensionNotification", object: nil, userInfo: ["type":"Categories","value":industryNameArray[industryBtn.tag-100]])
+
+        }else if self.vcType == .JobExperience {
+            NSNotificationCenter.defaultCenter().postNotificationName("PersonalChangeJobExperienceNotification", object: nil, userInfo: ["type":"Categories","value":industryNameArray[industryBtn.tag-100]])
+
+        }
         
         flag = true
         

@@ -12,6 +12,8 @@ class CHSReChoosePositionTypeViewController: UIViewController, UITableViewDataSo
     
     let rootTableView = UITableView()
     
+    var vcType:FromVCType = .Default
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -85,7 +87,10 @@ class CHSReChoosePositionTypeViewController: UIViewController, UITableViewDataSo
     
     // MARK: UITableView Delegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.navigationController?.pushViewController(CHSReChoosePositionViewController(), animated: true)
+        
+        let choosePositionVC = CHSReChoosePositionViewController()
+        choosePositionVC.vcType = self.vcType
+        self.navigationController?.pushViewController(choosePositionVC, animated: true)
     }
     
     override func didReceiveMemoryWarning() {

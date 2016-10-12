@@ -30,11 +30,20 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
         self.tabBarController?.tabBar.hidden = true
     }
     
+    // MARK: popViewcontroller
+    func popViewcontroller() {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    // MARK: 设置子视图
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+
         self.title = "项目经验"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Done, target: self, action: #selector(clickSaveBtn))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .Done, target: self, action: #selector(clickSaveBtn))
         
         rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)

@@ -205,10 +205,17 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch (indexPath.section,indexPath.row) {
         case (0,2):
-            self.navigationController?.pushViewController(CHSReChoosePositionTypeViewController(), animated: true)
-        case (0,3):
-            self.navigationController?.pushViewController(CHSReChooseIndustryCategoriesViewController(), animated: true)
             
+            let choosePositionTypeVC = CHSReChoosePositionTypeViewController()
+            choosePositionTypeVC.vcType = .Intension
+            self.navigationController?.pushViewController(choosePositionTypeVC, animated: true)
+        case (0,3):
+            
+            let industryCategoriesVC = CHSReChooseIndustryCategoriesViewController()
+            industryCategoriesVC.navTitle = "行业选择"
+            industryCategoriesVC.vcType = .Intension
+            
+            self.navigationController?.pushViewController(industryCategoriesVC, animated: true)
         default:
             
             let bigBgView = UIButton(frame: self.view.bounds)
