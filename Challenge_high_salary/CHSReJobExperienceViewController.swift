@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LoReFTInfoInputViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LoReFTInfoInputViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate {
     
     let rootTableView = UITableView()
     
@@ -21,9 +21,18 @@ class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource,
 
     var pickSelectedRowArray = [0,0,0,0]
 
+    let jobContentTv = UITextView()
     
     let nameArray = ["公司名称","公司行业","职位类型","技能展示","任职时间段"]
-    var detailArray = ["请输入公司名称","选择行业","选择职位类型","请选择技能","选择任职时间段"] {
+    var detailArray = CHSUserInfo.currentUserInfo.work?.count > 0 ?[
+        (CHSUserInfo.currentUserInfo.work?.first?.company_name) == "" ? "请输入公司名称":(CHSUserInfo.currentUserInfo.work?.first?.company_name)!,
+        (CHSUserInfo.currentUserInfo.work?.first?.company_industry)! == "" ? "选择行业":(CHSUserInfo.currentUserInfo.work?.first?.company_industry)!,
+        (CHSUserInfo.currentUserInfo.work?.first?.jobtype)! == "" ? "选择职位类型":(CHSUserInfo.currentUserInfo.work?.first?.jobtype)!,
+        (CHSUserInfo.currentUserInfo.work?.first?.skill)! == "" ? "请选择技能":(CHSUserInfo.currentUserInfo.work?.first?.skill)!,
+        (CHSUserInfo.currentUserInfo.work?.first?.work_period)! == "" ? "请选择任职时间段":(CHSUserInfo.currentUserInfo.work?.first?.work_period)!
+        ]:[
+            "请输入公司名称","选择行业","选择职位类型","请选择技能","请选择任职时间段"
+        ] {
         didSet {
             self.rootTableView.reloadData()
         }
@@ -59,6 +68,7 @@ class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource,
         self.tabBarController?.tabBar.hidden = true
         
         self.customizeDropDown()
+        
     }
     
     // MARK: popViewcontroller
@@ -89,7 +99,108 @@ class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource,
     
     // MARK: 点击保存按钮
     func clickSaveBtn() {
-        self.navigationController?.popViewControllerAnimated(true)
+//        userid,company_name,company_industry,jobtype,skill,work_period,content
+
+        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        
+        if detailArray[0] == "请输入公司名称" {
+            
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入公司名称"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if detailArray[1] == "选择行业" {
+            
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请选择行业"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if detailArray[2] == "选择职位类型" {
+            
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请选择职位类型"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if detailArray[3] == "请选择技能" {
+            
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请选择技能"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if detailArray[4] == "选择任职时间段" {
+            
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请选择任职时间段"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }else if jobContentTv.text!.isEmpty {
+            
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入工作内容"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }
+        
+        if CHSUserInfo.currentUserInfo.work?.first?.company_name ==  self.detailArray[0] && CHSUserInfo.currentUserInfo.work?.first?.company_industry ==  self.detailArray[1] && CHSUserInfo.currentUserInfo.work?.first?.jobtype ==  self.detailArray[2] && CHSUserInfo.currentUserInfo.work?.first?.skill ==  self.detailArray[3] && CHSUserInfo.currentUserInfo.work?.first?.work_period ==  self.detailArray[4] && CHSUserInfo.currentUserInfo.work?.first?.content == self.jobContentTv.text! {
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "信息未修改"
+            checkCodeHud.hide(true, afterDelay: 1)
+            
+            let time: NSTimeInterval = 1.0
+            let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+            
+            dispatch_after(delay, dispatch_get_main_queue()) {
+                self.navigationController?.popViewControllerAnimated(true)
+            }
+            return
+        }
+        
+        checkCodeHud.labelText = "正在保存工作经历"
+        
+        CHSNetUtil().PublishWork(
+            CHSUserInfo.currentUserInfo.userid,
+            company_name: detailArray[0],
+            company_industry: detailArray[1],
+            jobtype: detailArray[2],
+            skill: detailArray[3],
+            work_period: detailArray[4],
+            content: jobContentTv.text!) { (success, response) in
+                if success {
+                    
+                    CHSUserInfo.currentUserInfo.work?.first?.company_name =  self.detailArray[0]
+                    CHSUserInfo.currentUserInfo.work?.first?.company_industry =  self.detailArray[1]
+                    CHSUserInfo.currentUserInfo.work?.first?.jobtype =  self.detailArray[2]
+                    CHSUserInfo.currentUserInfo.work?.first?.skill =  self.detailArray[3]
+                    CHSUserInfo.currentUserInfo.work?.first?.work_period =  self.detailArray[4]
+                    CHSUserInfo.currentUserInfo.work?.first?.content = self.jobContentTv.text!
+                    
+                    self.detailArray = [
+                        (CHSUserInfo.currentUserInfo.work?.first?.company_name)! == "" ? "请输入公司名称":(CHSUserInfo.currentUserInfo.work?.first?.company_name)!,
+                        (CHSUserInfo.currentUserInfo.work?.first?.company_industry)! == "" ? "选择行业":(CHSUserInfo.currentUserInfo.work?.first?.company_industry)!,
+                        (CHSUserInfo.currentUserInfo.work?.first?.jobtype)! == "" ? "选择职位类型":(CHSUserInfo.currentUserInfo.work?.first?.jobtype)!,
+                        (CHSUserInfo.currentUserInfo.work?.first?.skill)! == "" ? "请选择技能":(CHSUserInfo.currentUserInfo.work?.first?.skill)!,
+                        (CHSUserInfo.currentUserInfo.work?.first?.work_period)! == "" ? "请选择任职时间段":(CHSUserInfo.currentUserInfo.work?.first?.work_period)!
+                    ]
+                    
+                    checkCodeHud.mode = .Text
+                    checkCodeHud.labelText = "保存工作经历成功"
+                    checkCodeHud.hide(true, afterDelay: 1)
+                    
+                    let time: NSTimeInterval = 1.0
+                    let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                    
+                    dispatch_after(delay, dispatch_get_main_queue()) {
+                        self.navigationController?.popViewControllerAnimated(true)
+                    }
+                }else{
+                    
+                    checkCodeHud.mode = .Text
+                    checkCodeHud.labelText = "保存工作经历失败"
+                    checkCodeHud.hide(true, afterDelay: 1)
+                }
+
+        }
     }
     
     // MARK: LoReFTInfoInputViewControllerDelegate
@@ -145,7 +256,12 @@ class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource,
             cell?.detailTextLabel?.font = UIFont.systemFontOfSize(14)
             cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
             cell?.detailTextLabel?.textAlignment = .Right
-            cell?.detailTextLabel?.text = detailArray[indexPath.row]
+            
+            if indexPath.row == 3 {
+                cell?.detailTextLabel?.text = "\(detailArray[3].componentsSeparatedByString(" ").count)个技能"
+            }else{
+                cell?.detailTextLabel?.text = detailArray[indexPath.row]
+            }
 //            }
             
             if indexPath.row < nameArray.count-1 {
@@ -162,7 +278,11 @@ class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource,
             cell?.selectionStyle = .None
             
             if indexPath.row == 0 {
-                let jobContentTv = UITextView(frame: CGRectMake(0, 0, screenSize.width, kHeightScale*115))
+                jobContentTv.frame = CGRectMake(0, 0, screenSize.width, kHeightScale*115)
+                jobContentTv.font = UIFont.systemFontOfSize(14)
+                jobContentTv.text = CHSUserInfo.currentUserInfo.work?.count > 0 ? (CHSUserInfo.currentUserInfo.work?.first?.content == "" ? "":CHSUserInfo.currentUserInfo.work?.first?.content):""
+
+                jobContentTv.delegate = self
                 cell?.contentView.addSubview(jobContentTv)
                 
                 drawDashed((cell?.contentView)!, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(8, 115), toPoint: CGPointMake(screenSize.width-8, 115), lineWidth: 1/UIScreen.mainScreen().scale)
@@ -173,28 +293,70 @@ class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource,
                 cell?.textLabel?.textColor = baseColor
                 cell?.textLabel?.textAlignment = .Left
                 cell?.textLabel?.text = "看看别人怎么写"
-                
+                cell?.detailTextLabel?.text = "\((jobContentTv.text?.characters.count)!)/\(jobContentMaxCount)"
+
                 cell?.detailTextLabel?.font = UIFont.systemFontOfSize(13)
                 cell?.detailTextLabel?.textColor = baseColor
                 cell?.detailTextLabel?.textAlignment = .Right
-                cell?.detailTextLabel?.text = "0/300"
+
                 othersDrop.anchorView = cell
                 othersDrop.bottomOffset = CGPoint(x: 8, y: 45)
                 othersDrop.width = screenSize.width-16
                 othersDrop.direction = .Bottom
                 
-                othersDrop.dataSource = ["不限","1万以下","1~2万","2~3万","3~4万","4~5万","5万以上"]
+                othersDrop.dataSource = getRandomArray(self.dropArray, maxNum: 5)
+
                 
                 // 下拉列表选中后的回调方法
                 othersDrop.selectionAction = { (index, item) in
-                    
-//                    salaryBtn.setTitle(item, forState: .Normal)
+                    self.jobContentTv.text = item
+                    self.textViewDidChange(self.jobContentTv)
                 }
             }
-            
-            
+
             return cell!
         }
+    }
+    var dropArray = ["不限","1万以下","1~2万","2~3万","3~4万","4~5万","5万以上"]
+    // MARK:随机数生成器函数
+    func createRandomMan(start: Int, end: Int) ->() ->Int! {
+        
+        //根据参数初始化可选值数组
+        var nums = [Int]();
+        for i in start...end{
+            nums.append(i)
+        }
+        
+        func randomMan() -> Int! {
+            if !nums.isEmpty {
+                //随机返回一个数，同时从数组里删除
+                let index = Int(arc4random_uniform(UInt32(nums.count)))
+                return nums.removeAtIndex(index)
+            }else {
+                //所有值都随机完则返回nil
+                return nil
+            }
+        }
+        
+        return randomMan
+    }
+    
+    func getRandomArray(array:Array<String>, maxNum:Int) -> Array<String> {
+        
+        var tempArray = Array<String>()
+        
+        let random1 = self.createRandomMan(0,end: array.count-1)
+
+        for _ in 0 ... maxNum {
+            let random = random1()
+            if (random != nil) {
+                tempArray.append(array[random])
+            }else{
+                return tempArray
+            }
+        }
+        
+        return tempArray
     }
     
     // MARK:- tableView delegate
@@ -290,6 +452,7 @@ class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource,
         case (0,3):
             
             let choosePositionTypeVC = CHSReJobExpSkillViewController()
+            choosePositionTypeVC.orignalSelectSkillStr = detailArray[3]
             self.navigationController?.pushViewController(choosePositionTypeVC, animated: true)
         case (0,4):
             let bigBgView = UIButton(frame: self.view.bounds)
@@ -345,12 +508,50 @@ class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource,
             
         case (1,1):
             othersDrop.show()
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))
+            let changeDropDataSourceBtn = UIButton(frame: CGRectMake(20,(cell?.frame.origin.y)!+64,screenSize.width/2.0-40,(cell?.frame.size.height)!))
+            changeDropDataSourceBtn.backgroundColor = UIColor.whiteColor()
+            changeDropDataSourceBtn.titleLabel?.font = UIFont.systemFontOfSize(12)
+            changeDropDataSourceBtn.contentHorizontalAlignment = .Left
+            changeDropDataSourceBtn.setTitleColor(baseColor, forState: .Normal)
+            changeDropDataSourceBtn.setTitle("换一组", forState: .Normal)
+            changeDropDataSourceBtn.addTarget(self, action: #selector(changeDropDataSourceBtnClick), forControlEvents: .TouchUpInside)
+            othersDrop.addSubview(changeDropDataSourceBtn)
+            
         default:
             
             print("找人才-人才-发布职位-didSelectRowAtIndexPath  default")
         }
     }
     
+    func changeDropDataSourceBtnClick() {
+        othersDrop.dataSource = getRandomArray(self.dropArray, maxNum: 5)
+    }
+    
+    // MARK: 限制输入字数
+    let jobContentMaxCount = 300
+    
+    func textViewDidChange(textView: UITextView) {
+        
+        let lang = textInputMode?.primaryLanguage
+        if lang == "zh-Hans" {
+            let range = textView.markedTextRange
+            if range == nil {
+                if textView.text?.characters.count >= jobContentMaxCount {
+                    textView.text = textView.text?.substringToIndex((textView.text?.startIndex.advancedBy(jobContentMaxCount))!)
+                }
+            }
+        }
+        else {
+            if textView.text?.characters.count >= jobContentMaxCount {
+                textView.text = textView.text?.substringToIndex((textView.text?.startIndex.advancedBy(jobContentMaxCount))!)
+            }
+        }
+        
+        let cell = rootTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))
+        cell?.detailTextLabel?.text = "\((textView.text?.characters.count)!)/\(jobContentMaxCount)"
+    }
+
     // MARK:自定义下拉列表样式
     func customizeDropDown() {
         let appearance = DropDown.appearance()

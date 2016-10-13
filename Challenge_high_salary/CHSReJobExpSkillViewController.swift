@@ -10,6 +10,8 @@ import UIKit
 
 class CHSReJobExpSkillViewController: UIViewController {
     
+    var orignalSelectSkillStr = ""
+
     let skillNameArray = ["数据分析","移动产品","电子商务","智能硬件","电子商务","电子商务","智能硬件","智能硬件","项目管理","产品经理","交互设计","APP","用户研究","产品助理","交互设计","游戏策划","产品总监","产品助理","产品助理","在线教育","网页设计","游戏策划","产品总监","游戏策划","产品总监","无线产品","在线教育","网页设计","在线教育","网页设计","无线产品","无线产品"]
     var selectSkillArray = Array<String>()
     
@@ -93,6 +95,20 @@ class CHSReJobExpSkillViewController: UIViewController {
                     skillBtnX = skillBtnWidth + skillBtnX + skillBtnMargin_x
                 }
             }
+        }
+        
+        for idx in orignalSelectSkillStr.componentsSeparatedByString(" ") {
+            
+            if ((Int(idx)) != nil) {
+                
+                let btn = (self.view.viewWithTag(100+Int(idx)!) as? UIButton)
+                
+                if (btn != nil) {
+                    btn!.selected = true
+                    btn!.backgroundColor = baseColor
+                }
+            }
+            
         }
         
         // 添加标签 button
@@ -197,7 +213,19 @@ class CHSReJobExpSkillViewController: UIViewController {
             checkCodeHud.hide(true, afterDelay: 1)
         }else{
             
-            NSNotificationCenter.defaultCenter().postNotificationName("PersonalChangeJobExperienceNotification", object: nil, userInfo: ["type":"Skill","value":"\(count)个技能"])
+            var str = ""
+            var flag = true
+            for (i,selectSkillName) in selectSkillArray.enumerate() {
+                if selectSkillName != "" {
+                    if flag {
+                        str = String(i)
+                        flag = false
+                    }else{
+                        str = str + " " + String(i)
+                    }
+                }
+            }
+            NSNotificationCenter.defaultCenter().postNotificationName("PersonalChangeJobExperienceNotification", object: nil, userInfo: ["type":"Skill","value":str])
 
 //            var FTPublishJobSelectedNameArray = NSUserDefaults.standardUserDefaults().arrayForKey(FTPublishJobSelectedNameArray_key) as! [Array<String>]
 //            FTPublishJobSelectedNameArray[1][2] = "\(count)个技能"

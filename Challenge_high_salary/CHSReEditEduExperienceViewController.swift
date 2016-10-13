@@ -289,6 +289,7 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
             return 0.0001
         }
     }
+    
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if section == 0 {

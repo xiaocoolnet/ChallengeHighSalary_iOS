@@ -10,14 +10,18 @@ import UIKit
 
 class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    let myTableView = UITableView()
+    
     let resumeItemArray = ["求职意向","教育背景","工作/实习经历","项目经验","我的优势"]
-    let resumeItemStatusArray = ["待完善","完整","完整","待完善","完整"]
+    var resumeItemStatusArray = ["待完善","待完善","待完善","待完善","待完善"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
         setSubviews()
+        loadData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -28,6 +32,48 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         self.tabBarController?.tabBar.hidden = false
     }
     
+    // MARK: 加载数据
+    func loadData() {
+        
+        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        checkCodeHud.labelText = "正在获取简历信息"
+            
+        CHSNetUtil().getMyResume(CHSUserInfo.currentUserInfo.userid) { (success, response) in
+            if success {
+                
+                if CHSUserInfo.currentUserInfo.education?.count > 0 {
+                    self.resumeItemStatusArray[1] = "完整"
+                }else{
+                    self.resumeItemStatusArray[1] = "待完善"
+                }
+                if CHSUserInfo.currentUserInfo.work?.count > 0 {
+                    self.resumeItemStatusArray[2] = "完整"
+                }else{
+                    self.resumeItemStatusArray[2] = "待完善"
+                }
+                if CHSUserInfo.currentUserInfo.advantage != "<null>" {
+                    self.resumeItemStatusArray[4] = "完整"
+                }else{
+                    self.resumeItemStatusArray[4] = "待完善"
+                }
+                
+                self.myTableView.reloadData()
+                
+                checkCodeHud.mode = .Text
+                checkCodeHud.labelText = "获取简历信息成功"
+                checkCodeHud.hide(true, afterDelay: 1)
+                print("获取简历信息成功")
+            }else{
+                checkCodeHud.mode = .Text
+                checkCodeHud.labelText = "获取简历信息失败"
+                checkCodeHud.hide(true, afterDelay: 1)
+                print("获取简历信息失败")
+            }
+        }
+    }
+    
+    // MARK: 设置子视图
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
@@ -92,7 +138,7 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         topBgImageView.addSubview(editBtn)
         
         // TableView
-        let myTableView = UITableView(frame: CGRectMake(0, CGRectGetMaxY(topBgImageView.frame)+12, screenSize.width, screenSize.height-CGRectGetMaxY(topBgImageView.frame)-49))
+        myTableView.frame = CGRectMake(0, CGRectGetMaxY(topBgImageView.frame)+12, screenSize.width, screenSize.height-CGRectGetMaxY(topBgImageView.frame)-49)
         myTableView.backgroundColor = UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
         myTableView.rowHeight = 50
         myTableView.dataSource = self

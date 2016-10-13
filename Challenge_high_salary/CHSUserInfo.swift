@@ -25,6 +25,7 @@ class CHSUserInfo {
     var work_life = ""
     var company = ""
     var myjob = ""
+    var advantage = ""
     var work_property = ""//工作性质
     var address = ""//工作地点
     var position_type = ""//职位类型
@@ -39,6 +40,11 @@ class CHSUserInfo {
 //    var experience = ""//在校经历
     
     
+    var work: [WorkModel]?
+
+    var education: [EducationModel]?
+    
+    
     
 //    userid,work_property,address,position_type,categories,wantsalary,jobstate
     var userName = ""
@@ -51,7 +57,7 @@ class CHSUserInfo {
     var birthday = ""
     var school = ""
     var major = ""
-    var education = ""
+//    var education = ""
     var score = ""
     var all_information = ""
     
@@ -61,3 +67,42 @@ class CHSUserInfo {
         
     }
 }
+
+class UserInfoWork {
+
+    var userid = ""
+
+    var company_name = ""
+
+    var jobtype = ""
+
+    var skill = ""
+
+    var content = ""
+
+    var work_period = ""
+
+    var create_time = ""
+
+    var company_industry = ""
+
+}
+
+class UserInfoEducation {
+
+    var userid = ""
+
+    var school = ""
+
+    var major = ""
+
+    var degree = ""
+
+    var time = ""
+
+    var experience = ""
+
+    var create_time = ""
+
+}
+

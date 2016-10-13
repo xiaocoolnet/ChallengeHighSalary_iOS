@@ -10,6 +10,62 @@ import UIKit
 import Alamofire
 
 class CHSNetUtil: NSObject {
+    
+    // MARK: 获取我的简历
+    // userid
+    func getMyResume(
+        userid:String,
+        handle:ResponseClosures) {
+        
+        let url = kPortPrefix+"getMyResume"
+        let param = [
+            "userid":userid
+        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let statusModel:StatusModel = StatusModel.jsonToModelWithData(json)
+                if statusModel.status == "success" {
+                    
+                    let myResume:MyResumeModel = MyResumeModel.jsonToModelWithData(json)
+                    
+                    CHSUserInfo.currentUserInfo.userid = (myResume.data?.userid)!
+                    CHSUserInfo.currentUserInfo.realName = (myResume.data?.realname)!
+                    CHSUserInfo.currentUserInfo.usertype = (myResume.data?.usertype)!
+                    CHSUserInfo.currentUserInfo.phoneNumber = (myResume.data?.phone)!
+                    CHSUserInfo.currentUserInfo.sex = (myResume.data?.sex)!
+                    CHSUserInfo.currentUserInfo.email = (myResume.data?.email)!
+                    CHSUserInfo.currentUserInfo.qqNumber = (myResume.data?.qq)!
+                    CHSUserInfo.currentUserInfo.weixinNumber = (myResume.data?.weixin)!
+                    CHSUserInfo.currentUserInfo.avatar = (myResume.data?.photo)!
+                    CHSUserInfo.currentUserInfo.devicestate = (myResume.data?.devicestate)!
+                    CHSUserInfo.currentUserInfo.city = (myResume.data?.city)!
+                    CHSUserInfo.currentUserInfo.weiboNumber = (myResume.data?.weibo)!
+                    CHSUserInfo.currentUserInfo.work_life = (myResume.data?.work_life)!
+                    CHSUserInfo.currentUserInfo.company = (myResume.data?.company)!
+                    CHSUserInfo.currentUserInfo.myjob = (myResume.data?.myjob)!
+                    CHSUserInfo.currentUserInfo.work_property = (myResume.data?.work_property)!
+                    CHSUserInfo.currentUserInfo.address = (myResume.data?.address)!
+                    CHSUserInfo.currentUserInfo.position_type = (myResume.data?.position_type)!
+                    CHSUserInfo.currentUserInfo.categories = (myResume.data?.categories)!
+                    CHSUserInfo.currentUserInfo.wantsalary = (myResume.data?.wantsalary)!
+                    CHSUserInfo.currentUserInfo.jobstate = (myResume.data?.jobstate)!
+                    CHSUserInfo.currentUserInfo.advantage = (myResume.data?.advantage)!
+                    
+                    CHSUserInfo.currentUserInfo.education = myResume.data?.education
+                    CHSUserInfo.currentUserInfo.work = myResume.data?.work
+                    
+                    handle(success: true, response: nil)
+                }else{
+                    
+                    handle(success: false, response: nil)
+                }
+            }
+        }
+    }
+    
     // MARK: 发布 求职意向
     // userid,work_property,address,position_type,categories,wantsalary,jobstate
     func PublishIntension(
@@ -74,6 +130,44 @@ class CHSNetUtil: NSObject {
                 handle(success: false, response: error?.description)
             }else{
                 let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                if checkCode.status == "success" {
+                    handle(success: true, response: nil)
+                }else{
+                    
+                    handle(success: false, response: nil)
+                }
+            }
+        }
+    }
+    
+    // MARK: 发布 工作经历
+    // userid,company_name,company_industry,jobtype,skill,work_period,content
+    func PublishWork(
+        userid:String,
+        company_name:String,
+        company_industry:String,
+        jobtype:String,
+        skill:String,
+        work_period:String,
+        content:String,
+        handle:ResponseClosures) {
+        
+        let url = kPortPrefix+"PublishWork"
+        let param = [
+            "userid":userid,
+            "company_name":company_name,
+            "company_industry":company_industry,
+            "jobtype":jobtype,
+            "skill":skill,
+            "work_period":work_period,
+            "content":content
+        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let checkCode:CheckphoneModel = CheckphoneModel.jsonToModelWithData(json)
                 if checkCode.status == "success" {
                     handle(success: true, response: nil)
                 }else{
