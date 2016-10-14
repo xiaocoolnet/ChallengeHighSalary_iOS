@@ -12,6 +12,7 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
 
     let myTableView = UITableView()
     
+    
     let resumeItemArray = ["求职意向","教育背景","工作/实习经历","项目经验","我的优势"]
     var resumeItemStatusArray = ["待完善","待完善","待完善","待完善","待完善"]
     
