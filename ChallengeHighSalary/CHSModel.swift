@@ -118,7 +118,7 @@ class EducationModel: D3Model {
 @objc(ProjectModel)
 class ProjectModel: D3Model {
 
-    var project_description = ""
+    var description_project = ""
 
     var create_time = ""
 

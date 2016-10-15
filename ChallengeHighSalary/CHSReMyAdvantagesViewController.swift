@@ -8,9 +8,11 @@
 
 import UIKit
 
-class CHSReMyAdvantagesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CHSReMyAdvantagesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
     
     let rootTableView = UITableView()
+    
+    let myAdvantagesTv = UIPlaceHolderTextView()
     
     var othersDrop = DropDown()
     
@@ -59,7 +61,41 @@ class CHSReMyAdvantagesViewController: UIViewController, UITableViewDataSource, 
     
     // MARK: 点击保存按钮
     func clickSaveBtn() {
-        self.navigationController?.popViewControllerAnimated(true)
+        
+        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        
+        if self.myAdvantagesTv.text!.isEmpty {
+            
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "请输入优势描述"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }
+        
+        checkCodeHud.labelText = "正在保存我的优势"
+        
+        CHSNetUtil().PublishAdvantage(
+        CHSUserInfo.currentUserInfo.userid,
+        advantage: self.myAdvantagesTv.text!) { (success, response) in
+            if success {
+                
+                checkCodeHud.mode = .Text
+                checkCodeHud.labelText = "保存我的优势成功"
+                checkCodeHud.hide(true, afterDelay: 1)
+                
+                let time: NSTimeInterval = 1.0
+                let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                
+                dispatch_after(delay, dispatch_get_main_queue()) {
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+            }else{
+                checkCodeHud.mode = .Text
+                checkCodeHud.labelText = "保存我的优势失败"
+                checkCodeHud.hide(true, afterDelay: 1)
+            }
+        }
     }
     
     // MARK:- tableView dataSource
@@ -77,8 +113,12 @@ class CHSReMyAdvantagesViewController: UIViewController, UITableViewDataSource, 
         cell?.selectionStyle = .None
         
         if indexPath.row == 0 {
-            let myAdvantagesTv = UITextView(frame: CGRectMake(0, 0, screenSize.width, kHeightScale*115))
+            myAdvantagesTv.frame = CGRectMake(0, 0, screenSize.width, kHeightScale*115)
+            myAdvantagesTv.placeholder = "请输入优势描述，1-120字"
+            myAdvantagesTv.text = CHSUserInfo.currentUserInfo.advantage == "" ? "":CHSUserInfo.currentUserInfo.advantage
+            myAdvantagesTv.delegate = self
             cell?.contentView.addSubview(myAdvantagesTv)
+            textViewDidChange(myAdvantagesTv)
             
             drawDashed((cell?.contentView)!, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(8, 115), toPoint: CGPointMake(screenSize.width-8, 115), lineWidth: 1/UIScreen.mainScreen().scale)
             
@@ -92,7 +132,7 @@ class CHSReMyAdvantagesViewController: UIViewController, UITableViewDataSource, 
             cell?.detailTextLabel?.font = UIFont.systemFontOfSize(13)
             cell?.detailTextLabel?.textColor = baseColor
             cell?.detailTextLabel?.textAlignment = .Right
-            cell?.detailTextLabel?.text = "0/120"
+            cell?.detailTextLabel?.text = "\(self.myAdvantagesTv.text.characters.count)/\(jobContentMaxCount)"
             othersDrop.anchorView = cell
             othersDrop.bottomOffset = CGPoint(x: 8, y: 45)
             othersDrop.width = screenSize.width-16
@@ -102,8 +142,9 @@ class CHSReMyAdvantagesViewController: UIViewController, UITableViewDataSource, 
             
             // 下拉列表选中后的回调方法
             othersDrop.selectionAction = { (index, item) in
-                
-                //                    salaryBtn.setTitle(item, forState: .Normal)
+
+                self.myAdvantagesTv.text = item
+                self.textViewDidChange(self.myAdvantagesTv)
             }
         }
         
@@ -144,6 +185,31 @@ class CHSReMyAdvantagesViewController: UIViewController, UITableViewDataSource, 
         appearance.animationduration = 0.25
         appearance.textColor = .darkGrayColor()
         appearance.textFont = UIFont.systemFontOfSize(14)
+    }
+    
+    // MARK: 限制输入字数
+    let jobContentMaxCount = 120
+    
+    func textViewDidChange(textView: UITextView) {
+        
+        let lang = textInputMode?.primaryLanguage
+        if lang == "zh-Hans" {
+            let range = textView.markedTextRange
+            if range == nil {
+                if textView.text?.characters.count >= jobContentMaxCount {
+                    textView.text = textView.text?.substringToIndex((textView.text?.startIndex.advancedBy(jobContentMaxCount))!)
+                }
+            }
+        }
+        else {
+            if textView.text?.characters.count >= jobContentMaxCount {
+                textView.text = textView.text?.substringToIndex((textView.text?.startIndex.advancedBy(jobContentMaxCount))!)
+            }
+        }
+        
+        let cell = rootTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
+        cell?.detailTextLabel?.text = "\(self.myAdvantagesTv.text.characters.count)/\(jobContentMaxCount)"
+        cell?.detailTextLabel?.sizeToFit()
     }
     
     override func didReceiveMemoryWarning() {

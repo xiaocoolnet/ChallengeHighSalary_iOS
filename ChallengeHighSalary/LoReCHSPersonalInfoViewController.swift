@@ -173,7 +173,7 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
                                 let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
                                 
                                 dispatch_after(delay, dispatch_get_main_queue()) {
-                                    self.presentViewController(CHRoHomeViewController(), animated: true, completion: nil)
+                                    self.navigationController?.pushViewController(LoReCHSEduExperienceViewController(), animated: true)
                                 }
                             }else{
                                 

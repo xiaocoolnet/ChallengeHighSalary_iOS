@@ -12,9 +12,12 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
 
     let myTableView = UITableView()
     
-    
     let resumeItemArray = ["求职意向","教育背景","工作/实习经历","项目经验","我的优势"]
-    var resumeItemStatusArray = ["待完善","待完善","待完善","待完善","待完善"]
+    var resumeItemStatusArray = ["待完善","待完善","待完善","待完善","待完善"]{
+        didSet {
+            self.myTableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +34,33 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationController?.navigationBar.hidden = false
         self.navigationController?.navigationBar.alpha = 1
         self.tabBarController?.tabBar.hidden = false
+        
+        if CHSUserInfo.currentUserInfo.work_property != "" && CHSUserInfo.currentUserInfo.address != "" && CHSUserInfo.currentUserInfo.position_type != "" && CHSUserInfo.currentUserInfo.categories != "" && CHSUserInfo.currentUserInfo.wantsalary != "" && CHSUserInfo.currentUserInfo.jobstate != ""{
+            self.resumeItemStatusArray[0] = "完整"
+        }else{
+            self.resumeItemStatusArray[1] = "待完善"
+        }
+        
+        if CHSUserInfo.currentUserInfo.education?.count > 0 {
+            self.resumeItemStatusArray[1] = "完整"
+        }else{
+            self.resumeItemStatusArray[1] = "待完善"
+        }
+        if CHSUserInfo.currentUserInfo.work?.count > 0 {
+            self.resumeItemStatusArray[2] = "完整"
+        }else{
+            self.resumeItemStatusArray[2] = "待完善"
+        }
+        if CHSUserInfo.currentUserInfo.project?.count > 0 {
+            self.resumeItemStatusArray[3] = "完整"
+        }else{
+            self.resumeItemStatusArray[3] = "待完善"
+        }
+        if CHSUserInfo.currentUserInfo.advantage != "" {
+            self.resumeItemStatusArray[4] = "完整"
+        }else{
+            self.resumeItemStatusArray[4] = "待完善"
+        }
     }
     
     // MARK: 加载数据
@@ -43,6 +73,12 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         CHSNetUtil().getMyResume(CHSUserInfo.currentUserInfo.userid) { (success, response) in
             if success {
                 
+                if CHSUserInfo.currentUserInfo.work_property != "" && CHSUserInfo.currentUserInfo.address != "" && CHSUserInfo.currentUserInfo.position_type != "" && CHSUserInfo.currentUserInfo.categories != "" && CHSUserInfo.currentUserInfo.wantsalary != "" && CHSUserInfo.currentUserInfo.jobstate != "" {
+                    self.resumeItemStatusArray[0] = "完整"
+                }else{
+                    self.resumeItemStatusArray[1] = "待完善"
+                }
+                
                 if CHSUserInfo.currentUserInfo.education?.count > 0 {
                     self.resumeItemStatusArray[1] = "完整"
                 }else{
@@ -53,13 +89,16 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                 }else{
                     self.resumeItemStatusArray[2] = "待完善"
                 }
-                if CHSUserInfo.currentUserInfo.advantage != "<null>" {
+                if CHSUserInfo.currentUserInfo.project?.count > 0 {
+                    self.resumeItemStatusArray[3] = "完整"
+                }else{
+                    self.resumeItemStatusArray[3] = "待完善"
+                }
+                if CHSUserInfo.currentUserInfo.advantage != "" {
                     self.resumeItemStatusArray[4] = "完整"
                 }else{
                     self.resumeItemStatusArray[4] = "待完善"
                 }
-                
-                self.myTableView.reloadData()
                 
                 checkCodeHud.mode = .Text
                 checkCodeHud.labelText = "获取简历信息成功"

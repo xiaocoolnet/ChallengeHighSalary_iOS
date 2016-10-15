@@ -50,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             let guideViewController = GuideViewController()
             guideViewController.guideImageArray = ["guideImage1","guideImage2","guideImage3"]
+            guideViewController.nextViewController = UINavigationController(rootViewController: LoHomeViewController())
             self.window?.rootViewController = guideViewController
         }else{
 //            self.window?.rootViewController = CHRoHomeViewController()

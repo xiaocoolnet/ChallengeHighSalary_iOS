@@ -23,6 +23,8 @@ class GuideViewController: UIViewController {
         }
     }
     
+    var nextViewController = UIViewController()
+    
     private func setSubviews() {
         
         self.numOfPages = guideImageArray.count
@@ -73,7 +75,7 @@ class GuideViewController: UIViewController {
     func startButtonAction (button : UIButton) {
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        appDelegate.window!.rootViewController = LoHomeViewController()
+        appDelegate.window!.rootViewController = nextViewController
         
     }
     

@@ -36,6 +36,13 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
         self.setSubviews()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.hidden = false
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "ic_clear"), forBarMetrics: .Compact)
+    }
+    
     // MARK: popViewcontroller
     func popViewcontroller() {
         self.navigationController?.popViewControllerAnimated(true)
@@ -50,9 +57,13 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
         self.view.backgroundColor = lightGrayColor
         self.title = "忘记密码"
         
+        let bigBgImg = UIImageView(frame: self.view.bounds)
+        bigBgImg.image = UIImage(named: "ic_登录背景_模糊")
+        self.view.addSubview(bigBgImg)
+        
         // 输入背景视图
-        let inputBgView = UIView(frame: CGRectMake(0, 64+kHeightScale*16, screenSize.width, kHeightScale*227))
-        inputBgView.backgroundColor = UIColor.whiteColor()
+        let inputBgView = UIView(frame: CGRectMake(0, kHeightScale*114, screenSize.width, kHeightScale*227))
+        inputBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
         self.view.addSubview(inputBgView)
         
         let subHeight = (inputBgView.frame.size.height-3)/4.0
@@ -63,6 +74,7 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
             0,
             kWidthScale*78,
             subHeight))
+        telLab.textColor = UIColor.whiteColor()
         telLab.text = "+86"
         telLab.textAlignment = .Left
         inputBgView.addSubview(telLab)
@@ -80,15 +92,16 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
         
         // 获取验证码 按钮
         getCheckCodeBtn.frame = CGRectMake(screenSize.width-kWidthScale*(96+11), kHeightScale*10, kWidthScale*96, kHeightScale*36)
-        getCheckCodeBtn.backgroundColor = baseColor
+        getCheckCodeBtn.backgroundColor = UIColor.clearColor()
         getCheckCodeBtn.layer.cornerRadius = 8
         getCheckCodeBtn.titleLabel?.font = UIFont.systemFontOfSize(16)
+        getCheckCodeBtn.setTitleColor(baseColor, forState: .Normal)
         getCheckCodeBtn.setTitle("获取验证码", forState: .Normal)
         getCheckCodeBtn.addTarget(self, action: #selector(getCheckCodeBtnClick), forControlEvents: .TouchUpInside)
         inputBgView.addSubview(getCheckCodeBtn)
         
         // 中间虚线
-        drawDashed(inputBgView, color: lightGrayColor, fromPoint: CGPointMake(0, CGRectGetMaxY(telLab.frame)), toPoint: CGPointMake(CGRectGetMaxX(telTF.frame), CGRectGetMaxY(telLab.frame)), lineWidth: 1)
+        drawDashed(inputBgView, color: lightGrayColor, fromPoint: CGPointMake(0, CGRectGetMaxY(telLab.frame)), toPoint: CGPointMake(screenSize.width, CGRectGetMaxY(telLab.frame)), lineWidth: 1)
         
         // 验证码 Label
         let checkCodeLab = UILabel(frame: CGRectMake(
@@ -96,6 +109,7 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
             CGRectGetMaxY(telLab.frame)+1,
             kWidthScale*78,
             subHeight))
+        checkCodeLab.textColor = UIColor.whiteColor()
         checkCodeLab.text = "验证码"
         checkCodeLab.textAlignment = .Left
         inputBgView.addSubview(checkCodeLab)
@@ -113,7 +127,7 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
         inputBgView.addSubview(checkCodeTF)
         
         // 中间虚线
-        drawDashed(inputBgView, color: lightGrayColor, fromPoint: CGPointMake(0, CGRectGetMaxY(checkCodeLab.frame)), toPoint: CGPointMake(CGRectGetMaxX(telTF.frame), CGRectGetMaxY(checkCodeLab.frame)), lineWidth: 1)
+        drawDashed(inputBgView, color: lightGrayColor, fromPoint: CGPointMake(0, CGRectGetMaxY(checkCodeLab.frame)), toPoint: CGPointMake(screenSize.width, CGRectGetMaxY(checkCodeLab.frame)), lineWidth: 1)
         
         // 新密码 Label
         let newPwdLab = UILabel(frame: CGRectMake(
@@ -121,6 +135,7 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
             CGRectGetMaxY(checkCodeLab.frame)+1,
             kWidthScale*78,
             subHeight))
+        newPwdLab.textColor = UIColor.whiteColor()
         newPwdLab.text = "新密码"
         newPwdLab.textAlignment = .Left
         inputBgView.addSubview(newPwdLab)
@@ -137,7 +152,7 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
         inputBgView.addSubview(newPwdTF)
         
         // 中间虚线
-        drawDashed(inputBgView, color: lightGrayColor, fromPoint: CGPointMake(0, CGRectGetMaxY(newPwdLab.frame)), toPoint: CGPointMake(CGRectGetMaxX(telTF.frame), CGRectGetMaxY(newPwdLab.frame)), lineWidth: 1)
+        drawDashed(inputBgView, color: lightGrayColor, fromPoint: CGPointMake(0, CGRectGetMaxY(newPwdLab.frame)), toPoint: CGPointMake(screenSize.width, CGRectGetMaxY(newPwdLab.frame)), lineWidth: 1)
         
         // 确认密码 Label
         let surePwdLab = UILabel(frame: CGRectMake(
@@ -145,6 +160,7 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
             CGRectGetMaxY(newPwdLab.frame)+1,
             kWidthScale*78,
             subHeight))
+        surePwdLab.textColor = UIColor.whiteColor()
         surePwdLab.text = "确认密码"
         surePwdLab.textAlignment = .Left
         inputBgView.addSubview(surePwdLab)

@@ -22,7 +22,7 @@ class FTNetUtil: NSObject {
         education:String,
         city:String,
         address:String,
-        description:String, handle:ResponseClosures) {
+        description_job:String, handle:ResponseClosures) {
 
         let url = kPortPrefix+"publishjob"
         let param = [
@@ -35,7 +35,7 @@ class FTNetUtil: NSObject {
             "education":education,
             "city":city,
             "address":address,
-            "description":description,
+            "description_job":description_job,
         ];
         Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
             

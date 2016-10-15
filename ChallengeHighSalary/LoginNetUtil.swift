@@ -105,21 +105,21 @@ class LoginNetUtil: NSObject {
                     
                     NSUserDefaults.standardUserDefaults().setBool(true, forKey: isLogin_key)
 
-                    CHSUserInfo.currentUserInfo.phoneNumber = (login.data?.phone)! == "<null>" ? "":(login.data?.phone)!
-                    CHSUserInfo.currentUserInfo.userid = (login.data?.userid)! == "<null>" ? "":(login.data?.userid)!
-                    CHSUserInfo.currentUserInfo.usertype = (login.data?.usertype)! == "<null>" ? "":(login.data?.usertype)!
-                    CHSUserInfo.currentUserInfo.realName = (login.data?.realname)! == "<null>" ? "":(login.data?.realname)!
-                    CHSUserInfo.currentUserInfo.sex = (login.data?.sex)! == "<null>" ? "":(login.data?.sex)!
-                    CHSUserInfo.currentUserInfo.email = (login.data?.email)! == "<null>" ? "":(login.data?.email)!
-                    CHSUserInfo.currentUserInfo.qqNumber = (login.data?.qq)! == "<null>" ? "":(login.data?.qq)!
-                    CHSUserInfo.currentUserInfo.weixinNumber = (login.data?.weixin)! == "<null>" ? "":(login.data?.weixin)!
-                    CHSUserInfo.currentUserInfo.avatar = (login.data?.photo)! == "<null>" ? "":(login.data?.photo)!
-                    CHSUserInfo.currentUserInfo.devicestate = (login.data?.devicestate)! == "<null>" ? "":(login.data?.devicestate)!
-                    CHSUserInfo.currentUserInfo.city = (login.data?.city)! == "<null>" ? "":(login.data?.city)!
-                    CHSUserInfo.currentUserInfo.weiboNumber = (login.data?.weibo)! == "<null>" ? "":(login.data?.weibo)!
-                    CHSUserInfo.currentUserInfo.work_life = (login.data?.work_life)! == "<null>" ? "":(login.data?.work_life)!
-                    CHSUserInfo.currentUserInfo.company = (login.data?.company)! == "<null>" ? "":(login.data?.company)!
-                    CHSUserInfo.currentUserInfo.myjob = (login.data?.myjob)! == "<null>" ? "":(login.data?.myjob)!
+                    CHSUserInfo.currentUserInfo.phoneNumber = (login.data?.phone)! == "" ? "":(login.data?.phone)!
+                    CHSUserInfo.currentUserInfo.userid = (login.data?.userid)! == "" ? "":(login.data?.userid)!
+                    CHSUserInfo.currentUserInfo.usertype = (login.data?.usertype)! == "" ? "":(login.data?.usertype)!
+                    CHSUserInfo.currentUserInfo.realName = (login.data?.realname)! == "" ? "":(login.data?.realname)!
+                    CHSUserInfo.currentUserInfo.sex = (login.data?.sex)! == "" ? "":(login.data?.sex)!
+                    CHSUserInfo.currentUserInfo.email = (login.data?.email)! == "" ? "":(login.data?.email)!
+                    CHSUserInfo.currentUserInfo.qqNumber = (login.data?.qq)! == "" ? "":(login.data?.qq)!
+                    CHSUserInfo.currentUserInfo.weixinNumber = (login.data?.weixin)! == "" ? "":(login.data?.weixin)!
+                    CHSUserInfo.currentUserInfo.avatar = (login.data?.photo)! == "" ? "":(login.data?.photo)!
+                    CHSUserInfo.currentUserInfo.devicestate = (login.data?.devicestate)! == "" ? "":(login.data?.devicestate)!
+                    CHSUserInfo.currentUserInfo.city = (login.data?.city)! == "" ? "":(login.data?.city)!
+                    CHSUserInfo.currentUserInfo.weiboNumber = (login.data?.weibo)! == "" ? "":(login.data?.weibo)!
+                    CHSUserInfo.currentUserInfo.work_life = (login.data?.work_life)! == "" ? "":(login.data?.work_life)!
+                    CHSUserInfo.currentUserInfo.company = (login.data?.company)! == "" ? "":(login.data?.company)!
+                    CHSUserInfo.currentUserInfo.myjob = (login.data?.myjob)! == "" ? "":(login.data?.myjob)!
 
                     handle(success: true, response: login.data)
                 }else{

@@ -130,7 +130,7 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
                 education: selectedNameArray[2][1],
                 city: selectedNameArray[3][0],
                 address: selectedNameArray[3][1],
-                description: selectedNameArray[3][2]) { (success, response) in
+                description_job: selectedNameArray[3][2]) { (success, response) in
                     if success {
                         
                         checkCodeHud.mode = .Text

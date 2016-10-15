@@ -105,6 +105,11 @@
 		1FCDFED51D73E6DB0067970B /* ChallengeHighSalaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFED41D73E6DB0067970B /* ChallengeHighSalaryTests.swift */; };
 		1FCDFEE01D73E6DB0067970B /* ChallengeHighSalaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEDF1D73E6DB0067970B /* ChallengeHighSalaryUITests.swift */; };
 		1FCDFF011D7411160067970B /* LoHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEFF1D7411160067970B /* LoHomeViewController.swift */; };
+		1FD6976E1DB0B8F9008D0A14 /* CHSReProjectDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6976D1DB0B8F9008D0A14 /* CHSReProjectDescriptionViewController.swift */; };
+		1FD697731DB0CC22008D0A14 /* LoReCHSEduExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD697721DB0CC22008D0A14 /* LoReCHSEduExperienceViewController.swift */; };
+		1FD697751DB0CF63008D0A14 /* LoReCHSJobExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD697741DB0CF63008D0A14 /* LoReCHSJobExperienceViewController.swift */; };
+		1FD697771DB0D000008D0A14 /* LoReCHSMyAdvantagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD697761DB0D000008D0A14 /* LoReCHSMyAdvantagesViewController.swift */; };
+		1FD697791DB0D0D9008D0A14 /* LoReCHSJobIntensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD697781DB0D0D9008D0A14 /* LoReCHSJobIntensionViewController.swift */; };
 		1FD7FBD61D795BA70032221D /* WeHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD7FBD51D795BA70032221D /* WeHomeViewController.swift */; };
 		1FDB00131D8F7490007043B4 /* CHSChCompanyHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB00121D8F7490007043B4 /* CHSChCompanyHomeViewController.swift */; };
 		1FDB00181D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB00161D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift */; };
@@ -298,6 +303,11 @@
 		1FCDFEDF1D73E6DB0067970B /* ChallengeHighSalaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeHighSalaryUITests.swift; sourceTree = "<group>"; };
 		1FCDFEE11D73E6DB0067970B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FCDFEFF1D7411160067970B /* LoHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoHomeViewController.swift; sourceTree = "<group>"; };
+		1FD6976D1DB0B8F9008D0A14 /* CHSReProjectDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReProjectDescriptionViewController.swift; sourceTree = "<group>"; };
+		1FD697721DB0CC22008D0A14 /* LoReCHSEduExperienceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReCHSEduExperienceViewController.swift; sourceTree = "<group>"; };
+		1FD697741DB0CF63008D0A14 /* LoReCHSJobExperienceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReCHSJobExperienceViewController.swift; sourceTree = "<group>"; };
+		1FD697761DB0D000008D0A14 /* LoReCHSMyAdvantagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReCHSMyAdvantagesViewController.swift; sourceTree = "<group>"; };
+		1FD697781DB0D0D9008D0A14 /* LoReCHSJobIntensionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReCHSJobIntensionViewController.swift; sourceTree = "<group>"; };
 		1FD7FBD51D795BA70032221D /* WeHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeHomeViewController.swift; sourceTree = "<group>"; };
 		1FDB00121D8F7490007043B4 /* CHSChCompanyHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChCompanyHomeViewController.swift; sourceTree = "<group>"; };
 		1FDB00161D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChCompanyPositionTableViewCell.swift; sourceTree = "<group>"; };
@@ -530,6 +540,7 @@
 			isa = PBXGroup;
 			children = (
 				1FDB001E1D8FC5D7007043B4 /* CHSReProjectExperienceViewController.swift */,
+				1FD6976D1DB0B8F9008D0A14 /* CHSReProjectDescriptionViewController.swift */,
 			);
 			name = "项目经验";
 			sourceTree = "<group>";
@@ -737,13 +748,12 @@
 		1FCDFEFA1D740D430067970B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1FD697711DB0CBDF008D0A14 /* 挑战高薪 */,
 				1FCDFEFF1D7411160067970B /* LoHomeViewController.swift */,
 				1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */,
 				1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */,
 				1F0B59461DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift */,
 				1F0B59481DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift */,
-				1F0B594A1DAB435800A172E3 /* LoReCHSPersonalInfoViewController.swift */,
-				1F0B594E1DAB979800A172E3 /* LoReCHSChooseCityViewController.swift */,
 				1F0002951DAC952E00D57CE6 /* LoReFTInfoInputViewController.swift */,
 			);
 			name = Controller;
@@ -759,6 +769,19 @@
 				1FB6D5EA1D9B5B2A00262BBD /* CHSUserInfo.swift */,
 			);
 			name = "Tool(工具)";
+			sourceTree = "<group>";
+		};
+		1FD697711DB0CBDF008D0A14 /* 挑战高薪 */ = {
+			isa = PBXGroup;
+			children = (
+				1F0B594A1DAB435800A172E3 /* LoReCHSPersonalInfoViewController.swift */,
+				1F0B594E1DAB979800A172E3 /* LoReCHSChooseCityViewController.swift */,
+				1FD697721DB0CC22008D0A14 /* LoReCHSEduExperienceViewController.swift */,
+				1FD697741DB0CF63008D0A14 /* LoReCHSJobExperienceViewController.swift */,
+				1FD697761DB0D000008D0A14 /* LoReCHSMyAdvantagesViewController.swift */,
+				1FD697781DB0D0D9008D0A14 /* LoReCHSJobIntensionViewController.swift */,
+			);
+			name = "挑战高薪";
 			sourceTree = "<group>";
 		};
 		1FD7FBD11D7955840032221D /* Welcome(欢迎页) */ = {
@@ -1285,6 +1308,7 @@
 				1FC3CCAE1D9CBE40004AA4C6 /* FTMiMyInterviewAllViewController.swift in Sources */,
 				1FDB00261D8FD2A0007043B4 /* CHSMiSettingViewController.swift in Sources */,
 				1F482B921D7FF7B80079A62B /* ChChSearchViewController.swift in Sources */,
+				1FD697771DB0D000008D0A14 /* LoReCHSMyAdvantagesViewController.swift in Sources */,
 				1FF524D11D88DBD800E1B70F /* LoginNetUtil.swift in Sources */,
 				1FC3CCB01D9CDCBD004AA4C6 /* FTMiMyBlacklistViewController.swift in Sources */,
 				1F5B672E1DAA354A00F74666 /* FTModel.swift in Sources */,
@@ -1344,6 +1368,8 @@
 				1FA93F511D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.swift in Sources */,
 				1FCCC5951DADE72A0065A799 /* CHSReChoosePositionTypeViewController.swift in Sources */,
 				1F5B672C1DAA352600F74666 /* FTNetUtil.swift in Sources */,
+				1FD697751DB0CF63008D0A14 /* LoReCHSJobExperienceViewController.swift in Sources */,
+				1FD697731DB0CC22008D0A14 /* LoReCHSEduExperienceViewController.swift in Sources */,
 				1FF06CD41D7D609A0032943B /* DPDUIView+Extension.swift in Sources */,
 				1FB6D5F61D9B9E1900262BBD /* CHSMiMyBlacklistViewController.swift in Sources */,
 				1FF524DE1D88F6EC00E1B70F /* MBProgressHUD.m in Sources */,
@@ -1356,7 +1382,9 @@
 				1F1224D41D976FEA0094C6CE /* CHSReResumePreviewViewController.swift in Sources */,
 				1FB6D5EE1D9B8D0700262BBD /* CHSMiNetUtil.swift in Sources */,
 				1F482B9C1D8002560079A62B /* ChChSearchTableViewCell.swift in Sources */,
+				1FD6976E1DB0B8F9008D0A14 /* CHSReProjectDescriptionViewController.swift in Sources */,
 				1F87411D1D82C22B007B8793 /* LoRegisterViewController.swift in Sources */,
+				1FD697791DB0D0D9008D0A14 /* LoReCHSJobIntensionViewController.swift in Sources */,
 				1F577B161DA9E82600AB5D99 /* FTMeLookMeViewController.swift in Sources */,
 				1F577B0E1DA9E29B00AB5D99 /* FTMeResumeNotificationViewController.swift in Sources */,
 				1FEC64DE1D9121460045038C /* CHSMiCheckPasswordViewController.swift in Sources */,
@@ -1552,6 +1580,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = "";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = ChallengeHighSalary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1560,6 +1589,7 @@
 				PRODUCT_NAME = ChallengeHighSalary;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ChallengeHighSalary/ChallengeHighSalary-Bridging-Header.h";
+				VERSIONING_SYSTEM = "";
 			};
 			name = Debug;
 		};
@@ -1570,6 +1600,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = "";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = ChallengeHighSalary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1578,6 +1609,7 @@
 				PRODUCT_NAME = ChallengeHighSalary;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ChallengeHighSalary/ChallengeHighSalary-Bridging-Header.h";
+				VERSIONING_SYSTEM = "";
 			};
 			name = Release;
 		};

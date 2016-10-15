@@ -22,17 +22,34 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
         self.setSubviews()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.hidden = true
+        
+    }
+    
     func setSubviews() {
-        self.view.backgroundColor = lightGrayColor
-        self.title = "挑战高薪"
+//        self.view.backgroundColor = lightGrayColor
+//        self.title = "挑战高薪"
+        
+        let bigBgImg = UIImageView(frame: self.view.bounds)
+        bigBgImg.image = UIImage(named: "ic_登录背景")
+        self.view.addSubview(bigBgImg)
+        
+        let appNameImg = UIImageView(frame: CGRectMake(0, kHeightScale*107, screenSize.width, kHeightScale*41))
+        appNameImg.contentMode = .ScaleAspectFit
+        appNameImg.image = UIImage(named: "ic_appNameImg")
+        self.view.addSubview(appNameImg)
         
         // 输入背景视图
-        let inputBgView = UIView(frame: CGRectMake(0, 64+screenSize.height*0.024, screenSize.width, screenSize.height*0.165))
-        inputBgView.backgroundColor = UIColor.whiteColor()
+        let inputBgView = UIView(frame: CGRectMake(0, kHeightScale*185, screenSize.width, screenSize.height*0.165))
+        inputBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
         self.view.addSubview(inputBgView)
         
         // 电话前缀
         let telLab = UILabel(frame: CGRectMake(0, 0, inputBgView.frame.size.width*0.2, inputBgView.frame.size.height*0.5))
+        telLab.textColor = UIColor.whiteColor()
         telLab.text = "+86"
         telLab.textAlignment = .Center
         inputBgView.addSubview(telLab)
@@ -58,6 +75,7 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
         
         // 密码 Label
         let pwdLab = UILabel(frame: CGRectMake(telLab.frame.origin.x, CGRectGetMaxY(telLab.frame)+1, telLab.frame.size.width, CGRectGetHeight(telLab.frame)-1))
+        pwdLab.textColor = UIColor.whiteColor()
         pwdLab.text = "密码"
         pwdLab.textAlignment = .Center
         inputBgView.addSubview(pwdLab)
@@ -69,19 +87,13 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
         pwdTF.delegate = self
         inputBgView.addSubview(pwdTF)
         
-        // 登录按钮
-        let loginBtn = UIButton(frame: CGRectMake(0, CGRectGetMaxY(inputBgView.frame)+screenSize.height*0.075, screenSize.width*0.95, screenSize.height*0.0645))
-        loginBtn.backgroundColor = baseColor
-        loginBtn.layer.cornerRadius = 8
-        loginBtn.setTitle("登录", forState: .Normal)
-        loginBtn.addTarget(self, action: #selector(loginBtnClick), forControlEvents: .TouchUpInside)
-        loginBtn.center.x = self.view.center.x
-        self.view.addSubview(loginBtn)
+        
         
         // 忘记密码按钮
+        //CGRectGetMaxY(inputBgView.frame)+screenSize.height*0.075
         let forgetPwdBtn = UIButton(frame: CGRectMake(
             0,
-            CGRectGetMaxY(loginBtn.frame)+screenSize.height*0.045,
+            CGRectGetMaxY(inputBgView.frame)+screenSize.height*0.075,
             screenSize.width*0.176,
             screenSize.height*0.027))
         forgetPwdBtn.setTitle("忘记密码？", forState: .Normal)
@@ -116,6 +128,15 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(registerBtn)
         registerBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         
+        // 登录按钮
+        let loginBtn = UIButton(frame: CGRectMake(0, CGRectGetMaxY(registerBtn.frame)+screenSize.height*0.045, screenSize.width*0.8, screenSize.height*0.0645))
+        loginBtn.backgroundColor = baseColor
+        loginBtn.layer.cornerRadius = 8
+        loginBtn.setTitle("登录", forState: .Normal)
+        loginBtn.addTarget(self, action: #selector(loginBtnClick), forControlEvents: .TouchUpInside)
+        loginBtn.center.x = self.view.center.x
+        self.view.addSubview(loginBtn)
+        
         // or Label
         let orLab = UILabel()
         orLab.text = "or"
@@ -147,6 +168,7 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(behindOrLine)
         
         let threeNameArray = ["QQ","微信","新浪微博"]
+        let threeImageNameArray = ["ic_qq","ic_weixin","ic_weibo"]
         
         for i in 0 ... 2 {
             
@@ -160,7 +182,8 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
                 threeLoginBtn.frame.size.width*0.4,
                 threeLoginBtn.frame.size.width*0.4))
             threeImg.layer.cornerRadius = CGRectGetWidth(threeImg.frame)/2.0
-            threeImg.backgroundColor = UIColor.grayColor()
+//            threeImg.backgroundColor = UIColor.grayColor()
+            threeImg.image = UIImage(named: threeImageNameArray[i])
             threeLoginBtn.addSubview(threeImg)
             
             let threeLab = UILabel(frame: CGRectMake(
@@ -168,7 +191,7 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
                 CGRectGetMaxY(threeImg.frame)+screenSize.height*0.025,
                 threeImg.frame.size.width,
                 threeLoginBtn.frame.size.height-CGRectGetMaxY(threeImg.frame)-screenSize.height*0.05))
-            threeLab.textColor = UIColor.darkGrayColor()
+            threeLab.textColor = UIColor.whiteColor()
             threeLoginBtn.addSubview(threeLab)
             
             threeLab.textAlignment = .Center

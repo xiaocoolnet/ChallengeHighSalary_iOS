@@ -56,6 +56,7 @@ class CHSNetUtil: NSObject {
                     
                     CHSUserInfo.currentUserInfo.education = myResume.data?.education
                     CHSUserInfo.currentUserInfo.work = myResume.data?.work
+                    CHSUserInfo.currentUserInfo.project = myResume.data?.project
                     
                     handle(success: true, response: nil)
                 }else{
@@ -185,7 +186,7 @@ class CHSNetUtil: NSObject {
         project_name:String,
         start_time:String,
         end_time:String,
-        description:String,
+        description_project:String,
         handle:ResponseClosures) {
         
         let url = kPortPrefix+"PublishProject"
@@ -194,7 +195,7 @@ class CHSNetUtil: NSObject {
             "project_name":project_name,
             "start_time":start_time,
             "end_time":end_time,
-            "description":description
+            "description_project":description_project
         ];
         Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
             
@@ -207,7 +208,38 @@ class CHSNetUtil: NSObject {
                     CHSUserInfo.currentUserInfo.project?.first?.project_name =  project_name
                     CHSUserInfo.currentUserInfo.project?.first?.start_time =  start_time
                     CHSUserInfo.currentUserInfo.project?.first?.end_time =  end_time
-                    CHSUserInfo.currentUserInfo.project?.first?.project_description =  description
+                    CHSUserInfo.currentUserInfo.project?.first?.description_project =  description_project
+                    
+                    handle(success: true, response: nil)
+                }else{
+                    
+                    handle(success: false, response: nil)
+                }
+            }
+        }
+    }
+    
+    // MARK: 发布 我的优势
+    // userid,advantage
+    func PublishAdvantage(
+        userid:String,
+        advantage:String,
+        handle:ResponseClosures) {
+        
+        let url = kPortPrefix+"PublishAdvantage"
+        let param = [
+            "userid":userid,
+            "advantage":advantage
+        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let checkCode:CheckphoneModel = CheckphoneModel.jsonToModelWithData(json)
+                if checkCode.status == "success" {
+                    
+                    CHSUserInfo.currentUserInfo.advantage =  advantage
                     
                     handle(success: true, response: nil)
                 }else{

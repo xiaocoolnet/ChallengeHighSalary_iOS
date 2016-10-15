@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, CHSReProjectDescriptionDelegate {
     
     let rootTableView = UITableView()
     
@@ -29,17 +29,17 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
     let nameArray = ["项目名称","开始时间","结束时间","项目描述"]
     
     var detailArray = CHSUserInfo.currentUserInfo.project?.count > 0 ? [
-        (CHSUserInfo.currentUserInfo.project?.first?.project_name)! == "" ? "输入项目名称":(CHSUserInfo.currentUserInfo.project?.first?.project_name)!,
+        (CHSUserInfo.currentUserInfo.project?.first?.project_name)! == "" ? "":(CHSUserInfo.currentUserInfo.project?.first?.project_name)!,
         (CHSUserInfo.currentUserInfo.project?.first?.start_time)! == "" ? "请选择开始时间":(CHSUserInfo.currentUserInfo.project?.first?.start_time)!,
         (CHSUserInfo.currentUserInfo.project?.first?.end_time)! == "" ? "请选择结束时间":(CHSUserInfo.currentUserInfo.project?.first?.end_time)!,
-        (CHSUserInfo.currentUserInfo.project?.first?.project_description)! == "" ? "请填写项目描述":"已填写"
+        (CHSUserInfo.currentUserInfo.project?.first?.description_project)! == "" ? "请填写项目描述":"已填写"
         ]:["输入项目名称","请选择开始时间","请选择结束时间","请填写项目描述"] {
         didSet {
             self.rootTableView.reloadData()
         }
     }
     
-    var project_description = CHSUserInfo.currentUserInfo.project?.count > 0 ? CHSUserInfo.currentUserInfo.project?.first?.project_description:"" {
+    var project_description = CHSUserInfo.currentUserInfo.project?.count > 0 ? CHSUserInfo.currentUserInfo.project?.first?.description_project:"" {
         didSet {
             detailArray[3] = "已填写"
             self.rootTableView.reloadData()
@@ -89,8 +89,6 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
     // MARK: 点击保存按钮
     func clickSaveBtn() {
         
-        // 加起止时间的判断
-        
         let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
@@ -100,13 +98,13 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
             checkCodeHud.labelText = "请输入项目名称"
             checkCodeHud.hide(true, afterDelay: 1)
             return
-        }else if detailArray[1] == "选择开始时间" {
+        }else if detailArray[1] == "请选择开始时间" {
             
             checkCodeHud.mode = .Text
             checkCodeHud.labelText = "请选择开始时间"
             checkCodeHud.hide(true, afterDelay: 1)
             return
-        }else if detailArray[2] == "选择结束时间" {
+        }else if detailArray[2] == "请选择结束时间" {
             
             checkCodeHud.mode = .Text
             checkCodeHud.labelText = "请选择结束时间"
@@ -139,7 +137,7 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
             }
         }
         
-        if CHSUserInfo.currentUserInfo.project?.first?.project_name ==  self.projectNameTf.text! && CHSUserInfo.currentUserInfo.project?.first?.start_time ==  self.detailArray[1] && CHSUserInfo.currentUserInfo.project?.first?.end_time ==  self.detailArray[2] && CHSUserInfo.currentUserInfo.project?.first?.project_description ==  self.project_description {
+        if CHSUserInfo.currentUserInfo.project?.first?.project_name ==  self.projectNameTf.text! && CHSUserInfo.currentUserInfo.project?.first?.start_time ==  self.detailArray[1] && CHSUserInfo.currentUserInfo.project?.first?.end_time ==  self.detailArray[2] && CHSUserInfo.currentUserInfo.project?.first?.description_project ==  self.project_description {
             checkCodeHud.mode = .Text
             checkCodeHud.labelText = "信息未修改"
             checkCodeHud.hide(true, afterDelay: 1)
@@ -153,26 +151,27 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
             return
         }
         
-        checkCodeHud.labelText = "正在保存工作经历"
+        checkCodeHud.labelText = "正在保存项目经验"
         
         CHSNetUtil().PublishProject(
             CHSUserInfo.currentUserInfo.userid,
             project_name: self.projectNameTf.text!,
             start_time: detailArray[1],
             end_time: detailArray[2],
-            description: self.project_description!,
+            description_project: self.project_description!,
             handle: { (success, response) in
                 if success {
                     
-                    self.detailArray = [
-                        (CHSUserInfo.currentUserInfo.project?.first?.project_name)! == "" ? "输入项目名称":(CHSUserInfo.currentUserInfo.project?.first?.project_name)!,
-                        (CHSUserInfo.currentUserInfo.project?.first?.start_time)! == "" ? "请选择开始时间":(CHSUserInfo.currentUserInfo.project?.first?.start_time)!,
-                        (CHSUserInfo.currentUserInfo.project?.first?.end_time)! == "" ? "请选择结束时间":(CHSUserInfo.currentUserInfo.project?.first?.end_time)!,
-                        (CHSUserInfo.currentUserInfo.project?.first?.project_description)! == "" ? "请填写项目描述":"已填写"
-                    ]
+//                    self.detailArray = [
+//                        (CHSUserInfo.currentUserInfo.project?.first?.project_name)! == "" ? "输入项目名称":(CHSUserInfo.currentUserInfo.project?.first?.project_name)!,
+//                        (CHSUserInfo.currentUserInfo.project?.first?.start_time)! == "" ? "请选择开始时间":(CHSUserInfo.currentUserInfo.project?.first?.start_time)!,
+//                        (CHSUserInfo.currentUserInfo.project?.first?.end_time)! == "" ? "请选择结束时间":(CHSUserInfo.currentUserInfo.project?.first?.end_time)!,
+//                        (CHSUserInfo.currentUserInfo.project?.first?.project_description)! == "" ? "请填写项目描述":"已填写"
+//                    ]
+                    self.detailArray = [self.projectNameTf.text!,self.detailArray[1],self.detailArray[2],"已填写"]
                     
                     checkCodeHud.mode = .Text
-                    checkCodeHud.labelText = "保存工作经历成功"
+                    checkCodeHud.labelText = "保存项目经验成功"
                     checkCodeHud.hide(true, afterDelay: 1)
                     
                     let time: NSTimeInterval = 1.0
@@ -214,9 +213,9 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
             
             projectNameTf.frame = CGRectMake(0, 0, 150, 50)
             projectNameTf.font = UIFont.systemFontOfSize(14)
-            projectNameTf.placeholder = detailArray[indexPath.row]
+            projectNameTf.placeholder = "输入项目名称"
             projectNameTf.textAlignment = .Right
-            projectNameTf.text = projectNameTf.text == "" ? "":projectNameTf.text
+            projectNameTf.text = projectNameTf.text == "" ? detailArray[0]:projectNameTf.text
             cell?.accessoryView = projectNameTf
         }else{
             
@@ -236,7 +235,12 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         switch (indexPath.section,indexPath.row) {
-        case (0,0):
+        case (0,3):
+            
+            let projectDescriptionVC = CHSReProjectDescriptionViewController()
+            projectDescriptionVC.delegate = self
+            projectDescriptionVC.project_description = self.project_description!
+            self.navigationController?.pushViewController(projectDescriptionVC, animated: true)
             break
         
         default:
@@ -433,6 +437,12 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
         return view
     }
     // MARK:-
+    
+    
+    // MARK: 项目描述 代理
+    func CHSReProjectDescriptionClickSaveBtn(content: String) {
+        self.project_description = content
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
