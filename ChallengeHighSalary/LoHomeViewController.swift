@@ -42,58 +42,85 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
         appNameImg.image = UIImage(named: "ic_appNameImg")
         self.view.addSubview(appNameImg)
         
-        // 输入背景视图
-        let inputBgView = UIView(frame: CGRectMake(0, kHeightScale*185, screenSize.width, screenSize.height*0.165))
-        inputBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
-        self.view.addSubview(inputBgView)
+        // 电话号码 输入背景视图
+        let telInputBgView = UIView(frame: CGRectMake(screenSize.width*0.1, kHeightScale*185, screenSize.width*0.8, screenSize.height*0.08))
+        telInputBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
+        telInputBgView.layer.cornerRadius = 8
+        self.view.addSubview(telInputBgView)
         
         // 电话前缀
-        let telLab = UILabel(frame: CGRectMake(0, 0, inputBgView.frame.size.width*0.2, inputBgView.frame.size.height*0.5))
+        let telLab = UILabel(frame: CGRectMake(0, 0, telInputBgView.frame.size.width*0.13, telInputBgView.frame.size.height))
         telLab.textColor = UIColor.whiteColor()
         telLab.text = "+86"
-        telLab.textAlignment = .Center
-        inputBgView.addSubview(telLab)
+        telLab.textAlignment = .Right
+        telInputBgView.addSubview(telLab)
+        
+        let telImg = UIImageView(frame: CGRectMake(CGRectGetMaxX(telLab.frame)+5, 0, telInputBgView.frame.size.width*0.03, telInputBgView.frame.size.height))
+        telImg.image = UIImage(named: "ic_下拉箭头_登录")
+        telImg.contentMode = .ScaleAspectFit
+        telInputBgView.addSubview(telImg)
         
         // 电话前缀右边虚线
-        drawDashed(inputBgView, color: lightGrayColor, fromPoint: CGPointMake(CGRectGetMaxX(telLab.frame), CGRectGetMinY(telLab.frame)+5), toPoint: CGPointMake(CGRectGetMaxX(telLab.frame), CGRectGetMaxY(telLab.frame)-5), lineWidth: 1)
+        drawLine(
+            telInputBgView,
+            color: lightGrayColor,
+            fromPoint:
+            CGPointMake(telInputBgView.frame.size.width*0.2,
+                telInputBgView.frame.size.height*0.2),
+            toPoint:
+            CGPointMake(telInputBgView.frame.size.width*0.2,
+                telInputBgView.frame.size.height*0.8),
+            lineWidth: 1,
+            pattern: [1,0])
         
         // 电话号码输入框
-        telTF.frame = CGRectMake(CGRectGetMaxX(telLab.frame)+5, telLab.frame.origin.y, CGRectGetMaxX(inputBgView.frame)-CGRectGetMaxX(telLab.frame)+5, telLab.frame.size.height)
-        telTF.placeholder = "请输入手机号"
-//        telTF.text = CHSUserInfo.currentUserInfo.phoneNumber
-//        if NSUserDefaults.standardUserDefaults().dictionaryForKey(logInfo_key) {
-//            
-//        }
+        telTF.frame = CGRectMake(telInputBgView.frame.size.width*0.2+5, telImg.frame.origin.y, telInputBgView.frame.size.width*0.8-10, telImg.frame.size.height)
+        telTF.textColor = UIColor.whiteColor()
+        telTF.attributedPlaceholder = NSAttributedString(string: "请输入手机号", attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
         telTF.text = NSUserDefaults.standardUserDefaults().stringForKey(userName_key)
         telTF.keyboardType = .NumberPad
         telTF.returnKeyType = .Next
         telTF.delegate = self
-        inputBgView.addSubview(telTF)
+        telInputBgView.addSubview(telTF)
         
-        // 中间虚线
-        drawDashed(inputBgView, color: lightGrayColor, fromPoint: CGPointMake(0, CGRectGetMaxY(telLab.frame)), toPoint: CGPointMake(CGRectGetMaxX(telTF.frame), CGRectGetMaxY(telLab.frame)), lineWidth: 1)
+        // 输入背景视图
+        let pwdInputBgView = UIView(frame: CGRectMake(screenSize.width*0.1, CGRectGetMaxY(telInputBgView.frame)+kHeightScale*20, screenSize.width*0.8, screenSize.height*0.08))
+        pwdInputBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
+        pwdInputBgView.layer.cornerRadius = 8
+        self.view.addSubview(pwdInputBgView)
         
-        // 密码 Label
-        let pwdLab = UILabel(frame: CGRectMake(telLab.frame.origin.x, CGRectGetMaxY(telLab.frame)+1, telLab.frame.size.width, CGRectGetHeight(telLab.frame)-1))
-        pwdLab.textColor = UIColor.whiteColor()
-        pwdLab.text = "密码"
-        pwdLab.textAlignment = .Center
-        inputBgView.addSubview(pwdLab)
+        // 密码 ImageView
+        let pwdImg = UIImageView(frame: CGRectMake(0, CGRectGetHeight(pwdInputBgView.frame)*0.34, pwdInputBgView.frame.size.width*0.2, CGRectGetHeight(pwdInputBgView.frame)*0.33))
+        pwdImg.image = UIImage(named: "ic_密码")
+        pwdImg.contentMode = .ScaleAspectFit
+        pwdInputBgView.addSubview(pwdImg)
+        
+        // 密码 右边虚线
+        drawLine(
+            pwdInputBgView,
+            color: lightGrayColor,
+            fromPoint:
+            CGPointMake(CGRectGetMaxX(pwdImg.frame),
+                pwdInputBgView.frame.size.height*0.2),
+            toPoint:
+            CGPointMake(CGRectGetMaxX(pwdImg.frame),
+                pwdInputBgView.frame.size.height*0.8),
+            lineWidth: 1,
+            pattern: [1,0])
 
         // 密码输入框
-        pwdTF.frame = CGRectMake(CGRectGetMaxX(pwdLab.frame)+5, pwdLab.frame.origin.y, CGRectGetMaxX(inputBgView.frame)-CGRectGetMaxX(pwdLab.frame)+5, pwdLab.frame.size.height)
-        pwdTF.placeholder = "请输入密码"
+        pwdTF.frame = CGRectMake(CGRectGetMaxX(pwdImg.frame)+5, 0, CGRectGetMaxX(pwdInputBgView.frame)-CGRectGetMaxX(pwdImg.frame)+5, pwdInputBgView.frame.size.height)
+        pwdTF.attributedPlaceholder = NSAttributedString(string: "请输入密码", attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
+        pwdTF.textColor = UIColor.whiteColor()
         pwdTF.keyboardType = .Default
         pwdTF.delegate = self
-        inputBgView.addSubview(pwdTF)
-        
-        
+        pwdInputBgView.addSubview(pwdTF)
         
         // 忘记密码按钮
         //CGRectGetMaxY(inputBgView.frame)+screenSize.height*0.075
         let forgetPwdBtn = UIButton(frame: CGRectMake(
             0,
-            CGRectGetMaxY(inputBgView.frame)+screenSize.height*0.075,
+            CGRectGetMaxY(pwdInputBgView.frame)+screenSize.height*0.026,
             screenSize.width*0.176,
             screenSize.height*0.027))
         forgetPwdBtn.setTitle("忘记密码？", forState: .Normal)
@@ -109,9 +136,10 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
             CGRectGetMaxY(forgetPwdBtn.frame)+screenSize.height*0.0335,
             screenSize.width*0.38,
             screenSize.height*0.027))
+        noAccountLab.textColor = UIColor.whiteColor()
         noAccountLab.text = "您还没有挑战高薪账号？"
         noAccountLab.textAlignment = .Right
-        noAccountLab.textColor = UIColor(red: 152/255.0, green: 151/255.0, blue: 152/255.0, alpha: 1)
+//        noAccountLab.textColor = UIColor(red: 152/255.0, green: 151/255.0, blue: 152/255.0, alpha: 1)
         self.view.addSubview(noAccountLab)
         noAccountLab.adjustsFontSizeToFitWidth = true
         

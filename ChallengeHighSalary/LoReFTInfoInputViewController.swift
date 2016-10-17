@@ -48,6 +48,7 @@ class LoReFTInfoInputViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.hidden = false
+        self.navigationController?.navigationBar.setBackgroundImage(nil, forBarMetrics: .Compact)
         self.tabBarController?.tabBar.hidden = true
     }
     

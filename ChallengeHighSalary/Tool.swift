@@ -169,6 +169,36 @@ func drawDashed(onView:UIView, color:UIColor, fromPoint:CGPoint, toPoint:CGPoint
     //        view.layer.addSublayer(dotteShapLayer)
 }
 
+//MARK: 画直线
+func drawLine(onView:UIView, color:UIColor, fromPoint:CGPoint, toPoint:CGPoint, lineWidth:CGFloat, pattern:[NSNumber] = [10,5]) {
+    
+    let dotteShapLayer = CAShapeLayer()
+    let mdotteShapePath = CGPathCreateMutable()
+    dotteShapLayer.fillColor = color.CGColor
+    dotteShapLayer.strokeColor = color.CGColor
+    dotteShapLayer.lineWidth = lineWidth
+    CGPathMoveToPoint(mdotteShapePath, nil, fromPoint.x, fromPoint.y)
+    CGPathAddLineToPoint(mdotteShapePath, nil, toPoint.x, toPoint.y)
+    //        CGPathAddLineToPoint(mdotteShapePath, nil, 200, 200)
+    dotteShapLayer.path = mdotteShapePath
+//    let arr :NSArray = NSArray(array: [1,0])
+    dotteShapLayer.lineDashPhase = 1
+    dotteShapLayer.lineDashPattern = pattern
+    onView.layer.addSublayer(dotteShapLayer)
+    
+    //        let dotteShapLayer = CAShapeLayer()
+    //        let mdotteShapePath = CGPathCreateMutable()
+    //        dotteShapLayer.fillColor = UIColor.clearColor().CGColor
+    //        dotteShapLayer.strokeColor = UIColor.orangeColor().CGColor
+    //        dotteShapLayer.lineWidth = 2.0
+    //        CGPathAddEllipseInRect(mdotteShapePath, nil, CGRectMake(100.0, 150.0, 200.0, 200.0))
+    //        dotteShapLayer.path = mdotteShapePath
+    //        let arr :NSArray = NSArray(array: [10,5])
+    //        dotteShapLayer.lineDashPhase = 1.0
+    //        dotteShapLayer.lineDashPattern = arr as? [NSNumber]
+    //        view.layer.addSublayer(dotteShapLayer)
+}
+
 //MARK: 计算文本最佳高度
 func calculateHeight(string:String,size:CGFloat,width:  CGFloat) -> CGFloat {
     let options : NSStringDrawingOptions = NSStringDrawingOptions.UsesLineFragmentOrigin
