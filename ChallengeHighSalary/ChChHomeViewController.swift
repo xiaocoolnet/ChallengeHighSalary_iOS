@@ -14,6 +14,8 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     
     let rootScrollView = UIScrollView()
     
+    var jobList = [JobInfoDataModel]()
+    
     var salaryDrop = DropDown()
     var redEnvelopeDrop = DropDown()
     let findJobTableView = UITableView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height-20-44-49-37), style: .Grouped)
@@ -37,6 +39,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         setNavigationBar()
         setSubviews()
+        loadData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -47,6 +50,18 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         // 自定义下拉列表样式
         customizeDropDown()
+    }
+    
+    // MARK: 加载数据
+    func loadData() {
+        CHSNetUtil().getjoblist(CHSUserInfo.currentUserInfo.userid) { (success, response) in
+            if success {
+                self.jobList = (response as! [JobInfoDataModel]?)!
+                self.findJobTableView.reloadData()
+            }else{
+                
+            }
+        }
     }
     
     // MARK: 设置 NavigationBar
@@ -301,7 +316,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if tableView.tag == 101 {
-            return 10
+            return jobList.count
         }else{
             return 1
         }
@@ -313,6 +328,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             let cell = tableView.dequeueReusableCellWithIdentifier("ChChFindJobTableViewCell") as! ChChFindJobTableViewCell
             cell.selectionStyle = .None
             
+            cell.jobInfo = self.jobList[indexPath.row]
             cell.companyBtn.addTarget(self, action: #selector(companyBtnClick), forControlEvents: .TouchUpInside)
             
             return cell
@@ -336,7 +352,10 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if tableView.tag == 101 {
-            self.navigationController?.pushViewController(CHSChPersonalInfoViewController(), animated: true)
+            let personalInfoVC = CHSChPersonalInfoViewController()
+            personalInfoVC.jobInfo = self.jobList[indexPath.row]
+            
+            self.navigationController?.pushViewController(personalInfoVC, animated: true)
         }else{
             self.companyBtnClick()
         }

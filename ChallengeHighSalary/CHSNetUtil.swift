@@ -11,6 +11,33 @@ import Alamofire
 
 class CHSNetUtil: NSObject {
     
+    // MARK: 获取招聘列表
+    // userid
+    func getjoblist(
+        userid:String,
+        handle:ResponseClosures) {
+        
+        let url = kPortPrefix+"getjoblist"
+        let param = [
+            "userid":userid
+        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                if checkCode.status == "success" {
+                    let jobInfoModel:JobInfoModel = JobInfoModel.jsonToModelWithData(json)
+                    handle(success: true, response: jobInfoModel.data)
+                }else{
+                    
+                    handle(success: false, response: nil)
+                }
+            }
+        }
+    }
+    
     // MARK: 获取我的简历
     // userid
     func getMyResume(

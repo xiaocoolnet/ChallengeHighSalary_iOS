@@ -12,6 +12,8 @@ class CHSChCompanyPositionListViewController: UIViewController, UITableViewDataS
     
     let rootTableView = UITableView()
     
+    var company_infoJobs = [Company_infoJobsModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,13 +57,15 @@ class CHSChCompanyPositionListViewController: UIViewController, UITableViewDataS
     
     // MARK:- tableview datasource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        return company_infoJobs.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("CHSChCompanyPositionCell") as! CHSChCompanyPositionTableViewCell
         cell.selectionStyle = .None
+        
+        cell.company_infoJob = company_infoJobs[indexPath.row]
         return cell
     }
     

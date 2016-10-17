@@ -10,11 +10,46 @@ import UIKit
 
 class ChChFindJobTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var titleLab: UILabel!
+    
+    @IBOutlet weak var company_nameLab: UILabel!
+    
+    @IBOutlet weak var logoImg: UIImageView!
+    
+    
+    @IBOutlet weak var countLab: UILabel!
+    
+    @IBOutlet weak var salaryLab: UILabel!
+    
+    @IBOutlet weak var cityLab: UILabel!
+    
+    @IBOutlet weak var experienceLab: UILabel!
+    
+    @IBOutlet weak var educationLab: UILabel!
+    
+    
+    
+    
+    
     @IBOutlet weak var topLine: UIImageView!
     
     @IBOutlet weak var bottomLine: UIView!
     
     @IBOutlet weak var companyBtn: UIButton!
+    
+    
+    var jobInfo:JobInfoDataModel? {
+        didSet {
+            self.titleLab.text = jobInfo?.title
+            self.company_nameLab.text = jobInfo?.company_name
+            self.logoImg.sd_setImageWithURL(NSURL(string: kImagePrefix+(jobInfo?.logo)!), placeholderImage: nil)
+            self.countLab.text = jobInfo?.count
+            self.salaryLab.text = jobInfo?.salary
+            self.cityLab.text = jobInfo?.city?.componentsSeparatedByString("-").last
+            self.experienceLab.text = jobInfo?.experience
+            self.educationLab.text = jobInfo?.education
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -11,7 +11,7 @@ import UIKit
 class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let rootTableView = UITableView()
-    let nameArray = [["认证公司信息","我的公司主页"],["我的收藏","我的悬赏"],["我的招聘记录","我的面试邀请"],["我的黑名单"]]
+    let nameArray = [["认证公司信息","我的公司信息"],["我的收藏","我的悬赏"],["我的招聘记录","我的面试邀请"],["我的黑名单"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,6 +142,8 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         switch (indexPath.section,indexPath.row) {
+        case (0,1):
+            self.navigationController?.pushViewController(FTMiMyCompanyInfoViewController(), animated: true)
         case (1,0):
             self.navigationController?.pushViewController(FTMiMyCollectionViewController(), animated: true)
         case (1,1):

@@ -10,33 +10,17 @@ import UIKit
 import Alamofire
 
 class FTNetUtil: NSObject {
-    // MARK: 发布招聘岗位
-    // userid,jobtype,title(职位名称),skill,salary,experience,education,city,address,description
-    func publishjob(
+    
+    // MARK: 获取我的企业信息
+    // userid,logo,company_name,company_web,industry,count,financing
+    func getMyCompany_info(
         userid:String,
-        jobtype:String,
-        title:String,
-        skill:String,
-        salary:String,
-        experience:String,
-        education:String,
-        city:String,
-        address:String,
-        description_job:String, handle:ResponseClosures) {
-
-        let url = kPortPrefix+"publishjob"
+        handle:ResponseClosures) {
+        
+        let url = kPortPrefix+"getMyCompany_info"
         let param = [
-            "userid":userid,
-            "jobtype":jobtype,
-            "title":title,
-            "skill":skill,
-            "salary":salary,
-            "experience":experience,
-            "education":education,
-            "city":city,
-            "address":address,
-            "description_job":description_job,
-        ];
+            "userid":userid
+            ];
         Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
             
             if(error != nil){
@@ -44,7 +28,9 @@ class FTNetUtil: NSObject {
             }else{
                 let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
                 if checkCode.status == "success" {
-                    handle(success: true, response: nil)
+                    let company_infoModel:Company_infoModel = Company_infoModel.jsonToModelWithData(json)
+                    
+                    handle(success: true, response: company_infoModel.data)
                 }else{
                     
                     handle(success: false, response: nil)
@@ -74,6 +60,49 @@ class FTNetUtil: NSObject {
             "industry":industry,
             "count":count,
             "financing":financing,
+            ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                if checkCode.status == "success" {
+                    handle(success: true, response: nil)
+                }else{
+                    
+                    handle(success: false, response: nil)
+                }
+            }
+        }
+    }
+    
+    // MARK: 发布招聘岗位
+    // userid,jobtype,title(职位名称),skill,salary,experience,education,city,address,description
+    func publishjob(
+        userid:String,
+        jobtype:String,
+        title:String,
+        skill:String,
+        salary:String,
+        experience:String,
+        education:String,
+        city:String,
+        address:String,
+        description_job:String, handle:ResponseClosures) {
+
+        let url = kPortPrefix+"publishjob"
+        let param = [
+            "userid":userid,
+            "jobtype":jobtype,
+            "title":title,
+            "skill":skill,
+            "salary":salary,
+            "experience":experience,
+            "education":education,
+            "city":city,
+            "address":address,
+            "description_job":description_job,
         ];
         Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
             

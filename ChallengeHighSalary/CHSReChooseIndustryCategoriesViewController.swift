@@ -11,6 +11,7 @@ import UIKit
 enum FromVCType {
     case Intension
     case JobExperience
+    case CompanyInfo
     case Default
 }
 
@@ -127,6 +128,9 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
         }else if self.vcType == .JobExperience {
             NSNotificationCenter.defaultCenter().postNotificationName("PersonalChangeJobExperienceNotification", object: nil, userInfo: ["type":"Categories","value":industryNameArray[industryBtn.tag-100]])
 
+        }else if self.vcType == .CompanyInfo {
+            NSNotificationCenter.defaultCenter().postNotificationName("PersonalChangeCompanyInfoNotification", object: nil, userInfo: ["type":"Categories","value":industryNameArray[industryBtn.tag-100]])
+            
         }
         
         flag = true

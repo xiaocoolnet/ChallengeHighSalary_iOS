@@ -73,6 +73,8 @@ class MyResumeData: D3Model {
     
     var categories = ""
     
+    var resumes_id = ""
+    
 }
 
 @objc(WorkModel)
@@ -130,5 +132,71 @@ class ProjectModel: D3Model {
 
     var end_time = ""
 
+}
+
+@objc(JobInfoModel)
+class JobInfoModel: D3Model {
+    
+    var status: String?
+
+    var data: [JobInfoDataModel]?
+}
+
+@objc(JobInfoDataModel)
+class JobInfoDataModel: D3Model {
+
+   
+    var education: String?
+
+    var userid: String?
+
+    var title: String?
+
+    var description_job: String?
+
+    var company_web: String?
+
+    var create_time: String?
+
+    var company_name: String?
+
+    var authentication: String?
+
+    var company_score: String?
+
+    var jobid: String?
+
+    var count: String?
+
+    var industry: String?
+
+    var salary: String?
+
+    var city: String?
+
+    var realname: String?
+
+    var work_property: String?
+
+    var myjob: String?
+
+    var welfare: String?
+
+    var companyid: String?
+
+    var distance: String?
+
+    var financing: String?
+
+    var skill: String?
+
+    var logo: String?
+
+    var experience: String?
+
+    var jobtype: String?
+
+    var address: String?
+    
 }
 
