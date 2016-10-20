@@ -38,6 +38,29 @@ class CHSNetUtil: NSObject {
         }
     }
     
+    // MARK: 获取获取企业信息列表
+    // userid
+    func getCompanyList(handle:ResponseClosures) {
+        
+        let url = kPortPrefix+"getCompanyList"
+        
+        Alamofire.request(.GET, url, parameters: nil).response { request, response, json, error in
+            
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                if checkCode.status == "success" {
+                    let jobInfoModel:CompanyListModel = CompanyListModel.jsonToModelWithData(json)
+                    handle(success: true, response: jobInfoModel.data)
+                }else{
+                    
+                    handle(success: false, response: nil)
+                }
+            }
+        }
+    }
+    
     // MARK: 获取我的简历
     // userid
     func getMyResume(

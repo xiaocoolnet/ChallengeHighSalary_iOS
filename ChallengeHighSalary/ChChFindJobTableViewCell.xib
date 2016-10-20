@@ -40,6 +40,12 @@
                             <constraint firstAttribute="height" constant="56" id="Jvq-QK-dAn"/>
                             <constraint firstAttribute="width" constant="56" id="W7F-Cb-P1p"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="28"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="王小妞" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyK-FQ-wd4">
                         <rect key="frame" x="79" y="41" width="42" height="17"/>
@@ -220,13 +226,18 @@
                 <outlet property="cityLab" destination="kCT-Tg-i5i" id="qkq-eD-wHO"/>
                 <outlet property="companyBtn" destination="Ekm-US-vRG" id="U7s-TH-Xlv"/>
                 <outlet property="company_nameLab" destination="bEJ-Ln-8kk" id="n3V-DN-17A"/>
+                <outlet property="company_scoreLab" destination="kgK-5I-pYO" id="0Ug-Uu-hHt"/>
                 <outlet property="countLab" destination="cbo-UK-hzf" id="hUC-3r-hXx"/>
+                <outlet property="distanceLab" destination="y0f-8N-LO6" id="YaC-55-VY8"/>
                 <outlet property="educationLab" destination="bEa-kt-NrR" id="gxv-lA-jHF"/>
                 <outlet property="experienceLab" destination="QRl-nv-2dV" id="fvn-qs-vE2"/>
                 <outlet property="logoImg" destination="Av9-ZZ-4bT" id="mr7-kl-xz2"/>
+                <outlet property="myjobLab" destination="tnf-Ns-tA7" id="iuH-OQ-cPQ"/>
+                <outlet property="realnameLab" destination="eyK-FQ-wd4" id="E5n-8r-C92"/>
                 <outlet property="salaryLab" destination="DV5-xx-Ab7" id="luq-y7-YUp"/>
                 <outlet property="titleLab" destination="3cc-c2-0TS" id="QXR-eI-WOA"/>
                 <outlet property="topLine" destination="1dQ-6W-Hzj" id="Y5Z-x0-EQX"/>
+                <outlet property="work_propertyLab" destination="5kY-aq-th2" id="Nf4-Qe-ocR"/>
             </connections>
             <point key="canvasLocation" x="405.5" y="374"/>
         </tableViewCell>

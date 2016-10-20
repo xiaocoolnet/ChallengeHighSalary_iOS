@@ -14,7 +14,9 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     
     let myTableView = UITableView(frame: CGRectMake(screenSize.width, 0, screenSize.width, screenSize.height-20-44-49-37), style: .Plain)
     
-    var hasPosition = false
+    var resumeModel = [MyResumeData]()
+    
+    var hasPosition = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         setNavigationBar()
         setSubviews()
+        loadData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -31,6 +34,18 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         self.navigationController?.navigationBar.hidden = false
         self.tabBarController?.tabBar.hidden = false
         self.customizeDropDown()
+    }
+    
+    // MARK: 加载数据
+    func loadData() {
+        FTNetUtil().getResumeList(CHSUserInfo.currentUserInfo.userid) { (success, response) in
+            if success {
+                self.resumeModel = response as! [MyResumeData]
+                self.myTableView.reloadData()
+            }else{
+                
+            }
+        }
     }
     
     // MARK: 设置 NavigationBar
@@ -137,7 +152,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if hasPosition {
-            return 10
+            return self.resumeModel.count ?? 0
         }else{
             return 1
         }
@@ -149,6 +164,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             let cell = tableView.dequeueReusableCellWithIdentifier("FTTalentCell") as! FTTalentTableViewCell
             cell.selectionStyle = .None
             
+            cell.resumeData = self.resumeModel[indexPath.row]
             return cell
         }else{
             let cell = tableView.dequeueReusableCellWithIdentifier("FTTaNoPositionTableViewCell") as! FTTaNoPositionTableViewCell

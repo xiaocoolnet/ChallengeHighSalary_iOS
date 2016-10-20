@@ -24,7 +24,7 @@ class Company_infoDataModel: D3Model {
 
     var financing = ""
 
-    var jobs: [Company_infoJobsModel]?
+    var jobs: [JobInfoDataModel]?
 
     var count = ""
 
@@ -36,35 +36,61 @@ class Company_infoDataModel: D3Model {
 
     var company_web = ""
     
+   
+    var company_score = ""
+    
+    var authentication = ""
+    
+    var distance = ""
+    
+    var creat_time = ""
+
+    var com_introduce = ""
+    
+    var produte_info = ""
 
 }
 
-@objc(Company_infoJobsModel)
-class Company_infoJobsModel: D3Model {
+@objc(ResumeListModel)
+class ResumeListModel: D3Model {
+    
+    var status = ""
+    
+    var data: [MyResumeData]?
+    
+    
+}
+class Jobs: NSObject {
 
-    var jobtype = ""
+    var experience: String?
 
-    var userid = ""
+    var jobtype: String?
 
-    var salary = ""
+    var realname: String?
 
-    var skill = ""
+    var userid: String?
 
-    var title = ""
+    var skill: String?
 
-    var jobid = ""
+    var salary: String?
 
-    var address = ""
+    var title: String?
 
-    var city = ""
+    var jobid: String?
 
-    var education = ""
+    var address: String?
 
-    var description_job = ""
+    var city: String?
 
-    var create_time = ""
+    var education: String?
 
-    var experience = ""
+    var description_job: String?
+
+    var create_time: String?
+
+    var photo: String?
+
+    var myjob: String?
 
 }
 

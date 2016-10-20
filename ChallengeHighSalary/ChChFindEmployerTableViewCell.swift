@@ -10,6 +10,23 @@ import UIKit
 
 class ChChFindEmployerTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var logoImg: UIImageView!
+    
+    @IBOutlet weak var company_nameLab: UILabel!
+    
+    @IBOutlet weak var jobsCountBtn: UIButton!
+    
+    @IBOutlet weak var industry_financing_countLab: UILabel!
+    
+    var companyInfo:Company_infoDataModel? {
+        didSet {
+            self.logoImg.sd_setImageWithURL(NSURL(string: kImagePrefix+(companyInfo?.logo)!), placeholderImage: nil)
+            self.company_nameLab.text = companyInfo?.company_name
+            self.jobsCountBtn.setTitle("\((companyInfo?.jobs?.count ?? 0)!)", forState: .Normal)
+            self.industry_financing_countLab.text = "\(companyInfo?.industry ?? "") | \(companyInfo!.financing ?? "") | \(companyInfo?.count ?? "")"
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

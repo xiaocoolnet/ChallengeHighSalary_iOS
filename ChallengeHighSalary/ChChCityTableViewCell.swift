@@ -65,7 +65,7 @@ class ChChCityTableViewCell: UITableViewCell {
     }
     
     func cityBtnClick(cityBtn:UIButton) {
-        print(cityBtn.currentTitle)
+//        print(cityBtn.currentTitle)
         self.delegate?.cityTableViewCellCityBtnClick(cityBtn)
     }
     

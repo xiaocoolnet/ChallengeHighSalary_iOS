@@ -14,19 +14,38 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
     let companyNoteStr = "如果你无法简洁的表达你的想法，那只说明你还不够了解它。64d99164d991       如果你无法简洁的表达你的想法，那只说明你还不够了解它。       如果你无法简洁的表达你的想法，那只说明你还不够了解它。"
     var productNoteStr = "如果你无法简洁的表达你的想法，那只说明你还不够了解它。64d99164d991       如果你无法简洁的表达你的想法，那只说明你还不够了解它。       如果你无法简洁的表达你的想法，那只说明你还不够了解它。"
     
+    var jobInfoUserid = ""
+    
+    var company_infoData = Company_infoDataModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
         self.setSubviews()
+        self.loadData()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = true
+        self.navigationController?.navigationBar.hidden = false
+        self.navigationController?.navigationBar.alpha = 0
         self.tabBarController?.tabBar.hidden = true
+    }
+    
+    // MARK: 加载数据
+    func loadData() {
+        FTNetUtil().getMyCompany_info(self.jobInfoUserid) { (success, response) in
+            if success {
+                self.company_infoData = response as! Company_infoDataModel
+                self.setHeaderView()
+                self.rootTableView.reloadData()
+            }else{
+                
+            }
+        }
     }
     
     // MARK: popViewcontroller
@@ -53,7 +72,7 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
         rootTableView.tableFooterView = UIView(frame: CGRectZero)
         self.view.addSubview(rootTableView)
         
-        setHeaderView()
+//        setHeaderView()
         
         let backBtn = UIButton(frame: CGRectMake(8, 28, kHeightScale*25, kHeightScale*25))
 //        backBtn.backgroundColor = baseColor
@@ -90,7 +109,9 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
         
         let headerImgView = UIImageView(frame: CGRectMake(0, kHeightScale*155, kHeightScale*60, kHeightScale*60))
         headerImgView.layer.cornerRadius = headerImgView.frame.size.width/2.0
+        headerImgView.clipsToBounds = true
         headerImgView.backgroundColor = UIColor.grayColor()
+        headerImgView.sd_setImageWithURL(NSURL(string: kImagePrefix+self.company_infoData.logo), placeholderImage: nil)
         headerImgView.center.x = self.view.center.x
         headerView.addSubview(headerImgView)
         
@@ -98,14 +119,14 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
         companyNameLab.textAlignment = .Center
         companyNameLab.textColor = baseColor
         companyNameLab.font = UIFont.systemFontOfSize(14)
-        companyNameLab.text = "北京互联科技有限公司"
+        companyNameLab.text = self.company_infoData.company_name
         headerView.addSubview(companyNameLab)
         
         let companyNoteLab = UILabel(frame: CGRectMake(0, CGRectGetMaxY(companyNameLab.frame), screenSize.width, kHeightScale*20))
         companyNoteLab.textAlignment = .Center
         companyNoteLab.textColor = UIColor(red: 116/255.0, green: 116/255.0, blue: 116/255.0, alpha: 1)
         companyNoteLab.font = UIFont.systemFontOfSize(13)
-        companyNoteLab.text = "移动互联网，企业服务/未融资/20-30人"
+        companyNoteLab.text = "\(self.company_infoData.industry)/\(self.company_infoData.financing)/\(self.company_infoData.count)"
         headerView.addSubview(companyNoteLab)
         
         self.rootTableView.tableHeaderView = headerView
@@ -114,7 +135,7 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
     // MARK:- tableview datasource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 2 {
-            return 5
+            return self.company_infoData.jobs?.count ?? 0
         }else{
             return 1
         }
@@ -129,6 +150,8 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
         if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCellWithIdentifier("CHSChCompanyPositionCell") as! CHSChCompanyPositionTableViewCell
             cell.selectionStyle = .None
+            
+            cell.company_infoJob = (self.company_infoData.jobs![indexPath.row] ?? nil)!
             return cell
         }else{
             
@@ -141,9 +164,9 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
             cell?.textLabel?.numberOfLines = 0
             cell?.textLabel?.font = UIFont.systemFontOfSize(13)
             if indexPath.section == 0 {
-                cell?.textLabel?.text = "\t"+companyNoteStr
+                cell?.textLabel?.text = "\t"+self.company_infoData.com_introduce
             }else if indexPath.section == 1 {
-                cell?.textLabel?.text = "\t"+productNoteStr
+                cell?.textLabel?.text = "\t"+self.company_infoData.produte_info
             }
             
             return cell!
@@ -156,9 +179,9 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch (indexPath.section,indexPath.row) {
         case (0,0):
-            return calculateHeight(companyNoteStr, size: 14, width: screenSize.width-16)+20
+            return calculateHeight(self.company_infoData.com_introduce, size: 14, width: screenSize.width-16)+20
         case (1,0):
-            return calculateHeight(productNoteStr, size: 14, width: screenSize.width-16)+20
+            return calculateHeight(self.company_infoData.produte_info, size: 14, width: screenSize.width-16)+20
         default:
             return 146
         }
@@ -239,23 +262,34 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 2 {
-            self.navigationController?.pushViewController(CHSChPersonalInfoViewController(), animated: true)
+            let personalInfoVC = CHSChPersonalInfoViewController()
+            personalInfoVC.jobInfo = self.company_infoData.jobs![indexPath.row] ?? nil
+            
+            self.navigationController?.pushViewController(personalInfoVC, animated: true)
         }
     }
     
     // MARK: scrollview delegate
     func scrollViewDidScroll(scrollView: UIScrollView) {
+
         if scrollView.contentOffset.y >= 64 {
-            UIView.animateWithDuration(0.5, animations: { 
+
+            UIView.animateWithDuration(0.5, animations: {
                 
-                self.navigationController?.navigationBar.hidden = false
+                self.navigationController?.navigationBar.alpha = 1
             })
         }else{
             UIView.animateWithDuration(0.5, animations: {
                 
-                self.navigationController?.navigationBar.hidden = true
+                self.navigationController?.navigationBar.alpha = 0
             })
         }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.navigationController?.navigationBar.alpha = 1
     }
 
     override func didReceiveMemoryWarning() {

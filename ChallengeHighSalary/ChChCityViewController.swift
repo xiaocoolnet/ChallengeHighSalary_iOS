@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChChCityViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ChChCityViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ChChCityTableViewCellDelegate {
 
     var cityDict = [String:Array<String>]()
     var cityIndexArray = Array<String>()
@@ -114,6 +114,7 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.selectionStyle = .None
 
         cell.cityBtnsTitleArray = cityDict[cityIndexArray[indexPath.section]]!
+        cell.delegate = self
         return cell
     }
     
@@ -146,7 +147,13 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
         return cityBtnY+cityBtnHeight+cityBtnMargin
     }
     
-    
+    // MARK: ChChCityTableViewCellDelegate
+    func cityTableViewCellCityBtnClick(cityBtn: UIButton) {
+        print(cityBtn.currentTitle)
+        NSUserDefaults.standardUserDefaults().setValue(cityBtn.currentTitle, forKey: "myCity")
+        myCity = NSUserDefaults.standardUserDefaults().stringForKey("myCity")
+        self.navigationController?.popViewControllerAnimated(true)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSForegroundColorAttributeName:UIColor.whiteColor()
         ]
         
-        loadLocation()
+//        loadLocation()
         
 //        NSUserDefaults.standardUserDefaults().removeObjectForKey("appVersion")
         
@@ -183,7 +183,7 @@ extension AppDelegate: CLLocationManagerDelegate
             {
                 print(error)
             }
-            NSNotificationCenter.defaultCenter().postNotificationName("positioningCityNotification", object: nil)
+//            NSNotificationCenter.defaultCenter().postNotificationName("positioningCityNotification", object: nil)
         }
         
         

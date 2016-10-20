@@ -18,14 +18,6 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Don-iI-rL6">
                         <rect key="frame" x="8" y="8" width="359" height="234"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Scf-7T-lsq">
-                                <rect key="frame" x="15" y="15" width="50" height="50"/>
-                                <color key="backgroundColor" red="0.98823529409999999" green="0.42745098040000001" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="Hlw-Px-8pO"/>
-                                    <constraint firstAttribute="height" constant="50" id="zpU-Aq-XLg"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="北京互联科技有限公司" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sX0-8h-JNh">
                                 <rect key="frame" x="80" y="15" width="150" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -60,6 +52,20 @@
                                 <rect key="frame" x="0.0" y="75" width="359" height="151"/>
                                 <color key="backgroundColor" red="0.98823529409999999" green="0.42745098040000001" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Scf-7T-lsq">
+                                <rect key="frame" x="15" y="15" width="50" height="50"/>
+                                <color key="backgroundColor" red="0.98823529409999999" green="0.42745098040000001" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="Hlw-Px-8pO"/>
+                                    <constraint firstAttribute="height" constant="50" id="zpU-Aq-XLg"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -89,6 +95,12 @@
                     <constraint firstAttribute="trailingMargin" secondItem="Don-iI-rL6" secondAttribute="trailing" id="x7k-Ce-x8B"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="company_nameLab" destination="sX0-8h-JNh" id="3hz-AZ-aAz"/>
+                <outlet property="industry_financing_countLab" destination="Qvh-WK-Qw2" id="Tiy-ZA-RsK"/>
+                <outlet property="jobsCountBtn" destination="h4c-OC-mWG" id="yqW-kk-WeM"/>
+                <outlet property="logoImg" destination="Scf-7T-lsq" id="CSj-kO-jTo"/>
+            </connections>
             <point key="canvasLocation" x="321.5" y="468.5"/>
         </tableViewCell>
     </objects>

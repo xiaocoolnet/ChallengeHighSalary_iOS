@@ -92,6 +92,7 @@
 		1FC3CCB81D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCB71D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift */; };
 		1FC3CCBA1D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCB91D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift */; };
 		1FC3CCBC1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCBB1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift */; };
+		1FCC2FDF1DB607C0002360E4 /* FTPersonalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC2FDE1DB607C0002360E4 /* FTPersonalViewController.swift */; };
 		1FCCC5951DADE72A0065A799 /* CHSReChoosePositionTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC5941DADE72A0065A799 /* CHSReChoosePositionTypeViewController.swift */; };
 		1FCCC5971DADE73C0065A799 /* CHSReChoosePositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC5961DADE73C0065A799 /* CHSReChoosePositionViewController.swift */; };
 		1FCCC5991DAE002C0065A799 /* CHSReChooseIndustryCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC5981DAE002C0065A799 /* CHSReChooseIndustryCategoriesViewController.swift */; };
@@ -285,6 +286,7 @@
 		1FC3CCB71D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaChoosePositionViewController.swift; sourceTree = "<group>"; };
 		1FC3CCB91D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaPositionNameViewController.swift; sourceTree = "<group>"; };
 		1FC3CCBB1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaSkillRequiredViewController.swift; sourceTree = "<group>"; };
+		1FCC2FDE1DB607C0002360E4 /* FTPersonalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTPersonalViewController.swift; sourceTree = "<group>"; };
 		1FCCC5941DADE72A0065A799 /* CHSReChoosePositionTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReChoosePositionTypeViewController.swift; sourceTree = "<group>"; };
 		1FCCC5961DADE73C0065A799 /* CHSReChoosePositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReChoosePositionViewController.swift; sourceTree = "<group>"; };
 		1FCCC5981DAE002C0065A799 /* CHSReChooseIndustryCategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReChooseIndustryCategoriesViewController.swift; sourceTree = "<group>"; };
@@ -843,6 +845,7 @@
 				1FC3CCBB1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift */,
 				1FF1CE161DA89E21000F0A9A /* FTTaWorkplaceViewController.swift */,
 				1FF1CE181DA8BA8E000F0A9A /* FTTaJobDescriptionsViewController.swift */,
+				1FCC2FDE1DB607C0002360E4 /* FTPersonalViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1433,6 +1436,7 @@
 				1FC3CCA81D9CAF07004AA4C6 /* FTMiMyInterviewFinishViewController.swift in Sources */,
 				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,
 				1F4FD25B1D767CC500FF7040 /* Tool.swift in Sources */,
+				1FCC2FDF1DB607C0002360E4 /* FTPersonalViewController.swift in Sources */,
 				1F577B281DA9F25100AB5D99 /* CHSMeInvitedViewController.swift in Sources */,
 				1F31935A1DB47C5F004B264F /* FTMiMyCompanyInfoViewController.swift in Sources */,
 				1F1224D91D97AE5A0094C6CE /* CHSReEduExperienceViewController.swift in Sources */,

@@ -11,6 +11,34 @@ import Alamofire
 
 class FTNetUtil: NSObject {
     
+    // MARK: 获取简历列表
+    // userid,logo,company_name,company_web,industry,count,financing
+    func getResumeList(
+        userid:String,
+        handle:ResponseClosures) {
+        
+        let url = kPortPrefix+"getResumeList"
+        let param = [
+            "userid":userid
+        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                if checkCode.status == "success" {
+                    let resumeListModel:ResumeListModel = ResumeListModel.jsonToModelWithData(json)
+                    
+                    handle(success: true, response: resumeListModel.data)
+                }else{
+                    
+                    handle(success: false, response: nil)
+                }
+            }
+        }
+    }
+    
     // MARK: 获取我的企业信息
     // userid,logo,company_name,company_web,industry,count,financing
     func getMyCompany_info(

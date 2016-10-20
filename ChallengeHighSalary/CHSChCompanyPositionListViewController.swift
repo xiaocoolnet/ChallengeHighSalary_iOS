@@ -12,7 +12,7 @@ class CHSChCompanyPositionListViewController: UIViewController, UITableViewDataS
     
     let rootTableView = UITableView()
     
-    var company_infoJobs = [Company_infoJobsModel]()
+    var company_infoJobs = [JobInfoDataModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +77,11 @@ class CHSChCompanyPositionListViewController: UIViewController, UITableViewDataS
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.navigationController?.pushViewController(CHSChPersonalInfoViewController(), animated: true)
+        
+        let personalInfoVC = CHSChPersonalInfoViewController()
+        personalInfoVC.jobInfo = self.company_infoJobs[indexPath.row] ?? nil
+        
+        self.navigationController?.pushViewController(personalInfoVC, animated: true)
     }
     
     override func didReceiveMemoryWarning() {

@@ -16,20 +16,25 @@ class ChChFindJobTableViewCell: UITableViewCell {
     
     @IBOutlet weak var logoImg: UIImageView!
     
+    @IBOutlet weak var realnameLab: UILabel!
+    
+    @IBOutlet weak var myjobLab: UILabel!
     
     @IBOutlet weak var countLab: UILabel!
     
+    @IBOutlet weak var company_scoreLab: UILabel!
+    
     @IBOutlet weak var salaryLab: UILabel!
     
+    @IBOutlet weak var distanceLab: UILabel!
+ 
     @IBOutlet weak var cityLab: UILabel!
     
     @IBOutlet weak var experienceLab: UILabel!
     
     @IBOutlet weak var educationLab: UILabel!
     
-    
-    
-    
+    @IBOutlet weak var work_propertyLab: UILabel!
     
     @IBOutlet weak var topLine: UIImageView!
     
@@ -43,11 +48,18 @@ class ChChFindJobTableViewCell: UITableViewCell {
             self.titleLab.text = jobInfo?.title
             self.company_nameLab.text = jobInfo?.company_name
             self.logoImg.sd_setImageWithURL(NSURL(string: kImagePrefix+(jobInfo?.logo)!), placeholderImage: nil)
-            self.countLab.text = jobInfo?.count
-            self.salaryLab.text = jobInfo?.salary
+            self.realnameLab.text = jobInfo?.realname
+            self.myjobLab.text = jobInfo?.myjob
+            self.countLab.text = "公司规模"+(jobInfo?.count ?? "")!
+            self.company_scoreLab.text = "综合评分"+(jobInfo?.company_score ?? "")!
+            self.salaryLab.text = "￥ "+(jobInfo?.salary ?? "")!
+            self.distanceLab.text = jobInfo?.distance
             self.cityLab.text = jobInfo?.city?.componentsSeparatedByString("-").last
             self.experienceLab.text = jobInfo?.experience
             self.educationLab.text = jobInfo?.education
+//            self.work_propertyLab.text = jobInfo?.work_property ?? "待补充"
+            self.work_propertyLab.text = "待补充"
+
         }
     }
     

@@ -198,5 +198,13 @@ class JobInfoDataModel: D3Model {
 
     var address: String?
     
+    var photo: String?
 }
 
+@objc(CompanyListModel)
+class CompanyListModel: D3Model {
+    
+    var status = ""
+
+    var data: [Company_infoDataModel]?
+}

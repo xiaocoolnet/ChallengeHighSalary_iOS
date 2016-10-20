@@ -26,16 +26,16 @@ class CHSChCompanyPositionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var realNameAndPositionLab: UILabel!
     
-    var company_infoJob = Company_infoJobsModel() {
+    var company_infoJob: JobInfoDataModel? {
         didSet {
-            self.titleLab.text = company_infoJob.title
-            self.salaryLab.text = company_infoJob.salary
-            self.cityLab.text = company_infoJob.city.componentsSeparatedByString("-").last
-            self.experienceLab.text = company_infoJob.experience
-            self.educationLab.text = company_infoJob.education
-//            self.work_propertyLab = 
-//            self.logoImg.sd_setImageWithURL(NSURL(string: kImagePrefix+company_infoJob.logo), placeholderImage: nil)
-//            self.realNameAndPositionLab.text = 
+            self.titleLab.text = company_infoJob!.title ?? ""
+            self.salaryLab.text = "￥ "+(company_infoJob!.salary! ?? "")
+            self.cityLab.text = company_infoJob!.city!.componentsSeparatedByString("-").last ?? ""
+            self.experienceLab.text = company_infoJob!.experience ?? ""
+            self.educationLab.text = company_infoJob!.education ?? ""
+            self.work_propertyLab.text = company_infoJob?.work_property ?? ""
+            self.logoImg.sd_setImageWithURL(NSURL(string: kImagePrefix+(company_infoJob?.photo ?? "")!), placeholderImage: nil)
+            self.realNameAndPositionLab.text = (company_infoJob?.realname ?? "")!+" "+(company_infoJob?.myjob ?? "")!
         }
     }
     
