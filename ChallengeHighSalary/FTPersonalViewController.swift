@@ -8,29 +8,17 @@
 
 import UIKit
 
-class FTPersonalViewController: UIViewController, UIScrollViewDelegate {
+class FTPersonalViewController: UIViewController {
     
-    let rootScrollView = UIScrollView()
-    
-    let positionBtn = UIButton()
-    
-    let positionView = UIView()
-    
-    let descriptionLab = UILabel()
-    
-    var jobInfo:JobInfoDataModel?
     var resumeData = MyResumeData()
     
-    var company_infoData = Company_infoDataModel()
+    let collectionBtn = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
-        self.setNavigationBar()
-        self.setSubviews()
-        
+        setSubviews()
         self.loadData()
     }
     
@@ -41,304 +29,517 @@ class FTPersonalViewController: UIViewController, UIScrollViewDelegate {
         self.tabBarController?.tabBar.hidden = true
     }
     
-    // MARK: 加载数据
-    func loadData() {
-        FTNetUtil().getMyCompany_info((self.jobInfo?.userid ?? "")!) { (success, response) in
-            if success {
-                self.company_infoData = response as! Company_infoDataModel
-                self.positionBtn.setTitle("共\((self.company_infoData.jobs?.count)!)个职位", forState: .Normal)
-            }else{
-                
-            }
-        }
-    }
-    
-    
     // MARK: popViewcontroller
     func popViewcontroller() {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    // MARK: 设置 NavigationBar
-    func setNavigationBar() {
+    // MARK: 加载数据
+    func loadData() {
         
-        self.title = self.resumeData.realname
-        
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
-        
-        // rightBarButtonItems
-        let shareBtn = UIButton(frame: CGRectMake(0, 0, 24, 24))
-        shareBtn.setImage(UIImage(named: "ic-分享"), forState: .Normal)
-        shareBtn.addTarget(self, action: #selector(shareBtnClick), forControlEvents: .TouchUpInside)
-        let shareItem = UIBarButtonItem(customView: shareBtn)
-        
-        let collectionBtn = UIButton(frame: CGRectMake(0, 0, 24, 24))
-        collectionBtn.setImage(UIImage(named: "ic-收藏"), forState: .Normal)
-        //        searchBtn.addTarget(self, action: #selector(searchBtnClick), forControlEvents: .TouchUpInside)
-        let collectionItem = UIBarButtonItem(customView: collectionBtn)
-        
-        self.navigationItem.rightBarButtonItems = [collectionItem,shareItem]
+        PublicNetUtil().CheckHadFavorite(
+            CHSUserInfo.currentUserInfo.userid,
+            object_id: (self.resumeData.resumes_id ?? "")!,
+            type: "2") { (success, response) in
+                if success {
+                    self.collectionBtn.selected = true
+                }else{
+                    self.collectionBtn.selected = false
+                }
+        }
     }
     
     // MARK:- 设置子视图
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
-        self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
+        self.view.backgroundColor = UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
         
-        //MARK: scrollView
-        rootScrollView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height-20-44-kHeightScale*55)
-        rootScrollView.tag = 101
-        rootScrollView.delegate = self
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        
+        self.title = self.resumeData.realname
+        
+        // rightBarButtonItems
+        let shareBtn = UIButton(frame: CGRectMake(0, 0, 24, 24))
+        shareBtn.setImage(UIImage(named: "ic_分享"), forState: .Normal)
+        shareBtn.addTarget(self, action: #selector(shareBtnClick), forControlEvents: .TouchUpInside)
+        let shareItem = UIBarButtonItem(customView: shareBtn)
+        
+        collectionBtn.frame = CGRectMake(0, 0, 24, 24)
+        collectionBtn.setImage(UIImage(named: "ic_收藏"), forState: .Normal)
+        collectionBtn.setImage(UIImage(named: "ic_收藏_sel"), forState: .Selected)
+        collectionBtn.addTarget(self, action: #selector(collectionBtnClick), forControlEvents: .TouchUpInside)
+        
+        let collectionItem = UIBarButtonItem(customView: collectionBtn)
+        
+        self.navigationItem.rightBarButtonItems = [collectionItem,shareItem]
+        
+        // MARK: rootScrollView
+        let rootScrollView = UIScrollView(frame: CGRectMake(0, 64, screenSize.width, screenSize.height-64-49))
+        rootScrollView.backgroundColor = UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
         self.view.addSubview(rootScrollView)
         
-        //MARK: 概况
-        let noteView = UIView(frame: CGRectMake(0, 0, screenSize.width, kHeightScale*125))
-        noteView.backgroundColor = UIColor.whiteColor()
-        rootScrollView.addSubview(noteView)
+        // MARK: 获取联系方式
+        let getContectView = UIView(frame: CGRectMake(0, screenSize.height-49, screenSize.width, 49))
+        getContectView.backgroundColor = UIColor.whiteColor()
+        self.view.addSubview(getContectView)
         
-        let titleLab = UILabel(frame: CGRectMake(8, 0, screenSize.width, kHeightScale*50))
-        titleLab.textColor = UIColor.blackColor()
-        titleLab.font = UIFont.boldSystemFontOfSize(16)
-        titleLab.text = self.jobInfo?.title ?? ""
-        titleLab.sizeToFit()
-        titleLab.frame.origin.y = (kHeightScale*50 - titleLab.frame.size.height)/2.0
-        noteView.addSubview(titleLab)
+        drawLine(getContectView, color: UIColor.lightGrayColor(), fromPoint: CGPointMake(0, 0), toPoint: CGPointMake(screenSize.width, 0), lineWidth: 1/UIScreen.mainScreen().scale, pattern: [10,0])
         
-        let salaryLab = UILabel(frame: CGRectMake(CGRectGetMaxX(titleLab.frame), 0, screenSize.width, kHeightScale*50))
-        salaryLab.textColor = UIColor(red: 253/255.0, green: 151/255.0, blue: 39/255.0, alpha: 1)
-        salaryLab.font = UIFont.boldSystemFontOfSize(16)
-        salaryLab.text = "【￥\((self.jobInfo?.salary ?? "")!)】"
+        let getContectBtn = UIButton(frame: CGRectMake(0, (getContectView.frame.size.height-(49-16))/2.0, screenSize.width/2.0, 49-16))
+        getContectBtn.backgroundColor = baseColor
+        getContectBtn.layer.cornerRadius = getContectBtn.frame.size.height/2.0
+        getContectBtn.titleLabel?.font = UIFont.systemFontOfSize(16)
+        getContectBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        getContectBtn.setTitle("获取联系方式", forState: .Normal)
+        getContectBtn.center.x = getContectView.center.x
+        getContectView.addSubview(getContectBtn)
+        
+        // MARK: 概况
+        let summaryView = UIView(frame: CGRectMake(10, 8, screenSize.width-20, kHeightScale*174))
+        summaryView.layer.cornerRadius = 8
+        summaryView.backgroundColor = UIColor.whiteColor()
+        rootScrollView.addSubview(summaryView)
+        
+        let nameLab = UILabel(frame: CGRectMake(8, 10, summaryView.frame.size.width-8-8-50-8, kHeightScale*15))
+        nameLab.textColor = baseColor
+        nameLab.font = UIFont.boldSystemFontOfSize(16)
+        nameLab.text = self.resumeData.realname
+        nameLab.sizeToFit()
+        summaryView.addSubview(nameLab)
+        
+        let jobStateLab = UILabel(frame: CGRectMake(CGRectGetMaxX(nameLab.frame)+8, 0, 0, 0))
+        jobStateLab.font = UIFont.systemFontOfSize(15)
+        jobStateLab.textColor = UIColor.lightGrayColor()
+        jobStateLab.text = self.resumeData.jobstate
+        jobStateLab.sizeToFit()
+        jobStateLab.center.y = nameLab.center.y
+        summaryView.addSubview(jobStateLab)
+        
+        let margin:CGFloat = 5
+        
+        let addressBtn = UIButton(frame: CGRectMake(8, CGRectGetMaxY(nameLab.frame)+10, screenSize.width, kHeightScale*60))
+        addressBtn.setImage(UIImage(named: "ic_地点"), forState: .Normal)
+        addressBtn.setTitleColor(UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1), forState: .Normal)
+        addressBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
+        addressBtn.titleLabel?.numberOfLines = 0
+        addressBtn.contentHorizontalAlignment = .Left
+        addressBtn.setTitle(self.resumeData.city, forState: .Normal)
+        addressBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
+        addressBtn.sizeToFit()
+        summaryView.addSubview(addressBtn)
+        
+        let expBtn = UIButton(frame: CGRectMake(CGRectGetMaxX(addressBtn.frame)+8, CGRectGetMaxY(nameLab.frame)+10, screenSize.width, kHeightScale*60))
+        expBtn.setImage(UIImage(named: "ic_工作经验"), forState: .Normal)
+        expBtn.setTitleColor(UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1), forState: .Normal)
+        expBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
+        expBtn.titleLabel?.numberOfLines = 0
+        expBtn.contentHorizontalAlignment = .Left
+        expBtn.setTitle(self.resumeData.work_life, forState: .Normal)
+        expBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
+        expBtn.sizeToFit()
+        summaryView.addSubview(expBtn)
+        
+        let eduBtn = UIButton(frame: CGRectMake(CGRectGetMaxX(expBtn.frame)+8, CGRectGetMaxY(nameLab.frame)+10, screenSize.width, kHeightScale*60))
+        eduBtn.setImage(UIImage(named: "ic_学历"), forState: .Normal)
+        eduBtn.setTitleColor(UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1), forState: .Normal)
+        eduBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
+        eduBtn.titleLabel?.numberOfLines = 0
+        eduBtn.contentHorizontalAlignment = .Left
+        eduBtn.setTitle(self.resumeData.education?.first?.degree, forState: .Normal)
+        eduBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
+        eduBtn.sizeToFit()
+        summaryView.addSubview(eduBtn)
+        
+        let propertyBtn = UIButton(frame: CGRectMake(CGRectGetMaxX(eduBtn.frame)+8, CGRectGetMaxY(nameLab.frame)+10, screenSize.width, kHeightScale*60))
+        propertyBtn.setImage(UIImage(named: "ic_全职"), forState: .Normal)
+        propertyBtn.setTitleColor(UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1), forState: .Normal)
+        propertyBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
+        propertyBtn.titleLabel?.numberOfLines = 0
+        propertyBtn.contentHorizontalAlignment = .Left
+        propertyBtn.setTitle(self.resumeData.work_property, forState: .Normal)
+        propertyBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
+        propertyBtn.sizeToFit()
+        summaryView.addSubview(propertyBtn)
+        
+        let headerImg = UIImageView(frame: CGRectMake(summaryView.frame.size.width-8-kHeightScale*50, 10, kHeightScale*50, kHeightScale*50))
+        headerImg.layer.cornerRadius = kHeightScale*25
+        headerImg.clipsToBounds = true
+        headerImg.sd_setImageWithURL(NSURL(string: kImagePrefix+self.resumeData.photo), placeholderImage: nil)
+        summaryView.addSubview(headerImg)
+        
+        let sexImg = UIImageView(frame: CGRectMake(summaryView.frame.size.width-8-kHeightScale*15, CGRectGetMaxY(headerImg.frame)-kHeightScale*10, kHeightScale*15, kHeightScale*15))
+        sexImg.image = UIImage(named: self.resumeData.sex == "0" ? "ic_女士":"ic_男士")
+        summaryView.addSubview(sexImg)
+        
+        drawLine(
+            summaryView,
+            color: UIColor.lightGrayColor(),
+            fromPoint: CGPointMake(0, max(CGRectGetMaxY(addressBtn.frame)+10, CGRectGetMaxY(headerImg.frame)+10)),
+            toPoint: CGPointMake(summaryView.frame.size.width, max(CGRectGetMaxY(addressBtn.frame)+10, CGRectGetMaxY(headerImg.frame)+10)),
+            lineWidth: 1/UIScreen.mainScreen().scale*2,
+            pattern: [5,5])
+        
+        let intentionTagLab_1 = UILabel(frame: CGRectMake(8, max(CGRectGetMaxY(addressBtn.frame)+10, CGRectGetMaxY(headerImg.frame)+10)+1+10, summaryView.frame.size.width, kHeightScale*15))
+        intentionTagLab_1.textColor = baseColor
+        intentionTagLab_1.font = UIFont.systemFontOfSize(16)
+        intentionTagLab_1.text = "求职意向"
+        intentionTagLab_1.sizeToFit()
+        summaryView.addSubview(intentionTagLab_1)
+        
+        let intentionLab_1 = UILabel(frame: CGRectMake(CGRectGetMaxX(intentionTagLab_1.frame)+8, max(CGRectGetMaxY(addressBtn.frame)+10, CGRectGetMaxY(headerImg.frame)+10)+1+10, summaryView.frame.size.width, kHeightScale*15))
+        intentionLab_1.textColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
+        intentionLab_1.font = UIFont.systemFontOfSize(15)
+        intentionLab_1.text = self.resumeData.position_type
+        intentionLab_1.sizeToFit()
+        intentionLab_1.center.y = intentionTagLab_1.center.y
+        summaryView.addSubview(intentionLab_1)
+        
+        let salaryLab = UILabel()
+        
+        let salaryAttrStr = NSMutableAttributedString(string: "￥ \(self.resumeData.wantsalary)K", attributes: [NSForegroundColorAttributeName:UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1),NSFontAttributeName:UIFont.systemFontOfSize(15)])
+        salaryAttrStr.addAttributes([NSForegroundColorAttributeName:baseColor], range: NSMakeRange(0, 1))
+        
+        salaryLab.attributedText = salaryAttrStr
         salaryLab.sizeToFit()
-        salaryLab.center.y = titleLab.center.y
-        noteView.addSubview(salaryLab)
+        salaryLab.center.y = intentionLab_1.center.y
+        salaryLab.frame.origin.x = summaryView.frame.size.width-8-salaryLab.frame.size.width
+        summaryView.addSubview(salaryLab)
         
-        let overviewNameArray = [self.jobInfo?.city?.componentsSeparatedByString("-").last ?? "",self.jobInfo?.experience ?? "",self.jobInfo?.education ?? "",self.jobInfo?.work_property ?? ""]
-        let overviewImgNameArray = ["ic_地点","ic_工作经验","ic_学历","ic_全职"]
-        for (i,overviewName) in overviewNameArray.enumerate() {
-            let overviewBtn = UIButton(frame: CGRectMake(
-                screenSize.width/CGFloat(overviewNameArray.count)*CGFloat(i),
-                CGRectGetMaxY(salaryLab.frame)+CGRectGetMinY(salaryLab.frame),
-                screenSize.width/CGFloat(overviewNameArray.count),
-                kHeightScale*35))
-            overviewBtn.setImage(UIImage(named: overviewImgNameArray[i]), forState: .Normal)
-            overviewBtn.titleLabel?.font = UIFont.systemFontOfSize(14)
-            overviewBtn.setTitleColor(UIColor(red: 95/255.0, green: 95/255.0, blue: 95/255.0, alpha: 1), forState: .Normal)
-            overviewBtn.setTitle(overviewName, forState: .Normal)
+        let intentionTagLab_2 = UILabel(frame: CGRectMake(8, CGRectGetMaxY(intentionTagLab_1.frame)+8, summaryView.frame.size.width, kHeightScale*15))
+        intentionTagLab_2.textColor = baseColor
+        intentionTagLab_2.font = UIFont.systemFontOfSize(16)
+        intentionTagLab_2.text = "期望行业"
+        intentionTagLab_2.sizeToFit()
+        summaryView.addSubview(intentionTagLab_2)
+        
+        let intentionLab_2 = UILabel(frame: CGRectMake(CGRectGetMaxX(intentionTagLab_2.frame)+8, max(CGRectGetMaxY(addressBtn.frame)+10, CGRectGetMaxY(headerImg.frame)+10)+1+10, summaryView.frame.size.width, kHeightScale*15))
+        intentionLab_2.textColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
+        intentionLab_2.font = UIFont.systemFontOfSize(15)
+        intentionLab_2.text = self.resumeData.categories
+        intentionLab_2.sizeToFit()
+        intentionLab_2.center.y = intentionTagLab_2.center.y
+        summaryView.addSubview(intentionLab_2)
+        
+//        let intentionTagLab_3 = UILabel(frame: CGRectMake(8, CGRectGetMaxY(intentionTagLab_2.frame)+8, summaryView.frame.size.width, kHeightScale*15))
+//        intentionTagLab_3.textColor = baseColor
+//        intentionTagLab_3.font = UIFont.systemFontOfSize(16)
+//        intentionTagLab_3.text = "求职意向"
+//        intentionTagLab_3.sizeToFit()
+//        summaryView.addSubview(intentionTagLab_3)
+//        
+//        let intentionLab_3 = UILabel(frame: CGRectMake(CGRectGetMaxX(intentionTagLab_3.frame)+8, max(CGRectGetMaxY(addressBtn.frame)+10, CGRectGetMaxY(headerImg.frame)+10)+1+10, summaryView.frame.size.width, kHeightScale*15))
+//        intentionLab_3.textColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
+//        intentionLab_3.font = UIFont.systemFontOfSize(15)
+//        intentionLab_3.text = self.resumeData.jobstate
+//        intentionLab_3.sizeToFit()
+//        intentionLab_3.center.y = intentionTagLab_3.center.y
+//        summaryView.addSubview(intentionLab_3)
+        
+        summaryView.frame.size.height = CGRectGetMaxY(intentionTagLab_2.frame)+10
+        
+        // MARK: 教育经历
+        let eduView = UIView(frame: CGRectMake(10, CGRectGetMaxY(summaryView.frame)+10, screenSize.width-20, kHeightScale*174))
+        eduView.layer.cornerRadius = 8
+        eduView.backgroundColor = UIColor.whiteColor()
+        rootScrollView.addSubview(eduView)
+        
+        let eduLab = UILabel(frame: CGRectMake(8, 10, eduView.frame.size.width, kHeightScale*15))
+        eduLab.textColor = baseColor
+        eduLab.font = UIFont.boldSystemFontOfSize(16)
+        eduLab.text = "教育经历"
+        eduLab.sizeToFit()
+        eduView.addSubview(eduLab)
+        
+        drawLine(
+            eduView,
+            color: UIColor.lightGrayColor(),
+            fromPoint: CGPointMake(0, CGRectGetMaxY(eduLab.frame)+10),
+            toPoint: CGPointMake(eduView.frame.size.width, CGRectGetMaxY(eduLab.frame)+10),
+            lineWidth: 1/UIScreen.mainScreen().scale*2,
+            pattern: [5,5])
+        
+        var schoolTagLab_y = CGRectGetMaxY(eduLab.frame)+10+1
+        
+        for (i,eduModel) in self.resumeData.education!.enumerate() {
             
-            noteView.addSubview(overviewBtn)
+            let schoolTagLab = UILabel(frame: CGRectMake(8, schoolTagLab_y+10, eduView.frame.size.width, kHeightScale*15))
+            schoolTagLab.textColor = UIColor.blackColor()
+            schoolTagLab.font = UIFont.systemFontOfSize(16)
+            schoolTagLab.text = "就读学校"
+            schoolTagLab.sizeToFit()
+            eduView.addSubview(schoolTagLab)
+            
+            let schoolLab = UILabel(frame: CGRectMake(CGRectGetMaxX(schoolTagLab.frame)+8, CGRectGetMaxY(eduLab.frame)+10+1+10, eduView.frame.size.width, kHeightScale*15))
+            schoolLab.textColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
+            schoolLab.font = UIFont.systemFontOfSize(15)
+            schoolLab.text = eduModel.school
+            schoolLab.sizeToFit()
+            schoolLab.center.y = schoolTagLab.center.y
+            eduView.addSubview(schoolLab)
+            
+            let schoolTimeLab = UILabel()
+            schoolTimeLab.textColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
+            schoolTimeLab.font = UIFont.systemFontOfSize(15)
+            schoolTimeLab.text = eduModel.time
+            schoolTimeLab.sizeToFit()
+            schoolTimeLab.center.y = schoolLab.center.y
+            schoolTimeLab.frame.origin.x = eduView.frame.size.width-8-schoolTimeLab.frame.size.width
+            eduView.addSubview(schoolTimeLab)
+            
+            let majorTagLab = UILabel(frame: CGRectMake(8, CGRectGetMaxY(schoolTagLab.frame)+8, eduView.frame.size.width, kHeightScale*15))
+            majorTagLab.textColor = UIColor.blackColor()
+            majorTagLab.font = UIFont.systemFontOfSize(16)
+            majorTagLab.text = "所学专业"
+            majorTagLab.sizeToFit()
+            eduView.addSubview(majorTagLab)
+            
+            let majorLab = UILabel(frame: CGRectMake(CGRectGetMaxX(majorTagLab.frame)+8, CGRectGetMaxY(eduLab.frame)+10+1+10, eduView.frame.size.width, kHeightScale*15))
+            majorLab.textColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
+            majorLab.font = UIFont.systemFontOfSize(15)
+            majorLab.text = eduModel.major
+            majorLab.sizeToFit()
+            majorLab.center.y = majorTagLab.center.y
+            eduView.addSubview(majorLab)
+            
+            let degreeLab = UILabel()
+            degreeLab.textColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
+            degreeLab.font = UIFont.systemFontOfSize(16)
+            degreeLab.text = eduModel.degree
+            degreeLab.sizeToFit()
+            degreeLab.center.y = majorLab.center.y
+            degreeLab.frame.origin.x = eduView.frame.size.width-8-degreeLab.frame.size.width
+            eduView.addSubview(degreeLab)
+            
+            schoolTagLab_y = CGRectGetMaxY(majorTagLab.frame)
+            
+            if i < self.resumeData.education!.count-1 {
+                drawLine(
+                    eduView,
+                    color: UIColor.lightGrayColor(),
+                    fromPoint: CGPointMake(8, CGRectGetMaxY(majorTagLab.frame)+5),
+                    toPoint: CGPointMake(eduView.frame.size.width-16, CGRectGetMaxY(majorTagLab.frame)+5),
+                    lineWidth: 1/UIScreen.mainScreen().scale,
+                    pattern: [10,0])
+            }
+            
+        }
+        eduView.frame.size.height = schoolTagLab_y+10
+        
+        // MARK: 工作经历
+        let jobView = UIView(frame: CGRectMake(10, CGRectGetMaxY(eduView.frame)+10, screenSize.width-20, kHeightScale*174))
+        jobView.layer.cornerRadius = 8
+        jobView.backgroundColor = UIColor.whiteColor()
+        rootScrollView.addSubview(jobView)
+        
+        let jobLab = UILabel(frame: CGRectMake(8, 10, jobView.frame.size.width, kHeightScale*15))
+        jobLab.textColor = baseColor
+        jobLab.font = UIFont.boldSystemFontOfSize(16)
+        jobLab.text = "工作经历"
+        jobLab.sizeToFit()
+        jobView.addSubview(jobLab)
+        
+        drawLine(
+            jobView,
+            color: UIColor.lightGrayColor(),
+            fromPoint: CGPointMake(0, CGRectGetMaxY(jobLab.frame)+10),
+            toPoint: CGPointMake(jobView.frame.size.width, CGRectGetMaxY(jobLab.frame)+10),
+            lineWidth: 1/UIScreen.mainScreen().scale*2,
+            pattern: [5,5])
+        
+        let companyNameLab = UILabel(frame: CGRectMake(8, CGRectGetMaxY(jobLab.frame)+10+1+10, jobView.frame.size.width, kHeightScale*15))
+        companyNameLab.textColor = UIColor.blackColor()
+        companyNameLab.font = UIFont.systemFontOfSize(16)
+        companyNameLab.text = self.resumeData.work?.first?.company_name
+        companyNameLab.sizeToFit()
+        jobView.addSubview(companyNameLab)
+        
+        let jobTimeLab = UILabel(frame: CGRectMake(CGRectGetMaxX(companyNameLab.frame)+8, CGRectGetMaxY(jobLab.frame)+10+1+10, jobView.frame.size.width, kHeightScale*15))
+        jobTimeLab.textColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
+        jobTimeLab.font = UIFont.systemFontOfSize(15)
+        jobTimeLab.text = self.resumeData.work?.first?.work_period
+        jobTimeLab.sizeToFit()
+        jobTimeLab.center.y = companyNameLab.center.y
+        jobTimeLab.frame.origin.x = jobView.frame.size.width-8-jobTimeLab.frame.size.width
+        jobView.addSubview(jobTimeLab)
+        
+        let positionTagLab = UILabel(frame: CGRectMake(8, CGRectGetMaxY(companyNameLab.frame)+8, jobView.frame.size.width, kHeightScale*15))
+        positionTagLab.textColor = UIColor.blackColor()
+        positionTagLab.font = UIFont.systemFontOfSize(16)
+        positionTagLab.text = "工作职位"
+        positionTagLab.sizeToFit()
+        jobView.addSubview(positionTagLab)
+        
+        let positionLab = UILabel(frame: CGRectMake(CGRectGetMaxX(positionTagLab.frame)+8, 0, 0, 0))
+        positionLab.textColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
+        positionLab.font = UIFont.systemFontOfSize(15)
+        positionLab.text = self.resumeData.work?.first?.jobtype
+        positionLab.sizeToFit()
+        positionLab.center.y = positionTagLab.center.y
+        jobView.addSubview(positionLab)
+        
+        let skillTagLab = UILabel(frame: CGRectMake(8, CGRectGetMaxY(positionTagLab.frame)+8, 0, 0))
+        skillTagLab.textColor = UIColor.blackColor()
+        skillTagLab.font = UIFont.systemFontOfSize(16)
+        skillTagLab.text = "专业技能"
+        skillTagLab.sizeToFit()
+        jobView.addSubview(skillTagLab)
+        
+        let cityBtnMargin:CGFloat = 10
+        var cityBtnX:CGFloat = CGRectGetMaxX(skillTagLab.frame)+8
+        var cityBtnY:CGFloat = skillTagLab.frame.origin.y
+        var cityBtnWidth:CGFloat = 0
+        let cityBtnHeight:CGFloat = skillTagLab.frame.size.height
+        
+        for (i,city) in ((self.resumeData.work?.first?.skill.componentsSeparatedByString("-"))! ?? [String]()).enumerate() {
+            cityBtnWidth = calculateWidth(city, size: 15, height: cityBtnHeight)+cityBtnMargin
+            
+            let skillLab = UILabel(frame: CGRectMake(cityBtnX, cityBtnY, cityBtnWidth, cityBtnHeight))
+            skillLab.layer.cornerRadius = 6
+            skillLab.layer.borderWidth = 1
+            skillLab.layer.borderColor = baseColor.CGColor
+            skillLab.textColor = baseColor
+            skillLab.textAlignment = .Center
+            skillLab.font = UIFont.systemFontOfSize(15)
+            skillLab.text = city
+            //            skillLab.sizeToFit()
+            //            skillLab.center.y = skillTagLab.center.y
+            //            skillLab.frame.origin.x = jobView.frame.size.width-8-skillLab.frame.size.width
+            jobView.addSubview(skillLab)
+            
+            if i+1 < ((self.resumeData.work?.first?.skill.componentsSeparatedByString("-"))! ?? [String]()).count {
+                
+                let nextBtnWidth = calculateWidth(((self.resumeData.work?.first?.skill.componentsSeparatedByString("-"))! ?? [String]())[i+1], size: 15, height: cityBtnHeight)+cityBtnMargin
+                
+                if cityBtnWidth + cityBtnX + cityBtnMargin + nextBtnWidth >= screenSize.width - 20 {
+                    cityBtnX = cityBtnMargin
+                    cityBtnY = cityBtnHeight + cityBtnY + cityBtnMargin
+                }else{
+                    
+                    cityBtnX = cityBtnWidth + cityBtnX + cityBtnMargin
+                }
+            }
+            
         }
         
-        let noteLab = UILabel(frame: CGRectMake(8, kHeightScale*85, screenSize.width, kHeightScale*40))
-        noteLab.textColor = UIColor(red: 166/255.0, green: 166/255.0, blue: 166/255.0, alpha: 1)
-        noteLab.font = UIFont.systemFontOfSize(14)
-        noteLab.text = "职位诱惑："+(self.jobInfo?.welfare ?? "")!
-        noteView.addSubview(noteLab)
+        jobView.frame.size.height = cityBtnY+cityBtnHeight+cityBtnMargin+10
         
-        noteLab.sizeToFit()
+        // MARK: 项目经验
+        let projectView = UIView(frame: CGRectMake(10, CGRectGetMaxY(jobView.frame)+10, screenSize.width-20, kHeightScale*174))
+        projectView.layer.cornerRadius = 8
+        projectView.backgroundColor = UIColor.whiteColor()
+        rootScrollView.addSubview(projectView)
         
-        noteView.frame.size.height = CGRectGetMaxY(noteLab.frame)+10
+        let projectLab = UILabel(frame: CGRectMake(8, 10, 0, 0))
+        projectLab.textColor = baseColor
+        projectLab.font = UIFont.boldSystemFontOfSize(16)
+        projectLab.text = "项目经验"
+        projectLab.sizeToFit()
+        projectView.addSubview(projectLab)
         
-        //MARK: 公司主页
-        let companyView = UIView(frame: CGRectMake(
-            0,
-            CGRectGetMaxY(noteView.frame)+kHeightScale*10,
-            screenSize.width,
-            kHeightScale*168))
-        companyView.backgroundColor = UIColor.whiteColor()
-        rootScrollView.addSubview(companyView)
+        let projectNameLab = UILabel(frame: CGRectMake(CGRectGetMaxX(projectLab.frame)+8, 0, 0, 0))
+        projectNameLab.textColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
+        projectNameLab.font = UIFont.systemFontOfSize(15)
+        projectNameLab.text = self.resumeData.project?.first?.project_name
+        projectNameLab.sizeToFit()
+        projectNameLab.center.y = projectLab.center.y
+        projectNameLab.frame.origin.x = projectView.frame.size.width-8-projectNameLab.frame.size.width
+        projectView.addSubview(projectNameLab)
         
-        let companyLab = UILabel(frame: CGRectMake(8, 0, screenSize.width-16, kHeightScale*40))
-        companyLab.textColor = baseColor
-        companyLab.font = UIFont.systemFontOfSize(14)
-        companyLab.textAlignment = .Left
-        companyLab.text = "公司主页"
-        companyView.addSubview(companyLab)
+        drawLine(
+            projectView,
+            color: UIColor.lightGrayColor(),
+            fromPoint: CGPointMake(0, CGRectGetMaxY(projectLab.frame)+10),
+            toPoint: CGPointMake(projectView.frame.size.width, CGRectGetMaxY(projectLab.frame)+10),
+            lineWidth: 1/UIScreen.mainScreen().scale*2,
+            pattern: [5,5])
         
-        let companyBtn = UIButton(frame: CGRectMake(8, 0, screenSize.width-16, kHeightScale*40))
-        companyBtn.setTitleColor(UIColor(red: 131/255.0, green: 131/255.0, blue: 131/255.0, alpha: 1), forState: .Normal)
-        companyBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
-        companyBtn.contentHorizontalAlignment = .Right
-        companyBtn.setTitle(self.jobInfo?.company_name ?? "", forState: .Normal)
-        companyBtn.addTarget(self, action: #selector(companyBtnClick), forControlEvents: .TouchUpInside)
-        companyView.addSubview(companyBtn)
+        let projectDescriptionTagLab = UILabel(frame: CGRectMake(8, CGRectGetMaxY(projectLab.frame)+10+1+10, 0, 0))
+        projectDescriptionTagLab.textColor = baseColor
+        projectDescriptionTagLab.font = UIFont.systemFontOfSize(16)
+        projectDescriptionTagLab.text = "项目描述"
+        projectDescriptionTagLab.sizeToFit()
+        projectView.addSubview(projectDescriptionTagLab)
         
-        drawDashed(companyView, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(8, CGRectGetMaxY(companyBtn.frame)), toPoint: CGPointMake(screenSize.width-8, CGRectGetMaxY(companyBtn.frame)), lineWidth: 1)
+        let projectDescriptionLab = UILabel(frame: CGRectMake(8, CGRectGetMaxY(projectDescriptionTagLab.frame)+8, 0, 0))
+        projectDescriptionLab.numberOfLines = 0
+        projectDescriptionLab.textColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
+        projectDescriptionLab.font = UIFont.systemFontOfSize(15)
+        projectDescriptionLab.text = self.resumeData.project?.first?.description_project
+        projectDescriptionLab.sizeToFit()
+        projectView.addSubview(projectDescriptionLab)
         
-        let headerBtn = UIButton(frame: CGRectMake(8, CGRectGetMaxY(companyBtn.frame)+1+8, kHeightScale*50, kHeightScale*50))
-        headerBtn.backgroundColor = baseColor
-        companyView.addSubview(headerBtn)
+        projectView.frame.size.height = CGRectGetMaxY(projectDescriptionLab.frame)+10
         
-        let nameBtn = UIButton(frame: CGRectMake(
-            CGRectGetMaxX(headerBtn.frame)+kWidthScale*17,
-            CGRectGetMinY(headerBtn.frame),
-            kWidthScale*200,
-            headerBtn.frame.size.height/2.0))
-        nameBtn.contentHorizontalAlignment = .Left
-        nameBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        nameBtn.setTitle(self.jobInfo?.realname ?? "", forState: .Normal)
-        nameBtn.setImage(UIImage(named: "ic_女士"), forState: .Normal)
-        exchangeBtnImageAndTitle(nameBtn, margin: 5)
-        companyView.addSubview(nameBtn)
+        // MARK: 我的优势
+        let advantageView = UIView(frame: CGRectMake(10, CGRectGetMaxY(projectView.frame)+10, screenSize.width-20, 0))
+        advantageView.layer.cornerRadius = 8
+        advantageView.backgroundColor = UIColor.whiteColor()
+        rootScrollView.addSubview(advantageView)
         
-        let hrNoteLab = UILabel(frame: CGRectMake(
-            CGRectGetMaxX(headerBtn.frame)+kWidthScale*17,
-            CGRectGetMaxY(nameBtn.frame),
-            screenSize.width-CGRectGetMaxX(headerBtn.frame)+kWidthScale*17,
-            headerBtn.frame.size.height/2.0))
-        hrNoteLab.textAlignment = .Left
-        hrNoteLab.textColor = UIColor(red: 101/255.0, green: 101/255.0, blue: 101/255.0, alpha: 1)
-        hrNoteLab.font = UIFont.systemFontOfSize(14)
-        hrNoteLab.text = "\((self.jobInfo?.myjob ?? "")!) | \((self.jobInfo?.industry?.stringByReplacingOccurrencesOfString("/", withString: " | ") ?? "")!)"
-        companyView.addSubview(hrNoteLab)
+        let advantageLab = UILabel(frame: CGRectMake(8, 10, 0, 0))
+        advantageLab.textColor = baseColor
+        advantageLab.font = UIFont.boldSystemFontOfSize(16)
+        advantageLab.text = "我的优势"
+        advantageLab.sizeToFit()
+        advantageView.addSubview(advantageLab)
         
-        positionBtn.frame = CGRectMake(
-            screenSize.width-kWidthScale*85-8,
-            CGRectGetMinY(headerBtn.frame),
-            kWidthScale*85,
-            headerBtn.frame.size.height/2.0)
-        positionBtn.layer.cornerRadius = 8
-        positionBtn.layer.borderColor = baseColor.CGColor
-        positionBtn.layer.borderWidth = 1
-        positionBtn.setTitleColor(baseColor, forState: .Normal)
-        positionBtn.titleLabel?.font = UIFont.systemFontOfSize(13)
-        positionBtn.addTarget(self, action: #selector(positionBtnClick), forControlEvents: .TouchUpInside)
-        companyView.addSubview(positionBtn)
+        drawLine(
+            advantageView,
+            color: UIColor.lightGrayColor(),
+            fromPoint: CGPointMake(0, CGRectGetMaxY(advantageLab.frame)+10),
+            toPoint: CGPointMake(advantageView.frame.size.width, CGRectGetMaxY(advantageLab.frame)+10),
+            lineWidth: 1/UIScreen.mainScreen().scale*2,
+            pattern: [5,5])
         
-        drawDashed(companyView, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(8, CGRectGetMaxY(headerBtn.frame)+8), toPoint: CGPointMake(screenSize.width-8, CGRectGetMaxY(headerBtn.frame)+8), lineWidth: 1)
+        let advantageDescriptionLab = UILabel(frame: CGRectMake(8, CGRectGetMaxY(advantageLab.frame)+10+1+10, 0, 0))
+        advantageDescriptionLab.numberOfLines = 0
+        advantageDescriptionLab.textColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
+        advantageDescriptionLab.font = UIFont.systemFontOfSize(15)
+        advantageDescriptionLab.text = self.resumeData.advantage
+        advantageDescriptionLab.sizeToFit()
+        advantageView.addSubview(advantageDescriptionLab)
         
-        let placeBtn = UIButton(frame: CGRectMake(8, CGRectGetMaxY(headerBtn.frame)+1+8+10, screenSize.width, kHeightScale*60))
-        placeBtn.setImage(UIImage(named: "ic_地点"), forState: .Normal)
-        placeBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        placeBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
-        placeBtn.titleLabel?.numberOfLines = 0
-        placeBtn.contentHorizontalAlignment = .Left
-        placeBtn.setTitle("上班地点：\((self.jobInfo?.city?.stringByReplacingOccurrencesOfString("-", withString: "") ?? "")!)\((self.jobInfo?.address ?? "")!)", forState: .Normal)
-        companyView.addSubview(placeBtn)
+        advantageView.frame.size.height = CGRectGetMaxY(advantageDescriptionLab.frame)+10
         
-        placeBtn.sizeToFit()
+        rootScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(advantageView.frame)+10)
         
-        companyView.frame.size.height = CGRectGetMaxY(placeBtn.frame)+10
-        
-        //MARK: 职位描述
-        positionView.frame = CGRectMake(0, CGRectGetMaxY(companyView.frame)+kHeightScale*10, screenSize.width, kHeightScale*220)
-        positionView.backgroundColor = UIColor.whiteColor()
-        rootScrollView.addSubview(positionView)
-        
-        let positionLab = UILabel(frame: CGRectMake(8, 0, screenSize.width-16, kHeightScale*40))
-        positionLab.textColor = baseColor
-        positionLab.font = UIFont.systemFontOfSize(14)
-        positionLab.textAlignment = .Left
-        positionLab.text = "职位描述"
-        positionView.addSubview(positionLab)
-        
-        drawDashed(positionView, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(8, CGRectGetMaxY(positionLab.frame)), toPoint: CGPointMake(screenSize.width-8, CGRectGetMaxY(positionLab.frame)), lineWidth: 1)
-        self.jobInfo?.description_job = "发\n撒\n离\n开\n房\n间\n公\n司\n了\n肯\n定\n更\n好奇偶IE微软就立刻，搞活动时离开父母的时刻国家分类看电视剧佛IE我房间里的时刻就过来看几点睡了开关及方式打开了较为金融而忘记发了开关和吉林省反倒是发富商大贾法兰克福进而为了的开始的减肥了立刻就死定了卡机佛微乳\n"
-        descriptionLab.frame = CGRectMake(8, CGRectGetMaxY(positionLab.frame)+1+8, screenSize.width-16, kHeightScale*135)
-        descriptionLab.textColor = UIColor.blackColor()
-        descriptionLab.font = UIFont.systemFontOfSize(14)
-        descriptionLab.textAlignment = .Left
-        descriptionLab.numberOfLines = 0
-        descriptionLab.text = self.jobInfo?.description_job ?? ""
-        positionView.addSubview(descriptionLab)
-        
-        if calculateHeight((self.jobInfo?.description_job ?? "")!, size: 14, width: screenSize.width-16) > kHeightScale*135 {
-            
-            descriptionLab.frame.size.height = kHeightScale*135
-            
-            let showAllBtn = UIButton(frame: CGRectMake(8, CGRectGetMaxY(descriptionLab.frame)+1+8, screenSize.width-16, calculateHeight("显示全部", size: 14, width: screenSize.width-16)+8+8))
-            showAllBtn.setTitleColor(baseColor, forState: .Normal)
-            showAllBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
-            showAllBtn.setTitle("显示全部", forState: .Normal)
-            showAllBtn.setTitle("收起", forState: .Selected)
-            
-            showAllBtn.addTarget(self, action: #selector(showAllBtnClick(_:)), forControlEvents: .TouchUpInside)
-            positionView.addSubview(showAllBtn)
-            
-            drawLine(
-                showAllBtn,
-                color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1),
-                fromPoint: CGPointMake(8, 0),
-                toPoint: CGPointMake(screenSize.width-8, 0),
-                lineWidth: 1,
-                pattern: [10,5])
-            
-            positionView.frame.size.height = CGRectGetMaxY(showAllBtn.frame)
-            
-            rootScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(positionView.frame)+kHeightScale*10)
-        }else{
-            //            descriptionLab.text = self.jobInfo?.description_job
-            //            descriptionLab.sizeToFit()
-            descriptionLab.frame.size.height = calculateHeight((self.jobInfo?.description_job ?? "")!, size: 14, width: screenSize.width-16)+8
-            
-            positionView.frame.size.height = CGRectGetMaxY(descriptionLab.frame)
-            
-            rootScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(positionView.frame)+kHeightScale*10)
-        }
-        
-        //MARK: 下方视图背景
-        let utilView = UIView(frame: CGRectMake(
-            0,
-            screenSize.height-kHeightScale*55,
-            screenSize.width,
-            kHeightScale*55))
-        utilView.backgroundColor = UIColor.whiteColor()
-        self.view.addSubview(utilView)
-        
-        let sendBtn = UIButton(frame: CGRectMake(kWidthScale*10, kHeightScale*10, kWidthScale*140, kHeightScale*35))
-        sendBtn.backgroundColor = UIColor(red: 220/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1)
-        sendBtn.layer.cornerRadius = sendBtn.frame.size.height/2.0
-        sendBtn.layer.borderColor = UIColor(red: 180/255.0, green: 180/255.0, blue: 180/255.0, alpha: 1).CGColor
-        sendBtn.layer.borderWidth = 1
-        sendBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        sendBtn.setTitle("发送简历", forState: .Normal)
-        utilView.addSubview(sendBtn)
-        
-        let chatBtn = UIButton(frame: CGRectMake(
-            CGRectGetMaxX(sendBtn.frame)+kWidthScale*10,
-            kHeightScale*10,
-            screenSize.width-CGRectGetMaxX(sendBtn.frame)+kWidthScale*10-kHeightScale*20,
-            kHeightScale*35))
-        chatBtn.backgroundColor = baseColor
-        chatBtn.layer.cornerRadius = chatBtn.frame.size.height/2.0
-        chatBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        chatBtn.setTitle("和Ta聊聊", forState: .Normal)
-        utilView.addSubview(chatBtn)
     }
-    //MARK:-
     
-    func showAllBtnClick(showAllBtn:UIButton) {
+    // MARK:- 收藏按钮点击事件
+    func collectionBtnClick() {
         
-        if showAllBtn.selected {
-            
-            descriptionLab.frame.size.height = kHeightScale*135
-            
-            
+        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        
+        if collectionBtn.selected {
+            // MARK: 取消收藏
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "功能未实现"
+            checkCodeHud.hide(true, afterDelay: 1)
         }else{
-            descriptionLab.frame.size.height = calculateHeight((self.jobInfo?.description_job ?? "")!, size: 14, width: screenSize.width-16)+8
+            
+            checkCodeHud.labelText = "正在加入收藏"
+            
+            PublicNetUtil().addfavorite(
+                CHSUserInfo.currentUserInfo.userid,
+                object_id: (self.resumeData.resumes_id ?? "")!,
+                type: "2",
+                title: (self.resumeData.realname ?? "")!,
+                description: "") { (success, response) in
+                    if success {
+                        
+                        self.collectionBtn.selected = true
+                        
+                        checkCodeHud.mode = .Text
+                        checkCodeHud.labelText = "已加入收藏列表"
+                        checkCodeHud.hide(true, afterDelay: 1)
+                    }else{
+                        checkCodeHud.mode = .Text
+                        checkCodeHud.labelText = "加入收藏列表失败"
+                        checkCodeHud.hide(true, afterDelay: 1)
+                    }
+            }
         }
-        
-        showAllBtn.frame.origin.y = CGRectGetMaxY(descriptionLab.frame)+1+8
-        positionView.frame.size.height = CGRectGetMaxY(showAllBtn.frame)
-        
-        rootScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(positionView.frame)+kHeightScale*10)
-        
-        showAllBtn.selected = !showAllBtn.selected
-        
-    }
-    //MARK: 公司主页点击事件
-    func companyBtnClick() {
-        
-        let companyHomeVC = CHSChCompanyHomeViewController()
-        companyHomeVC.jobInfoUserid = self.jobInfo?.userid ?? ""
-        self.navigationController?.pushViewController(companyHomeVC, animated: true)
-        
-    }
-    
-    //MARK: 公司职位点击事件
-    func positionBtnClick() {
-        let companyPositionListVC = CHSChCompanyPositionListViewController()
-        companyPositionListVC.company_infoJobs = self.company_infoData.jobs!
-        self.navigationController?.pushViewController(companyPositionListVC, animated: true)
     }
     
     // MARK:- 分享视图

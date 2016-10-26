@@ -12,8 +12,8 @@ class CHSReEduExperienceViewController: UIViewController, UITableViewDataSource,
     
     let rootTableView = UITableView()
     
-    let nameArray = ["中英美术学院","鲁东大学"]
-    let detailArray = ["2013.6-2016.6","2013.6-2016.6"]
+//    let nameArray = ["中英美术学院","鲁东大学"]
+//    let detailArray = ["2013.6-2016.6","2013.6-2016.6"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +29,7 @@ class CHSReEduExperienceViewController: UIViewController, UITableViewDataSource,
         self.navigationController?.navigationBar.hidden = false
         self.tabBarController?.tabBar.hidden = true
         
+        self.rootTableView.reloadData()
     }
     
     // MARK: popViewcontroller
@@ -44,7 +45,7 @@ class CHSReEduExperienceViewController: UIViewController, UITableViewDataSource,
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
 
         self.title = "教育经历"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .Done, target: self, action: #selector(clickSaveBtn))
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .Done, target: self, action: #selector(clickSaveBtn))
         
         rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
@@ -57,19 +58,19 @@ class CHSReEduExperienceViewController: UIViewController, UITableViewDataSource,
         rootTableView.tableFooterView = UIView(frame: CGRectZero)
     }
     
-    // MARK: 点击保存按钮
-    func clickSaveBtn() {
-        self.navigationController?.popViewControllerAnimated(true)
-    }
+//    // MARK: 点击保存按钮
+//    func clickSaveBtn() {
+//        self.navigationController?.popViewControllerAnimated(true)
+//    }
     
     // MARK:- tableView dataSource
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return nameArray.count+1
+        return (CHSUserInfo.currentUserInfo.education!.count ?? 0)+1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if indexPath.row == nameArray.count {
+        if indexPath.row == (CHSUserInfo.currentUserInfo.education!.count ?? 0) {
             
             var cell = tableView.dequeueReusableCellWithIdentifier("ChChSearchTableViewCell_clearHistory")
             if cell == nil {
@@ -106,15 +107,15 @@ class CHSReEduExperienceViewController: UIViewController, UITableViewDataSource,
             cell?.textLabel?.font = UIFont.systemFontOfSize(16)
             cell?.textLabel?.textColor = UIColor.blackColor()
             cell?.textLabel?.textAlignment = .Left
-            cell?.textLabel?.text = nameArray[indexPath.row]
+            cell?.textLabel?.text = CHSUserInfo.currentUserInfo.education![indexPath.row].school
             
 
             cell?.detailTextLabel?.font = UIFont.systemFontOfSize(14)
             cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
             cell?.detailTextLabel?.textAlignment = .Right
-            cell?.detailTextLabel?.text = detailArray[indexPath.row]
+            cell?.detailTextLabel?.text = CHSUserInfo.currentUserInfo.education![indexPath.row].time
                         
-            if indexPath.row < nameArray.count {
+            if indexPath.row < CHSUserInfo.currentUserInfo.education!.count {
                 drawDashed((cell?.contentView)!, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(8, 59), toPoint: CGPointMake(screenSize.width-8, 59), lineWidth: 1/UIScreen.mainScreen().scale)
             }
             
@@ -124,7 +125,16 @@ class CHSReEduExperienceViewController: UIViewController, UITableViewDataSource,
     
     // MARK:- tableView delegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.navigationController?.pushViewController(CHSReEditEduExperienceViewController(), animated: true)
+        
+        if indexPath.row == (CHSUserInfo.currentUserInfo.education!.count ?? 0) {
+            
+            self.navigationController?.pushViewController(CHSReEditEduExperienceViewController(), animated: true)
+        }else {
+            
+            let editEduExperienceVC = CHSReEditEduExperienceViewController()
+            editEduExperienceVC.selectedIndex = indexPath.row
+            self.navigationController?.pushViewController(editEduExperienceVC, animated: true)
+        }
     }
     
     override func didReceiveMemoryWarning() {

@@ -113,6 +113,8 @@ class CHSMiSettingViewController: UIViewController, UITableViewDataSource, UITab
             self.navigationController?.pushViewController(CHSMiMessageRemindViewController(), animated: true)
         case (1,0):
             self.navigationController?.pushViewController(CHSMiAboutUsViewController(), animated: true)
+        case (2,0):
+            self.navigationController?.pushViewController(CHSMiChangeIdentityViewController(), animated: true)
         case (3,0):
             
             let signOutAlert = UIAlertController(title: "", message: "确定退出登录？", preferredStyle: .Alert)

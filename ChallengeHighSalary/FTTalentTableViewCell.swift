@@ -41,7 +41,7 @@ class FTTalentTableViewCell: UITableViewCell {
             self.position_typelab.text = resumeData.position_type
             self.photoImg.sd_setImageWithURL(NSURL(string: kImagePrefix+resumeData.photo), placeholderImage: nil)
             self.advantageLab.text = resumeData.advantage
-            self.wantSalaryLab.text = resumeData.wantsalary
+            self.wantSalaryLab.text = "￥"+resumeData.wantsalary+"K"
             self.address.text = resumeData.address.componentsSeparatedByString("-").last
             self.work_lifeLab.text = resumeData.work_life
             self.degreeLab.text = resumeData.education?.first?.degree

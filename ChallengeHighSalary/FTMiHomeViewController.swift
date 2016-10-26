@@ -10,7 +10,12 @@ import UIKit
 
 class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    var company_infoDataModel = Company_infoDataModel()
+    
     let rootTableView = UITableView()
+    
+    let jobStatusLab = UILabel()
+    
     let nameArray = [["认证公司信息","我的公司信息"],["我的收藏","我的悬赏"],["我的招聘记录","我的面试邀请"],["我的黑名单"]]
     
     override func viewDidLoad() {
@@ -26,6 +31,34 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         
         self.navigationController?.navigationBar.hidden = true
         self.tabBarController?.tabBar.hidden = false
+    }
+    
+    // MARK: 加载数据
+    func loadData() {
+        
+        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        checkCodeHud.labelText = "正在获取个人信息"
+        
+        FTNetUtil().getMyCompany_info(CHSUserInfo.currentUserInfo.userid) { (success, response) in
+            if success {
+                self.company_infoDataModel = response as! Company_infoDataModel
+                
+                self.jobStatusLab.text = self.company_infoDataModel.authentication == "1" ? "已认证":"免费认证 得积分"
+
+                checkCodeHud.mode = .Text
+                checkCodeHud.labelText = "获取个人信息成功"
+                checkCodeHud.hide(true, afterDelay: 1)
+                print("获取个人信息成功")
+                
+                self.setHeaderView()
+            }else{
+                checkCodeHud.mode = .Text
+                checkCodeHud.labelText = "获取个人信息失败"
+                checkCodeHud.hide(true, afterDelay: 1)
+                print("获取个人信息失败")
+            }
+        }
     }
     
     // MARK:- 设置子视图
@@ -51,10 +84,8 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         headerView.backgroundColor = baseColor
         
         let setBtn = UIButton(frame: CGRectMake(kWidthScale*12, kHeightScale*40, kHeightScale*28, kHeightScale*28))
-        setBtn.backgroundColor = UIColor.orangeColor()
         setBtn.layer.cornerRadius = setBtn.frame.size.width/2.0
-        setBtn.layer.borderColor = UIColor.whiteColor().CGColor
-        setBtn.layer.borderWidth = 1
+        setBtn.setImage(UIImage(named: "ic_我的_设置"), forState: .Normal)
         setBtn.addTarget(self, action: #selector(setBtnClick), forControlEvents: .TouchUpInside)
         headerView.addSubview(setBtn)
         
@@ -71,7 +102,8 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let headerImgView = UIImageView(frame: CGRectMake(kWidthScale*12, kHeightScale*90, kHeightScale*50, kHeightScale*50))
         headerImgView.layer.cornerRadius = headerImgView.frame.size.width/2.0
-        headerImgView.backgroundColor = UIColor.grayColor()
+        headerImgView.clipsToBounds = true
+        headerImgView.sd_setImageWithURL(NSURL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar), placeholderImage: nil)
         headerView.addSubview(headerImgView)
         
         let nameLab = UILabel(frame: CGRectMake(
@@ -82,18 +114,18 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         nameLab.textAlignment = .Left
         nameLab.textColor = UIColor.whiteColor()
         nameLab.font = UIFont.systemFontOfSize(14)
-        nameLab.text = "王小妞"
+        nameLab.text = CHSUserInfo.currentUserInfo.realName
         headerView.addSubview(nameLab)
         
-        let jobStatusLab = UILabel(frame: CGRectMake(
+        jobStatusLab.frame = CGRectMake(
             CGRectGetMaxX(headerImgView.frame)+kWidthScale*15,
             CGRectGetMaxY(nameLab.frame),
             kWidthScale*155,
-            CGRectGetWidth(headerImgView.frame)/2.0))
+            CGRectGetWidth(headerImgView.frame)/2.0)
         jobStatusLab.textAlignment = .Left
         jobStatusLab.textColor = UIColor.whiteColor()
         jobStatusLab.font = UIFont.systemFontOfSize(12)
-        jobStatusLab.text = "免费认证 得积分"
+        jobStatusLab.text = self.company_infoDataModel.authentication == "1" ? "已认证":"免费认证 得积分"
         headerView.addSubview(jobStatusLab)
         
         let scoreBtn = UIButton(frame: CGRectMake(

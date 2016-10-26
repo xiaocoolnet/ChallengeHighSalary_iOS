@@ -10,6 +10,8 @@ import UIKit
 
 class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
     
+    let collectionBtn = UIButton()
+    
     let rootScrollView = UIScrollView()
     
     let positionBtn = UIButton()
@@ -17,6 +19,10 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
     let positionView = UIView()
     
     let descriptionLab = UILabel()
+    
+    var utilView = UIView()
+//    let utilView_applyJob = UIView()
+//    let utilView_noApplyJob = UIView()
     
     var jobInfo:JobInfoDataModel?
     
@@ -30,7 +36,6 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         self.setNavigationBar()
         self.setSubviews()
         
-        self.loadData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -38,10 +43,27 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.navigationController?.navigationBar.hidden = false
         self.tabBarController?.tabBar.hidden = true
+        
+        self.loadData()
+
     }
     
     // MARK: 加载数据
     func loadData() {
+        
+        // 检查收藏
+        PublicNetUtil().CheckHadFavorite(
+        CHSUserInfo.currentUserInfo.userid,
+        object_id: (self.jobInfo?.jobid ?? "")!,
+        type: "1") { (success, response) in
+            if success {
+                self.collectionBtn.selected = true
+            }else{
+                self.collectionBtn.selected = false
+            }
+        }
+        
+        // 获取公司信息
         FTNetUtil().getMyCompany_info((self.jobInfo?.userid ?? "")!) { (success, response) in
             if success {
                 self.company_infoData = response as! Company_infoDataModel
@@ -67,16 +89,75 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
 
         // rightBarButtonItems
         let shareBtn = UIButton(frame: CGRectMake(0, 0, 24, 24))
-        shareBtn.setImage(UIImage(named: "ic-分享"), forState: .Normal)
+        shareBtn.setImage(UIImage(named: "ic_分享"), forState: .Normal)
         shareBtn.addTarget(self, action: #selector(shareBtnClick), forControlEvents: .TouchUpInside)
         let shareItem = UIBarButtonItem(customView: shareBtn)
         
-        let collectionBtn = UIButton(frame: CGRectMake(0, 0, 24, 24))
-        collectionBtn.setImage(UIImage(named: "ic-收藏"), forState: .Normal)
-        //        searchBtn.addTarget(self, action: #selector(searchBtnClick), forControlEvents: .TouchUpInside)
+        collectionBtn.frame = CGRectMake(0, 0, 24, 24)
+        collectionBtn.setImage(UIImage(named: "ic_收藏"), forState: .Normal)
+        collectionBtn.setImage(UIImage(named: "ic_收藏_sel"), forState: .Selected)
+        collectionBtn.addTarget(self, action: #selector(collectionBtnClick), forControlEvents: .TouchUpInside)
+        
         let collectionItem = UIBarButtonItem(customView: collectionBtn)
         
         self.navigationItem.rightBarButtonItems = [collectionItem,shareItem]
+    }
+    
+    // MARK:- 收藏按钮点击事件
+    func collectionBtnClick() {
+        
+        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        
+        if collectionBtn.selected {
+            // MARK: 取消收藏
+            checkCodeHud.labelText = "正在取消收藏"
+            
+            PublicNetUtil().cancelfavorite(
+                CHSUserInfo.currentUserInfo.userid,
+                object_id: (self.jobInfo?.jobid ?? "")!,
+                type: "1") { (success, response) in
+                    if success {
+                        
+                        self.collectionBtn.selected = false
+                        
+                        checkCodeHud.mode = .Text
+                        checkCodeHud.labelText = "取消收藏成功"
+                        checkCodeHud.hide(true, afterDelay: 1)
+                        
+                    }else{
+                        checkCodeHud.mode = .Text
+                        checkCodeHud.labelText = "取消收藏失败"
+                        checkCodeHud.hide(true, afterDelay: 1)
+                        
+                    }
+            }
+        }else{
+            
+            checkCodeHud.labelText = "正在加入收藏"
+            
+            PublicNetUtil().addfavorite(
+                CHSUserInfo.currentUserInfo.userid,
+                object_id: (self.jobInfo?.jobid ?? "")!,
+                type: "1",
+                title: (self.jobInfo?.title ?? "")!,
+                description: "") { (success, response) in
+                    if success {
+                        
+                        self.collectionBtn.selected = true
+                        
+                        checkCodeHud.mode = .Text
+                        checkCodeHud.labelText = "已加入收藏列表"
+                        checkCodeHud.hide(true, afterDelay: 1)
+                        
+                    }else{
+                        checkCodeHud.mode = .Text
+                        checkCodeHud.labelText = "加入收藏列表失败"
+                        checkCodeHud.hide(true, afterDelay: 1)
+                    
+                    }
+            }
+        }
     }
     
     // MARK:- 设置子视图
@@ -85,7 +166,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
         //MARK: scrollView
-        rootScrollView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height-20-44-kHeightScale*55)
+        rootScrollView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height-20-44-kHeightScale*44)
         rootScrollView.tag = 101
         rootScrollView.delegate = self
         self.view.addSubview(rootScrollView)
@@ -182,7 +263,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         headerBtn.backgroundColor = baseColor
         headerBtn.layer.cornerRadius = kHeightScale*25
         headerBtn.clipsToBounds = true
-        headerBtn.sd_setImageWithURL(NSURL(string: kImagePrefix+(self.jobInfo?.logo)!), forState: .Normal)
+        headerBtn.sd_setImageWithURL(NSURL(string: kImagePrefix+(self.jobInfo?.logo ?? "")!), forState: .Normal)
         companyView.addSubview(headerBtn)
         
         let nameBtn = UIButton(frame: CGRectMake(
@@ -237,8 +318,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         countBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
         countBtn.titleLabel?.numberOfLines = 0
         countBtn.contentHorizontalAlignment = .Left
-        countBtn.setTitle("\((self.jobInfo?.count)!)", forState: .Normal)
-//        button.imageEdgeInsets = UIEdgeInsetsMake(0, button.titleLabel!.bounds.size.width, 0, -button.titleLabel!.bounds.size.width)
+        countBtn.setTitle("\((self.jobInfo?.count ?? "0")!)", forState: .Normal)
         countBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
         companyView.addSubview(countBtn)
         
@@ -295,7 +375,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         positionView.addSubview(positionLab)
         
         drawDashed(positionView, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(8, CGRectGetMaxY(positionLab.frame)), toPoint: CGPointMake(screenSize.width-8, CGRectGetMaxY(positionLab.frame)), lineWidth: 1)
-        self.jobInfo?.description_job = "发\n撒\n离\n开\n房\n间\n公\n司\n了\n肯\n定\n更\n好奇偶IE微软就立刻，搞活动时离开父母的时刻国家分类看电视剧佛IE我房间里的时刻就过来看几点睡了开关及方式打开了较为金融而忘记发了开关和吉林省反倒是发富商大贾法兰克福进而为了的开始的减肥了立刻就死定了卡机佛微乳\n"
+        
         descriptionLab.frame = CGRectMake(8, CGRectGetMaxY(positionLab.frame)+1+8, screenSize.width-16, kHeightScale*135)
         descriptionLab.textColor = UIColor.blackColor()
         descriptionLab.font = UIFont.systemFontOfSize(14)
@@ -329,43 +409,70 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
             
             rootScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(positionView.frame)+kHeightScale*10)
         }else{
-//            descriptionLab.text = self.jobInfo?.description_job
-//            descriptionLab.sizeToFit()
+
             descriptionLab.frame.size.height = calculateHeight((self.jobInfo?.description_job ?? "")!, size: 14, width: screenSize.width-16)+8
             
             positionView.frame.size.height = CGRectGetMaxY(descriptionLab.frame)
 
             rootScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(positionView.frame)+kHeightScale*10)
         }
-                
+        
         //MARK: 下方视图背景
-        let utilView = UIView(frame: CGRectMake(
+//        utilView_noApplyJob.frame = CGRectMake(
+//            0,
+//            0,
+//            screenSize.width,
+//            kHeightScale*55)
+//        self.utilView_noApplyJob.backgroundColor = UIColor.whiteColor()
+////        self.view.addSubview(self.utilView_noApplyJob)
+//        
+//        let sendBtn = UIButton(frame: CGRectMake(kWidthScale*10, kHeightScale*10, kWidthScale*140, kHeightScale*35))
+//        sendBtn.backgroundColor = UIColor(red: 220/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1)
+//        sendBtn.layer.cornerRadius = sendBtn.frame.size.height/2.0
+//        sendBtn.layer.borderColor = UIColor(red: 180/255.0, green: 180/255.0, blue: 180/255.0, alpha: 1).CGColor
+//        sendBtn.layer.borderWidth = 1
+//        sendBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
+//        sendBtn.setTitle("发送简历", forState: .Normal)
+//        self.utilView_noApplyJob.addSubview(sendBtn)
+//        
+//        let chatBtn = UIButton(frame: CGRectMake(
+//            CGRectGetMaxX(sendBtn.frame)+kWidthScale*10,
+//            kHeightScale*10,
+//            screenSize.width-CGRectGetMaxX(sendBtn.frame)-kWidthScale*10-kHeightScale*20,
+//            kHeightScale*35))
+//        chatBtn.backgroundColor = baseColor
+//        chatBtn.layer.cornerRadius = chatBtn.frame.size.height/2.0
+//        chatBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+//        chatBtn.setTitle("和Ta聊聊", forState: .Normal)
+//        self.utilView_noApplyJob.addSubview(chatBtn)
+//        
+//        //MARK: 下方视图背景
+//        
+//        utilView_applyJob.frame = CGRectMake(
+//            0,
+//            0,
+//            screenSize.width,
+//            kHeightScale*55)
+//        self.utilView_applyJob.backgroundColor = UIColor.whiteColor()
+//        self.utilView.addSubview(self.utilView_applyJob)
+        
+        self.utilView.frame = CGRectMake(
             0,
-            screenSize.height-kHeightScale*55,
+            screenSize.height-kHeightScale*44,
             screenSize.width,
-            kHeightScale*55))
-        utilView.backgroundColor = UIColor.whiteColor()
-        self.view.addSubview(utilView)
+            kHeightScale*44)
+        self.view.addSubview(self.utilView)
         
-        let sendBtn = UIButton(frame: CGRectMake(kWidthScale*10, kHeightScale*10, kWidthScale*140, kHeightScale*35))
-        sendBtn.backgroundColor = UIColor(red: 220/255.0, green: 220/255.0, blue: 220/255.0, alpha: 1)
-        sendBtn.layer.cornerRadius = sendBtn.frame.size.height/2.0
-        sendBtn.layer.borderColor = UIColor(red: 180/255.0, green: 180/255.0, blue: 180/255.0, alpha: 1).CGColor
-        sendBtn.layer.borderWidth = 1
-        sendBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        sendBtn.setTitle("发送简历", forState: .Normal)
-        utilView.addSubview(sendBtn)
-        
-        let chatBtn = UIButton(frame: CGRectMake(
-            CGRectGetMaxX(sendBtn.frame)+kWidthScale*10,
-            kHeightScale*10,
-            screenSize.width-CGRectGetMaxX(sendBtn.frame)+kWidthScale*10-kHeightScale*20,
-            kHeightScale*35))
-        chatBtn.backgroundColor = baseColor
-        chatBtn.layer.cornerRadius = chatBtn.frame.size.height/2.0
-        chatBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        chatBtn.setTitle("和Ta聊聊", forState: .Normal)
-        utilView.addSubview(chatBtn)
+        let chatBtn_2 = UIButton(frame: CGRectMake(
+            0,
+            0,
+            screenSize.width,
+            kHeightScale*44))
+        chatBtn_2.backgroundColor = baseColor
+        //        chatBtn_2.layer.cornerRadius = chatBtn.frame.size.height/2.0
+        chatBtn_2.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        chatBtn_2.setTitle("立即沟通", forState: .Normal)
+        self.utilView.addSubview(chatBtn_2)
     }
     //MARK:-
     

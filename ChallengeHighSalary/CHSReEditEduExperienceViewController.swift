@@ -10,6 +10,8 @@ import UIKit
 
 class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource,UITextViewDelegate {
     
+    var selectedIndex:Int?
+    
     let rootTableView = UITableView()
     
     let schoolNameTf = UITextField()
@@ -80,28 +82,6 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
         let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
-//        if
-//            CHSUserInfo.currentUserInfo.work_property ==  detailArray[0] &&
-//                CHSUserInfo.currentUserInfo.address ==  detailArray[1] &&
-//                CHSUserInfo.currentUserInfo.position_type ==  detailArray[2] &&
-//                CHSUserInfo.currentUserInfo.categories ==  detailArray[3] &&
-//                CHSUserInfo.currentUserInfo.wantsalary ==  detailArray[4] &&
-//                CHSUserInfo.currentUserInfo.jobstate ==  detailArray[5]{
-//            
-//            checkCodeHud.mode = .Text
-//            checkCodeHud.labelText = "信息未修改"
-//            checkCodeHud.hide(true, afterDelay: 1)
-//            
-//            let time: NSTimeInterval = 1.0
-//            let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
-//            
-//            dispatch_after(delay, dispatch_get_main_queue()) {
-//                self.navigationController?.popViewControllerAnimated(true)
-//            }
-//            
-//            return
-//        }
-        
         if schoolNameTf.text!.isEmpty {
             
             checkCodeHud.mode = .Text
@@ -134,6 +114,29 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
             return
         }
         
+        if self.selectedIndex != nil {
+            
+            if
+                CHSUserInfo.currentUserInfo.education![self.selectedIndex!].school ==  schoolNameTf.text &&
+                    CHSUserInfo.currentUserInfo.education![self.selectedIndex!].major ==  majorNameTf.text &&
+                    CHSUserInfo.currentUserInfo.education![self.selectedIndex!].degree ==  detailArray[2] &&
+                    CHSUserInfo.currentUserInfo.education![self.selectedIndex!].time ==  detailArray[3] && CHSUserInfo.currentUserInfo.education![self.selectedIndex!].experience == schoolExpTv.text! {
+                
+                checkCodeHud.mode = .Text
+                checkCodeHud.labelText = "信息未修改"
+                checkCodeHud.hide(true, afterDelay: 1)
+                
+                let time: NSTimeInterval = 1.0
+                let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                
+                dispatch_after(delay, dispatch_get_main_queue()) {
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+                
+                return
+            }
+        }
+        
         checkCodeHud.labelText = "正在保存教育经历"
         
         CHSNetUtil().PublishEducation(
@@ -152,6 +155,15 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
                     //                    CHSUserInfo.currentUserInfo.categories =  self.detailArray[3]
                     //                    CHSUserInfo.currentUserInfo.wantsalary =  self.detailArray[4]
                     //                    CHSUserInfo.currentUserInfo.jobstate =  self.detailArray[5]
+                    
+                    let eduModel = EducationModel()
+                    eduModel.school = self.schoolNameTf.text!
+                    eduModel.major = self.majorNameTf.text!
+                    eduModel.degree = self.detailArray[2]
+                    eduModel.time = self.detailArray[3]
+                    eduModel.experience = self.schoolExpTv.text
+                    
+                    CHSUserInfo.currentUserInfo.education?.append(eduModel)
                     
                     checkCodeHud.mode = .Text
                     checkCodeHud.labelText = "保存教育经历成功"
@@ -223,6 +235,7 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
                     cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
                     cell?.detailTextLabel?.textAlignment = .Right
                     cell?.detailTextLabel?.text = detailArray[indexPath.row]
+                    
                 }
                 
                 if indexPath.row < nameArray.count-1 {
@@ -233,14 +246,30 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
             if indexPath.row == 0 {
                 
                 
-                schoolNameTf.text = schoolNameTf.text == "" ? nil:schoolNameTf.text
+                if (self.selectedIndex != nil) {
+                    schoolNameTf.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].school
+                }else{
+                    schoolNameTf.text = schoolNameTf.text == "" ? nil:schoolNameTf.text
+                }
             }else if indexPath.row == 1 {
                 
-                majorNameTf.text = majorNameTf.text == "" ? nil:majorNameTf.text
+                if (self.selectedIndex != nil) {
+                    majorNameTf.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].major
+                }else{
+                    majorNameTf.text = majorNameTf.text == "" ? nil:majorNameTf.text
+                }
             }else{
                 
                 
-                cell?.detailTextLabel?.text = detailArray[indexPath.row]
+                if (self.selectedIndex != nil) {
+                    if indexPath.row == 2 {
+                        cell?.detailTextLabel?.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].degree
+                    }else if indexPath.row == 3 {
+                        cell?.detailTextLabel?.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].time
+                    }
+                }else{
+                    cell?.detailTextLabel?.text = detailArray[indexPath.row]
+                }
             }
             
             if indexPath.row < nameArray.count-1 {
@@ -269,11 +298,24 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
                     cell?.detailTextLabel?.font = UIFont.systemFontOfSize(13)
                     cell?.detailTextLabel?.textColor = baseColor
                     cell?.detailTextLabel?.textAlignment = .Right
-                    cell?.detailTextLabel?.text = "0/300"
                 }
             }
             
-            schoolExpTv.text = schoolExpTv.text == "" ? nil:schoolExpTv.text
+            if indexPath.row == 0 {
+                
+                if (self.selectedIndex != nil) {
+                    schoolExpTv.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].experience
+                    self.textViewDidChange(schoolExpTv)
+                }else{
+                    schoolExpTv.text = schoolExpTv.text == "" ? nil:schoolExpTv.text
+                }
+                
+            }else{
+                cell?.detailTextLabel?.text = "\((schoolExpTv.text?.characters.count)!)/\(schoolExpMaxCount)"
+
+//                cell?.detailTextLabel?.text = "0/300"
+            }
+            
             
             return cell!
         }

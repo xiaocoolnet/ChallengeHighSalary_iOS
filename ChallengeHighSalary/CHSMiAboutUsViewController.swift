@@ -22,7 +22,7 @@ class CHSMiAboutUsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = false
+        self.tabBarController?.tabBar.hidden = true
     }
     
     // MARK: popViewcontroller

@@ -10,7 +10,7 @@ import UIKit
 
 class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, LoReFTInfoInputViewControllerDelegate {
     
-    let rootTableView = UITableView()
+    let rootTableView = TPKeyboardAvoidingTableView()
     let headerImg = UIImageView()
     var selectedImage:UIImage?
     
@@ -91,7 +91,7 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
         
-        self.title = "个人信息"
+        self.title = "企业信息"
         
         rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height-64-44)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)

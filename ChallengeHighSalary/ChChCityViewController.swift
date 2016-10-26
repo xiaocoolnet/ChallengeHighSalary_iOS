@@ -34,7 +34,9 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
         
         cityIndexArray = Array(cityDict.keys).sort(){ $1 > $0 }
         
-        
+        if positioningCity == "未知" {
+            ChChHomeViewController().loadLocation()
+        }
         let positioningCityArray = [positioningCity]
         let hotCityArray = ["上海","北京","广州","深圳","武汉","天津","西安","南京","杭州"]
         cityIndexArray.insert("定位", atIndex: 0)
@@ -151,7 +153,7 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
     func cityTableViewCellCityBtnClick(cityBtn: UIButton) {
         print(cityBtn.currentTitle)
         NSUserDefaults.standardUserDefaults().setValue(cityBtn.currentTitle, forKey: "myCity")
-        myCity = NSUserDefaults.standardUserDefaults().stringForKey("myCity")
+        myCity = (NSUserDefaults.standardUserDefaults().stringForKey("myCity") ?? myCity)!
         self.navigationController?.popViewControllerAnimated(true)
     }
 

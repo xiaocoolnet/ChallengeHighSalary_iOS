@@ -10,7 +10,7 @@ import UIKit
 
 class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    let rootTableView = UITableView()
+    let rootTableView = TPKeyboardAvoidingTableView()
     let headerImg = UIImageView()
     var selectedImage:UIImage?
     
@@ -45,6 +45,7 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.hidden = false
+        self.navigationController?.navigationBar.setBackgroundImage(nil, forBarMetrics: .Compact)
         self.tabBarController?.tabBar.hidden = true
     }
     

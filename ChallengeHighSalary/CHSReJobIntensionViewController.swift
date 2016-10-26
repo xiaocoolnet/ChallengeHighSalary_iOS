@@ -15,8 +15,8 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
     var pickerView = UIPickerView()
     
     let pickJobTypeRequiredArray = ["全职","兼职"]
-    let pickExpSalaryLowRequiredArray = ["1k","2k","3k","4k","5k"]
-    var pickExpSalarySupRequiredArray = ["1k","2k","3k","4k","5k"]
+    let pickExpSalaryLowRequiredArray = ["1","2","3","4","5"]
+    var pickExpSalarySupRequiredArray = ["1","2","3","4","5"]
     let pickJobStatusSupRequiredArray = ["离职","在职"]
 
     var pickSelectedRowArray = [[0],[0,0],[0,0],[0]]
@@ -33,7 +33,7 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
         "\(CHSUserInfo.currentUserInfo.address)",
         "\(CHSUserInfo.currentUserInfo.position_type)",
         "\(CHSUserInfo.currentUserInfo.categories)",
-        "\(CHSUserInfo.currentUserInfo.wantsalary)",
+        "\(CHSUserInfo.currentUserInfo.wantsalary.stringByReplacingOccurrencesOfString("-", withString: "至"))K /月",
         "\(CHSUserInfo.currentUserInfo.jobstate)"
         ] {
         didSet {
@@ -68,6 +68,44 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
         
         self.navigationController?.navigationBar.hidden = false
         self.tabBarController?.tabBar.hidden = true
+        
+        for (i,obj) in pickJobTypeRequiredArray.enumerate() {
+            if obj == CHSUserInfo.currentUserInfo.work_property {
+                pickSelectedRowArray[0][0] = i
+                break
+            }
+        }
+        for (i,obj) in pickExpSalaryLowRequiredArray.enumerate() {
+            if obj == CHSUserInfo.currentUserInfo.wantsalary.componentsSeparatedByString("-").first {
+                pickSelectedRowArray[2][0] = i
+                break
+            }
+        }
+        for (i,obj) in pickExpSalarySupRequiredArray.enumerate() {
+            if obj == CHSUserInfo.currentUserInfo.wantsalary.componentsSeparatedByString("-").last {
+                pickSelectedRowArray[2][1] = i
+                break
+            }
+        }
+        for (i,obj) in provinceArray.enumerate() {
+            if obj == CHSUserInfo.currentUserInfo.address.componentsSeparatedByString("-").first {
+                pickSelectedRowArray[1][0] = i
+                cityArray = Array(areaDic[obj]!.keys)
+                for (i,obj) in cityArray.enumerate() {
+                    if obj == CHSUserInfo.currentUserInfo.address.componentsSeparatedByString("-").last {
+                        pickSelectedRowArray[1][1] = i
+                        break
+                    }
+                }
+                break
+            }
+        }
+        for (i,obj) in pickJobStatusSupRequiredArray.enumerate() {
+            if obj == CHSUserInfo.currentUserInfo.jobstate {
+                pickSelectedRowArray[3][0] = i
+                break
+            }
+        }
     }
     
     // MARK: 加载数据
@@ -120,7 +158,7 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
         CHSUserInfo.currentUserInfo.address ==  detailArray[1] &&
         CHSUserInfo.currentUserInfo.position_type ==  detailArray[2] &&
         CHSUserInfo.currentUserInfo.categories ==  detailArray[3] &&
-        CHSUserInfo.currentUserInfo.wantsalary ==  detailArray[4] &&
+        CHSUserInfo.currentUserInfo.wantsalary ==  "\(pickExpSalaryLowRequiredArray[pickSelectedRowArray[2][0]])-\(pickExpSalarySupRequiredArray[pickSelectedRowArray[2][1]])" &&
         CHSUserInfo.currentUserInfo.jobstate ==  detailArray[5]{
             
             checkCodeHud.mode = .Text
@@ -145,7 +183,7 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
             address: detailArray[1],
             position_type: detailArray[2],
             categories: detailArray[3],
-            wantsalary: detailArray[4],
+            wantsalary: "\(pickExpSalaryLowRequiredArray[pickSelectedRowArray[2][0]])-\(pickExpSalarySupRequiredArray[pickSelectedRowArray[2][1]])",
             jobstate: detailArray[5]) { (success, response) in
                 if success {
                     
@@ -267,6 +305,7 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
                 
                 pickerView.tag = 101
                 pickerView.selectRow(pickSelectedRowArray[0][0], inComponent: 0, animated: false)
+                pickerView.reloadAllComponents()
             case (0,1):
                 
                 pickerLab.text = "工作地点"
@@ -274,12 +313,14 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
                 pickerView.tag = 102
                 pickerView.selectRow(pickSelectedRowArray[1][0], inComponent: 0, animated: false)
                 pickerView.selectRow(pickSelectedRowArray[1][1], inComponent: 1, animated: false)
+                pickerView.reloadAllComponents()
             case (0,4):
                 pickerLab.text = "期望薪资"
                 
                 pickerView.tag = 103
                 pickerView.selectRow(pickSelectedRowArray[2][0], inComponent: 0, animated: false)
                 pickerView.selectRow(pickSelectedRowArray[2][1], inComponent: 2, animated: false)
+                pickerView.reloadAllComponents()
 
             case (0,5):
                 
@@ -287,6 +328,7 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
                 
                 pickerView.tag = 104
                 pickerView.selectRow(pickSelectedRowArray[3][0], inComponent: 0, animated: false)
+                pickerView.reloadAllComponents()
             default:
                 print("找人才-人才-发布职位-didSelectRowAtIndexPath  default")
             }
@@ -314,7 +356,7 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
             pickSelectedRowArray[1][0] = pickerView.selectedRowInComponent(0)
         }else if pickerView.tag == 103 {
             
-            detailArray[4] = "\(pickExpSalaryLowRequiredArray[pickerView.selectedRowInComponent(0)])至\(pickExpSalarySupRequiredArray[pickerView.selectedRowInComponent(2)]) /月"
+            detailArray[4] = "\(pickExpSalaryLowRequiredArray[pickerView.selectedRowInComponent(0)])至\(pickExpSalarySupRequiredArray[pickerView.selectedRowInComponent(2)])K /月"
             
             pickSelectedRowArray[2][0] = pickerView.selectedRowInComponent(0)
             pickSelectedRowArray[2][1] = pickerView.selectedRowInComponent(2)

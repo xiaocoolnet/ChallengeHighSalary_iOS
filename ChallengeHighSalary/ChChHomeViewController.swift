@@ -49,8 +49,11 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         setSubviews()
         loadData()
         
-        if myCity == nil {
+        if NSUserDefaults.standardUserDefaults().stringForKey("myCity") == nil {
             loadLocation()
+        }else{
+            myCity = NSUserDefaults.standardUserDefaults().stringForKey("myCity")!
+            cityBtn.setTitle(myCity, forState: .Normal)
         }
     }
     
@@ -351,8 +354,8 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             let cell = tableView.dequeueReusableCellWithIdentifier("ChChFindJobTableViewCell") as! ChChFindJobTableViewCell
             cell.selectionStyle = .None
             
-            cell.jobInfo = self.jobList[indexPath.row]
-            cell.companyBtn.tag = indexPath.row
+            cell.jobInfo = self.jobList[indexPath.section]
+            cell.companyBtn.tag = indexPath.section
             cell.companyBtn.addTarget(self, action: #selector(companyBtnClick(_:)), forControlEvents: .TouchUpInside)
             
             return cell
@@ -380,7 +383,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if tableView.tag == 101 {
             let personalInfoVC = CHSChPersonalInfoViewController()
-            personalInfoVC.jobInfo = self.jobList[indexPath.row]
+            personalInfoVC.jobInfo = self.jobList[indexPath.section]
             
             self.navigationController?.pushViewController(personalInfoVC, animated: true)
         }else{
@@ -515,7 +518,7 @@ extension ChChHomeViewController: CLLocationManagerDelegate
                 positioningCity = citynameStr
                 
                 NSUserDefaults.standardUserDefaults().setValue(positioningCity, forKey: "myCity")
-                myCity = NSUserDefaults.standardUserDefaults().stringForKey("myCity")
+                myCity = positioningCity
                 
                 self.cityBtn.setTitle(myCity, forState: .Normal)
                 

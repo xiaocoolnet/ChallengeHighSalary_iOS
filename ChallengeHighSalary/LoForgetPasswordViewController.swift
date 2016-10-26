@@ -56,15 +56,21 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
         
         self.view.backgroundColor = lightGrayColor
         self.title = "忘记密码"
+                
+        let rootScrollView = TPKeyboardAvoidingScrollView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
+        rootScrollView.bounces = false
+        rootScrollView.contentSize = CGSizeMake(0, 0)
+        rootScrollView.scrollEnabled = false
+        self.view.addSubview(rootScrollView)
         
         let bigBgImg = UIImageView(frame: self.view.bounds)
         bigBgImg.image = UIImage(named: "ic_登录背景_模糊")
-        self.view.addSubview(bigBgImg)
+        rootScrollView.addSubview(bigBgImg)
         
         // 输入背景视图
         let inputBgView = UIView(frame: CGRectMake(screenSize.width*0.1, kHeightScale*114, screenSize.width*0.8, kHeightScale*227))
         inputBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
-        self.view.addSubview(inputBgView)
+        rootScrollView.addSubview(inputBgView)
         
         let subHeight = (inputBgView.frame.size.height-3)/4.0
         
@@ -182,7 +188,7 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
         doneBtn.layer.cornerRadius = 8
         doneBtn.setTitle("完成", forState: .Normal)
         doneBtn.addTarget(self, action: #selector(doneBtnClick), forControlEvents: .TouchUpInside)
-        self.view.addSubview(doneBtn)
+        rootScrollView.addSubview(doneBtn)
 
         // 用户协议 按钮
         let agreementBtn = UIButton(frame: CGRectMake(
@@ -195,7 +201,7 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
         agreementBtn.setTitle("用户协议", forState: .Normal)
         agreementBtn.setTitleColor(baseColor, forState: .Normal)
         agreementBtn.addTarget(self, action: #selector(agreementBtnClick), forControlEvents: .TouchUpInside)
-        self.view.addSubview(agreementBtn)
+        rootScrollView.addSubview(agreementBtn)
     }
     
     // MARK: UITextFieldDelegate

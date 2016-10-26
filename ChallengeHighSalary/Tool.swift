@@ -25,7 +25,8 @@ let kImagePrefix = "\(kDomainName)/uploads/microblog/"
 
 //MARK:- APP数据
 // MARK: Key
-var myCity = NSUserDefaults.standardUserDefaults().stringForKey("myCity")
+//var myCity = NSUserDefaults.standardUserDefaults().stringForKey("myCity")
+var myCity = "城市"
 let isLogin_key = "isLogin"
 let logInfo_key = "login_info"
 let userName_key = "login_name"

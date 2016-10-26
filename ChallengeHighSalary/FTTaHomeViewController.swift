@@ -72,7 +72,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         self.automaticallyAdjustsScrollViewInsets = false
         
-        self.view.backgroundColor = UIColor(red: 209/255.0, green: 209/255.0, blue: 209/255.0, alpha: 1)
+        self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
         // 在线状态
         let onlineStateBtn = UIButton()
@@ -106,6 +106,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         // tableView
         myTableView.frame = CGRectMake(0, CGRectGetMaxY(segChoose.frame)+1, screenSize.width, screenSize.height-20-44-49-37)
+        myTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         myTableView.registerNib(UINib.init(nibName: "FTTalentTableViewCell", bundle: nil), forCellReuseIdentifier: "FTTalentCell")
         myTableView.registerClass(FTTaNoPositionTableViewCell.self, forCellReuseIdentifier: "FTTaNoPositionTableViewCell")
         myTableView.separatorStyle = .None
@@ -195,6 +196,12 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         }else{
             return screenSize.height-64-37-49
         }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let personalVC = FTPersonalViewController()
+        personalVC.resumeData = self.resumeModel[indexPath.row]
+        self.navigationController?.pushViewController(personalVC, animated: true)
     }
 
     // MARK:- 发布职位按钮点击事件

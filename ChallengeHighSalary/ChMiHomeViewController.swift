@@ -12,6 +12,7 @@ class ChMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     let rootTableView = UITableView()
     let nameArray = [["我的收藏","我的奖金"],["我的投递记录","我的黑名单"]]
+    let imageNameArray = [["ic_我的_收藏","ic_我的_奖金"],["ic_我的_投递记录","ic_我的_黑名单"]]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +20,8 @@ class ChMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         // Do any additional setup after loading the view.
         
         self.setSubviews()
+        
+        self.loadData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -26,8 +29,35 @@ class ChMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         
         self.navigationController?.navigationBar.hidden = true
         self.tabBarController?.tabBar.hidden = false
+        
+        setHeaderView()
     }
     
+    // MARK: 加载数据
+    func loadData() {
+        
+        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        checkCodeHud.labelText = "正在获取个人信息"
+        
+        CHSNetUtil().getMyResume(CHSUserInfo.currentUserInfo.userid) { (success, response) in
+            if success {
+                
+                checkCodeHud.mode = .Text
+                checkCodeHud.labelText = "获取个人信息成功"
+                checkCodeHud.hide(true, afterDelay: 1)
+                print("获取个人信息成功")
+                
+                self.setHeaderView()
+            }else{
+                checkCodeHud.mode = .Text
+                checkCodeHud.labelText = "获取个人信息失败"
+                checkCodeHud.hide(true, afterDelay: 1)
+                print("获取个人信息失败")
+            }
+        }
+    }
+
     // MARK:- 设置子视图
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
@@ -36,13 +66,12 @@ class ChMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         rootTableView.frame = CGRectMake(0, 0, screenSize.width, screenSize.height-44)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         rootTableView.registerClass(CHSMiHomeTableViewCell.self, forCellReuseIdentifier: "CHSMiHomeCell")
-        rootTableView.rowHeight = 60
+        rootTableView.rowHeight = 50
         rootTableView.dataSource = self
         rootTableView.delegate = self
         rootTableView.tableFooterView = UIView(frame: CGRectZero)
         self.view.addSubview(rootTableView)
         
-        setHeaderView()
     }
     
     // MARK:- 设置tableview 头视图
@@ -51,16 +80,16 @@ class ChMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         headerView.backgroundColor = baseColor
         
         let setBtn = UIButton(frame: CGRectMake(screenSize.width-kWidthScale*42, kHeightScale*40, kHeightScale*28, kHeightScale*28))
-        setBtn.backgroundColor = UIColor.orangeColor()
         setBtn.layer.cornerRadius = setBtn.frame.size.width/2.0
-        setBtn.layer.borderColor = UIColor.whiteColor().CGColor
-        setBtn.layer.borderWidth = 1
+        setBtn.setImage(UIImage(named: "ic_我的_设置"), forState: .Normal)
         setBtn.addTarget(self, action: #selector(setBtnClick), forControlEvents: .TouchUpInside)
         headerView.addSubview(setBtn)
         
         let headerImgView = UIImageView(frame: CGRectMake(kWidthScale*30, kHeightScale*90, kHeightScale*50, kHeightScale*50))
         headerImgView.layer.cornerRadius = headerImgView.frame.size.width/2.0
+        headerImgView.clipsToBounds = true
         headerImgView.backgroundColor = UIColor.grayColor()
+        headerImgView.sd_setImageWithURL(NSURL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar), placeholderImage: nil)
         headerView.addSubview(headerImgView)
         
         let nameLab = UILabel(frame: CGRectMake(
@@ -71,7 +100,7 @@ class ChMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         nameLab.textAlignment = .Left
         nameLab.textColor = UIColor.whiteColor()
         nameLab.font = UIFont.systemFontOfSize(14)
-        nameLab.text = "王小妞"
+        nameLab.text = CHSUserInfo.currentUserInfo.realName
         headerView.addSubview(nameLab)
         
         let jobStatusLab = UILabel(frame: CGRectMake(
@@ -82,7 +111,7 @@ class ChMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         jobStatusLab.textAlignment = .Left
         jobStatusLab.textColor = UIColor.whiteColor()
         jobStatusLab.font = UIFont.systemFontOfSize(13)
-        jobStatusLab.text = "在职-考虑机会"
+        jobStatusLab.text = CHSUserInfo.currentUserInfo.jobstate
         headerView.addSubview(jobStatusLab)
         
         let scoreBtn = UIButton(frame: CGRectMake(
@@ -115,6 +144,7 @@ class ChMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.selectionStyle = .None
         cell.accessoryType = .DisclosureIndicator
         
+        cell.titImage.image = UIImage(named: imageNameArray[indexPath.section][indexPath.row])
         cell.titLab.text = nameArray[indexPath.section][indexPath.row]
         return cell
     }

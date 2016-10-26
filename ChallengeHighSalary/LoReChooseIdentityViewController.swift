@@ -14,6 +14,8 @@ class LoReChooseIdentityViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.hidden = true
+        
+        self.navigationController?.interactivePopGestureRecognizer?.enabled = false
     }
     
     override func viewDidLoad() {
@@ -22,17 +24,19 @@ class LoReChooseIdentityViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         // 挑战高薪 头部
-        let topLab = UILabel(frame: CGRectMake(
+        let topBgImg = UIImageView(frame: CGRectMake(
             0,
             0,
             screenSize.width,
             screenSize.height*0.4185))
-        topLab.text = "挑战高薪"
-        topLab.font = UIFont.systemFontOfSize(24)
-        topLab.textAlignment = .Center
-        topLab.backgroundColor = baseColor
-        topLab.textColor = UIColor.whiteColor()
-        self.view.addSubview(topLab)
+        topBgImg.image = UIImage(named: "ic_身份选择_背景")
+        self.view.addSubview(topBgImg)
+        
+        let textImg = UIImageView(image: UIImage(named: "ic_appNameImg"))
+        textImg.center = topBgImg.center
+        self.view.addSubview(textImg)
+        
+        let margin:CGFloat = 8
         
         // 抢人才按钮
         let forTalentBtn = UIButton(frame: CGRectMake(
@@ -43,10 +47,12 @@ class LoReChooseIdentityViewController: UIViewController {
         forTalentBtn.backgroundColor = baseColor
         forTalentBtn.layer.cornerRadius = 8
         forTalentBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        forTalentBtn.setImage(UIImage(named: "1"), forState: .Normal)
+        forTalentBtn.setImage(UIImage(named: "ic_身份选择_抢人才"), forState: .Normal)
         forTalentBtn.setTitle("抢人才", forState: .Normal)
         forTalentBtn.addTarget(self, action: #selector(forTalentBtnClick), forControlEvents: .TouchUpInside)
         forTalentBtn.center.x = self.view.center.x
+        forTalentBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -margin/2.0, 0, margin/2.0)
+        forTalentBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin/2.0, 0, -margin/2.0)
         self.view.addSubview(forTalentBtn)
         
         // 挑战高薪 按钮
@@ -58,10 +64,12 @@ class LoReChooseIdentityViewController: UIViewController {
         cHSalaryBtn.backgroundColor = baseColor
         cHSalaryBtn.layer.cornerRadius = 8
         cHSalaryBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        cHSalaryBtn.setImage(UIImage(named: "1"), forState: .Normal)
+        cHSalaryBtn.setImage(UIImage(named: "ic_身份选择_挑战高薪"), forState: .Normal)
         cHSalaryBtn.setTitle("挑战高薪", forState: .Normal)
         cHSalaryBtn.addTarget(self, action: #selector(chSalaryBtnClick), forControlEvents: .TouchUpInside)
         cHSalaryBtn.center.x = self.view.center.x
+        cHSalaryBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -margin/2.0, 0, margin/2.0)
+        cHSalaryBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin/2.0, 0, -margin/2.0)
         self.view.addSubview(cHSalaryBtn)
         
     }

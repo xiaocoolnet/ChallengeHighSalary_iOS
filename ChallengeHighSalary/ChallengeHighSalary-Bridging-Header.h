@@ -14,5 +14,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "MBProgressHUD.h"
 #import "UIPlaceHolderTextView.h"
+#import "TPKeyboardAvoidingScrollView.h"
+#import "TPKeyboardAvoidingTableView.h"
 
 #endif /* ChallengeHighSalary_Bridging_Header_h */

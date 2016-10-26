@@ -10,7 +10,7 @@ import UIKit
 
 class CHSMiHomeTableViewCell: UITableViewCell {
     
-    let titImage = UIButton()
+    let titImage = UIImageView()
     let titLab = UILabel()
     
     override func awakeFromNib() {
@@ -23,9 +23,10 @@ class CHSMiHomeTableViewCell: UITableViewCell {
         for view in self.contentView.subviews {
             view.removeFromSuperview()
         }
-        titImage.frame = CGRectMake(10, 10, 30, 30)
-        titImage.backgroundColor = UIColor.grayColor()
-        titLab.frame = CGRectMake(57, 10, screenSize.width-60, 30)
+        titImage.frame = CGRectMake(10, 15, 20, 20)
+        titImage.contentMode = .ScaleAspectFit
+//        titImage.backgroundColor = UIColor.grayColor()
+        titLab.frame = CGRectMake(48, 10, screenSize.width-60, 30)
         titLab.font = UIFont.systemFontOfSize(18)
         
         self.addSubview(titImage)

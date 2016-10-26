@@ -25,7 +25,7 @@ class CHSMiCheckPasswordViewController: UIViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = false
+        self.tabBarController?.tabBar.hidden = true
     }
 
     // MARK: popViewcontroller
@@ -44,21 +44,24 @@ class CHSMiCheckPasswordViewController: UIViewController, UITextFieldDelegate {
         self.title = "验证密码"
         
         // MARK: 原密码 背景
-        let originalPwdBgView = UIView(frame: CGRectMake(kWidthScale*10, kHeightScale*105+44+20, screenSize.width-kWidthScale*20, kHeightScale*50))
-        originalPwdBgView.backgroundColor = UIColor.clearColor()
+        let originalPwdBgView = UIView(frame: CGRectMake(0, kHeightScale*105+44+20, screenSize.width, kHeightScale*50))
+        originalPwdBgView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(originalPwdBgView)
         
         // 原密码 图标
         let originalPwdImg = UIImageView(frame: CGRectMake(
             0,
-            0,
-            kWidthScale*38,
-            originalPwdBgView.frame.size.height))
-        originalPwdImg.backgroundColor = UIColor.grayColor()
+            originalPwdBgView.frame.size.height/3.0,
+            kWidthScale*50,
+            originalPwdBgView.frame.size.height/3.0))
+        originalPwdImg.image = UIImage(named: "ic_密码_灰")
+        originalPwdImg.contentMode = .ScaleAspectFit
         originalPwdBgView.addSubview(originalPwdImg)
         
+        drawLine(originalPwdBgView, color: UIColor.lightGrayColor(), fromPoint: CGPointMake(kWidthScale*50, originalPwdBgView.frame.size.height/4.0), toPoint: CGPointMake(kWidthScale*50, originalPwdBgView.frame.size.height/4.0*3), lineWidth: 1, pattern: [10,0])
+        
         // 原密码输入框
-        originalPwdTF.frame = CGRectMake(kWidthScale*40, 0, originalPwdBgView.frame.size.width-kWidthScale*40, originalPwdBgView.frame.size.height)
+        originalPwdTF.frame = CGRectMake(kWidthScale*53, 0, originalPwdBgView.frame.size.width-kWidthScale*53, originalPwdBgView.frame.size.height)
         originalPwdTF.borderStyle = .None
         originalPwdTF.placeholder = "请输入原密码"
         originalPwdTF.keyboardType = .Default
@@ -66,17 +69,10 @@ class CHSMiCheckPasswordViewController: UIViewController, UITextFieldDelegate {
         originalPwdTF.delegate = self
         originalPwdBgView.addSubview(originalPwdTF)
         
-        // 直线
-        let lineView = UIView(frame: CGRectMake(kWidthScale*10, CGRectGetMaxY(originalPwdBgView.frame)+1, screenSize.width-kWidthScale*20, 1))
-//        lineView.layer.cornerRadius = 6
-        lineView.backgroundColor = UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1)
-        self.view.addSubview(lineView)
-        
-        
         // 下一步 按钮
         let nextBtn = UIButton(frame: CGRectMake(kWidthScale*10, CGRectGetMaxY(originalPwdBgView.frame)+kHeightScale*96, screenSize.width-kWidthScale*20, kHeightScale*45))
         nextBtn.backgroundColor = baseColor
-        nextBtn.layer.cornerRadius = 8
+        nextBtn.layer.cornerRadius = kHeightScale*22.5
         nextBtn.titleLabel?.font = UIFont.systemFontOfSize(16)
         nextBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         nextBtn.setTitle("下一步", forState: .Normal)

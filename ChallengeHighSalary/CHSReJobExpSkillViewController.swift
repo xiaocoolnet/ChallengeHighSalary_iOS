@@ -12,7 +12,7 @@ class CHSReJobExpSkillViewController: UIViewController {
     
     var orignalSelectSkillStr = ""
 
-    let skillNameArray = ["数据分析","移动产品","电子商务","智能硬件","电子商务","电子商务","智能硬件","智能硬件","项目管理","产品经理","交互设计","APP","用户研究","产品助理","交互设计","游戏策划","产品总监","产品助理","产品助理","在线教育","网页设计","游戏策划","产品总监","游戏策划","产品总监","无线产品","在线教育","网页设计","在线教育","网页设计","无线产品","无线产品"]
+    let skillNameArray = ["数据分析","移动产品","电子商务","智能硬件","项目管理","产品经理","APP","用户研究","交互设计","游戏策划","产品助理","在线教育","网页设计","产品总监","无线产品"]
     var selectSkillArray = Array<String>()
     
     override func viewDidLoad() {
@@ -83,6 +83,17 @@ class CHSReJobExpSkillViewController: UIViewController {
             skillBtn.addTarget(self, action: #selector(skillBtnClick(_:)), forControlEvents: .TouchUpInside)
             self.view.addSubview(skillBtn)
             
+            for str in orignalSelectSkillStr.componentsSeparatedByString("-") {
+                
+                if (skillName == str) {
+
+                    skillBtn.selected = true
+                    skillBtn.backgroundColor = baseColor
+                    
+                    selectSkillArray[i] = skillName
+                }
+            }
+            
             if i+1 < skillNameArray.count {
                 
                 let nextBtnWidth = calculateWidth(skillNameArray[i+1], size: 14, height: skillBtnHeight)+skillBtnMargin_x*4
@@ -95,20 +106,6 @@ class CHSReJobExpSkillViewController: UIViewController {
                     skillBtnX = skillBtnWidth + skillBtnX + skillBtnMargin_x
                 }
             }
-        }
-        
-        for idx in orignalSelectSkillStr.componentsSeparatedByString(" ") {
-            
-            if ((Int(idx)) != nil) {
-                
-                let btn = (self.view.viewWithTag(100+Int(idx)!) as? UIButton)
-                
-                if (btn != nil) {
-                    btn!.selected = true
-                    btn!.backgroundColor = baseColor
-                }
-            }
-            
         }
         
         // 添加标签 button
@@ -211,17 +208,25 @@ class CHSReJobExpSkillViewController: UIViewController {
             checkCodeHud.mode = .Text
             checkCodeHud.labelText = "请选择技能标签"
             checkCodeHud.hide(true, afterDelay: 1)
+        }else if count > 3 {
+            
+            let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            checkCodeHud.removeFromSuperViewOnHide = true
+            checkCodeHud.mode = .Text
+            checkCodeHud.labelText = "最多选择3个标签"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
         }else{
             
             var str = ""
             var flag = true
-            for (i,selectSkillName) in selectSkillArray.enumerate() {
+            for selectSkillName in selectSkillArray {
                 if selectSkillName != "" {
                     if flag {
-                        str = String(i)
+                        str = selectSkillName
                         flag = false
                     }else{
-                        str = str + " " + String(i)
+                        str = str + "-" + selectSkillName
                     }
                 }
             }

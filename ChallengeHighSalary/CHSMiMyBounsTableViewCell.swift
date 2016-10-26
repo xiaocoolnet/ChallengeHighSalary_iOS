@@ -15,7 +15,8 @@ class CHSMiMyBounsTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        self.drawDashed(LineView, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(0, 0), toPoint: CGPointMake(screenSize.width, 0), lineWidth: 1)
+        self.backgroundColor = UIColor.clearColor()
+        self.drawDashed(LineView, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(10, 0), toPoint: CGPointMake(screenSize.width-8-8-10-10, 0), lineWidth: 1)
     }
     
     func drawDashed(onView:UIView, color:UIColor, fromPoint:CGPoint, toPoint:CGPoint, lineWidth:CGFloat) {

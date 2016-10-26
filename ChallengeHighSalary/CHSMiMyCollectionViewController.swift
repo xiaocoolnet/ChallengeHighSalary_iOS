@@ -11,6 +11,10 @@ import UIKit
 class CHSMiMyCollectionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let rootTableView = UITableView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height-20-44-49-37), style: .Grouped)
+    let sureDeleteBtn = UIButton()
+    
+    var jobInfoData: [JobInfoDataModel]?
+    var deleteJobInfoData = [JobInfoDataModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +30,19 @@ class CHSMiMyCollectionViewController: UIViewController, UITableViewDataSource, 
         
         self.navigationController?.navigationBar.hidden = false
         self.tabBarController?.tabBar.hidden = true
+        
+        self.loadData()
+    }
+    
+    // MARK: 加载数据
+    func loadData() {
+        
+        PublicNetUtil().getfavoritelist(CHSUserInfo.currentUserInfo.userid, type: "1") { (success, response) in
+            if success {
+                self.jobInfoData = response as? [JobInfoDataModel]
+                self.rootTableView.reloadData()
+            }
+        }
     }
     
     // MARK: 设置 NavigationBar
@@ -36,11 +53,7 @@ class CHSMiMyCollectionViewController: UIViewController, UITableViewDataSource, 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
 
         // rightBarButtonItem
-        let deleteBtn = UIButton(frame: CGRectMake(0, 0, 50, 24))
-        deleteBtn.setTitle("删除", forState: .Normal)
-        deleteBtn.addTarget(self, action: #selector(deleteBtnClick), forControlEvents: .TouchUpInside)
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: deleteBtn)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_删除"), style: .Done, target: self, action: #selector(deleteBtnClick))
     }
     
     // MARK: popViewcontroller
@@ -50,8 +63,55 @@ class CHSMiMyCollectionViewController: UIViewController, UITableViewDataSource, 
     
     // MARK: 删除按钮点击事件
     func deleteBtnClick() {
-        print("ChChHomeViewController searchBtnClick")
-        self.navigationController?.pushViewController(ChChSearchViewController(), animated: true)
+        print("CHSMiMyCollectionViewController deleteBtnClick")
+        
+        if self.sureDeleteBtn.hidden {
+            
+            self.rootTableView.frame.size.height = screenSize.height-20-44-sureDeleteBtn.frame.size.height
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消", style: .Done, target: self, action: #selector(deleteBtnClick))
+
+        }else{
+            self.rootTableView.frame.size.height = screenSize.height-20-44
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_删除"), style: .Done, target: self, action: #selector(deleteBtnClick))
+
+        }
+        self.sureDeleteBtn.hidden = !self.sureDeleteBtn.hidden
+        self.rootTableView.editing = !self.rootTableView.editing;
+
+//        self.rootTableView.editing = true
+//        self.navigationController?.pushViewController(ChChSearchViewController(), animated: true)
+    }
+    
+    // MARK: 下方确认删除按钮 点击事件
+    func sureDeleteBtnClick() {
+        let alert = UIAlertController(title: "", message: "确定要删除所选的 \(self.deleteJobInfoData.count) 个收藏吗？", preferredStyle: .Alert)
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        let sureAction = UIAlertAction(title: "确定", style: .Default, handler: { (sureAction) in
+            
+            var jobidStr = ""
+            for (i,jobInfo) in self.deleteJobInfoData.enumerate() {
+                if i == self.deleteJobInfoData.count-1 {
+                    jobidStr += "\((jobInfo.jobid ?? "")!)"
+                }else{
+                    jobidStr += "\((jobInfo.jobid ?? "")!),"
+                }
+            }
+            PublicNetUtil().cancelfavorite(CHSUserInfo.currentUserInfo.userid, object_id: jobidStr, type: "1", handle: { (success, response) in
+                if success {
+                    for jobInfo in self.deleteJobInfoData {
+                        self.jobInfoData?.removeAtIndex((self.jobInfoData?.indexOf(jobInfo))!)
+                    }
+                    self.rootTableView.reloadData()
+                    self.deleteBtnClick()
+                }
+            })
+            
+        })
+        alert.addAction(sureAction)
     }
     
     // MARK: 设置子视图
@@ -68,6 +128,22 @@ class CHSMiMyCollectionViewController: UIViewController, UITableViewDataSource, 
         rootTableView.dataSource = self
         rootTableView.delegate = self
         self.view.addSubview(rootTableView)
+        self.rootTableView.editing = false
+        self.rootTableView.allowsMultipleSelectionDuringEditing = true
+        
+        sureDeleteBtn.frame = CGRectMake(
+            0,
+            screenSize.height-kHeightScale*44,
+            screenSize.width,
+            kHeightScale*44)
+        sureDeleteBtn.backgroundColor = baseColor
+        //        chatBtn_2.layer.cornerRadius = chatBtn.frame.size.height/2.0
+        sureDeleteBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        sureDeleteBtn.setTitle("删除", forState: .Normal)
+        sureDeleteBtn.addTarget(self, action: #selector(sureDeleteBtnClick), forControlEvents: .TouchUpInside)
+        self.view.addSubview(sureDeleteBtn)
+        sureDeleteBtn.hidden = true
+
     }
     
     // MARK: UITableView DataSource
@@ -76,17 +152,31 @@ class CHSMiMyCollectionViewController: UIViewController, UITableViewDataSource, 
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 10
+        return (self.jobInfoData?.count ?? 0)!
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("ChChFindJobTableViewCell") as! ChChFindJobTableViewCell
-        cell.selectionStyle = .None
+//        cell.selectionStyle = .None
         
-        cell.companyBtn.addTarget(self, action: #selector(companyBtnClick), forControlEvents: .TouchUpInside)
+        cell.jobInfo = self.jobInfoData![indexPath.section]
+//        cell.companyBtn.addTarget(self, action: #selector(companyBtnClick), forControlEvents: .TouchUpInside)
         
         return cell
+    }
+    
+    //是否可以编辑  默认的时YES
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    //选择编辑的方式,按照选择的方式对表进行处理
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            
+        }
     }
     
     // MARK: UITableView Delegate
@@ -99,13 +189,46 @@ class CHSMiMyCollectionViewController: UIViewController, UITableViewDataSource, 
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.navigationController?.pushViewController(CHSChPersonalInfoViewController(), animated: true)
+        
+        if tableView.editing {
+            self.deleteJobInfoData.append(self.jobInfoData![indexPath.section])
+        }else{
+            
+            let personalInfoVC = CHSChPersonalInfoViewController()
+            personalInfoVC.jobInfo = self.jobInfoData![indexPath.section]
+            
+            self.navigationController?.pushViewController(personalInfoVC, animated: true)
+        }
     }
     
-    // MARK:- companyBtnClick
-    func companyBtnClick() {
-        self.navigationController?.pushViewController(CHSChCompanyHomeViewController(), animated: true)
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        if tableView.editing {
+            
+            let index = self.deleteJobInfoData.indexOf(self.jobInfoData![indexPath.section])
+            
+            if (index != nil) {
+                self.deleteJobInfoData.removeAtIndex(index!)
+            }
+            
+//            for (i,jobInfo) in self.deleteJobInfoData!.enumerate() {
+//                if jobInfo == self.jobInfoData![indexPath.row] {
+//                    self.deleteJobInfoData?.removeAtIndex(i)
+//                }
+//            }
+        }
     }
+    
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle(rawValue: UITableViewCellEditingStyle.Delete.rawValue|UITableViewCellEditingStyle.Insert.rawValue)!
+    }
+    
+   
+
+    
+//    // MARK:- companyBtnClick
+//    func companyBtnClick() {
+//        self.navigationController?.pushViewController(CHSChCompanyHomeViewController(), animated: true)
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

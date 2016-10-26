@@ -68,13 +68,15 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(newPhoneBgView)
         
         // 电话前缀
-        let telLab = UILabel(frame: CGRectMake(
+        let telLab = UIButton(frame: CGRectMake(
             0,
             0,
             kWidthScale*58,
             newPhoneBgView.frame.size.height))
-        telLab.text = "+86"
-        telLab.textAlignment = .Center
+        telLab.setTitleColor(baseColor, forState: .Normal)
+        telLab.setTitle("+86", forState: .Normal)
+        telLab.setImage(UIImage(named: "ic_下拉箭头"), forState: .Normal)
+        exchangeBtnImageAndTitle(telLab, margin: 2)
         newPhoneBgView.addSubview(telLab)
         
         // 电话前缀右边虚线
@@ -94,17 +96,21 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
         checkCodeBgView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(checkCodeBgView)
         
-        // 验证码 ImageView
-        let checkCodeImg = UIImageView(frame: CGRectMake(
+        // 验证码 前 背景视图
+        let checkCodeView = UIImageView(frame: CGRectMake(
             0,
             0,
             kWidthScale*58,
             newPhoneBgView.frame.size.height))
-        checkCodeImg.backgroundColor = UIColor.grayColor()
+//        checkCodeView.backgroundColor = UIColor.grayColor()
+        checkCodeBgView.addSubview(checkCodeView)
+        // 验证码 ImageView
+        let checkCodeImg = UIImageView(image: UIImage(named: "ic_手机"))
+        checkCodeImg.center = checkCodeView.center
         checkCodeBgView.addSubview(checkCodeImg)
         
         // 验证码右边虚线
-        drawDashed(checkCodeBgView, color: UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1), fromPoint: CGPointMake(CGRectGetMaxX(checkCodeImg.frame), CGRectGetMinY(checkCodeImg.frame)+5), toPoint: CGPointMake(CGRectGetMaxX(checkCodeImg.frame), checkCodeBgView.frame.size.height-5), lineWidth: 1)
+        drawDashed(checkCodeBgView, color: UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1), fromPoint: CGPointMake(CGRectGetMaxX(checkCodeView.frame), CGRectGetMinY(checkCodeView.frame)+5), toPoint: CGPointMake(CGRectGetMaxX(checkCodeView.frame), checkCodeBgView.frame.size.height-5), lineWidth: 1)
         
         // 验证码输入框
         checkCodeTF.frame = CGRectMake(
@@ -137,7 +143,7 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
         // 确认更换 按钮
         let sureChangeBtn = UIButton(frame: CGRectMake(kWidthScale*10, CGRectGetMaxY(checkCodeBgView.frame)+kHeightScale*96, screenSize.width-kWidthScale*20, kHeightScale*45))
         sureChangeBtn.backgroundColor = baseColor
-        sureChangeBtn.layer.cornerRadius = 8
+        sureChangeBtn.layer.cornerRadius = kHeightScale*22.5
         sureChangeBtn.titleLabel?.font = UIFont.systemFontOfSize(16)
         sureChangeBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         sureChangeBtn.setTitle("确认更换", forState: .Normal)

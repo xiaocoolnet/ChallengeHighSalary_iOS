@@ -67,6 +67,7 @@ class CHSMiMyBonusViewController: UIViewController, UITableViewDataSource, UITab
         let cell = tableView.dequeueReusableCellWithIdentifier("CHSMiMyBounsCell") as! CHSMiMyBounsTableViewCell
         cell.selectionStyle = .None
         
+        
         return cell
     }
     

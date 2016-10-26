@@ -55,15 +55,21 @@ class LoRegisterViewController: UIViewController, UITextFieldDelegate {
 
         self.view.backgroundColor = lightGrayColor
         self.title = "账号注册"
+                
+        let rootScrollView = TPKeyboardAvoidingScrollView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
+        rootScrollView.bounces = false
+        rootScrollView.contentSize = CGSizeMake(0, 0)
+        rootScrollView.scrollEnabled = false
+        self.view.addSubview(rootScrollView)
         
         let bigBgImg = UIImageView(frame: self.view.bounds)
         bigBgImg.image = UIImage(named: "ic_登录背景_模糊")
-        self.view.addSubview(bigBgImg)
+        rootScrollView.addSubview(bigBgImg)
         
         // 输入背景视图
         let inputBgView = UIView(frame: CGRectMake(0, kHeightScale*114, screenSize.width, kHeightScale*167))
         inputBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
-        self.view.addSubview(inputBgView)
+        rootScrollView.addSubview(inputBgView)
         
         let subHeight = (inputBgView.frame.size.height-2)/3.0
         
@@ -160,7 +166,7 @@ class LoRegisterViewController: UIViewController, UITextFieldDelegate {
         registerBtn.layer.cornerRadius = 8
         registerBtn.setTitle("注册", forState: .Normal)
         registerBtn.addTarget(self, action: #selector(registerBtnClick), forControlEvents: .TouchUpInside)
-        self.view.addSubview(registerBtn)
+        rootScrollView.addSubview(registerBtn)
         
         // 用户协议 按钮
         let agreementBtn = UIButton(frame: CGRectMake(
@@ -173,7 +179,7 @@ class LoRegisterViewController: UIViewController, UITextFieldDelegate {
         agreementBtn.setTitle("用户协议", forState: .Normal)
         agreementBtn.setTitleColor(baseColor, forState: .Normal)
         agreementBtn.addTarget(self, action: #selector(agreementBtnClick), forControlEvents: .TouchUpInside)
-        self.view.addSubview(agreementBtn)
+        rootScrollView.addSubview(agreementBtn)
     }
     
     // MARK: UITextFieldDelegate

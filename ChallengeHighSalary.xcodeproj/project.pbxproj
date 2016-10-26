@@ -14,8 +14,6 @@
 		1F0B594B1DAB435800A172E3 /* LoReCHSPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B594A1DAB435800A172E3 /* LoReCHSPersonalInfoViewController.swift */; };
 		1F0B594D1DAB8AA100A172E3 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B594C1DAB8AA100A172E3 /* UIImage+Extension.swift */; };
 		1F0B594F1DAB979800A172E3 /* LoReCHSChooseCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B594E1DAB979800A172E3 /* LoReCHSChooseCityViewController.swift */; };
-		1F1224D41D976FEA0094C6CE /* CHSReResumePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1224D21D976FEA0094C6CE /* CHSReResumePreviewViewController.swift */; };
-		1F1224D51D976FEA0094C6CE /* CHSReResumePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F1224D31D976FEA0094C6CE /* CHSReResumePreviewViewController.xib */; };
 		1F1224D71D979CA60094C6CE /* CHSRePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1224D61D979CA60094C6CE /* CHSRePreviewViewController.swift */; };
 		1F1224D91D97AE5A0094C6CE /* CHSReEduExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1224D81D97AE590094C6CE /* CHSReEduExperienceViewController.swift */; };
 		1F1224DB1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1224DA1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift */; };
@@ -112,6 +110,10 @@
 		1FD697751DB0CF63008D0A14 /* LoReCHSJobExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD697741DB0CF63008D0A14 /* LoReCHSJobExperienceViewController.swift */; };
 		1FD697771DB0D000008D0A14 /* LoReCHSMyAdvantagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD697761DB0D000008D0A14 /* LoReCHSMyAdvantagesViewController.swift */; };
 		1FD697791DB0D0D9008D0A14 /* LoReCHSJobIntensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD697781DB0D0D9008D0A14 /* LoReCHSJobIntensionViewController.swift */; };
+		1FD6F9971DBEE9A800BD7B94 /* TPKeyboardAvoidingCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F9901DBEE9A800BD7B94 /* TPKeyboardAvoidingCollectionView.m */; };
+		1FD6F9981DBEE9A800BD7B94 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F9921DBEE9A800BD7B94 /* TPKeyboardAvoidingScrollView.m */; };
+		1FD6F9991DBEE9A800BD7B94 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F9941DBEE9A800BD7B94 /* TPKeyboardAvoidingTableView.m */; };
+		1FD6F99A1DBEE9A800BD7B94 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F9961DBEE9A800BD7B94 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		1FD7FBD61D795BA70032221D /* WeHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD7FBD51D795BA70032221D /* WeHomeViewController.swift */; };
 		1FDB00131D8F7490007043B4 /* CHSChCompanyHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB00121D8F7490007043B4 /* CHSChCompanyHomeViewController.swift */; };
 		1FDB00181D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB00161D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift */; };
@@ -122,6 +124,7 @@
 		1FDB00211D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB00201D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift */; };
 		1FDB00241D8FCB4A007043B4 /* CHSMiHomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB00231D8FCB4A007043B4 /* CHSMiHomeTableViewCell.swift */; };
 		1FDB00261D8FD2A0007043B4 /* CHSMiSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB00251D8FD2A0007043B4 /* CHSMiSettingViewController.swift */; };
+		1FEC4A371DB8C7AE004A0FC1 /* PublicNetUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC4A361DB8C7AE004A0FC1 /* PublicNetUtil.swift */; };
 		1FEC64DA1D9120A60045038C /* CHSMiSetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC64D91D9120A60045038C /* CHSMiSetPasswordViewController.swift */; };
 		1FEC64DC1D9120C50045038C /* CHSMiPhoneBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC64DB1D9120C50045038C /* CHSMiPhoneBindingViewController.swift */; };
 		1FEC64DE1D9121460045038C /* CHSMiCheckPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC64DD1D9121460045038C /* CHSMiCheckPasswordViewController.swift */; };
@@ -175,6 +178,8 @@
 		1FF9DB241D96298300F0C69D /* FTMiMyHiringRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF9DB231D96298300F0C69D /* FTMiMyHiringRecordViewController.swift */; };
 		1FF9DB281D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF9DB261D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.swift */; };
 		1FF9DB291D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF9DB271D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.xib */; };
+		1FFECEB51DB9C3CB0039BFF3 /* CHSMiChangeIdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFECEB41DB9C3CB0039BFF3 /* CHSMiChangeIdentityViewController.swift */; };
+		1FFECEB71DB9FB320039BFF3 /* FTMiChangeIdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFECEB61DB9FB320039BFF3 /* FTMiChangeIdentityViewController.swift */; };
 		66EC546185B352675D540F15 /* Pods_ChallengeHighSalary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B305984B2F0315793A421CD9 /* Pods_ChallengeHighSalary.framework */; };
 /* End PBXBuildFile section */
 
@@ -204,8 +209,6 @@
 		1F0B594A1DAB435800A172E3 /* LoReCHSPersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReCHSPersonalInfoViewController.swift; sourceTree = "<group>"; };
 		1F0B594C1DAB8AA100A172E3 /* UIImage+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		1F0B594E1DAB979800A172E3 /* LoReCHSChooseCityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReCHSChooseCityViewController.swift; sourceTree = "<group>"; };
-		1F1224D21D976FEA0094C6CE /* CHSReResumePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReResumePreviewViewController.swift; sourceTree = "<group>"; };
-		1F1224D31D976FEA0094C6CE /* CHSReResumePreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSReResumePreviewViewController.xib; sourceTree = "<group>"; };
 		1F1224D61D979CA60094C6CE /* CHSRePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSRePreviewViewController.swift; sourceTree = "<group>"; };
 		1F1224D81D97AE590094C6CE /* CHSReEduExperienceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReEduExperienceViewController.swift; sourceTree = "<group>"; };
 		1F1224DA1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReEditEduExperienceViewController.swift; sourceTree = "<group>"; };
@@ -312,6 +315,14 @@
 		1FD697741DB0CF63008D0A14 /* LoReCHSJobExperienceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReCHSJobExperienceViewController.swift; sourceTree = "<group>"; };
 		1FD697761DB0D000008D0A14 /* LoReCHSMyAdvantagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReCHSMyAdvantagesViewController.swift; sourceTree = "<group>"; };
 		1FD697781DB0D0D9008D0A14 /* LoReCHSJobIntensionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReCHSJobIntensionViewController.swift; sourceTree = "<group>"; };
+		1FD6F98F1DBEE9A800BD7B94 /* TPKeyboardAvoidingCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingCollectionView.h; sourceTree = "<group>"; };
+		1FD6F9901DBEE9A800BD7B94 /* TPKeyboardAvoidingCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingCollectionView.m; sourceTree = "<group>"; };
+		1FD6F9911DBEE9A800BD7B94 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		1FD6F9921DBEE9A800BD7B94 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		1FD6F9931DBEE9A800BD7B94 /* TPKeyboardAvoidingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingTableView.h; sourceTree = "<group>"; };
+		1FD6F9941DBEE9A800BD7B94 /* TPKeyboardAvoidingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingTableView.m; sourceTree = "<group>"; };
+		1FD6F9951DBEE9A800BD7B94 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		1FD6F9961DBEE9A800BD7B94 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
 		1FD7FBD51D795BA70032221D /* WeHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeHomeViewController.swift; sourceTree = "<group>"; };
 		1FDB00121D8F7490007043B4 /* CHSChCompanyHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChCompanyHomeViewController.swift; sourceTree = "<group>"; };
 		1FDB00161D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChCompanyPositionTableViewCell.swift; sourceTree = "<group>"; };
@@ -322,6 +333,7 @@
 		1FDB00201D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReMyAdvantagesViewController.swift; sourceTree = "<group>"; };
 		1FDB00231D8FCB4A007043B4 /* CHSMiHomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiHomeTableViewCell.swift; sourceTree = "<group>"; };
 		1FDB00251D8FD2A0007043B4 /* CHSMiSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiSettingViewController.swift; sourceTree = "<group>"; };
+		1FEC4A361DB8C7AE004A0FC1 /* PublicNetUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicNetUtil.swift; sourceTree = "<group>"; };
 		1FEC64D91D9120A60045038C /* CHSMiSetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiSetPasswordViewController.swift; sourceTree = "<group>"; };
 		1FEC64DB1D9120C50045038C /* CHSMiPhoneBindingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiPhoneBindingViewController.swift; sourceTree = "<group>"; };
 		1FEC64DD1D9121460045038C /* CHSMiCheckPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiCheckPasswordViewController.swift; sourceTree = "<group>"; };
@@ -378,6 +390,8 @@
 		1FF9DB231D96298300F0C69D /* FTMiMyHiringRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiMyHiringRecordViewController.swift; sourceTree = "<group>"; };
 		1FF9DB261D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiMyHiringRecordTableViewCell.swift; sourceTree = "<group>"; };
 		1FF9DB271D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTMiMyHiringRecordTableViewCell.xib; sourceTree = "<group>"; };
+		1FFECEB41DB9C3CB0039BFF3 /* CHSMiChangeIdentityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiChangeIdentityViewController.swift; sourceTree = "<group>"; };
+		1FFECEB61DB9FB320039BFF3 /* FTMiChangeIdentityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiChangeIdentityViewController.swift; sourceTree = "<group>"; };
 		4F2FE0939DDAB1E11CA9B594 /* Pods-ChallengeHighSalary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChallengeHighSalary.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChallengeHighSalary/Pods-ChallengeHighSalary.release.xcconfig"; sourceTree = "<group>"; };
 		573ED6BB8CB6F9F6257D7C55 /* Pods-ChallengeHighSalary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChallengeHighSalary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChallengeHighSalary/Pods-ChallengeHighSalary.debug.xcconfig"; sourceTree = "<group>"; };
 		B305984B2F0315793A421CD9 /* Pods_ChallengeHighSalary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChallengeHighSalary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -478,6 +492,7 @@
 		1F8741191D82A02A007B8793 /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
+				1FD6F98E1DBEE9A800BD7B94 /* TPKeyboardAvoiding */,
 				1F0B594C1DAB8AA100A172E3 /* UIImage+Extension.swift */,
 				1F0B59421DAB2FC700A172E3 /* UIPlaceHolderTextView */,
 				1FF524D81D88F6EC00E1B70F /* MBProgressHUD */,
@@ -560,8 +575,6 @@
 		1FCCC5A51DAE25FD0065A799 /* 预览 */ = {
 			isa = PBXGroup;
 			children = (
-				1F1224D21D976FEA0094C6CE /* CHSReResumePreviewViewController.swift */,
-				1F1224D31D976FEA0094C6CE /* CHSReResumePreviewViewController.xib */,
 				1F1224D61D979CA60094C6CE /* CHSRePreviewViewController.swift */,
 			);
 			name = "预览";
@@ -771,6 +784,7 @@
 				1F4FD25A1D767CC500FF7040 /* Tool.swift */,
 				1FF9DB151D96145D00F0C69D /* GuideViewController.swift */,
 				1FB6D5EA1D9B5B2A00262BBD /* CHSUserInfo.swift */,
+				1FEC4A361DB8C7AE004A0FC1 /* PublicNetUtil.swift */,
 			);
 			name = "Tool(工具)";
 			sourceTree = "<group>";
@@ -786,6 +800,21 @@
 				1FD697781DB0D0D9008D0A14 /* LoReCHSJobIntensionViewController.swift */,
 			);
 			name = "挑战高薪";
+			sourceTree = "<group>";
+		};
+		1FD6F98E1DBEE9A800BD7B94 /* TPKeyboardAvoiding */ = {
+			isa = PBXGroup;
+			children = (
+				1FD6F98F1DBEE9A800BD7B94 /* TPKeyboardAvoidingCollectionView.h */,
+				1FD6F9901DBEE9A800BD7B94 /* TPKeyboardAvoidingCollectionView.m */,
+				1FD6F9911DBEE9A800BD7B94 /* TPKeyboardAvoidingScrollView.h */,
+				1FD6F9921DBEE9A800BD7B94 /* TPKeyboardAvoidingScrollView.m */,
+				1FD6F9931DBEE9A800BD7B94 /* TPKeyboardAvoidingTableView.h */,
+				1FD6F9941DBEE9A800BD7B94 /* TPKeyboardAvoidingTableView.m */,
+				1FD6F9951DBEE9A800BD7B94 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				1FD6F9961DBEE9A800BD7B94 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+			);
+			path = TPKeyboardAvoiding;
 			sourceTree = "<group>";
 		};
 		1FD7FBD11D7955840032221D /* Welcome(欢迎页) */ = {
@@ -876,6 +905,7 @@
 				1FC3CCAD1D9CBE40004AA4C6 /* FTMiMyInterviewAllViewController.swift */,
 				1FC3CCAF1D9CDCBD004AA4C6 /* FTMiMyBlacklistViewController.swift */,
 				1F3193591DB47C5F004B264F /* FTMiMyCompanyInfoViewController.swift */,
+				1FFECEB61DB9FB320039BFF3 /* FTMiChangeIdentityViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -920,6 +950,7 @@
 				1FF3C6A01D9269F70069DD23 /* CHSMiMyDeliveryRecordViewController.swift */,
 				1FB6D5EF1D9B985C00262BBD /* CHSMiMyBonusViewController.swift */,
 				1FB6D5F51D9B9E1900262BBD /* CHSMiMyBlacklistViewController.swift */,
+				1FFECEB41DB9C3CB0039BFF3 /* CHSMiChangeIdentityViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1225,7 +1256,6 @@
 				1FCDFEC71D73E6DB0067970B /* Assets.xcassets in Resources */,
 				1FCDFEC51D73E6DB0067970B /* Main.storyboard in Resources */,
 				1F577B391DA9F35E00AB5D99 /* CHSMeCollectionMeTableViewCell.xib in Resources */,
-				1F1224D51D976FEA0094C6CE /* CHSReResumePreviewViewController.xib in Resources */,
 				1F577B1E1DA9E8A700AB5D99 /* FTMeLookMeTableViewCell.xib in Resources */,
 				1F577B311DA9F32D00AB5D99 /* CHSMeSysMessageTableViewCell.xib in Resources */,
 				1F577B1A1DA9E89400AB5D99 /* FTMeCollectionMeTableViewCell.xib in Resources */,
@@ -1327,6 +1357,7 @@
 				1FB6D5FF1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.swift in Sources */,
 				1FC3CCB31D9CDD29004AA4C6 /* FTMiMyBlacklistTableViewCell.swift in Sources */,
 				1FCCC5A71DAE3AEF0065A799 /* CHSReJobExpSkillViewController.swift in Sources */,
+				1FD6F9971DBEE9A800BD7B94 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				1F577B2C1DA9F31700AB5D99 /* CHSMeHomeTableViewCell.swift in Sources */,
 				1FF9DB181D96216500F0C69D /* FTMiSettingViewController.swift in Sources */,
 				1FF06CBE1D7D17860032943B /* ChReHomeViewController.swift in Sources */,
@@ -1349,9 +1380,11 @@
 				1FB6D5F01D9B985C00262BBD /* CHSMiMyBonusViewController.swift in Sources */,
 				1FB6D5F31D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.swift in Sources */,
 				1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */,
+				1FD6F9981DBEE9A800BD7B94 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				1F0B59451DAB2FC700A172E3 /* UIPlaceHolderTextView.m in Sources */,
 				1F577B301DA9F32D00AB5D99 /* CHSMeSysMessageTableViewCell.swift in Sources */,
 				1FF1CE221DA8CCC8000F0A9A /* FTMeSysMessageViewController.swift in Sources */,
+				1FD6F9991DBEE9A800BD7B94 /* TPKeyboardAvoidingTableView.m in Sources */,
 				1FD7FBD61D795BA70032221D /* WeHomeViewController.swift in Sources */,
 				1FC3CCBA1D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift in Sources */,
 				1FF06CD71D7D609A0032943B /* DropDown+Appearance.swift in Sources */,
@@ -1384,8 +1417,8 @@
 				1FF06CDD1D7D6D970032943B /* ChChFindJobTableViewCell.swift in Sources */,
 				1FF06CBC1D7D17760032943B /* ChMeHomeViewController.swift in Sources */,
 				1FF06CB41D7D16540032943B /* CHRoHomeViewController.swift in Sources */,
+				1FD6F99A1DBEE9A800BD7B94 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				1FF3C6AC1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.swift in Sources */,
-				1F1224D41D976FEA0094C6CE /* CHSReResumePreviewViewController.swift in Sources */,
 				1FB6D5EE1D9B8D0700262BBD /* CHSMiNetUtil.swift in Sources */,
 				1F482B9C1D8002560079A62B /* ChChSearchTableViewCell.swift in Sources */,
 				1FD6976E1DB0B8F9008D0A14 /* CHSReProjectDescriptionViewController.swift in Sources */,
@@ -1411,6 +1444,7 @@
 				1FB6D5EB1D9B5B2A00262BBD /* CHSUserInfo.swift in Sources */,
 				1FB311551D9666F400217DDA /* FTTaCompanyInfoViewController.swift in Sources */,
 				1F4FD2661D76C01D00FF7040 /* NSString+FontAwesome.m in Sources */,
+				1FFECEB71DB9FB320039BFF3 /* FTMiChangeIdentityViewController.swift in Sources */,
 				1FEC64E01D912AF70045038C /* CHSMiMessageRemindViewController.swift in Sources */,
 				1F180F6C1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift in Sources */,
 				1FF1CE251DA8CE78000F0A9A /* FTMeSysMessageTableViewCell.swift in Sources */,
@@ -1434,6 +1468,8 @@
 				1F180F701D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift in Sources */,
 				1F0B59491DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift in Sources */,
 				1FC3CCA81D9CAF07004AA4C6 /* FTMiMyInterviewFinishViewController.swift in Sources */,
+				1FEC4A371DB8C7AE004A0FC1 /* PublicNetUtil.swift in Sources */,
+				1FFECEB51DB9C3CB0039BFF3 /* CHSMiChangeIdentityViewController.swift in Sources */,
 				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,
 				1F4FD25B1D767CC500FF7040 /* Tool.swift in Sources */,
 				1FCC2FDF1DB607C0002360E4 /* FTPersonalViewController.swift in Sources */,

@@ -258,7 +258,13 @@ class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource,
             cell?.detailTextLabel?.textAlignment = .Right
             
             if indexPath.row == 3 {
-                cell?.detailTextLabel?.text = "\(detailArray[3].componentsSeparatedByString(" ").count)个技能"
+                if (CHSUserInfo.currentUserInfo.work?.first?.skill ?? "") != "" {
+                    
+                    cell?.detailTextLabel?.text = "\(detailArray[3].componentsSeparatedByString("-").count)个技能"
+                }else{
+                    cell?.detailTextLabel?.text = "0个技能"
+                }
+                
             }else{
                 cell?.detailTextLabel?.text = detailArray[indexPath.row]
             }

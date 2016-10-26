@@ -47,11 +47,11 @@ class CHSMiSetPasswordViewController: UIViewController, UITextFieldDelegate {
         let newPwdLab = UILabel(frame: CGRectMake(
             kWidthScale*20,
             0,
-            kWidthScale*90,
+            kWidthScale*70,
             newPwdBgView.frame.size.height))
         newPwdLab.font = UIFont.systemFontOfSize(15)
         newPwdLab.text = "新密码"
-        newPwdLab.textAlignment = .Left
+        newPwdLab.textAlignment = .Center
         newPwdBgView.addSubview(newPwdLab)
         
         // 新密码输入框
@@ -72,11 +72,11 @@ class CHSMiSetPasswordViewController: UIViewController, UITextFieldDelegate {
         let surePwdLab = UILabel(frame: CGRectMake(
             kWidthScale*20,
             0,
-            kWidthScale*90,
+            kWidthScale*70,
             newPwdBgView.frame.size.height))
         surePwdLab.font = UIFont.systemFontOfSize(15)
         surePwdLab.text = "确认密码"
-        surePwdLab.textAlignment = .Left
+        surePwdLab.textAlignment = .Center
         surePwdBgView.addSubview(surePwdLab)
         
         // 确认密码 输入框
@@ -95,7 +95,7 @@ class CHSMiSetPasswordViewController: UIViewController, UITextFieldDelegate {
         // 修改密码 按钮
         let changePwdBtn = UIButton(frame: CGRectMake(kWidthScale*10, CGRectGetMaxY(surePwdBgView.frame)+kHeightScale*95, screenSize.width-kWidthScale*20, kHeightScale*45))
         changePwdBtn.backgroundColor = baseColor
-        changePwdBtn.layer.cornerRadius = 8
+        changePwdBtn.layer.cornerRadius = kHeightScale*22.5
         changePwdBtn.titleLabel?.font = UIFont.systemFontOfSize(16)
         changePwdBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         changePwdBtn.setTitle("修改密码", forState: .Normal)

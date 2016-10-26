@@ -198,7 +198,9 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // MARK: 点击预览按钮
     func clickPreviewBtn() {
-        self.navigationController?.pushViewController(CHSReResumePreviewViewController(), animated: true)
+        
+        
+        self.navigationController?.pushViewController(CHSRePreviewViewController(), animated: true)
     }
     
     // MARK:- tableView DataSource

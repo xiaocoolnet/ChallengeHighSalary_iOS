@@ -74,8 +74,8 @@ class CHSReChoosePositionViewController: UIViewController, UITableViewDataSource
         firstArray = Array(rootDic.keys)
         secondArray = rootDic[firstArray.first!]!
         
-        firstCurrentSelectedRow = 1
-        secondCurrentSelectedRow = 2
+//        firstCurrentSelectedRow = 1
+//        secondCurrentSelectedRow = 2
     }
     
     // MARK: UITableView DataSource
@@ -106,9 +106,11 @@ class CHSReChoosePositionViewController: UIViewController, UITableViewDataSource
             
             if firstCurrentSelectedRow == indexPath.row {
                 cell?.textLabel?.textColor = baseColor
+                cell?.backgroundColor = UIColor.whiteColor()
             }else{
                 
                 cell?.textLabel?.textColor = UIColor.blackColor()
+                cell?.backgroundColor = UIColor.clearColor()
             }
             
             cell?.textLabel!.text = firstArray[indexPath.row]
