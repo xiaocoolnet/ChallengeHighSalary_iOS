@@ -309,14 +309,14 @@ class LoginNetUtil: NSObject {
         
         
         //这里需要注意下CGImageGetBitmapInfo，它的类型是Int32的，CGImageGetBitmapInfo(aImage.CGImage).rawValue，这样写才不会报错
-        let ctx: CGContextRef = CGBitmapContextCreate(nil, Int(aImage.size.width), Int(aImage.size.height), CGImageGetBitsPerComponent(aImage.CGImage), 0, CGImageGetColorSpace(aImage.CGImage), CGImageGetBitmapInfo(aImage.CGImage).rawValue)!
+        let ctx: CGContextRef = CGBitmapContextCreate(nil, Int(aImage.size.width), Int(aImage.size.height), CGImageGetBitsPerComponent(aImage.CGImage!), 0, CGImageGetColorSpace(aImage.CGImage!)!, CGImageGetBitmapInfo(aImage.CGImage!).rawValue)!
         CGContextConcatCTM(ctx, transform)
         switch aImage.imageOrientation {
         case .Left, .LeftMirrored, .Right, .RightMirrored:
             // Grr...
-            CGContextDrawImage(ctx, CGRectMake(0, 0, aImage.size.height, aImage.size.width), aImage.CGImage)
+            CGContextDrawImage(ctx, CGRectMake(0, 0, aImage.size.height, aImage.size.width), aImage.CGImage!)
         default:
-            CGContextDrawImage(ctx, CGRectMake(0, 0, aImage.size.width, aImage.size.height), aImage.CGImage)
+            CGContextDrawImage(ctx, CGRectMake(0, 0, aImage.size.width, aImage.size.height), aImage.CGImage!)
         }
         
         // And now we just create a new UIImage from the drawing context

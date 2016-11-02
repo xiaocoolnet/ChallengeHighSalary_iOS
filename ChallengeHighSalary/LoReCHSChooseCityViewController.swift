@@ -117,7 +117,7 @@ class LoReCHSChooseCityViewController: UIViewController, UITableViewDataSource, 
         
         cell.delegate = self
         
-        cell.cityBtnsTitleArray = cityDict[cityIndexArray[indexPath.section]]!
+        cell.setBtns(cityDict[cityIndexArray[indexPath.section]]!, indexPath: indexPath)
         return cell
     }
     
@@ -150,10 +150,9 @@ class LoReCHSChooseCityViewController: UIViewController, UITableViewDataSource, 
         return cityBtnY+cityBtnHeight+cityBtnMargin
     }
     
-    func cityTableViewCellCityBtnClick(cityBtn: UIButton) {
-        
+    func cityTableViewCellCityBtnClick(cityBtn: UIButton, indexPath: NSIndexPath, index: Int) {
         NSNotificationCenter.defaultCenter().postNotificationName("currentCityChanged", object: cityBtn.currentTitle!)
-
+        
         self.popViewcontroller()
     }
     

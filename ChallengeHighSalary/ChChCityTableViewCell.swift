@@ -9,20 +9,23 @@
 import UIKit
 
 protocol ChChCityTableViewCellDelegate {
-    func cityTableViewCellCityBtnClick(cityBtn:UIButton)
+    func cityTableViewCellCityBtnClick(cityBtn:UIButton, indexPath:NSIndexPath, index:Int)
 }
 
 class ChChCityTableViewCell: UITableViewCell {
     
     var delegate:ChChCityTableViewCellDelegate?
     
-    var cityBtnsTitleArray = Array<String>() {
-        didSet {
-            setBtns()
-        }
+    private var indexPath:NSIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+    
+//    var cityBtnsTitleArray = Array<String>()
+    
+    func setBtns(cityBtnsTitleArray:[String], indexPath:NSIndexPath) {
+        self.indexPath = indexPath
+        setBtns(cityBtnsTitleArray)
     }
     
-    func setBtns() {
+    func setBtns(cityBtnsTitleArray:[String]) {
         
         for view in self.contentView.subviews {
             if view.isKindOfClass(UIButton) {
@@ -45,6 +48,7 @@ class ChChCityTableViewCell: UITableViewCell {
             cityBtn.titleLabel?.font = UIFont.systemFontOfSize(14)
             cityBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
             cityBtn.setTitle(city, forState: .Normal)
+            cityBtn.tag = 1000+i
             cityBtn.addTarget(self, action: #selector(cityBtnClick(_:)), forControlEvents: .TouchUpInside)
             self.contentView.addSubview(cityBtn)
             
@@ -66,7 +70,7 @@ class ChChCityTableViewCell: UITableViewCell {
     
     func cityBtnClick(cityBtn:UIButton) {
 //        print(cityBtn.currentTitle)
-        self.delegate?.cityTableViewCellCityBtnClick(cityBtn)
+        self.delegate?.cityTableViewCellCityBtnClick(cityBtn, indexPath: self.indexPath, index: cityBtn.tag-1000)
     }
     
     override func awakeFromNib() {

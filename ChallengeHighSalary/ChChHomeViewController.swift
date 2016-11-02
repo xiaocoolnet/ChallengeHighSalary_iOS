@@ -39,22 +39,28 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         self.view.backgroundColor = UIColor.whiteColor()
         
-//        NSNotificationCenter.defaultCenter().addObserverForName("positioningCityNotification", object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (noti) in
-//            print("chchhome.. 执行")
-//
-//            self.cityBtn.setTitle(positioningCity, forState: .Normal)
-//        })
         
         setNavigationBar()
         setSubviews()
         loadData()
         
         if NSUserDefaults.standardUserDefaults().stringForKey("myCity") == nil {
-            loadLocation()
+            AppDelegate().loadLocation()
         }else{
             myCity = NSUserDefaults.standardUserDefaults().stringForKey("myCity")!
             cityBtn.setTitle(myCity, forState: .Normal)
         }
+        NSNotificationCenter.defaultCenter().addObserverForName("positioningCityNotification", object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (noti) in
+            print("chchhome.. 执行")
+            
+            if noti.object != nil && NSUserDefaults.standardUserDefaults().stringForKey("myCity") == nil {
+                
+                NSUserDefaults.standardUserDefaults().setValue(positioningCity, forKey: "myCity")
+                myCity = positioningCity
+                self.cityBtn.setTitle(myCity, forState: .Normal)
+            }
+        })
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -425,114 +431,4 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     }
     */
 
-}
-
-extension ChChHomeViewController: CLLocationManagerDelegate
-{
-    
-    //打开定位
-    func loadLocation()
-    {
-        
-        locationManager.delegate = self
-        //定位方式
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        
-        //iOS8.0以上才可以使用
-        if(UIDevice.currentDevice().systemVersion >= "8.0"){
-            //始终允许访问位置信息
-            locationManager.requestAlwaysAuthorization()
-            //使用应用程序期间允许访问位置数据
-            locationManager.requestWhenInUseAuthorization()
-        }
-        //开启定位
-        locationManager.startUpdatingLocation()
-    }
-    
-    
-    
-    //获取定位信息
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        //取得locations数组的最后一个
-        let location:CLLocation = locations[locations.count-1]
-        currLocation = locations.last!
-        //判断是否为空
-        if(location.horizontalAccuracy > 0){
-            let lat = Double(String(format: "%.1f", location.coordinate.latitude))
-            let long = Double(String(format: "%.1f", location.coordinate.longitude))
-            print("纬度:\(long!)")
-            print("经度:\(lat!)")
-            LonLatToCity()
-            //停止定位
-//            locationManager.stopUpdatingLocation()
-        }
-        
-    }
-    
-    //出现错误
-    func locationManager(manager: CLLocationManager, didFinishDeferredUpdatesWithError error: NSError?) {
-        print("didFinishDeferredUpdatesWithError",error)
-    }
-    
-    ///将经纬度转换为城市名
-    func LonLatToCity() {
-        let geocoder: CLGeocoder = CLGeocoder()
-        
-        geocoder.reverseGeocodeLocation(currLocation) { (placemark, error) -> Void in
-            
-            if(error == nil)
-            {
-                let array = placemark! as NSArray
-                let mark = array.firstObject as! CLPlacemark
-                //城市
-                let city: String = (mark.addressDictionary! as NSDictionary).valueForKey("City") as! String
-                //国家
-                let country: NSString = (mark.addressDictionary! as NSDictionary).valueForKey("Country") as! NSString
-                //国家编码
-                let CountryCode: NSString = (mark.addressDictionary! as NSDictionary).valueForKey("CountryCode") as! NSString
-                //街道位置
-                let FormattedAddressLines: NSString = (mark.addressDictionary! as NSDictionary).valueForKey("FormattedAddressLines")?.firstObject as! NSString
-                //具体位置
-                let Name: NSString = (mark.addressDictionary! as NSDictionary).valueForKey("Name") as! NSString
-                //省
-                var State: String = (mark.addressDictionary! as NSDictionary).valueForKey("State") as! String
-                //区
-                let SubLocality: NSString = (mark.addressDictionary! as NSDictionary).valueForKey("SubLocality") as! NSString
-                
-                
-                //如果需要去掉“市”和“省”字眼
-                
-                State = State.stringByReplacingOccurrencesOfString("省", withString: "")
-                let citynameStr = city.stringByReplacingOccurrencesOfString("市", withString: "")
-                
-                print(city)
-                print(country)
-                print(CountryCode)
-                print(FormattedAddressLines)
-                print(Name)
-                print(State)
-                print(SubLocality)
-                
-                print(citynameStr)
-                positioningCity = citynameStr
-                
-                NSUserDefaults.standardUserDefaults().setValue(positioningCity, forKey: "myCity")
-                myCity = positioningCity
-                
-                self.cityBtn.setTitle(myCity, forState: .Normal)
-                
-                self.locationManager.stopUpdatingLocation()
-
-            }
-            else
-            {
-                print(error)
-            }
-            NSNotificationCenter.defaultCenter().postNotificationName("positioningCityNotification", object: nil)
-        }
-        
-        
-    }
-    
 }

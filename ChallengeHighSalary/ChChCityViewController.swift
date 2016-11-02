@@ -10,6 +10,8 @@ import UIKit
 
 class ChChCityViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ChChCityTableViewCellDelegate {
 
+    let rootTableView = UITableView()
+    
     var cityDict = [String:Array<String>]()
     var cityIndexArray = Array<String>()
     
@@ -34,9 +36,17 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
         
         cityIndexArray = Array(cityDict.keys).sort(){ $1 > $0 }
         
-        if positioningCity == "未知" {
-            ChChHomeViewController().loadLocation()
-        }
+        AppDelegate().loadLocation()
+        NSNotificationCenter.defaultCenter().addObserverForName("positioningCityNotification", object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (noti) in
+            print("chchcity.. 执行")
+            if noti.object != nil {
+                
+                self.cityDict["定位"] = [positioningCity]
+                self.rootTableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+            }
+        })
+//        if positioningCity == "未知" {
+//        }
         let positioningCityArray = [positioningCity]
         let hotCityArray = ["上海","北京","广州","深圳","武汉","天津","西安","南京","杭州"]
         cityIndexArray.insert("定位", atIndex: 0)
@@ -47,10 +57,7 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
         
         //        self.sectionCitySpell.addObjectsFromArray(self.citySpell as [AnyObject]);
         print(cityIndexArray)
-        NSNotificationCenter.defaultCenter().addObserverForName("positioningCityNotification", object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (noti) in
-            print("chchcity.. 执行")
-            self.cityDict["定位"] = [positioningCity]
-        })
+        
     }
     
     // MARK: popViewcontroller
@@ -73,15 +80,15 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
         self.view.addSubview(searchBar)
         
         
-        let myTableView = UITableView(frame: CGRectMake(0, CGRectGetMaxY(searchBar.frame), screenSize.width, screenSize.height-CGRectGetMaxY(searchBar.frame)), style: .Plain)
-        myTableView.sectionIndexColor = UIColor.grayColor()
-        myTableView.sectionIndexBackgroundColor = UIColor.clearColor()
-        myTableView.rowHeight = 200
-        myTableView.separatorStyle = .None
-        myTableView.dataSource = self
-        myTableView.delegate = self
-        myTableView.registerClass(ChChCityTableViewCell.self, forCellReuseIdentifier: "ChChCityTableViewCell")
-        self.view.addSubview(myTableView)
+        rootTableView.frame = CGRectMake(0, CGRectGetMaxY(searchBar.frame), screenSize.width, screenSize.height-CGRectGetMaxY(searchBar.frame))
+        rootTableView.sectionIndexColor = UIColor.grayColor()
+        rootTableView.sectionIndexBackgroundColor = UIColor.clearColor()
+        rootTableView.rowHeight = 200
+        rootTableView.separatorStyle = .None
+        rootTableView.dataSource = self
+        rootTableView.delegate = self
+        rootTableView.registerClass(ChChCityTableViewCell.self, forCellReuseIdentifier: "ChChCityTableViewCell")
+        self.view.addSubview(rootTableView)
     }
     
     // MARK:- TableView DataSource
@@ -115,7 +122,7 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.dequeueReusableCellWithIdentifier("ChChCityTableViewCell") as! ChChCityTableViewCell
         cell.selectionStyle = .None
 
-        cell.cityBtnsTitleArray = cityDict[cityIndexArray[indexPath.section]]!
+        cell.setBtns((cityDict[cityIndexArray[indexPath.section]] ?? [])!, indexPath: indexPath)
         cell.delegate = self
         return cell
     }
@@ -150,12 +157,22 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     // MARK: ChChCityTableViewCellDelegate
-    func cityTableViewCellCityBtnClick(cityBtn: UIButton) {
+    func cityTableViewCellCityBtnClick(cityBtn: UIButton, indexPath: NSIndexPath, index:Int) {
         print(cityBtn.currentTitle)
-        NSUserDefaults.standardUserDefaults().setValue(cityBtn.currentTitle, forKey: "myCity")
-        myCity = (NSUserDefaults.standardUserDefaults().stringForKey("myCity") ?? myCity)!
-        self.navigationController?.popViewControllerAnimated(true)
+        
+        if indexPath.section == 0 && cityBtn.currentTitle == "未知" {
+            
+            AppDelegate().loadLocation()
+
+        }else{
+            
+            NSUserDefaults.standardUserDefaults().setValue(cityBtn.currentTitle, forKey: "myCity")
+            myCity = (NSUserDefaults.standardUserDefaults().stringForKey("myCity") ?? myCity)!
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+        
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -166,6 +166,15 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
                         weibo: self.weiboTf.text!, handle: { (success, response) in
                             if success {
                                 
+                                // TODO: 正式环境放到服务器注册
+                                let userName = String(NSString(string: CHSUserInfo.currentUserInfo.userid).integerValue*10+1)
+                                let error = EMClient.sharedClient().registerWithUsername(userName, password: "999")
+                                if (error==nil) {
+                                    print("注册成功")
+                                }else{
+                                    print(error)
+                                }
+                                
                                 checkCodeHud.mode = .Text
                                 checkCodeHud.labelText = "创建微简历成功"
                                 checkCodeHud.hide(true, afterDelay: 1)

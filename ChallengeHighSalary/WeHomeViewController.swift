@@ -94,6 +94,24 @@ class WeHomeViewController: UIViewController {
         
         if CHSUserInfo.currentUserInfo.usertype == "2" || CHSUserInfo.currentUserInfo.usertype == "3" {
             
+            let isAutoLogin = EMClient.sharedClient().options.isAutoLogin ?? false
+            if (!isAutoLogin) {
+                // TODO: 正式环境放到服务器注册
+                let userName = String(NSString(string: CHSUserInfo.currentUserInfo.userid).integerValue*10+1)
+                
+                EMClient.sharedClient().loginWithUsername(userName, password: "999") { (str, error) in
+                    
+                    if ((error == nil)) {
+                        print("登录成功 \(str)")
+                        
+                        EMClient.sharedClient().options.isAutoLogin = true
+                        
+                    }else{
+                        print("\(error) \(str)")
+                    }
+                }
+            }
+            
             // 找人才 过渡界面
             let welLab = UILabel(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
             welLab.backgroundColor = baseColor
@@ -136,6 +154,24 @@ class WeHomeViewController: UIViewController {
     func chSalaryBtnClick() {
         
         if CHSUserInfo.currentUserInfo.usertype == "1" || CHSUserInfo.currentUserInfo.usertype == "3" {
+            
+            let isAutoLogin = EMClient.sharedClient().options.isAutoLogin ?? false
+            if (!isAutoLogin) {
+                // TODO: 正式环境放到服务器注册
+                let userName = String(NSString(string: CHSUserInfo.currentUserInfo.userid).integerValue*10+1)
+                
+                EMClient.sharedClient().loginWithUsername(userName, password: "999") { (str, error) in
+                    
+                    if ((error == nil)) {
+                        print("登录成功 \(str)")
+                        
+                        EMClient.sharedClient().options.isAutoLogin = true
+                        
+                    }else{
+                        print("\(error) \(str)")
+                    }
+                }
+            }
             
             // 挑战高薪 过渡界面
             let welLab = UILabel(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
@@ -195,6 +231,8 @@ class WeHomeViewController: UIViewController {
         signOutAlert.addAction(sureAction)
         
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

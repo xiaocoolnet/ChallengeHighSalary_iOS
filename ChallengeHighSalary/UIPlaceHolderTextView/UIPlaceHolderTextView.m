@@ -13,7 +13,7 @@
 @end
 
 @implementation UIPlaceHolderTextView
-CGFloat const UI_PLACEHOLDER_TEXT_CHANGED_ANIMATION_DURATION = 0.25;
+CGFloat const UI_PLACEHOLDERTEXTVIEW_TEXT_CHANGED_ANIMATION_DURATION = 0.25;
 
 - (void)dealloc
 {
@@ -60,7 +60,7 @@ CGFloat const UI_PLACEHOLDER_TEXT_CHANGED_ANIMATION_DURATION = 0.25;
         return;
     }
     
-    [UIView animateWithDuration:UI_PLACEHOLDER_TEXT_CHANGED_ANIMATION_DURATION animations:^{
+    [UIView animateWithDuration:UI_PLACEHOLDERTEXTVIEW_TEXT_CHANGED_ANIMATION_DURATION animations:^{
         if([[self text] length] == 0)
         {
             [[self viewWithTag:999] setAlpha:1];

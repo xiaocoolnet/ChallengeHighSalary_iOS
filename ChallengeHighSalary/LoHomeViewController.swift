@@ -300,6 +300,8 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
     // MARK: 登录方法
     func LoginMethod(phone: String, password:String, hud: MBProgressHUD){
         
+        
+        
         LoginNetUtil().applogin(phone, password: password) { (success, response) in
             
             dispatch_async(dispatch_get_main_queue(), {
@@ -333,7 +335,7 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
     // MARK: 立即注册按钮点击事件
     func registerPwdBtnClick() {
         self.navigationController?.pushViewController(LoRegisterViewController(), animated: true)
-    }
+    }    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -129,7 +129,19 @@ class CHSMiSettingViewController: UIViewController, UITableViewDataSource, UITab
                 NSUserDefaults.standardUserDefaults().removeObjectForKey(logInfo_key)
 //                self.presentViewController(UINavigationController(rootViewController: LoHomeViewController()), animated: true, completion: nil)
                 
-                UIApplication.sharedApplication().keyWindow?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
+                EMClient.sharedClient().logout(true, completion: { (error) in
+                    if (error == nil) {
+                        print("退出成功")
+                        UIApplication.sharedApplication().keyWindow?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
+                    }else{
+                        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                        hud.margin = 10
+                        hud.removeFromSuperViewOnHide = true
+                        hud.mode = .Text
+                        hud.labelText = "退出失败，请重试"
+                        hud.hide(true, afterDelay: 1)
+                    }
+                })
             })
             signOutAlert.addAction(sureAction)
             

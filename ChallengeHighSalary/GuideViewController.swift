@@ -52,19 +52,25 @@ class GuideViewController: UIViewController {
         
         //        self.view.insertSubview(scrollView, atIndex: 0)
         
-        pageControl.frame = CGRectMake(screenSize.width/2.0-kWidthScale*39/2.0, screenSize.height-kHeightScale*37, kWidthScale*39, kHeightScale*37)
+        pageControl.frame = CGRectMake(screenSize.width/2.0-kWidthScale*39/2.0, screenSize.height-kHeightScale*37-kHeightScale*30, kWidthScale*39, kHeightScale*37)
         pageControl.numberOfPages = 3
+        pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
+        pageControl.currentPageIndicatorTintColor = baseColor
+        pageControl.userInteractionEnabled = false
         self.view.addSubview(pageControl)
         
         startButton.frame = CGRectMake(screenSize.width/2.0-kWidthScale*80/2.0, screenSize.height-kHeightScale*30-kHeightScale*37, kWidthScale*80, kHeightScale*30)
         // 给开始按钮设置圆角
-        startButton.layer.cornerRadius = 15.0
-        startButton.backgroundColor = UIColor.blueColor()
+        startButton.layer.cornerRadius = kHeightScale*15
+        startButton.backgroundColor = baseColor
         // 隐藏开始按钮
         startButton.alpha = 0
+        startButton.titleLabel?.font = UIFont.systemFontOfSize(15)
         startButton.setTitle("立即体验", forState: .Normal)
         startButton.addTarget(self, action: #selector(startButtonAction(_:)), forControlEvents: .TouchUpInside)
         self.view.addSubview(startButton)
+        
+        pageControl.center.y = startButton.center.y
     }
     
     // 隐藏状态栏

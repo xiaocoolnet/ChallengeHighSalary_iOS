@@ -51,6 +51,13 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
     // MARK: 加载数据
     func loadData() {
         
+        var flag = 0
+        
+        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        
+        checkCodeHud.labelText = "正在获取公司信息"
+        
         // 检查收藏
         PublicNetUtil().CheckHadFavorite(
         CHSUserInfo.currentUserInfo.userid,
@@ -61,6 +68,12 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
             }else{
                 self.collectionBtn.selected = false
             }
+            flag += 1
+            
+            if flag >= 2 {
+                checkCodeHud.hide(true)
+            }
+
         }
         
         // 获取公司信息
@@ -68,8 +81,23 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
             if success {
                 self.company_infoData = response as! Company_infoDataModel
                 self.positionBtn.setTitle("共\((self.company_infoData.jobs?.count)!)个职位", forState: .Normal)
+                
+                flag += 1
+                
+                if flag >= 2 {
+                    checkCodeHud.hide(true)
+                }
+                
+
             }else{
                 
+                flag += 1
+                
+                if flag >= 2 {
+                    checkCodeHud.mode = .Text
+                    checkCodeHud.labelText = "获取公司信息失败"
+                    checkCodeHud.hide(true, afterDelay: 1)
+                }
             }
         }
     }
@@ -472,6 +500,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         //        chatBtn_2.layer.cornerRadius = chatBtn.frame.size.height/2.0
         chatBtn_2.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         chatBtn_2.setTitle("立即沟通", forState: .Normal)
+        chatBtn_2.addTarget(self, action: #selector(chatBtnClick), forControlEvents: .TouchUpInside)
         self.utilView.addSubview(chatBtn_2)
     }
     //MARK:-
@@ -593,6 +622,23 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         }else{
             shareView.removeFromSuperview()
         }
+    }
+    // MARK:-
+    
+    // MARK: 立即沟通按钮点击事件
+    func chatBtnClick() {
+
+        let chatController = CHSMeChatViewController(conversationChatter: self.jobInfo?.userid, conversationType: EMConversationTypeChat)
+        
+        
+        chatController.hidesBottomBarWhenPushed = true
+        
+        chatController.jobInfo = self.jobInfo
+        
+        
+        self.navigationController?.pushViewController(chatController, animated: true)
+        
+//        EaseMessageViewController *chatController = [[EaseMessageViewController alloc] initWithConversationChatter:@"8001" conversationType:EMConversationTypeChat];
     }
     
     override func didReceiveMemoryWarning() {

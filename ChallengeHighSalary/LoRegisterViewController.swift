@@ -312,6 +312,7 @@ class LoRegisterViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
+        
         LoginNetUtil().AppRegister(telTF.text!, password: pwdTF.text!, code: checkCodeTF.text!) { (success, response) in
             if success {
 
