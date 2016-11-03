@@ -1,7 +1,6 @@
 PODS:
   - Alamofire (3.5.1)
   - D3Model (2.0.3)
-  - HyphenateLite_CN (3.2.0)
   - PagingMenuController (0.9.1)
   - Pgyer (2.8.4)
   - PickerView (0.2.3)
@@ -12,7 +11,6 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 3.5)
   - D3Model (~> 2.0.3)
-  - HyphenateLite_CN
   - PagingMenuController (~> 0.9.1)
   - Pgyer (= 2.8.4)
   - PickerView (~> 0.2.3)
@@ -21,12 +19,11 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: 0dfba1184a543e2aa160f4e39cac4e8aba48d223
   D3Model: c82b45de2df793bc5c6906dfb74955eb8aa9e3e9
-  HyphenateLite_CN: b1b023ca05b254f495924711158b3112abf37c04
   PagingMenuController: 95bab00761e1ba4f4f9fa6bf22ac71b065a675aa
   Pgyer: 26edfcc8da6da6383fabfdbccd2f77c623b9d6eb
   PickerView: 0e70263bcea25b3809634e7b7c4b1710a657de5a
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: b9fabccf645ea3e95d24907fd33b46da343824f6
+PODFILE CHECKSUM: 74baebf5aaefcea6b794eacc8230ac0147c4d119
 
 COCOAPODS: 1.0.1

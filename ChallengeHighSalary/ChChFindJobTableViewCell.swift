@@ -58,7 +58,7 @@ class ChChFindJobTableViewCell: UITableViewCell {
             self.experienceLab.text = jobInfo?.experience
             self.educationLab.text = jobInfo?.education
 //            self.work_propertyLab.text = jobInfo?.work_property ?? "待补充"
-            self.work_propertyLab.text = "待补充"
+            self.work_propertyLab.text = jobInfo?.work_property
 
         }
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CHSMeChatViewController: EaseMessageViewController {
+class CHSMeChatViewController: UIViewController {
 
     var jobInfo:JobInfoDataModel? {
         didSet {
@@ -42,11 +42,6 @@ class CHSMeChatViewController: EaseMessageViewController {
         self.automaticallyAdjustsScrollViewInsets = false
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
-        
-        
-        
-        EMClient.sharedClient().chatManager.getConversation(self.conversationId, type: EMConversationTypeChat, createIfNotExist: true)
-        
         
         
 //        NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];

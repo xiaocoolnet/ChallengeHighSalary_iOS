@@ -358,7 +358,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         company_webBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
         company_webBtn.titleLabel?.numberOfLines = 0
         company_webBtn.contentHorizontalAlignment = .Left
-        company_webBtn.setTitle("\((self.jobInfo?.company_web)!)", forState: .Normal)
+        company_webBtn.setTitle((self.jobInfo?.company_web ?? "")!, forState: .Normal)
         company_webBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
         companyView.addSubview(company_webBtn)
         
@@ -370,7 +370,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         company_nameBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
         company_nameBtn.titleLabel?.numberOfLines = 0
         company_nameBtn.contentHorizontalAlignment = .Left
-        company_nameBtn.setTitle("\((self.jobInfo?.company_name)!)", forState: .Normal)
+        company_nameBtn.setTitle((self.jobInfo?.company_name ?? "")!, forState: .Normal)
         company_nameBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
         companyView.addSubview(company_nameBtn)
         
@@ -440,7 +440,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
 
             descriptionLab.frame.size.height = calculateHeight((self.jobInfo?.description_job ?? "")!, size: 14, width: screenSize.width-16)+8
             
-            positionView.frame.size.height = CGRectGetMaxY(descriptionLab.frame)
+            positionView.frame.size.height = CGRectGetMaxY(descriptionLab.frame)+kHeightScale*10
 
             rootScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(positionView.frame)+kHeightScale*10)
         }
@@ -542,7 +542,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK:- 分享视图
     func shareBtnClick() {
-        let imageArray = ["ic_share_qq","ic_share_wechat","ic_share_friendzone"]
+        let imageArray = ["ic_qq","ic_weixin","ic_share_friendzone"]
         let imageNameArray = ["QQ","微信","朋友圈"]
         
         let bgView = UIButton(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
@@ -628,7 +628,9 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
     // MARK: 立即沟通按钮点击事件
     func chatBtnClick() {
 
-        let chatController = CHSMeChatViewController(conversationChatter: self.jobInfo?.userid, conversationType: EMConversationTypeChat)
+//        let chatController = CHSMeChatViewController(conversationChatter: self.jobInfo?.userid, conversationType: EMConversationTypeChat)
+        let chatController = CHSMeChatViewController()
+
         
         
         chatController.hidesBottomBarWhenPushed = true

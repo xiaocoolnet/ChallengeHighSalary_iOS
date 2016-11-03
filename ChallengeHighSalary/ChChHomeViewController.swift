@@ -137,13 +137,19 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     // MARK: 检索按钮点击事件
     func retrievalBtnClick() {
         print("ChChHomeViewController searchBtnClick")
-        self.navigationController?.pushViewController(CHSChRetrievalViewController(), animated: true)
+        
+        let retrievalController = CHSChRetrievalViewController()
+        retrievalController.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(retrievalController, animated: true)
     }
     
     // MARK: 搜索按钮点击事件
     func searchBtnClick() {
         print("ChChHomeViewController searchBtnClick")
-        self.navigationController?.pushViewController(ChChSearchViewController(), animated: true)
+        
+        let searchController = ChChSearchViewController()
+        searchController.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(searchController, animated: true)
     }
     
     // MARK: seg 点击事件
@@ -190,6 +196,9 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         salaryDrop.selectionAction = { (index, item) in
             
             salaryBtn.setTitle(item, forState: .Normal)
+            
+            adjustBtnsTitleLabelAndImgaeView(salaryBtn)
+            
         }
         
         // 红包
@@ -212,6 +221,9 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         redEnvelopeDrop.selectionAction = { (index, item) in
             
             redEnvelopeBtn.setTitle(item, forState: .Normal)
+            
+            adjustBtnsTitleLabelAndImgaeView(redEnvelopeBtn)
+
         }
         
         // 选择菜单
@@ -256,6 +268,9 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         scaleDrop.selectionAction = { (index, item) in
             
             scaleBtn.setTitle(item, forState: .Normal)
+            
+            adjustBtnsTitleLabelAndImgaeView(scaleBtn)
+
         }
         
         // 附近
@@ -278,6 +293,9 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         nearbyDrop.selectionAction = { (index, item) in
             
             nearbyBtn.setTitle(item, forState: .Normal)
+            
+            adjustBtnsTitleLabelAndImgaeView(nearbyBtn)
+
         }
         
         // 选择菜单

@@ -83,6 +83,7 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
         telTF.frame = CGRectMake(telInputBgView.frame.size.width*0.2+5, telImg.frame.origin.y, telInputBgView.frame.size.width*0.8-10, telImg.frame.size.height)
         telTF.textColor = UIColor.whiteColor()
         telTF.attributedPlaceholder = NSAttributedString(string: "请输入手机号", attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
+        telTF.clearButtonMode = .WhileEditing
         telTF.text = NSUserDefaults.standardUserDefaults().stringForKey(userName_key)
         telTF.keyboardType = .NumberPad
         telTF.returnKeyType = .Next

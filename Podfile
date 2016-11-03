@@ -8,5 +8,4 @@ target 'ChallengeHighSalary' do
   pod 'PickerView', '~> 0.2.3'
   pod 'SDWebImage', '~>3.8'
   pod 'Pgyer', '2.8.4'
-  pod 'HyphenateLite_CN'
 end

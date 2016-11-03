@@ -26,6 +26,8 @@ class CHSChCompanyPositionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var realNameAndPositionLab: UILabel!
     
+    @IBOutlet weak var LineView: UIView!
+    
     var company_infoJob: JobInfoDataModel? {
         didSet {
             self.titleLab.text = company_infoJob!.title ?? ""
@@ -34,6 +36,7 @@ class CHSChCompanyPositionTableViewCell: UITableViewCell {
             self.experienceLab.text = company_infoJob!.experience ?? ""
             self.educationLab.text = company_infoJob!.education ?? ""
             self.work_propertyLab.text = company_infoJob?.work_property ?? ""
+//            self.LineView.frame.size.width = 
             self.logoImg.sd_setImageWithURL(NSURL(string: kImagePrefix+(company_infoJob?.photo ?? "")!), placeholderImage: nil)
             self.realNameAndPositionLab.text = (company_infoJob?.realname ?? "")!+" "+(company_infoJob?.myjob ?? "")!
         }

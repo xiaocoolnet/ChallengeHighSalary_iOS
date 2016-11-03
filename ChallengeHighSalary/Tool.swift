@@ -255,3 +255,13 @@ func exchangeBtnImageAndTitle(button: UIButton, margin: CGFloat) {
     
 //    }
 }
+
+func adjustBtnsTitleLabelAndImgaeView(button:UIButton) {
+    if (button.titleLabel != nil) && (button.imageView != nil) && (button.currentImage != nil) {
+        
+        let margin:CGFloat = 5
+        button.titleLabel?.sizeThatFits(CGSizeMake(button.frame.width-(button.currentImage?.size.width)!-margin, button.frame.height))
+        button.imageForState(.Normal)
+        button.imageView?.frame.origin.x = CGRectGetMaxX((button.titleLabel?.frame)!)+margin
+    }
+}

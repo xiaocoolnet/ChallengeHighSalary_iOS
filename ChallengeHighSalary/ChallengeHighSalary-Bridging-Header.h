@@ -17,8 +17,6 @@
 #import "TPKeyboardAvoidingScrollView.h"
 #import "TPKeyboardAvoidingTableView.h"
 #import <PgySDK/PgyManager.h>
-#import "EMSDK.h"
-#import "EaseUI.h"
 
 #endif /* ChallengeHighSalary_Bridging_Header_h */
 

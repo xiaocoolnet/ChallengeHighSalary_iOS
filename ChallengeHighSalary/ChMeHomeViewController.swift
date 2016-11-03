@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, EMChatManagerDelegate {
+class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let rootTableView = UITableView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height-20-44-49), style: .Plain)
     
@@ -47,8 +47,6 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         ]
     ]
     
-    var conversations = [EMConversation]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,74 +62,64 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationController?.navigationBar.hidden = false
         self.tabBarController?.tabBar.hidden = false
         
-        //消息回调:EMChatManagerChatDelegate
-        
-        //移除消息回调
-        EMClient.sharedClient().chatManager.removeDelegate(self)
-        
-        //注册消息回调
-        EMClient.sharedClient().chatManager.addDelegate(self, delegateQueue: nil)
-        
-        conversations = (EMClient.sharedClient().chatManager.getAllConversations() as! [EMConversation]) ?? [EMConversation]()
-        
         
         self.dataArray.removeRange(Range(4 ..< self.dataArray.count))
-        for conversation in conversations {
-//            [
-//                "title":"王小妞",
-//                "description":"",
-//                "time":"07月20日",
-//                "type":"5"
-//            ],
-            
-            if conversation.conversationId == "admin" {
-                var description = ""
-                switch conversation.latestMessage.body.type {
-                case EMMessageBodyTypeText:
-                    description = (conversation.latestMessage.body as! EMTextMessageBody).text
-                default:
-                    description = "[其他]"
-                }
-                
-                let dic:[String:String] = [
-                    "conversationId":conversation.conversationId,
-                    "title":"系统消息",
-                    "description":description,
-                    "time":self.timeStampToString(String(conversation.latestMessage.timestamp/1000)),
-                    "image":"ic_message_home_系统",
-                    "type":"5"]
-                
-                self.dataArray.append(dic)
-                self.rootTableView.reloadData()
-            }else{
-                
-                FTNetUtil().getMyCompany_info(conversation.conversationId, handle: { (success, response) in
-                    if success {
-                        let company_infoData = response as! Company_infoDataModel
-                        
-                        var description = ""
-                        switch conversation.latestMessage.body.type {
-                        case EMMessageBodyTypeText:
-                            description = (conversation.latestMessage.body as! EMTextMessageBody).text
-                        default:
-                            description = "[其他]"
-                        }
-                        
-                        let dic:[String:String] = [
-                            "conversationId":conversation.conversationId,
-                            "title":company_infoData.company_name,
-                            "description":description,
-                            "time":self.timeStampToString(String(conversation.latestMessage.timestamp/1000)),
-                            "image":kImagePrefix+company_infoData.logo,
-                            "type":"5"]
-                        
-                        self.dataArray.append(dic)
-                        self.rootTableView.reloadData()
-                    }
-                })
-            }
-            
-        }
+//        for conversation in [] {
+////            [
+////                "title":"王小妞",
+////                "description":"",
+////                "time":"07月20日",
+////                "type":"5"
+////            ],
+//            
+//            if conversation.conversationId == "admin" {
+//                var description = ""
+//                switch conversation.latestMessage.body.type {
+//                case EMMessageBodyTypeText:
+//                    description = (conversation.latestMessage.body as! EMTextMessageBody).text
+//                default:
+//                    description = "[其他]"
+//                }
+//                
+//                let dic:[String:String] = [
+//                    "conversationId":conversation.conversationId,
+//                    "title":"系统消息",
+//                    "description":description,
+//                    "time":self.timeStampToString(String(conversation.latestMessage.timestamp/1000)),
+//                    "image":"ic_message_home_系统",
+//                    "type":"5"]
+//                
+//                self.dataArray.append(dic)
+//                self.rootTableView.reloadData()
+//            }else{
+//                
+//                FTNetUtil().getMyCompany_info(conversation.conversationId, handle: { (success, response) in
+//                    if success {
+//                        let company_infoData = response as! Company_infoDataModel
+//                        
+//                        var description = ""
+//                        switch conversation.latestMessage.body.type {
+//                        case EMMessageBodyTypeText:
+//                            description = (conversation.latestMessage.body as! EMTextMessageBody).text
+//                        default:
+//                            description = "[其他]"
+//                        }
+//                        
+//                        let dic:[String:String] = [
+//                            "conversationId":conversation.conversationId,
+//                            "title":company_infoData.company_name,
+//                            "description":description,
+//                            "time":self.timeStampToString(String(conversation.latestMessage.timestamp/1000)),
+//                            "image":kImagePrefix+company_infoData.logo,
+//                            "type":"5"]
+//                        
+//                        self.dataArray.append(dic)
+//                        self.rootTableView.reloadData()
+//                    }
+//                })
+//            }
+//            
+//        }
     }
     
     // MARK: 设置 NavigationBar
@@ -195,21 +183,25 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             self.navigationController?.pushViewController(CHSMeLookMeViewController(), animated: true)
             
         case "5":
-            let chatController = CHSMeChatViewController(conversationChatter: self.conversations[indexPath.row-4].conversationId, conversationType: EMConversationTypeChat)
+//            let chatController = CHSMeChatViewController(conversationChatter: self.conversations[indexPath.row-4].conversationId, conversationType: EMConversationTypeChat)
+            let chatController = CHSMeChatViewController()
+
             chatController.hidesBottomBarWhenPushed = true
             
             chatController.selfTitle = self.dataArray[indexPath.row]["title"]!
-            chatController.conversationId = self.conversations[indexPath.row-4].conversationId
+//            chatController.conversationId = self.conversations[indexPath.row-4].conversationId
             
             
             self.navigationController?.pushViewController(chatController, animated: true)
 
         default:
-            let chatController = CHSMeChatViewController(conversationChatter: self.conversations[indexPath.row-4].conversationId, conversationType: EMConversationTypeChat)
+//            let chatController = CHSMeChatViewController(conversationChatter: self.conversations[indexPath.row-4].conversationId, conversationType: EMConversationTypeChat)
+            let chatController = CHSMeChatViewController()
+
             chatController.hidesBottomBarWhenPushed = true
             
             chatController.selfTitle = self.dataArray[indexPath.row]["title"]!
-            chatController.conversationId = self.conversations[indexPath.row-4].conversationId
+//            chatController.conversationId = self.conversations[indexPath.row-4].conversationId
             
             
             self.navigationController?.pushViewController(chatController, animated: true)
@@ -230,169 +222,6 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         
         //        print(dfmatter.stringFromDate(date))
         return dfmatter.stringFromDate(date)
-    }
-    
-    /*!
-     @method
-     @brief 接收到一条及以上非cmd消息
-     */
-    func didReceiveMessages(aMessages: [AnyObject]!) {
-        print("接收到一条及以上非cmd消息")
-        
-        for msg in aMessages {
-            let message = msg as! EMMessage
-            
-            if message.conversationId == "admin" {
-                self.analysisMessage(message, isSystemMessage: true, company_infoData: nil)
-            }else{
-                
-                FTNetUtil().getMyCompany_info(message.conversationId, handle: { (success, response) in
-                    if success {
-                        let company_infoData = response as! Company_infoDataModel
-                        self.analysisMessage(message, isSystemMessage: false, company_infoData: company_infoData)
-                    }
-                })
-            }
-            
-        }
-        
-    }
-    
-    func analysisMessage(message:EMMessage, isSystemMessage:Bool, company_infoData:Company_infoDataModel?) {
-        var description = ""
-        
-        let msgBody = message.body as EMMessageBody
-        switch msgBody.type {
-        case EMMessageBodyTypeText:
-            
-            // 收到的文字消息
-            let textBody = msgBody as! EMTextMessageBody
-            let txt = textBody.text
-            print("收到的文字是 txt -- %@",txt)
-            
-            description = txt
-            
-        case EMMessageBodyTypeImage:
-            
-            // 得到一个图片消息body
-            let body = msgBody as! EMImageMessageBody
-            print("大图remote路径 -- %@"   ,body.remotePath)
-            print("大图local路径 -- %@"    ,body.localPath) // // 需要使用sdk提供的下载方法后才会存在
-            print("大图的secret -- %@"    ,body.secretKey)
-            print("大图的W -- %f ,大图的H -- %f",body.size.width,body.size.height)
-            print("大图的下载状态 -- %lu",body.downloadStatus)
-            
-            
-            // 缩略图sdk会自动下载
-            print("小图remote路径 -- %@"   ,body.thumbnailRemotePath)
-            print("小图local路径 -- %@"    ,body.thumbnailLocalPath)
-            print("小图的secret -- %@"    ,body.thumbnailSecretKey)
-            print("小图的W -- %f ,大图的H -- %f",body.thumbnailSize.width,body.thumbnailSize.height)
-            print("小图的下载状态 -- %lu",body.thumbnailDownloadStatus)
-            
-            description = "[图片]"
-            
-        case EMMessageBodyTypeLocation:
-            
-            let body = msgBody as! EMLocationMessageBody
-            print("纬度-- %f",body.latitude)
-            print("经度-- %f",body.longitude)
-            print("地址-- %@",body.address)
-            
-            description = "[位置]"
-            
-        case EMMessageBodyTypeVoice:
-            
-            // 音频sdk会自动下载
-            let body = msgBody as! EMVoiceMessageBody
-            print("音频remote路径 -- %@"      ,body.remotePath)
-            print("音频local路径 -- %@"       ,body.localPath) // 需要使用sdk提供的下载方法后才会存在（音频会自动调用）
-            print("音频的secret -- %@"        ,body.secretKey)
-            print("音频文件大小 -- %lld"       ,body.fileLength)
-            print("音频文件的下载状态 -- %lu"   ,body.downloadStatus)
-            print("音频的时间长度 -- %lu"      ,body.duration)
-            
-            description = "[音频]"
-            
-        case EMMessageBodyTypeVideo:
-            
-            let body = msgBody as! EMVideoMessageBody
-            
-            print("视频remote路径 -- %@"      ,body.remotePath)
-            print("视频local路径 -- %@"       ,body.localPath) // 需要使用sdk提供的下载方法后才会存在
-            print("视频的secret -- %@"        ,body.secretKey)
-            print("视频文件大小 -- %lld"       ,body.fileLength)
-            print("视频文件的下载状态 -- %lu"   ,body.downloadStatus)
-            print("视频的时间长度 -- %lu"      ,body.duration)
-            print("视频的W -- %f ,视频的H -- %f", body.thumbnailSize.width, body.thumbnailSize.height);
-            
-            // 缩略图sdk会自动下载
-            print("缩略图的remote路径 -- %@"     ,body.thumbnailRemotePath)
-            print("缩略图的local路径 -- %@"      ,body.thumbnailLocalPath)
-            print("缩略图的secret -- %@"        ,body.thumbnailSecretKey)
-            print("缩略图的下载状态 -- %lu"      ,body.thumbnailDownloadStatus)
-            
-            description = "[视频]"
-            
-        case EMMessageBodyTypeFile:
-            
-            let body = msgBody as! EMFileMessageBody
-            print("文件remote路径 -- %@"      ,body.remotePath)
-            print("文件local路径 -- %@"       ,body.localPath) // 需要使用sdk提供的下载方法后才会存在
-            print("文件的secret -- %@"        ,body.secretKey)
-            print("文件文件大小 -- %lld"       ,body.fileLength)
-            print("文件文件的下载状态 -- %lu"   ,body.downloadStatus)
-            
-            description = "[文件]"
-        default:
-            break
-        }
-        
-        var dic = [String:String]()
-        if isSystemMessage {
-            
-            dic = [
-                "conversationId":message.conversationId,
-                "title":message.conversationId,
-                "description":description,
-                "time":self.timeStampToString(String(message.timestamp/1000)),
-                "image":"",
-                "type":"5"]
-            
-        }else{
-            
-            dic = [
-                "conversationId":message.conversationId,
-                "title":(company_infoData?.company_name ?? "公司名")!,
-                "description":description,
-                "time":self.timeStampToString(String(message.timestamp/1000)),
-                "image":kImagePrefix+(company_infoData?.logo ?? "")!,
-                "type":"5"]
-            
-        }
-        
-        var flag = true
-        for (i,dict) in self.dataArray.enumerate() {
-            if dict["conversationId"]! == "admin" {
-                self.dataArray[i] = dic
-                flag = false
-                self.rootTableView.reloadData()
-            }
-        }
-        
-        if flag {
-            self.dataArray.append(dic)
-            self.rootTableView.reloadData()
-        }
-
-    }
-
-    /*!
-     @method
-     @brief 接收到一条及以上cmd消息
-     */
-    func didReceiveCmdMessages(aCmdMessages: [AnyObject]!) {
-        print("接收到一条及以上cmd消息")
     }
     
     override func didReceiveMemoryWarning() {

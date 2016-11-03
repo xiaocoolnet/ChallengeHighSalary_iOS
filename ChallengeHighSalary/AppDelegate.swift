@@ -22,14 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        //AppKey:注册的AppKey，详细见下面注释。
-        //apnsCertName:推送证书名（不需要加后缀），详细见下面注释。
-        let options = EMOptions(appkey: "tzgx#tzgx")
-        options.apnsCertName = "tzgx_pro_dev"
-        EMClient.sharedClient().initializeSDKWithOptions(options)
-        
-        EMClient.sharedClient().addDelegate(self)
-        
         UITabBar.appearance().tintColor = baseColor
         UITabBar.appearance().backgroundColor = UIColor(red: 248/255.0, green: 248/255.0, blue: 248/255.0, alpha: 1)
         
@@ -101,16 +93,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        
-        EMClient.sharedClient().applicationDidEnterBackground(application)
-        
 
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
         
-        EMClient.sharedClient().applicationWillEnterForeground(application)
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
@@ -227,45 +215,5 @@ extension AppDelegate: CLLocationManagerDelegate
         
     }
     
-}
-
-extension AppDelegate: EMClientDelegate
-{
-    /*!
-     *  自动登录返回结果
-     *
-     *  @param aError 错误信息
-     */
-    func didAutoLoginWithError(aError: EMError!) {
-        print("自动登录返回结果  ",aError ?? "")
-    }
-    
-    /*!
-     *  SDK连接服务器的状态变化时会接收到该回调
-     *
-     *  有以下几种情况，会引起该方法的调用：
-     *  1. 登录成功后，手机无法上网时，会调用该回调
-     *  2. 登录成功后，网络状态变化时，会调用该回调
-     *
-     *  @param aConnectionState 当前状态
-     */
-    func didConnectionStateChanged(aConnectionState: EMConnectionState) {
-        print("SDK连接服务器的状态变化时会接收到该回调  ",aConnectionState)
-    }
-    
-    /*!
-     *  当前登录账号在其它设备登录时会接收到该回调
-     */
-    func didLoginFromOtherDevice() {
-        print("当前登录账号在其它设备登录时会接收到该回调")
-    }
-    
-    /*!
-     *  当前登录账号已经被从服务器端删除时会收到该回调
-     */
-    func didRemovedFromServer() {
-        print("当前登录账号已经被从服务器端删除时会收到该回调")
-    }
-
 }
 
