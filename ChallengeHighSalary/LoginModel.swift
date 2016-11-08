@@ -7,45 +7,48 @@
 //
 
 import UIKit
+import HandyJSON
 
-@objc(CheckphoneModel)
-class CheckphoneModel: D3Model {
+class CheckphoneModel: HandyJSON {
     
     var status: String = ""
     
     var data: String = ""
     
+    required init() {}
+
 }
 
-@objc(CheckCodeModel)
-class CheckCodeModel: D3Model {
+class CheckCodeModel: HandyJSON {
 
     var status: String = ""
 
     var data: CheckCodeData?
     
+    required init() {}
+
 }
 
-@objc(CheckCodeData)
-class CheckCodeData: D3Model {
+class CheckCodeData: HandyJSON {
 
     var code: Int = 0
 
+    required init() {}
+
 }
 
-@objc(LoginModel)
-class LoginModel: D3Model {
+class LoginModel: HandyJSON {
     
     
     var status: String = ""
 
     var data: LoginData?
     
-    
+    required init() {}
+
 }
 
-@objc(LoginData)
-class LoginData: D3Model {
+class LoginData: HandyJSON {
 
     var userid: String = ""
 
@@ -82,6 +85,9 @@ class LoginData: D3Model {
     var photo: String = ""
 
     var myjob: String = ""
+    
+    required init() {}
+
 }
 
 

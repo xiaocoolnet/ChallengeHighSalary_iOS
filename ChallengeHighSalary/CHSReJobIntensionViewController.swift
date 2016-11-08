@@ -21,10 +21,10 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
 
     var pickSelectedRowArray = [[0],[0,0],[0,0],[0]]
 
-    private var areaDic = [String:[String:Array<String>]]() // 地区 字典
-    private var provinceArray=Array<String>() // 省
-    private var cityArray=Array<String>()  // 市
-    private var areaArray=Array<String>() // 区县州
+    fileprivate var areaDic = [String:[String:Array<String>]]() // 地区 字典
+    fileprivate var provinceArray=Array<String>() // 省
+    fileprivate var cityArray=Array<String>()  // 市
+    fileprivate var areaArray=Array<String>() // 区县州
     
     let nameArray = ["工作性质","工作地点","职位类型","行业类别","期望薪资","工作状态"]
 
@@ -33,7 +33,7 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
         "\(CHSUserInfo.currentUserInfo.address)",
         "\(CHSUserInfo.currentUserInfo.position_type)",
         "\(CHSUserInfo.currentUserInfo.categories)",
-        "\(CHSUserInfo.currentUserInfo.wantsalary.stringByReplacingOccurrencesOfString("-", withString: "至"))K /月",
+        "\(CHSUserInfo.currentUserInfo.wantsalary.replacingOccurrences(of: "-", with: "至"))K /月",
         "\(CHSUserInfo.currentUserInfo.jobstate)"
         ] {
         didSet {
@@ -49,11 +49,11 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
         loadData()
         setSubviews()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(JobIntensionChanged(_:)), name: "PersonalChangeJobIntensionNotification", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(JobIntensionChanged(_:)), name: NSNotification.Name(rawValue: "PersonalChangeJobIntensionNotification"), object: nil)
     }
     
-    func JobIntensionChanged(noti:NSNotification) {
-        let userInfo = noti.userInfo
+    func JobIntensionChanged(_ noti:Notification) {
+        let userInfo = (noti as NSNotification).userInfo
         if (userInfo != nil) {
             if userInfo!["type"] as! String == "PositionType" {
                 detailArray[2] = userInfo!["value"] as! String
@@ -63,36 +63,36 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = true
         
-        for (i,obj) in pickJobTypeRequiredArray.enumerate() {
+        for (i,obj) in pickJobTypeRequiredArray.enumerated() {
             if obj == CHSUserInfo.currentUserInfo.work_property {
                 pickSelectedRowArray[0][0] = i
                 break
             }
         }
-        for (i,obj) in pickExpSalaryLowRequiredArray.enumerate() {
-            if obj == CHSUserInfo.currentUserInfo.wantsalary.componentsSeparatedByString("-").first {
+        for (i,obj) in pickExpSalaryLowRequiredArray.enumerated() {
+            if obj == CHSUserInfo.currentUserInfo.wantsalary.components(separatedBy: "-").first {
                 pickSelectedRowArray[2][0] = i
                 break
             }
         }
-        for (i,obj) in pickExpSalarySupRequiredArray.enumerate() {
-            if obj == CHSUserInfo.currentUserInfo.wantsalary.componentsSeparatedByString("-").last {
+        for (i,obj) in pickExpSalarySupRequiredArray.enumerated() {
+            if obj == CHSUserInfo.currentUserInfo.wantsalary.components(separatedBy: "-").last {
                 pickSelectedRowArray[2][1] = i
                 break
             }
         }
-        for (i,obj) in provinceArray.enumerate() {
-            if obj == CHSUserInfo.currentUserInfo.address.componentsSeparatedByString("-").first {
+        for (i,obj) in provinceArray.enumerated() {
+            if obj == CHSUserInfo.currentUserInfo.address.components(separatedBy: "-").first {
                 pickSelectedRowArray[1][0] = i
                 cityArray = Array(areaDic[obj]!.keys)
-                for (i,obj) in cityArray.enumerate() {
-                    if obj == CHSUserInfo.currentUserInfo.address.componentsSeparatedByString("-").last {
+                for (i,obj) in cityArray.enumerated() {
+                    if obj == CHSUserInfo.currentUserInfo.address.components(separatedBy: "-").last {
                         pickSelectedRowArray[1][1] = i
                         break
                     }
@@ -100,7 +100,7 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
                 break
             }
         }
-        for (i,obj) in pickJobStatusSupRequiredArray.enumerate() {
+        for (i,obj) in pickJobStatusSupRequiredArray.enumerated() {
             if obj == CHSUserInfo.currentUserInfo.jobstate {
                 pickSelectedRowArray[3][0] = i
                 break
@@ -113,9 +113,9 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
         
 //        NSUserDefaults.standardUserDefaults().setValue(detailArray, forKey: FTPublishJobdetailArray_key)
         
-        areaDic = NSDictionary.init(contentsOfFile: NSBundle.mainBundle().pathForAuxiliaryExecutable("area.plist")!)!  as! [String:[String:Array<String>]]
+        areaDic = NSDictionary.init(contentsOfFile: Bundle.main.path(forAuxiliaryExecutable: "area.plist")!)!  as! [String:[String:Array<String>]]
         provinceArray = Array(areaDic.keys)
-        provinceArray = provinceArray.sort({ (str1, str2) -> Bool in
+        provinceArray = provinceArray.sorted(by: { (str1, str2) -> Bool in
             str1 < str2
         })
         
@@ -124,7 +124,7 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: 设置子视图
@@ -132,25 +132,25 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
 
         self.title = "求职意向"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .Done, target: self, action: #selector(clickSaveBtn))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .done, target: self, action: #selector(clickSaveBtn))
         
-        rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height)
+        rootTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         rootTableView.rowHeight = 60
         rootTableView.dataSource = self
         rootTableView.delegate = self
         self.view.addSubview(rootTableView)
         
-        rootTableView.tableFooterView = UIView(frame: CGRectZero)
+        rootTableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
     // MARK: 点击保存按钮
     func clickSaveBtn() {
         
-        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
        
         if
@@ -161,15 +161,15 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
         CHSUserInfo.currentUserInfo.wantsalary ==  "\(pickExpSalaryLowRequiredArray[pickSelectedRowArray[2][0]])-\(pickExpSalarySupRequiredArray[pickSelectedRowArray[2][1]])" &&
         CHSUserInfo.currentUserInfo.jobstate ==  detailArray[5]{
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "信息未修改"
             checkCodeHud.hide(true, afterDelay: 1)
             
-            let time: NSTimeInterval = 1.0
-            let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+            let time: TimeInterval = 1.0
+            let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             
-            dispatch_after(delay, dispatch_get_main_queue()) {
-                self.navigationController?.popViewControllerAnimated(true)
+            DispatchQueue.main.asyncAfter(deadline: delay) {
+                _ = self.navigationController?.popViewController(animated: true)
             }
             
             return
@@ -194,19 +194,19 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
                     CHSUserInfo.currentUserInfo.wantsalary =  self.detailArray[4]
                     CHSUserInfo.currentUserInfo.jobstate =  self.detailArray[5]
                     
-                    checkCodeHud.mode = .Text
+                    checkCodeHud.mode = .text
                     checkCodeHud.labelText = "求职意向保存成功"
                     checkCodeHud.hide(true, afterDelay: 1)
                     
-                    let time: NSTimeInterval = 1.0
-                    let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                    let time: TimeInterval = 1.0
+                    let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
                     
-                    dispatch_after(delay, dispatch_get_main_queue()) {
-                        self.navigationController?.popViewControllerAnimated(true)
+                    DispatchQueue.main.asyncAfter(deadline: delay) {
+                        _ = self.navigationController?.popViewController(animated: true)
                     }
                 }else{
                     
-                    checkCodeHud.mode = .Text
+                    checkCodeHud.mode = .text
                     checkCodeHud.labelText = "求职意向保存失败"
                     checkCodeHud.hide(true, afterDelay: 1)
                 }
@@ -214,44 +214,44 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
     }
     
     // MARK:- tableView dataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return nameArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("myInfoCell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "myInfoCell")
         if cell == nil {
-            cell = UITableViewCell(style: .Value1, reuseIdentifier: "myInfoCell")
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "myInfoCell")
         }
         
-        cell?.selectionStyle = .None
-        cell?.accessoryType = .DisclosureIndicator
-        cell?.textLabel?.font = UIFont.systemFontOfSize(16)
-        cell?.textLabel?.textColor = UIColor.blackColor()
-        cell?.textLabel?.textAlignment = .Left
-        cell?.textLabel?.text = nameArray[indexPath.row]
+        cell?.selectionStyle = .none
+        cell?.accessoryType = .disclosureIndicator
+        cell?.textLabel?.font = UIFont.systemFont(ofSize: 16)
+        cell?.textLabel?.textColor = UIColor.black
+        cell?.textLabel?.textAlignment = .left
+        cell?.textLabel?.text = nameArray[(indexPath as NSIndexPath).row]
         
-        cell?.detailTextLabel?.font = UIFont.systemFontOfSize(14)
+        cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 14)
         cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
-        cell?.detailTextLabel?.textAlignment = .Right
-        cell?.detailTextLabel?.text = detailArray[indexPath.row]
+        cell?.detailTextLabel?.textAlignment = .right
+        cell?.detailTextLabel?.text = detailArray[(indexPath as NSIndexPath).row]
         
         return cell!
     }
     
     // MARK:- tableview delegate
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        switch (indexPath.section,indexPath.row) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch ((indexPath as NSIndexPath).section,(indexPath as NSIndexPath).row) {
         case (0,2):
             
             let choosePositionTypeVC = CHSReChoosePositionTypeViewController()
-            choosePositionTypeVC.vcType = .Intension
+            choosePositionTypeVC.vcType = .intension
             self.navigationController?.pushViewController(choosePositionTypeVC, animated: true)
         case (0,3):
             
             let industryCategoriesVC = CHSReChooseIndustryCategoriesViewController()
             industryCategoriesVC.navTitle = "行业选择"
-            industryCategoriesVC.vcType = .Intension
+            industryCategoriesVC.vcType = .intension
             
             self.navigationController?.pushViewController(industryCategoriesVC, animated: true)
         default:
@@ -259,20 +259,20 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
             let bigBgView = UIButton(frame: self.view.bounds)
             bigBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
             bigBgView.tag = 1000
-            bigBgView.addTarget(self, action: #selector(pickerCancelClick), forControlEvents: .TouchUpInside)
+            bigBgView.addTarget(self, action: #selector(pickerCancelClick), for: .touchUpInside)
             self.view.addSubview(bigBgView)
             
-            let pickerBgView = UIView(frame: CGRectMake(0, screenSize.height-kHeightScale*240, screenSize.width, kHeightScale*240))
-            pickerBgView.backgroundColor = UIColor.whiteColor()
+            let pickerBgView = UIView(frame: CGRect(x: 0, y: screenSize.height-kHeightScale*240, width: screenSize.width, height: kHeightScale*240))
+            pickerBgView.backgroundColor = UIColor.white
             bigBgView.addSubview(pickerBgView)
             
-            let pickerLab = UILabel(frame: CGRectMake(0, 0, screenSize.width, 43))
-            pickerLab.textAlignment = .Center
+            let pickerLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 43))
+            pickerLab.textAlignment = .center
             pickerBgView.addSubview(pickerLab)
             
-            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(0, 43), toPoint: CGPointMake(screenSize.width, 43), lineWidth: 1)
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPoint(x: 0, y: 43), toPoint: CGPoint(x: screenSize.width, y: 43), lineWidth: 1)
             
-            pickerView = UIPickerView(frame: CGRectMake(0, 44, screenSize.width, kHeightScale*240-88))
+            pickerView = UIPickerView(frame: CGRect(x: 0, y: 44, width: screenSize.width, height: kHeightScale*240-88))
             
             //            pickerView.subviews[0].layer.borderWidth = 0.5
             //
@@ -283,23 +283,23 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
             
             pickerBgView.addSubview(pickerView)
             
-            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(0, kHeightScale*240-44), toPoint: CGPointMake(screenSize.width, kHeightScale*240-44), lineWidth: 1)
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPoint(x: 0, y: kHeightScale*240-44), toPoint: CGPoint(x: screenSize.width, y: kHeightScale*240-44), lineWidth: 1)
             
-            let cancelBtn = UIButton(frame: CGRectMake(0, kHeightScale*240-43, screenSize.width/2.0-0.5, 43))
-            cancelBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            cancelBtn.setTitle("取消", forState: .Normal)
-            cancelBtn.addTarget(self, action: #selector(pickerCancelClick), forControlEvents: .TouchUpInside)
+            let cancelBtn = UIButton(frame: CGRect(x: 0, y: kHeightScale*240-43, width: screenSize.width/2.0-0.5, height: 43))
+            cancelBtn.setTitleColor(UIColor.black, for: UIControlState())
+            cancelBtn.setTitle("取消", for: UIControlState())
+            cancelBtn.addTarget(self, action: #selector(pickerCancelClick), for: .touchUpInside)
             pickerBgView.addSubview(cancelBtn)
             
-            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(screenSize.width/2.0-0.5, kHeightScale*240-43), toPoint: CGPointMake(screenSize.width/2.0-0.5, kHeightScale*240), lineWidth: 1)
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPoint(x: screenSize.width/2.0-0.5, y: kHeightScale*240-43), toPoint: CGPoint(x: screenSize.width/2.0-0.5, y: kHeightScale*240), lineWidth: 1)
             
-            let sureBtn = UIButton(frame: CGRectMake(screenSize.width/2.0-0.5, kHeightScale*240-43, screenSize.width/2.0-0.5, 43))
-            sureBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            sureBtn.setTitle("确定", forState: .Normal)
-            sureBtn.addTarget(self, action: #selector(sureBtnClick), forControlEvents: .TouchUpInside)
+            let sureBtn = UIButton(frame: CGRect(x: screenSize.width/2.0-0.5, y: kHeightScale*240-43, width: screenSize.width/2.0-0.5, height: 43))
+            sureBtn.setTitleColor(UIColor.black, for: UIControlState())
+            sureBtn.setTitle("确定", for: UIControlState())
+            sureBtn.addTarget(self, action: #selector(sureBtnClick), for: .touchUpInside)
             pickerBgView.addSubview(sureBtn)
             
-            switch (indexPath.section,indexPath.row) {
+            switch ((indexPath as NSIndexPath).section,(indexPath as NSIndexPath).row) {
             case (0,0):
                 pickerLab.text = "工作性质"
                 
@@ -346,25 +346,25 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
         
         if pickerView.tag == 101 {
             
-            detailArray[0] = "\(pickJobTypeRequiredArray[pickerView.selectedRowInComponent(0)])"
+            detailArray[0] = "\(pickJobTypeRequiredArray[pickerView.selectedRow(inComponent: 0)])"
             
-            pickSelectedRowArray[0][0] = pickerView.selectedRowInComponent(0)
+            pickSelectedRowArray[0][0] = pickerView.selectedRow(inComponent: 0)
         }else if pickerView.tag == 102 {
             
-            detailArray[1] = "\(provinceArray[pickerView.selectedRowInComponent(0)])-\(cityArray[pickerView.selectedRowInComponent(1)])"
+            detailArray[1] = "\(provinceArray[pickerView.selectedRow(inComponent: 0)])-\(cityArray[pickerView.selectedRow(inComponent: 1)])"
             
-            pickSelectedRowArray[1][0] = pickerView.selectedRowInComponent(0)
+            pickSelectedRowArray[1][0] = pickerView.selectedRow(inComponent: 0)
         }else if pickerView.tag == 103 {
             
-            detailArray[4] = "\(pickExpSalaryLowRequiredArray[pickerView.selectedRowInComponent(0)])至\(pickExpSalarySupRequiredArray[pickerView.selectedRowInComponent(2)])K /月"
+            detailArray[4] = "\(pickExpSalaryLowRequiredArray[pickerView.selectedRow(inComponent: 0)])至\(pickExpSalarySupRequiredArray[pickerView.selectedRow(inComponent: 2)])K /月"
             
-            pickSelectedRowArray[2][0] = pickerView.selectedRowInComponent(0)
-            pickSelectedRowArray[2][1] = pickerView.selectedRowInComponent(2)
+            pickSelectedRowArray[2][0] = pickerView.selectedRow(inComponent: 0)
+            pickSelectedRowArray[2][1] = pickerView.selectedRow(inComponent: 2)
         }else if pickerView.tag == 104 {
             
-            detailArray[5] = pickJobStatusSupRequiredArray[pickerView.selectedRowInComponent(0)]
+            detailArray[5] = pickJobStatusSupRequiredArray[pickerView.selectedRow(inComponent: 0)]
             
-            pickSelectedRowArray[3][0] = pickerView.selectedRowInComponent(0)
+            pickSelectedRowArray[3][0] = pickerView.selectedRow(inComponent: 0)
         }
         
 //        NSUserDefaults.standardUserDefaults().setValue(detailArray, forKey: FTPublishJobdetailArray_key)
@@ -375,7 +375,7 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
     }
     
     // MARK: 改变分割线颜色
-    func changeSeparatorWithView(view: UIView) {
+    func changeSeparatorWithView(_ view: UIView) {
         
         if view.bounds.size.height <= 1 {
             view.backgroundColor = baseColor
@@ -387,7 +387,7 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
     }
     
     // MARK:- UIPickerView DataSource
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         
         if pickerView.tag == 101 {
             return 1
@@ -402,7 +402,7 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
         }
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
         if pickerView.tag == 101 {
             
@@ -433,11 +433,11 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
     }
     
     // MARK:- UIPickerView Delegate
-    func pickerView(pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 25
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         if pickerView.tag == 101 {
             
@@ -462,19 +462,19 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
         pickerView.reloadAllComponents()
     }
     
-    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         
         self.changeSeparatorWithView(pickerView)
         
-        let view = UILabel(frame: CGRectMake(0, 0, 20, 25))
+        let view = UILabel(frame: CGRect(x: 0, y: 0, width: 20, height: 25))
         //        view.backgroundColor = UIColor.cyanColor()
-        view.frame.size = pickerView.rowSizeForComponent(component)
-        view.textAlignment = .Center
+        view.frame.size = pickerView.rowSize(forComponent: component)
+        view.textAlignment = .center
         
-        if row == pickerView.selectedRowInComponent(component) {
+        if row == pickerView.selectedRow(inComponent: component) {
             view.textColor = baseColor
         }else{
-            view.textColor = UIColor.lightGrayColor()
+            view.textColor = UIColor.lightGray
         }
         
         if pickerView.tag == 101 {

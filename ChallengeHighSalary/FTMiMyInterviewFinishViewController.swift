@@ -10,7 +10,7 @@ import UIKit
 
 class FTMiMyInterviewFinishViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    let rootTableView = UITableView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height-20-44-44), style: .Grouped)
+    let rootTableView = UITableView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height-20-44-44), style: .grouped)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,12 +24,12 @@ class FTMiMyInterviewFinishViewController: UIViewController, UITableViewDataSour
     func setSubviews() {
         
         self.automaticallyAdjustsScrollViewInsets = false
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
         // tableView
-        rootTableView.frame = CGRectMake(0, 0, screenSize.width, screenSize.height-20-44-44)
-        rootTableView.registerNib(UINib.init(nibName: "FTMyInterviewInvitationTableViewCell", bundle: nil), forCellReuseIdentifier: "FTMyInterviewInvitationCell")
-        rootTableView.separatorStyle = .None
+        rootTableView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height-20-44-44)
+        rootTableView.register(UINib.init(nibName: "FTMyInterviewInvitationTableViewCell", bundle: nil), forCellReuseIdentifier: "FTMyInterviewInvitationCell")
+        rootTableView.separatorStyle = .none
         rootTableView.rowHeight = 130
         rootTableView.dataSource = self
         rootTableView.delegate = self
@@ -37,32 +37,32 @@ class FTMiMyInterviewFinishViewController: UIViewController, UITableViewDataSour
     }
     
     // MARK: UITableView DataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 10
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("FTMyInterviewInvitationCell") as! FTMyInterviewInvitationTableViewCell
-        cell.selectionStyle = .None
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FTMyInterviewInvitationCell") as! FTMyInterviewInvitationTableViewCell
+        cell.selectionStyle = .none
         
         return cell
     }
     
     // MARK: UITableView Delegate
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 8
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //        self.navigationController?.pushViewController(CHSChPersonalInfoViewController(), animated: true)
     }
     

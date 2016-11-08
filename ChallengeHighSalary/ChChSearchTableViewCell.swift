@@ -23,10 +23,10 @@ class ChChSearchTableViewCell: UITableViewCell {
         for view in self.contentView.subviews {
             view.removeFromSuperview()
         }
-        titImage.frame = CGRectMake(10, 10, 35, 35)
-        titImage.backgroundColor = UIColor.grayColor()
-        titLab.frame = CGRectMake(50, 10, screenSize.width/2, 35)
-        titLab.font = UIFont.systemFontOfSize(18)
+        titImage.frame = CGRect(x: 10, y: 10, width: 35, height: 35)
+        titImage.backgroundColor = UIColor.gray
+        titLab.frame = CGRect(x: 50, y: 10, width: screenSize.width/2, height: 35)
+        titLab.font = UIFont.systemFont(ofSize: 18)
         
         self.addSubview(titImage)
         self.addSubview(titLab)
@@ -37,7 +37,7 @@ class ChChSearchTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state

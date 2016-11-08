@@ -10,7 +10,7 @@ import UIKit
 
 class CHSReChoosePositionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var vcType:FromVCType = .Default
+    var vcType:FromVCType = .default
 
     let firstTableView = UITableView() // 左 tableview tag = 101
     let secondTableView = UITableView() // 右 tableview tag = 102
@@ -31,16 +31,16 @@ class CHSReChoosePositionViewController: UIViewController, UITableViewDataSource
         setSubviews()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: 设置子视图
@@ -48,14 +48,14 @@ class CHSReChoosePositionViewController: UIViewController, UITableViewDataSource
         
         self.automaticallyAdjustsScrollViewInsets = false
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
         
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
         self.title = "选择职位"
         
         // tableView
-        firstTableView.frame = CGRectMake(0, 64, kWidthScale*160, screenSize.height-20-44)
+        firstTableView.frame = CGRect(x: 0, y: 64, width: kWidthScale*160, height: screenSize.height-20-44)
         firstTableView.backgroundColor = UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
         firstTableView.rowHeight = 40
         firstTableView.tag = 101
@@ -63,8 +63,8 @@ class CHSReChoosePositionViewController: UIViewController, UITableViewDataSource
         firstTableView.delegate = self
         self.view.addSubview(firstTableView)
         
-        secondTableView.frame = CGRectMake(kWidthScale*160, 64, kWidthScale*215, screenSize.height-20-44)
-        secondTableView.backgroundColor = UIColor.whiteColor()
+        secondTableView.frame = CGRect(x: kWidthScale*160, y: 64, width: kWidthScale*215, height: screenSize.height-20-44)
+        secondTableView.backgroundColor = UIColor.white
         secondTableView.rowHeight = 40
         secondTableView.tag = 102
         secondTableView.dataSource = self
@@ -79,7 +79,7 @@ class CHSReChoosePositionViewController: UIViewController, UITableViewDataSource
     }
     
     // MARK: UITableView DataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == 101 {
             return firstArray.count
         }else{
@@ -87,69 +87,69 @@ class CHSReChoosePositionViewController: UIViewController, UITableViewDataSource
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("CHSMiSettingCell")
+        var cell = tableView.dequeueReusableCell(withIdentifier: "CHSMiSettingCell")
         if cell == nil {
-            cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "CHSMiSettingCell")
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "CHSMiSettingCell")
         }
-        cell!.selectionStyle = .None
+        cell!.selectionStyle = .none
         
-        cell!.accessoryType = .None
+        cell!.accessoryType = .none
         
-        cell?.textLabel?.font = UIFont.systemFontOfSize(15)
-        cell?.textLabel?.textAlignment = .Left
+        cell?.textLabel?.font = UIFont.systemFont(ofSize: 15)
+        cell?.textLabel?.textAlignment = .left
         
-        cell?.backgroundColor = UIColor.clearColor()
+        cell?.backgroundColor = UIColor.clear
         
         if tableView.tag == 101 {
             
-            if firstCurrentSelectedRow == indexPath.row {
+            if firstCurrentSelectedRow == (indexPath as NSIndexPath).row {
                 cell?.textLabel?.textColor = baseColor
-                cell?.backgroundColor = UIColor.whiteColor()
+                cell?.backgroundColor = UIColor.white
             }else{
                 
-                cell?.textLabel?.textColor = UIColor.blackColor()
-                cell?.backgroundColor = UIColor.clearColor()
+                cell?.textLabel?.textColor = UIColor.black
+                cell?.backgroundColor = UIColor.clear
             }
             
-            cell?.textLabel!.text = firstArray[indexPath.row]
+            cell?.textLabel!.text = firstArray[(indexPath as NSIndexPath).row]
         }else{
             
-            if secondCurrentSelectedRow == indexPath.row {
+            if secondCurrentSelectedRow == (indexPath as NSIndexPath).row {
                 cell?.textLabel?.textColor = baseColor
             }else{
                 
-                cell?.textLabel?.textColor = UIColor.blackColor()
+                cell?.textLabel?.textColor = UIColor.black
             }
             
-            cell?.textLabel!.text = secondArray[indexPath.row]
+            cell?.textLabel!.text = secondArray[(indexPath as NSIndexPath).row]
         }
         
         return cell!
     }
     
     // MARK: UITableView Delegate
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.tag == 101 {
             
-            firstCurrentSelectedRow = indexPath.row
+            firstCurrentSelectedRow = (indexPath as NSIndexPath).row
             
-            secondArray = rootDic[firstArray[indexPath.row]]!
+            secondArray = rootDic[firstArray[(indexPath as NSIndexPath).row]]!
         }else{
             
-            secondCurrentSelectedRow = indexPath.row
+            secondCurrentSelectedRow = (indexPath as NSIndexPath).row
             
             
-            if self.vcType == .Intension {
-                NSNotificationCenter.defaultCenter().postNotificationName("PersonalChangeJobIntensionNotification", object: nil, userInfo: ["type":"PositionType","value":secondArray[indexPath.row]])
+            if self.vcType == .intension {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "PersonalChangeJobIntensionNotification"), object: nil, userInfo: ["type":"PositionType","value":secondArray[(indexPath as NSIndexPath).row]])
                 
-            }else if self.vcType == .JobExperience {
-                NSNotificationCenter.defaultCenter().postNotificationName("PersonalChangeJobExperienceNotification", object: nil, userInfo: ["type":"PositionType","value":secondArray[indexPath.row]])
+            }else if self.vcType == .jobExperience {
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "PersonalChangeJobExperienceNotification"), object: nil, userInfo: ["type":"PositionType","value":secondArray[(indexPath as NSIndexPath).row]])
                 
             }
             
-            self.navigationController?.popToViewController((self.navigationController?.viewControllers[(self.navigationController?.viewControllers.endIndex)!-3])!, animated: true)
+            _ = self.navigationController?.popToViewController((self.navigationController?.viewControllers[(self.navigationController?.viewControllers.endIndex)!-3])!, animated: true)
         }
         secondTableView.reloadData()
         firstTableView.reloadData()

@@ -20,16 +20,16 @@ class CHSMiMyBlacklistViewController: UIViewController, UITableViewDataSource, U
         setSubviews()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: 设置子视图
@@ -37,15 +37,15 @@ class CHSMiMyBlacklistViewController: UIViewController, UITableViewDataSource, U
         
         self.automaticallyAdjustsScrollViewInsets = false
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
         
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
         self.title = "我的黑名单"
         
         // tableView
-        rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height-20-44)
-        rootTableView.registerNib(UINib.init(nibName: "CHSMiMyBlacklistTableViewCell", bundle: nil), forCellReuseIdentifier: "CHSMiMyBlacklistCell")
+        rootTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-20-44)
+        rootTableView.register(UINib.init(nibName: "CHSMiMyBlacklistTableViewCell", bundle: nil), forCellReuseIdentifier: "CHSMiMyBlacklistCell")
         rootTableView.rowHeight = 89
         rootTableView.dataSource = self
         rootTableView.delegate = self
@@ -53,14 +53,14 @@ class CHSMiMyBlacklistViewController: UIViewController, UITableViewDataSource, U
     }
     
     // MARK: UITableView DataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("CHSMiMyBlacklistCell") as! CHSMiMyBlacklistTableViewCell
-        cell.selectionStyle = .None
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CHSMiMyBlacklistCell") as! CHSMiMyBlacklistTableViewCell
+        cell.selectionStyle = .none
         
         return cell
     }

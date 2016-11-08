@@ -7,19 +7,19 @@
 //
 
 import UIKit
+import HandyJSON
 
-@objc(MyResumeModel)
-class MyResumeModel: D3Model {
+class MyResumeModel: HandyJSON {
     
     var status = ""
     
     var data: MyResumeData?
     
-    
+    required init() {}
+
 }
 
-@objc(MyResumeData)
-class MyResumeData: D3Model {
+class MyResumeData: HandyJSON {
     
     var education: [EducationModel]?
     
@@ -75,10 +75,11 @@ class MyResumeData: D3Model {
     
     var resumes_id = ""
     
+    required init() {}
+
 }
 
-@objc(WorkModel)
-class WorkModel: D3Model {
+class WorkModel: HandyJSON {
     
     var userid = ""
     
@@ -96,10 +97,11 @@ class WorkModel: D3Model {
     
     var company_industry = ""
     
+    required init() {}
+
 }
 
-@objc(EducationModel)
-class EducationModel: D3Model {
+class EducationModel: HandyJSON {
     
     var userid = ""
     
@@ -115,10 +117,11 @@ class EducationModel: D3Model {
     
     var create_time = ""
     
+    required init() {}
+
 }
 
-@objc(ProjectModel)
-class ProjectModel: D3Model {
+class ProjectModel: HandyJSON {
 
     var description_project = ""
 
@@ -132,18 +135,21 @@ class ProjectModel: D3Model {
 
     var end_time = ""
 
+    required init() {}
+
 }
 
-@objc(JobInfoModel)
-class JobInfoModel: D3Model {
+class JobInfoModel: HandyJSON {
     
     var status: String?
 
     var data: [JobInfoDataModel]?
+    
+    required init() {}
+
 }
 
-@objc(JobInfoDataModel)
-class JobInfoDataModel: D3Model {
+class JobInfoDataModel: HandyJSON {
 
    
     var education: String?
@@ -199,12 +205,17 @@ class JobInfoDataModel: D3Model {
     var address: String?
     
     var photo: String?
+    
+    required init() {}
+
 }
 
-@objc(CompanyListModel)
-class CompanyListModel: D3Model {
+class CompanyListModel: HandyJSON {
     
     var status = ""
 
     var data: [Company_infoDataModel]?
+    
+    required init() {}
+
 }

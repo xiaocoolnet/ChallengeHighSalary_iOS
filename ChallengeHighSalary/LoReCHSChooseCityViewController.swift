@@ -13,10 +13,10 @@ class LoReCHSChooseCityViewController: UIViewController, UITableViewDataSource, 
     var cityDict = [String:Array<String>]()
     var cityIndexArray = Array<String>()
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         AppDelegate().loadLocation()
-        self.tabBarController?.tabBar.hidden = true
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     override func viewDidLoad() {
@@ -29,23 +29,23 @@ class LoReCHSChooseCityViewController: UIViewController, UITableViewDataSource, 
     }
     
     func loadData() {
-        let path = NSBundle.mainBundle().pathForResource("citydict", ofType: "plist")
+        let path = Bundle.main.path(forResource: "citydict", ofType: "plist")
         cityDict = NSDictionary(contentsOfFile: path!) as! [String:Array<String>]
         
-        cityIndexArray = Array(cityDict.keys).sort(){ $1 > $0 }
+        cityIndexArray = Array(cityDict.keys).sorted(){ $1 > $0 }
         
         
         let positioningCityArray = [positioningCity]
         let hotCityArray = ["上海","北京","广州","深圳","武汉","天津","西安","南京","杭州"]
-        cityIndexArray.insert("定位", atIndex: 0)
-        cityIndexArray.insert("热门", atIndex: 1)
+        cityIndexArray.insert("定位", at: 0)
+        cityIndexArray.insert("热门", at: 1)
         
         cityDict["定位"] = positioningCityArray
         cityDict["热门"] = hotCityArray
         
         //        self.sectionCitySpell.addObjectsFromArray(self.citySpell as [AnyObject]);
         print(cityIndexArray)
-        NSNotificationCenter.defaultCenter().addObserverForName("positioningCityNotification", object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (noti) in
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "positioningCityNotification"), object: nil, queue: OperationQueue.main, using: { (noti) in
             print("chchcity.. 执行")
             self.cityDict["定位"] = [positioningCity]
         })
@@ -53,7 +53,7 @@ class LoReCHSChooseCityViewController: UIViewController, UITableViewDataSource, 
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
 //        self.navigationController?.popViewControllerAnimated(true)
     }
     
@@ -65,38 +65,38 @@ class LoReCHSChooseCityViewController: UIViewController, UITableViewDataSource, 
         self.automaticallyAdjustsScrollViewInsets = false
         
 //        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(popViewcontroller))
         
-        let searchBar = UISearchBar(frame: CGRectMake(0, 64, screenSize.width, 70))
+        let searchBar = UISearchBar(frame: CGRect(x: 0, y: 64, width: screenSize.width, height: 70))
         searchBar.placeholder = "输入城市或拼音查询"
         searchBar.barTintColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         self.view.addSubview(searchBar)
         
         
-        let myTableView = UITableView(frame: CGRectMake(0, CGRectGetMaxY(searchBar.frame), screenSize.width, screenSize.height-CGRectGetMaxY(searchBar.frame)), style: .Plain)
-        myTableView.sectionIndexColor = UIColor.grayColor()
-        myTableView.sectionIndexBackgroundColor = UIColor.clearColor()
+        let myTableView = UITableView(frame: CGRect(x: 0, y: searchBar.frame.maxY, width: screenSize.width, height: screenSize.height-searchBar.frame.maxY), style: .plain)
+        myTableView.sectionIndexColor = UIColor.gray
+        myTableView.sectionIndexBackgroundColor = UIColor.clear
         myTableView.rowHeight = 200
-        myTableView.separatorStyle = .None
+        myTableView.separatorStyle = .none
         myTableView.dataSource = self
         myTableView.delegate = self
-        myTableView.registerClass(ChChCityTableViewCell.self, forCellReuseIdentifier: "ChChCityTableViewCell")
+        myTableView.register(ChChCityTableViewCell.self, forCellReuseIdentifier: "ChChCityTableViewCell")
         self.view.addSubview(myTableView)
     }
     
     // MARK:- TableView DataSource
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return cityIndexArray.count
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
-    func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return cityIndexArray
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch cityIndexArray[section] {
         case "定位":
             return "定位城市"
@@ -107,21 +107,21 @@ class LoReCHSChooseCityViewController: UIViewController, UITableViewDataSource, 
         }
     }
     
-    func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
+    func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         return index
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ChChCityTableViewCell") as! ChChCityTableViewCell
-        cell.selectionStyle = .None
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ChChCityTableViewCell") as! ChChCityTableViewCell
+        cell.selectionStyle = .none
         
         cell.delegate = self
         
-        cell.setBtns(cityDict[cityIndexArray[indexPath.section]]!, indexPath: indexPath)
+        cell.setBtns(cityDict[cityIndexArray[(indexPath as NSIndexPath).section]]!, indexPath: indexPath)
         return cell
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //        tableView.cellForRowAtIndexPath(indexPath)
         let cityBtnMargin:CGFloat = 10
         var cityBtnX:CGFloat = cityBtnMargin
@@ -129,13 +129,13 @@ class LoReCHSChooseCityViewController: UIViewController, UITableViewDataSource, 
         var cityBtnWidth:CGFloat = 0
         let cityBtnHeight:CGFloat = 25
         
-        for (i,city) in cityDict[cityIndexArray[indexPath.section]]!.enumerate() {
+        for (i,city) in cityDict[cityIndexArray[(indexPath as NSIndexPath).section]]!.enumerated() {
             cityBtnWidth = calculateWidth(city, size: 14, height: cityBtnHeight)+cityBtnMargin*4
             
             
-            if i+1 < cityDict[cityIndexArray[indexPath.section]]!.count {
+            if i+1 < cityDict[cityIndexArray[(indexPath as NSIndexPath).section]]!.count {
                 
-                let nextBtnWidth = calculateWidth(cityDict[cityIndexArray[indexPath.section]]![i+1], size: 14, height: cityBtnHeight)+cityBtnMargin*4
+                let nextBtnWidth = calculateWidth(cityDict[cityIndexArray[(indexPath as NSIndexPath).section]]![i+1], size: 14, height: cityBtnHeight)+cityBtnMargin*4
                 
                 if cityBtnWidth + cityBtnX + cityBtnMargin + nextBtnWidth >= screenSize.width - 20 {
                     cityBtnX = cityBtnMargin
@@ -150,8 +150,8 @@ class LoReCHSChooseCityViewController: UIViewController, UITableViewDataSource, 
         return cityBtnY+cityBtnHeight+cityBtnMargin
     }
     
-    func cityTableViewCellCityBtnClick(cityBtn: UIButton, indexPath: NSIndexPath, index: Int) {
-        NSNotificationCenter.defaultCenter().postNotificationName("currentCityChanged", object: cityBtn.currentTitle!)
+    func cityTableViewCellCityBtnClick(_ cityBtn: UIButton, indexPath: IndexPath, index: Int) {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "currentCityChanged"), object: cityBtn.currentTitle!)
         
         self.popViewcontroller()
     }

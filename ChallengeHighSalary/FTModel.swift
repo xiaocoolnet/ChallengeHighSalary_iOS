@@ -7,18 +7,19 @@
 //
 
 import UIKit
+import HandyJSON
 
-@objc(Company_infoModel)
-class Company_infoModel: D3Model {
+class Company_infoModel: HandyJSON {
 
     var status = ""
 
     var data: Company_infoDataModel?
     
+    required init() {}
+    
 }
 
-@objc(Company_infoDataModel)
-class Company_infoDataModel: D3Model {
+class Company_infoDataModel: HandyJSON {
     
     var company_name = ""
 
@@ -49,18 +50,21 @@ class Company_infoDataModel: D3Model {
     
     var produte_info = ""
 
+    required init() {}
+
 }
 
-@objc(ResumeListModel)
-class ResumeListModel: D3Model {
+class ResumeListModel: HandyJSON {
     
     var status = ""
     
     var data: [MyResumeData]?
     
-    
+    required init() {}
+
 }
-class Jobs: NSObject {
+
+class Jobs: HandyJSON {
 
     var experience: String?
 
@@ -91,6 +95,8 @@ class Jobs: NSObject {
     var photo: String?
 
     var myjob: String?
+
+    required init() {}
 
 }
 

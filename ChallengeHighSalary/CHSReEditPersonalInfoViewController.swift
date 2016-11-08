@@ -42,11 +42,11 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
     
     let nameArray = [["个人头像","真实姓名","性别","目前所在城市","工作年限"],["QQ","微信","微博"]]
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     override func viewDidLoad() {
@@ -57,10 +57,10 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
         loadData()
         setSubviews()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(currentCityChanged(_:)), name: "currentCityChanged", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(currentCityChanged(_:)), name: NSNotification.Name(rawValue: "currentCityChanged"), object: nil)
     }
     
-    func currentCityChanged(noti:NSNotification) {
+    func currentCityChanged(_ noti:Notification) {
         currentCity = noti.object as! String
         self.rootTableView.reloadData()
     }
@@ -68,10 +68,10 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
     // MARK: 加载数据
     func loadData() {
         
-        selectedImage = UIImage(data: NSData(contentsOfURL: NSURL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!)!)
+        selectedImage = UIImage(data: try! Data(contentsOf: URL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!))
         orignalImage = selectedImage
         nameText = CHSUserInfo.currentUserInfo.realName
-        womanBtn.selected = CHSUserInfo.currentUserInfo.sex == "0" ? true:false
+        womanBtn.isSelected = CHSUserInfo.currentUserInfo.sex == "0" ? true:false
         currentCity = CHSUserInfo.currentUserInfo.city
         jobTime = CHSUserInfo.currentUserInfo.work_life
         QQNumber = CHSUserInfo.currentUserInfo.qqNumber == "" ? nil:CHSUserInfo.currentUserInfo.qqNumber
@@ -81,7 +81,7 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
 
     // MARK: 设置子视图
@@ -89,46 +89,46 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
         
         self.title = "个人信息"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .Done, target: self, action: #selector(clickSaveBtn))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .done, target: self, action: #selector(clickSaveBtn))
         
-        rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height)
+        rootTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         rootTableView.rowHeight = 60
         rootTableView.dataSource = self
         rootTableView.delegate = self
         self.view.addSubview(rootTableView)
         
-        rootTableView.tableFooterView = UIView(frame: CGRectZero)
+        rootTableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
     // MARK: 点击保存按钮
     func clickSaveBtn() {
         
-        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if
         selectedImage ==  orignalImage &&
         nameTf.text == CHSUserInfo.currentUserInfo.realName &&
-        womanBtn.selected == (CHSUserInfo.currentUserInfo.sex == "0" ? true:false) &&
+        womanBtn.isSelected == (CHSUserInfo.currentUserInfo.sex == "0" ? true:false) &&
         currentCity == CHSUserInfo.currentUserInfo.city &&
         jobTime == CHSUserInfo.currentUserInfo.work_life &&
         QQTf.text == CHSUserInfo.currentUserInfo.qqNumber &&
         wechatTf.text == CHSUserInfo.currentUserInfo.weixinNumber &&
         weiboTf.text == CHSUserInfo.currentUserInfo.weiboNumber{
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "信息未修改"
             checkCodeHud.hide(true, afterDelay: 1)
             
-            let time: NSTimeInterval = 1.0
-            let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+            let time: TimeInterval = 1.0
+            let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             
-            dispatch_after(delay, dispatch_get_main_queue()) {
-                self.presentViewController(CHRoHomeViewController(), animated: true, completion: nil)
+            DispatchQueue.main.asyncAfter(deadline: delay) {
+                self.present(CHRoHomeViewController(), animated: true, completion: nil)
             }
             
             return
@@ -137,25 +137,25 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
         
         if (selectedImage == nil) {
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请先上传头像"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }else if nameTf.text!.isEmpty {
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请输入真实姓名"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }else if currentCity == "请选择目前所在城市" {
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请选择目前所在城市"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }else if jobTime == "请选择工作年限" {
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请选择工作年限"
             checkCodeHud.hide(true, afterDelay: 1)
             return
@@ -163,9 +163,9 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
             
             checkCodeHud.labelText = "正在上传头像"
             
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyyMMddHHmmss"
-            let dateStr = dateFormatter.stringFromDate(NSDate())
+            let dateStr = dateFormatter.string(from: Date())
             let imageName = "avatar" + dateStr + CHSUserInfo.currentUserInfo.userid + ".png"
             
             LoginNetUtil().uploadImage(imageName, image: selectedImage!) { (success, response) in
@@ -177,7 +177,7 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
                         CHSUserInfo.currentUserInfo.userid,
                         avatar: imageName,
                         realname: self.nameTf.text!,
-                        sex: self.womanBtn.selected ? "0":"1",
+                        sex: self.womanBtn.isSelected ? "0":"1",
                         city: self.currentCity,
                         work_life: self.jobTime,
                         qq: self.QQTf.text!,
@@ -185,19 +185,19 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
                         weibo: self.weiboTf.text!, handle: { (success, response) in
                             if success {
                                 
-                                checkCodeHud.mode = .Text
+                                checkCodeHud.mode = .text
                                 checkCodeHud.labelText = "个人信息保存成功"
                                 checkCodeHud.hide(true, afterDelay: 1)
                                 
-                                let time: NSTimeInterval = 1.0
-                                let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                                let time: TimeInterval = 1.0
+                                let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
                                 
-                                dispatch_after(delay, dispatch_get_main_queue()) {
-                                    self.presentViewController(CHRoHomeViewController(), animated: true, completion: nil)
+                                DispatchQueue.main.asyncAfter(deadline: delay) {
+                                    self.present(CHRoHomeViewController(), animated: true, completion: nil)
                                 }
                             }else{
                                 
-                                checkCodeHud.mode = .Text
+                                checkCodeHud.mode = .text
                                 checkCodeHud.labelText = "个人信息保存失败"
                                 checkCodeHud.hide(true, afterDelay: 1)
                             }
@@ -205,7 +205,7 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
                     
                 }else{
                     
-                    checkCodeHud.mode = .Text
+                    checkCodeHud.mode = .text
                     checkCodeHud.labelText = "上传头像失败"
                     checkCodeHud.hide(true, afterDelay: 1)
                 }
@@ -215,106 +215,106 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
     }
     
     // MARK:- tableView dataSource
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return nameArray[section].count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("myInfoCell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "myInfoCell")
         if cell == nil {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: "myInfoCell")
+            cell = UITableViewCell(style: .default, reuseIdentifier: "myInfoCell")
         }
         
-        cell?.selectionStyle = .None
-        cell?.accessoryType = .DetailDisclosureButton
-        switch indexPath.section {
+        cell?.selectionStyle = .none
+        cell?.accessoryType = .detailDisclosureButton
+        switch (indexPath as NSIndexPath).section {
         case 0:
-            switch indexPath.row {
+            switch (indexPath as NSIndexPath).row {
             case 0:
-                headerImg.frame = CGRectMake(0, 0, 50, 50)
+                headerImg.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
                 headerImg.layer.cornerRadius = 25
                 headerImg.clipsToBounds = true
                 
-                headerImg.sd_setImageWithURL(NSURL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!, placeholderImage: UIImage(named: "temp_default_headerImg"))
+                headerImg.sd_setImage(with: URL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!, placeholderImage: UIImage(named: "temp_default_headerImg"))
 
 //                headerImg.image = selectedImage == nil ? UIImage(named: "temp_default_headerImg"):selectedImage
                 cell?.accessoryView = headerImg
             case 1:
-                nameTf.frame = CGRectMake(0, 0, screenSize.width*0.5, 50)
+                nameTf.frame = CGRect(x: 0, y: 0, width: screenSize.width*0.5, height: 50)
                 nameTf.placeholder = "请输入真实姓名"
-                nameTf.textAlignment = .Right
+                nameTf.textAlignment = .right
                 nameTf.text = nameTf.text == "" ?  nameText:nameTf.text
                 cell?.accessoryView = nameTf
             case 2:
-                let sexView = UIView(frame: CGRectMake(0, 0, 100, 50))
+                let sexView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
                 
-                womanBtn.frame = CGRectMake(0, 0, 50, 50)
-                womanBtn.contentHorizontalAlignment = .Right
-                womanBtn.setImage(UIImage(named: "ic_选择_nor"), forState: .Normal)
-                womanBtn.setImage(UIImage(named: "ic_选择_sel"), forState: .Selected)
-                womanBtn.setTitle("女", forState: .Normal)
-                womanBtn.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-                womanBtn.addTarget(self, action: #selector(sexBtnClick(_:)), forControlEvents: .TouchUpInside)
+                womanBtn.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+                womanBtn.contentHorizontalAlignment = .right
+                womanBtn.setImage(UIImage(named: "ic_选择_nor"), for: UIControlState())
+                womanBtn.setImage(UIImage(named: "ic_选择_sel"), for: .selected)
+                womanBtn.setTitle("女", for: UIControlState())
+                womanBtn.setTitleColor(UIColor.lightGray, for: UIControlState())
+                womanBtn.addTarget(self, action: #selector(sexBtnClick(_:)), for: .touchUpInside)
                 sexView.addSubview(womanBtn)
                 
-                manBtn.frame = CGRectMake(50, 0, 50, 50)
-                manBtn.contentHorizontalAlignment = .Right
-                manBtn.setImage(UIImage(named: "ic_选择_nor"), forState: .Normal)
-                manBtn.setImage(UIImage(named: "ic_选择_sel"), forState: .Selected)
-                manBtn.setTitle("男", forState: .Normal)
-                manBtn.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-                manBtn.addTarget(self, action: #selector(sexBtnClick(_:)), forControlEvents: .TouchUpInside)
+                manBtn.frame = CGRect(x: 50, y: 0, width: 50, height: 50)
+                manBtn.contentHorizontalAlignment = .right
+                manBtn.setImage(UIImage(named: "ic_选择_nor"), for: UIControlState())
+                manBtn.setImage(UIImage(named: "ic_选择_sel"), for: .selected)
+                manBtn.setTitle("男", for: UIControlState())
+                manBtn.setTitleColor(UIColor.lightGray, for: UIControlState())
+                manBtn.addTarget(self, action: #selector(sexBtnClick(_:)), for: .touchUpInside)
                 sexView.addSubview(manBtn)
                 
-                womanBtn.selected = womanBtn.selected ? true:false
-                manBtn.selected = womanBtn.selected ? false:true
+                womanBtn.isSelected = womanBtn.isSelected ? true:false
+                manBtn.isSelected = womanBtn.isSelected ? false:true
                 
                 cell?.accessoryView = sexView
             case 3:
-                let cityLab = UILabel(frame: CGRectMake(0, 0, screenSize.width*0.5, 50))
+                let cityLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width*0.5, height: 50))
                 cityLab.text = currentCity
                 if currentCity == "请选择目前所在城市" {
-                    cityLab.textColor = UIColor.lightGrayColor()
+                    cityLab.textColor = UIColor.lightGray
                 }else{
-                    cityLab.textColor = UIColor.blackColor()
+                    cityLab.textColor = UIColor.black
                 }
-                cityLab.textAlignment = .Right
+                cityLab.textAlignment = .right
                 cell?.accessoryView = cityLab
             case 4:
-                let jobTimeLab = UILabel(frame: CGRectMake(0, 0, screenSize.width*0.5, 50))
+                let jobTimeLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width*0.5, height: 50))
                 jobTimeLab.text = jobTime
                 if jobTime == "请选择工作年限" {
-                    jobTimeLab.textColor = UIColor.lightGrayColor()
+                    jobTimeLab.textColor = UIColor.lightGray
                 }else{
-                    jobTimeLab.textColor = UIColor.blackColor()
+                    jobTimeLab.textColor = UIColor.black
                 }
-                jobTimeLab.textAlignment = .Right
+                jobTimeLab.textAlignment = .right
                 cell?.accessoryView = jobTimeLab
             default:
                 cell?.accessoryView = nil
             }
         case 1:
-            switch indexPath.row {
+            switch (indexPath as NSIndexPath).row {
             case 0:
-                QQTf.frame = CGRectMake(0, 0, screenSize.width*0.5, 50)
+                QQTf.frame = CGRect(x: 0, y: 0, width: screenSize.width*0.5, height: 50)
                 QQTf.placeholder = "请输入QQ账号"
-                QQTf.textAlignment = .Right
+                QQTf.textAlignment = .right
                 QQTf.text = QQTf.text == "" ?  QQNumber:QQTf.text
                 cell?.accessoryView = QQTf
             case 1:
-                wechatTf.frame = CGRectMake(0, 0, screenSize.width*0.5, 50)
+                wechatTf.frame = CGRect(x: 0, y: 0, width: screenSize.width*0.5, height: 50)
                 wechatTf.placeholder = "请输入微信账号"
-                wechatTf.textAlignment = .Right
+                wechatTf.textAlignment = .right
                 wechatTf.text = wechatTf.text == "" ?  wechatNumber:wechatTf.text!
                 cell?.accessoryView = wechatTf
             case 2:
-                weiboTf.frame = CGRectMake(0, 0, screenSize.width*0.5, 50)
+                weiboTf.frame = CGRect(x: 0, y: 0, width: screenSize.width*0.5, height: 50)
                 weiboTf.placeholder = "请输入微博账号"
-                weiboTf.textAlignment = .Right
+                weiboTf.textAlignment = .right
                 weiboTf.text = weiboTf.text == "" ? weiboNumber:weiboTf.text!
                 cell?.accessoryView = weiboTf
             default:
@@ -324,28 +324,28 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
             cell?.accessoryView = nil
         }
         
-        cell?.textLabel?.text = nameArray[indexPath.section][indexPath.row]
+        cell?.textLabel?.text = nameArray[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
         
         return cell!
     }
     
     // MARK:- tableView delegate
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 1 {
             return 35
         }else{
             return 0.0001
         }
     }
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if section == 1 {
             
-            let sectionHeaderBgView = UIView(frame: CGRectMake(0, 0, screenSize.width, 35))
+            let sectionHeaderBgView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 35))
             
-            let sectionHeaderLab = UILabel(frame: CGRectMake(20, 0, screenSize.width-40, 35))
-            sectionHeaderLab.font = UIFont.systemFontOfSize(15)
-            sectionHeaderLab.textColor = UIColor.lightGrayColor()
+            let sectionHeaderLab = UILabel(frame: CGRect(x: 20, y: 0, width: screenSize.width-40, height: 35))
+            sectionHeaderLab.font = UIFont.systemFont(ofSize: 15)
+            sectionHeaderLab.textColor = UIColor.lightGray
             sectionHeaderLab.text = "账号关联"
             sectionHeaderBgView.addSubview(sectionHeaderLab)
             
@@ -355,62 +355,62 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
         }
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        switch (indexPath.section,indexPath.row) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch ((indexPath as NSIndexPath).section,(indexPath as NSIndexPath).row) {
         case (0,0):
             
-            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
-            let cameraAction = UIAlertAction(title: "拍照", style: .Default, handler: { (action) in
+            let cameraAction = UIAlertAction(title: "拍照", style: .default, handler: { (action) in
                 
-                if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
                     let picker = UIImagePickerController()
                     picker.delegate = self
                     picker.allowsEditing = true
-                    picker.sourceType = .Camera
-                    self.presentViewController(picker, animated: true, completion: nil)
+                    picker.sourceType = .camera
+                    self.present(picker, animated: true, completion: nil)
                 }else{
                     print("无法打开相机")
                 }
             })
             alert.addAction(cameraAction)
             
-            let photoLibraryAction = UIAlertAction(title: "从手机相册选择", style: .Default, handler: { (action) in
+            let photoLibraryAction = UIAlertAction(title: "从手机相册选择", style: .default, handler: { (action) in
                 
                 let picker = UIImagePickerController()
-                picker.sourceType = .PhotoLibrary
+                picker.sourceType = .photoLibrary
                 picker.delegate = self
                 picker.allowsEditing = true
-                self.presentViewController(picker, animated: true, completion: nil)
+                self.present(picker, animated: true, completion: nil)
             })
             alert.addAction(photoLibraryAction)
             
-            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
             alert.addAction(cancelAction)
             
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
             
         case (0,3):
             
-            self.presentViewController(UINavigationController(rootViewController: LoReCHSChooseCityViewController()), animated: true, completion: nil)
+            self.present(UINavigationController(rootViewController: LoReCHSChooseCityViewController()), animated: true, completion: nil)
         case (0,4):
             let bigBgView = UIButton(frame: self.view.bounds)
             bigBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
             bigBgView.tag = 1000
-            bigBgView.addTarget(self, action: #selector(pickerCancelClick), forControlEvents: .TouchUpInside)
+            bigBgView.addTarget(self, action: #selector(pickerCancelClick), for: .touchUpInside)
             self.view.addSubview(bigBgView)
             
-            let pickerBgView = UIView(frame: CGRectMake(0, screenSize.height-kHeightScale*240, screenSize.width, kHeightScale*240))
-            pickerBgView.backgroundColor = UIColor.whiteColor()
+            let pickerBgView = UIView(frame: CGRect(x: 0, y: screenSize.height-kHeightScale*240, width: screenSize.width, height: kHeightScale*240))
+            pickerBgView.backgroundColor = UIColor.white
             bigBgView.addSubview(pickerBgView)
             
-            let pickerLab = UILabel(frame: CGRectMake(0, 0, screenSize.width, 43))
-            pickerLab.textAlignment = .Center
+            let pickerLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 43))
+            pickerLab.textAlignment = .center
             pickerBgView.addSubview(pickerLab)
             
-            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(0, 43), toPoint: CGPointMake(screenSize.width, 43), lineWidth: 1)
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPoint(x: 0, y: 43), toPoint: CGPoint(x: screenSize.width, y: 43), lineWidth: 1)
             
-            pickerView = UIPickerView(frame: CGRectMake(0, 44, screenSize.width, kHeightScale*240-88))
+            pickerView = UIPickerView(frame: CGRect(x: 0, y: 44, width: screenSize.width, height: kHeightScale*240-88))
             
             //            pickerView.subviews[0].layer.borderWidth = 0.5
             //
@@ -421,20 +421,20 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
             
             pickerBgView.addSubview(pickerView)
             
-            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(0, kHeightScale*240-44), toPoint: CGPointMake(screenSize.width, kHeightScale*240-44), lineWidth: 1)
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPoint(x: 0, y: kHeightScale*240-44), toPoint: CGPoint(x: screenSize.width, y: kHeightScale*240-44), lineWidth: 1)
             
-            let cancelBtn = UIButton(frame: CGRectMake(0, kHeightScale*240-43, screenSize.width/2.0-0.5, 43))
-            cancelBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            cancelBtn.setTitle("取消", forState: .Normal)
-            cancelBtn.addTarget(self, action: #selector(pickerCancelClick), forControlEvents: .TouchUpInside)
+            let cancelBtn = UIButton(frame: CGRect(x: 0, y: kHeightScale*240-43, width: screenSize.width/2.0-0.5, height: 43))
+            cancelBtn.setTitleColor(UIColor.black, for: UIControlState())
+            cancelBtn.setTitle("取消", for: UIControlState())
+            cancelBtn.addTarget(self, action: #selector(pickerCancelClick), for: .touchUpInside)
             pickerBgView.addSubview(cancelBtn)
             
-            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(screenSize.width/2.0-0.5, kHeightScale*240-43), toPoint: CGPointMake(screenSize.width/2.0-0.5, kHeightScale*240), lineWidth: 1)
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPoint(x: screenSize.width/2.0-0.5, y: kHeightScale*240-43), toPoint: CGPoint(x: screenSize.width/2.0-0.5, y: kHeightScale*240), lineWidth: 1)
             
-            let sureBtn = UIButton(frame: CGRectMake(screenSize.width/2.0-0.5, kHeightScale*240-43, screenSize.width/2.0-0.5, 43))
-            sureBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            sureBtn.setTitle("确定", forState: .Normal)
-            sureBtn.addTarget(self, action: #selector(sureBtnClick), forControlEvents: .TouchUpInside)
+            let sureBtn = UIButton(frame: CGRect(x: screenSize.width/2.0-0.5, y: kHeightScale*240-43, width: screenSize.width/2.0-0.5, height: 43))
+            sureBtn.setTitleColor(UIColor.black, for: UIControlState())
+            sureBtn.setTitle("确定", for: UIControlState())
+            sureBtn.addTarget(self, action: #selector(sureBtnClick), for: .touchUpInside)
             pickerBgView.addSubview(sureBtn)
             
             pickerLab.text = "参加工作年份"
@@ -448,7 +448,7 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
     }
     
     // MARK: UIImagePickerControllerDelegate
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         let type = info[UIImagePickerControllerMediaType] as! String
         if type != "public.image" {
@@ -460,18 +460,18 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
         
         headerImg.image = selectedImage
         
-        picker.dismissViewControllerAnimated(true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
     }
     
     // MARK: 性别按钮点击事件
-    func sexBtnClick(sexBtn:UIButton) {
+    func sexBtnClick(_ sexBtn:UIButton) {
         
         if sexBtn == womanBtn {
-            womanBtn.selected = true
-            manBtn.selected = false
+            womanBtn.isSelected = true
+            manBtn.isSelected = false
         }else{
-            womanBtn.selected = false
-            manBtn.selected = true
+            womanBtn.isSelected = false
+            manBtn.isSelected = true
         }
     }
     // MARK: pickerView 取消按钮点击事件
@@ -484,10 +484,10 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
         
         if pickerView.tag == 101 {
             
-            jobTime = pickJobTimeRequiredArray[pickerView.selectedRowInComponent(0)]
+            jobTime = pickJobTimeRequiredArray[pickerView.selectedRow(inComponent: 0)]
             self.rootTableView.reloadData()
             
-            pickSelectedRow = pickerView.selectedRowInComponent(0)
+            pickSelectedRow = pickerView.selectedRow(inComponent: 0)
         }
         
         //        pickerView.removeFromSuperview()
@@ -496,7 +496,7 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
     }
     
     // MARK: 改变分割线颜色
-    func changeSeparatorWithView(view: UIView) {
+    func changeSeparatorWithView(_ view: UIView) {
         
         if view.bounds.size.height <= 1 {
             view.backgroundColor = baseColor
@@ -508,7 +508,7 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
     }
     
     // MARK:- UIPickerView DataSource
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         
         if pickerView.tag == 101 {
             return 1
@@ -517,7 +517,7 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
         }
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
         if pickerView.tag == 101 {
             
@@ -529,28 +529,28 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
     }
     
     // MARK:- UIPickerView Delegate
-    func pickerView(pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 25
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         pickerView.reloadAllComponents()
     }
     
-    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         
         self.changeSeparatorWithView(pickerView)
         
-        let view = UILabel(frame: CGRectMake(0, 0, 20, 25))
+        let view = UILabel(frame: CGRect(x: 0, y: 0, width: 20, height: 25))
         //        view.backgroundColor = UIColor.cyanColor()
-        view.frame.size = pickerView.rowSizeForComponent(component)
-        view.textAlignment = .Center
+        view.frame.size = pickerView.rowSize(forComponent: component)
+        view.textAlignment = .center
         
-        if row == pickerView.selectedRowInComponent(component) {
+        if row == pickerView.selectedRow(inComponent: component) {
             view.textColor = baseColor
         }else{
-            view.textColor = UIColor.lightGrayColor()
+            view.textColor = UIColor.lightGray
         }
         
         if pickerView.tag == 101 {

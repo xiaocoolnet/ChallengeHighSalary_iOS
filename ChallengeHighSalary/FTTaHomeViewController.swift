@@ -12,7 +12,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     
     var onlineStateDrop = DropDown()
     
-    let myTableView = UITableView(frame: CGRectMake(screenSize.width, 0, screenSize.width, screenSize.height-20-44-49-37), style: .Plain)
+    let myTableView = UITableView(frame: CGRect(x: screenSize.width, y: 0, width: screenSize.width, height: screenSize.height-20-44-49-37), style: .plain)
     
     var resumeModel = [MyResumeData]()
     
@@ -28,11 +28,11 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         loadData()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = false
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = false
         self.customizeDropDown()
     }
     
@@ -54,9 +54,9 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         self.navigationItem.title = "人才"
 
         // rightBarButtonItem
-        let retrievalBtn = UIButton(frame: CGRectMake(0, 0, 50, 24))
-        retrievalBtn.setImage(UIImage(named: "ic_筛选"), forState: .Normal)
-        retrievalBtn.addTarget(self, action: #selector(retrievalBtnClick), forControlEvents: .TouchUpInside)
+        let retrievalBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 24))
+        retrievalBtn.setImage(UIImage(named: "ic_筛选"), for: UIControlState())
+        retrievalBtn.addTarget(self, action: #selector(retrievalBtnClick), for: .touchUpInside)
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: retrievalBtn)
     }
@@ -77,8 +77,8 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         // 在线状态
         let onlineStateBtn = UIButton()
         onlineStateBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        onlineStateBtn.setTitle("经验", forState: .Normal)
-        onlineStateBtn.setImage(UIImage(named: "ic_下拉"), forState: .Normal)
+        onlineStateBtn.setTitle("经验", for: UIControlState())
+        onlineStateBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
         exchangeBtnImageAndTitle(onlineStateBtn, margin: 5)
         
         // 经验 下拉
@@ -86,30 +86,30 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         onlineStateDrop.bottomOffset = CGPoint(x: 0, y: 38)
         onlineStateDrop.width = screenSize.width
-        onlineStateDrop.direction = .Bottom
+        onlineStateDrop.direction = .bottom
         
         onlineStateDrop.dataSource = ["在线","不在线"]
         
         // 下拉列表选中后的回调方法
         onlineStateDrop.selectionAction = { (index, item) in
             
-            onlineStateBtn.setTitle(item, forState: .Normal)
+            onlineStateBtn.setTitle(item, for: UIControlState())
         }
         
         // 选择菜单
-        let segChoose = LFLUISegmentedControl.segmentWithFrame(CGRectMake(0, 64,screenSize.width ,37), titleArray: ["推荐","最近","最热","最新","好评",onlineStateBtn], defaultSelect: 0)
+        let segChoose = LFLUISegmentedControl.segment(withFrame: CGRect(x: 0, y: 64,width: screenSize.width ,height: 37), titleArray: ["推荐","最近","最热","最新","好评",onlineStateBtn], defaultSelect: 0)!
         segChoose.tag = 102
         segChoose.lineColor(baseColor)
-        segChoose.titleColor(UIColor.blackColor(), selectTitleColor: baseColor, backGroundColor: UIColor.whiteColor(), titleFontSize: 14)
+        segChoose.titleColor(UIColor.black, selectTitleColor: baseColor, backGroundColor: UIColor.white, titleFontSize: 14)
         segChoose.delegate = self
         self.view.addSubview(segChoose)
         
         // tableView
-        myTableView.frame = CGRectMake(0, CGRectGetMaxY(segChoose.frame)+1, screenSize.width, screenSize.height-20-44-49-37)
+        myTableView.frame = CGRect(x: 0, y: segChoose.frame.maxY+1, width: screenSize.width, height: screenSize.height-20-44-49-37)
         myTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
-        myTableView.registerNib(UINib.init(nibName: "FTTalentTableViewCell", bundle: nil), forCellReuseIdentifier: "FTTalentCell")
-        myTableView.registerClass(FTTaNoPositionTableViewCell.self, forCellReuseIdentifier: "FTTaNoPositionTableViewCell")
-        myTableView.separatorStyle = .None
+        myTableView.register(UINib.init(nibName: "FTTalentTableViewCell", bundle: nil), forCellReuseIdentifier: "FTTalentCell")
+        myTableView.register(FTTaNoPositionTableViewCell.self, forCellReuseIdentifier: "FTTaNoPositionTableViewCell")
+        myTableView.separatorStyle = .none
         myTableView.rowHeight = 250
         myTableView.dataSource = self
         myTableView.delegate = self
@@ -129,21 +129,21 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         appearance.shadowOpacity = 0.9
         appearance.shadowRadius = 0
         appearance.animationduration = 0.25
-        appearance.textColor = .darkGrayColor()
-        appearance.textFont = UIFont.systemFontOfSize(14)
+        appearance.textColor = .darkGray
+        appearance.textFont = UIFont.systemFont(ofSize: 14)
     }
     
     // MARK: LFLUISegmentedControlDelegate
-    func uisegumentSelectionChange(selection: Int, segmentTag: Int) {
+    func uisegumentSelectionChange(_ selection: Int, segmentTag: Int) {
         print("ChChHomeViewController click \(selection) item")
         
         if selection == 5 {
-            onlineStateDrop.show()
+            _ = onlineStateDrop.show()
         }
     }
     
     // MARK: UITableView DataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        if hasPosition {
 //            return 1
 //        }else{
@@ -151,34 +151,34 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         return 1
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         if hasPosition {
-            return self.resumeModel.count ?? 0
+            return self.resumeModel.count
         }else{
             return 1
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if hasPosition {
-            let cell = tableView.dequeueReusableCellWithIdentifier("FTTalentCell") as! FTTalentTableViewCell
-            cell.selectionStyle = .None
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FTTalentCell") as! FTTalentTableViewCell
+            cell.selectionStyle = .none
             
-            cell.resumeData = self.resumeModel[indexPath.row]
+            cell.resumeData = self.resumeModel[(indexPath as NSIndexPath).row]
             return cell
         }else{
-            let cell = tableView.dequeueReusableCellWithIdentifier("FTTaNoPositionTableViewCell") as! FTTaNoPositionTableViewCell
-            cell.selectionStyle = .None
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FTTaNoPositionTableViewCell") as! FTTaNoPositionTableViewCell
+            cell.selectionStyle = .none
 //            cell.textLabel?.text = "空空如也"
-            cell.publishJobBtn.addTarget(self, action: #selector(publishJobBtnClick), forControlEvents: .TouchUpInside)
+            cell.publishJobBtn.addTarget(self, action: #selector(publishJobBtnClick), for: .touchUpInside)
             return cell
         }
         
     }
     
     // MARK: UITableView Delegate
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if hasPosition {
             return 8
         }else{
@@ -186,11 +186,11 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         }
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if hasPosition {
             return 139
         }else{
@@ -198,16 +198,16 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         }
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let personalVC = FTPersonalViewController()
-        personalVC.resumeData = self.resumeModel[indexPath.row]
+        personalVC.resumeData = self.resumeModel[(indexPath as NSIndexPath).row]
         self.navigationController?.pushViewController(personalVC, animated: true)
     }
 
     // MARK:- 发布职位按钮点击事件
     func publishJobBtnClick() {
         
-        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
         checkCodeHud.labelText = "正在获取公司信息"
         
@@ -219,7 +219,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             }else{
                 
                 
-                checkCodeHud.mode = .Text
+                checkCodeHud.mode = .text
                 checkCodeHud.labelText = "尚无公司信息"
                 checkCodeHud.detailsLabelText = "请先到 我-我的公司信息 中 完善公司信息"
                 checkCodeHud.hide(true, afterDelay: 1)

@@ -20,10 +20,10 @@ class ChChFindEmployerTableViewCell: UITableViewCell {
     
     var companyInfo:Company_infoDataModel? {
         didSet {
-            self.logoImg.sd_setImageWithURL(NSURL(string: kImagePrefix+(companyInfo?.logo)!), placeholderImage: nil)
+            self.logoImg.sd_setImage(with: URL(string: kImagePrefix+(companyInfo?.logo)!), placeholderImage: nil)
             self.company_nameLab.text = companyInfo?.company_name
-            self.jobsCountBtn.setTitle("\((companyInfo?.jobs?.count ?? 0)!)", forState: .Normal)
-            self.industry_financing_countLab.text = "\(companyInfo?.industry ?? "") | \(companyInfo!.financing ?? "") | \(companyInfo?.count ?? "")"
+            self.jobsCountBtn.setTitle("\((companyInfo?.jobs?.count ?? 0)!)", for: UIControlState())
+            self.industry_financing_countLab.text = "\(companyInfo?.industry) | \(companyInfo!.financing) | \(companyInfo?.count)"
         }
     }
     
@@ -32,7 +32,7 @@ class ChChFindEmployerTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

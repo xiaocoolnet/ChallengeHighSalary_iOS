@@ -23,11 +23,11 @@ class CHSMiHomeTableViewCell: UITableViewCell {
         for view in self.contentView.subviews {
             view.removeFromSuperview()
         }
-        titImage.frame = CGRectMake(10, 15, 20, 20)
-        titImage.contentMode = .ScaleAspectFit
+        titImage.frame = CGRect(x: 10, y: 15, width: 20, height: 20)
+        titImage.contentMode = .scaleAspectFit
 //        titImage.backgroundColor = UIColor.grayColor()
-        titLab.frame = CGRectMake(48, 10, screenSize.width-60, 30)
-        titLab.font = UIFont.systemFontOfSize(18)
+        titLab.frame = CGRect(x: 48, y: 10, width: screenSize.width-60, height: 30)
+        titLab.font = UIFont.systemFont(ofSize: 18)
         
         self.addSubview(titImage)
         self.addSubview(titLab)
@@ -38,7 +38,7 @@ class CHSMiHomeTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state

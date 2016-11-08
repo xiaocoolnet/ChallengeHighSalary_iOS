@@ -7,52 +7,70 @@
 //
 
 import UIKit
-import Alamofire
+import HandyJSON
 
 class LoginNetUtil: NSObject {
     
     // MARK: 验证手机是否已经注册
-    func checkphone(phone:String, handle:ResponseClosures) {
+    func checkphone(_ phone:String, handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"checkphone"
         let param = [
             "phone":phone
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:CheckphoneModel = CheckphoneModel.jsonToModelWithData(json)
+
+                let checkCode = JSONDeserializer<CheckphoneModel>.deserializeFrom(dict: json as! NSDictionary?)!
                 if checkCode.status == "success" {
-                    handle(success: true, response: checkCode.data)
+                    handle(true, checkCode.data as AnyObject?)
                 }else{
                     
-                    handle(success: false, response: checkCode.data)
+                    handle(false, checkCode.data as AnyObject?)
                 }
             }
         }
+//        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+//            
+//            if(error != nil){
+//                handle(success: false, response: error?.description)
+//            }else{
+//                let checkCode:CheckphoneModel = CheckphoneModel.jsonToModelWithData(json)
+//                if checkCode.status == "success" {
+//                    handle(success: true, response: checkCode.data)
+//                }else{
+//                    
+//                    handle(success: false, response: checkCode.data)
+//                }
+//            }
+//        }
     }
     
     // MARK: 发送验证码
-    func SendMobileCode(phone:String, handle:ResponseClosures) {
+    func SendMobileCode(_ phone:String, handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"SendMobileCode"
         let param = [
             "phone":phone
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
 
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:CheckCodeModel = CheckCodeModel.jsonToModelWithData(json)
+                
+                let checkCode = JSONDeserializer<CheckCodeModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if checkCode.status == "success" {
                     print(checkCode.data?.code)
-                    handle(success: true, response: checkCode.data)
+                    handle(true, checkCode.data)
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }
@@ -60,7 +78,7 @@ class LoginNetUtil: NSObject {
     
     // MARK:- 注册
     // phone,password,code,devicestate(1=>iOS 2=>android)
-    func AppRegister(phone:String, password:String, code:String, handle:ResponseClosures) {
+    func AppRegister(_ phone:String, password:String, code:String, handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"AppRegister"
         let param = [
@@ -69,41 +87,50 @@ class LoginNetUtil: NSObject {
             "code":code,
             "devicestate":"1"
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:CheckphoneModel = CheckphoneModel.jsonToModelWithData(json)
+                let checkCode = JSONDeserializer<CheckphoneModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if checkCode.status == "success" {
                     CHSUserInfo.currentUserInfo.userid = checkCode.data
-                    handle(success: true, response: checkCode.data)
+                    handle(true, checkCode.data as AnyObject?)
                 }else{
                     
-                    handle(success: false, response: checkCode.data)
+                    handle(false, checkCode.data as AnyObject?)
                 }
             }
         }
     }
     
     // MARK: 登录
-    func applogin(phone:String, password:String, handle:ResponseClosures) {
+    func applogin(_ phone:String, password:String, handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"applogin"
         let param = [
             "phone":phone,
             "password":password
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
-            
+ 
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+    
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let status:StatusModel = StatusModel.jsonToModelWithData(json)
+                
+                let status = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+//                let status = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+//                let status:StatusModel = StatusModel.jsonToModel(json)
                 if status.status == "success" {
-                    let login:LoginModel = LoginModel.jsonToModelWithData(json)
+                    let login = JSONDeserializer<LoginModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+//                    let login:LoginModel = LoginModel.jsonToModel(json)
                     
-                    NSUserDefaults.standardUserDefaults().setBool(true, forKey: isLogin_key)
+                    UserDefaults.standard.set(true, forKey: isLogin_key)
 
                     CHSUserInfo.currentUserInfo.phoneNumber = (login.data?.phone)! == "" ? "":(login.data?.phone)!
                     CHSUserInfo.currentUserInfo.userid = (login.data?.userid)! == "" ? "":(login.data?.userid)!
@@ -121,17 +148,19 @@ class LoginNetUtil: NSObject {
                     CHSUserInfo.currentUserInfo.company = (login.data?.company)! == "" ? "":(login.data?.company)!
                     CHSUserInfo.currentUserInfo.myjob = (login.data?.myjob)! == "" ? "":(login.data?.myjob)!
 
-                    handle(success: true, response: login.data)
+                    handle(true, login.data)
                 }else{
-                    let error:errorModel = errorModel.jsonToModelWithData(json)
-                    handle(success: false, response: error.data)
+//                    let error:errorModel = errorModel.jsonToModel(json)
+                    let error = JSONDeserializer<errorModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+                    handle(false, error.data as AnyObject?)
                 }
             }
         }
     }
     
     // MARK: 修改密码
-    func forgetpwd(phone:String, code:String, password:String, handle:ResponseClosures) {
+    func forgetpwd(_ phone:String, code:String, password:String, handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"forgetpwd"
         let param = [
@@ -139,17 +168,20 @@ class LoginNetUtil: NSObject {
             "code":code,
             "password":password
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let status:StatusModel = StatusModel.jsonToModelWithData(json)
+                let status = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if status.status == "success" {
-                    handle(success: true, response: "")
+                    handle(true, "" as AnyObject?)
                 }else{
-                    let error:errorModel = errorModel.jsonToModelWithData(json)
-                    handle(success: false, response: error.data)
+                    
+                    let error = JSONDeserializer<errorModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+                    handle(false, error.data as AnyObject?)
                 }
             }
         }
@@ -158,7 +190,7 @@ class LoginNetUtil: NSObject {
     // MARK: 修改个人用户资料
     // userid,avatar,realname,sex(0=>女 1=>男),city,work_life,qq,weixin,weibo
     func savepersonalinfo(
-        userid:String,
+        _ userid:String,
         avatar:String,
         realname:String,
         sex:String,
@@ -166,7 +198,7 @@ class LoginNetUtil: NSObject {
         work_life:String,
         qq:String,
         weixin:String,
-        weibo:String, handle:ResponseClosures) {
+        weibo:String, handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"savepersonalinfo"
         let param = [
@@ -180,17 +212,21 @@ class LoginNetUtil: NSObject {
             "weixin":weixin,
             "weibo":weibo
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let status:StatusModel = StatusModel.jsonToModelWithData(json)
+                
+                let status = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if status.status == "success" {
-                    handle(success: true, response: "")
+                    handle(true, "" as AnyObject?)
                 }else{
-                    let error:errorModel = errorModel.jsonToModelWithData(json)
-                    handle(success: false, response: error.data)
+                    
+                    let error = JSONDeserializer<errorModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+                    handle(false, error.data as AnyObject?)
                 }
             }
         }
@@ -199,7 +235,7 @@ class LoginNetUtil: NSObject {
     // MARK: 修改企业用户资料
     // userid,avatar,realname,myjob,email,company,qq,weixin,weibo
     func savecompanyinfo(
-        userid:String,
+        _ userid:String,
         avatar:String,
         realname:String,
         myjob:String,
@@ -207,7 +243,7 @@ class LoginNetUtil: NSObject {
         company:String,
         qq:String,
         weixin:String,
-        weibo:String, handle:ResponseClosures) {
+        weibo:String, handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"savecompanyinfo"
         let param = [
@@ -221,24 +257,29 @@ class LoginNetUtil: NSObject {
             "weixin":weixin,
             "weibo":weibo
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let status:StatusModel = StatusModel.jsonToModelWithData(json)
+                
+                let status = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if status.status == "success" {
-                    handle(success: true, response: "")
+                    handle(true, "" as AnyObject?)
                 }else{
-                    let error:errorModel = errorModel.jsonToModelWithData(json)
-                    handle(success: false, response: error.data)
+                    
+                    let error = JSONDeserializer<errorModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+//                    let error:errorModel = errorModel.jsonToModel(json)
+                    handle(false, error.data as AnyObject?)
                 }
             }
         }
     }
     
     // MARK: 上传图片
-    func uploadImage(imageName:String, image:UIImage, handle:ResponseClosures) {
+    func uploadImage(_ imageName:String, image:UIImage, handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"uploadavatar"
         
@@ -247,59 +288,68 @@ class LoginNetUtil: NSObject {
         //先把图片压缩并转成NSData
         let data = newImage.compressImage(newImage, maxLength: 2048000)
 
-    
-        Alamofire.upload(.POST, url, multipartFormData: { multipartFormData in
-            
-            multipartFormData.appendBodyPart(data: data!, name: "upfile", fileName: imageName, mimeType: "image/png")
-            
-            }, encodingCompletion: { response in
-
-                switch response {
-                case .Success(let request, _, _):
-                    request.response(completionHandler: { (request, response, json, error) in
-                        print(response)
-                        
-                        handle(success: true, response: UIImage(data: data!))
-                    })
-                    
-                case .Failure(let encodingError):
-                    print(encodingError)
-                    handle(success: false, response: nil)
-                }
+        NetUtil.net.uploadWithPOST(url, data: data!, name: "upfile", fileName: imageName, mimeType: "image/png") { (resultType) in
+            switch resultType {
+            case .success:
                 
-        })
+                handle(true, UIImage(data: data!))
+                
+            case .failure:
+                handle(false, nil)
+            }
+        }
+//        Alamofire.upload(.POST, url, multipartFormData: { multipartFormData in
+//            
+//            multipartFormData.appendBodyPart(data: data!, name: "upfile", fileName: imageName, mimeType: "image/png")
+//            
+//            }, encodingCompletion: { response in
+//
+//                switch response {
+//                case .Success(let request, _, _):
+//                    request.response(completionHandler: { (request, response, json, error) in
+//                        print(response)
+//                        
+//                        handle(success: true, response: UIImage(data: data!))
+//                    })
+//                    
+//                case .Failure(let encodingError):
+//                    print(encodingError)
+//                    handle(success: false, response: nil)
+//                }
+//                
+//        })
     }
     
     // MARK: 修正图片的位置
-    func fixOrientation(aImage: UIImage) -> UIImage {
+    func fixOrientation(_ aImage: UIImage) -> UIImage {
         // No-op if the orientation is already correct
-        if aImage.imageOrientation == .Up {
+        if aImage.imageOrientation == .up {
             return aImage
         }
         // We need to calculate the proper transformation to make the image upright.
         // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
-        var transform: CGAffineTransform = CGAffineTransformIdentity
+        var transform: CGAffineTransform = CGAffineTransform.identity
         switch aImage.imageOrientation {
-        case .Down, .DownMirrored:
-            transform = CGAffineTransformTranslate(transform, aImage.size.width, aImage.size.height)
-            transform = CGAffineTransformRotate(transform, CGFloat(M_PI))
-        case .Left, .LeftMirrored:
-            transform = CGAffineTransformTranslate(transform, aImage.size.width, 0)
-            transform = CGAffineTransformRotate(transform, CGFloat(M_PI_2))
-        case .Right, .RightMirrored:
-            transform = CGAffineTransformTranslate(transform, 0, aImage.size.height)
-            transform = CGAffineTransformRotate(transform, CGFloat(-M_PI_2))
+        case .down, .downMirrored:
+            transform = transform.translatedBy(x: aImage.size.width, y: aImage.size.height)
+            transform = transform.rotated(by: CGFloat(M_PI))
+        case .left, .leftMirrored:
+            transform = transform.translatedBy(x: aImage.size.width, y: 0)
+            transform = transform.rotated(by: CGFloat(M_PI_2))
+        case .right, .rightMirrored:
+            transform = transform.translatedBy(x: 0, y: aImage.size.height)
+            transform = transform.rotated(by: CGFloat(-M_PI_2))
         default:
             break
         }
         
         switch aImage.imageOrientation {
-        case .UpMirrored, .DownMirrored:
-            transform = CGAffineTransformTranslate(transform, aImage.size.width, 0)
-            transform = CGAffineTransformScale(transform, -1, 1)
-        case .LeftMirrored, .RightMirrored:
-            transform = CGAffineTransformTranslate(transform, aImage.size.height, 0)
-            transform = CGAffineTransformScale(transform, -1, 1)
+        case .upMirrored, .downMirrored:
+            transform = transform.translatedBy(x: aImage.size.width, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+        case .leftMirrored, .rightMirrored:
+            transform = transform.translatedBy(x: aImage.size.height, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
         default:
             break
         }
@@ -309,19 +359,19 @@ class LoginNetUtil: NSObject {
         
         
         //这里需要注意下CGImageGetBitmapInfo，它的类型是Int32的，CGImageGetBitmapInfo(aImage.CGImage).rawValue，这样写才不会报错
-        let ctx: CGContextRef = CGBitmapContextCreate(nil, Int(aImage.size.width), Int(aImage.size.height), CGImageGetBitsPerComponent(aImage.CGImage!), 0, CGImageGetColorSpace(aImage.CGImage!)!, CGImageGetBitmapInfo(aImage.CGImage!).rawValue)!
-        CGContextConcatCTM(ctx, transform)
+        let ctx: CGContext = CGContext(data: nil, width: Int(aImage.size.width), height: Int(aImage.size.height), bitsPerComponent: aImage.cgImage!.bitsPerComponent, bytesPerRow: 0, space: aImage.cgImage!.colorSpace!, bitmapInfo: aImage.cgImage!.bitmapInfo.rawValue)!
+        ctx.concatenate(transform)
         switch aImage.imageOrientation {
-        case .Left, .LeftMirrored, .Right, .RightMirrored:
+        case .left, .leftMirrored, .right, .rightMirrored:
             // Grr...
-            CGContextDrawImage(ctx, CGRectMake(0, 0, aImage.size.height, aImage.size.width), aImage.CGImage!)
+            ctx.draw(aImage.cgImage!, in: CGRect(x: 0, y: 0, width: aImage.size.height, height: aImage.size.width))
         default:
-            CGContextDrawImage(ctx, CGRectMake(0, 0, aImage.size.width, aImage.size.height), aImage.CGImage!)
+            ctx.draw(aImage.cgImage!, in: CGRect(x: 0, y: 0, width: aImage.size.width, height: aImage.size.height))
         }
         
         // And now we just create a new UIImage from the drawing context
-        let cgimg: CGImageRef = CGBitmapContextCreateImage(ctx)!
-        let img: UIImage = UIImage(CGImage: cgimg)
+        let cgimg: CGImage = ctx.makeImage()!
+        let img: UIImage = UIImage(cgImage: cgimg)
         return img
     }
     

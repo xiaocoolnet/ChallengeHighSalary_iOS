@@ -22,10 +22,10 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
         self.setSubviews()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     func setSubviews() {
@@ -33,37 +33,37 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
 //        self.title = "挑战高薪"
         self.automaticallyAdjustsScrollViewInsets = false
         
-        let rootScrollView = TPKeyboardAvoidingScrollView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
+        let rootScrollView = TPKeyboardAvoidingScrollView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
         rootScrollView.bounces = false
-        rootScrollView.contentSize = CGSizeMake(0, 0)
-        rootScrollView.scrollEnabled = false
+        rootScrollView.contentSize = CGSize(width: 0, height: 0)
+        rootScrollView.isScrollEnabled = false
         self.view.addSubview(rootScrollView)
         
         let bigBgImg = UIImageView(frame: self.view.bounds)
         bigBgImg.image = UIImage(named: "ic_登录背景")
         rootScrollView.addSubview(bigBgImg)
         
-        let appNameImg = UIImageView(frame: CGRectMake(0, kHeightScale*107, screenSize.width, kHeightScale*41))
-        appNameImg.contentMode = .ScaleAspectFit
+        let appNameImg = UIImageView(frame: CGRect(x: 0, y: kHeightScale*107, width: screenSize.width, height: kHeightScale*41))
+        appNameImg.contentMode = .scaleAspectFit
         appNameImg.image = UIImage(named: "ic_appNameImg")
         rootScrollView.addSubview(appNameImg)
         
         // 电话号码 输入背景视图
-        let telInputBgView = UIView(frame: CGRectMake(screenSize.width*0.1, kHeightScale*185, screenSize.width*0.8, screenSize.height*0.08))
+        let telInputBgView = UIView(frame: CGRect(x: screenSize.width*0.1, y: kHeightScale*185, width: screenSize.width*0.8, height: screenSize.height*0.08))
         telInputBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
         telInputBgView.layer.cornerRadius = 8
         rootScrollView.addSubview(telInputBgView)
         
         // 电话前缀
-        let telLab = UILabel(frame: CGRectMake(0, 0, telInputBgView.frame.size.width*0.13, telInputBgView.frame.size.height))
-        telLab.textColor = UIColor.whiteColor()
+        let telLab = UILabel(frame: CGRect(x: 0, y: 0, width: telInputBgView.frame.size.width*0.13, height: telInputBgView.frame.size.height))
+        telLab.textColor = UIColor.white
         telLab.text = "+86"
-        telLab.textAlignment = .Right
+        telLab.textAlignment = .right
         telInputBgView.addSubview(telLab)
         
-        let telImg = UIImageView(frame: CGRectMake(CGRectGetMaxX(telLab.frame)+5, 0, telInputBgView.frame.size.width*0.03, telInputBgView.frame.size.height))
+        let telImg = UIImageView(frame: CGRect(x: telLab.frame.maxX+5, y: 0, width: telInputBgView.frame.size.width*0.03, height: telInputBgView.frame.size.height))
         telImg.image = UIImage(named: "ic_下拉箭头")
-        telImg.contentMode = .ScaleAspectFit
+        telImg.contentMode = .scaleAspectFit
         telInputBgView.addSubview(telImg)
         
         // 电话前缀右边虚线
@@ -71,35 +71,35 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
             telInputBgView,
             color: lightGrayColor,
             fromPoint:
-            CGPointMake(telInputBgView.frame.size.width*0.2,
-                telInputBgView.frame.size.height*0.2),
+            CGPoint(x: telInputBgView.frame.size.width*0.2,
+                y: telInputBgView.frame.size.height*0.2),
             toPoint:
-            CGPointMake(telInputBgView.frame.size.width*0.2,
-                telInputBgView.frame.size.height*0.8),
+            CGPoint(x: telInputBgView.frame.size.width*0.2,
+                y: telInputBgView.frame.size.height*0.8),
             lineWidth: 1,
             pattern: [1,0])
         
         // 电话号码输入框
-        telTF.frame = CGRectMake(telInputBgView.frame.size.width*0.2+5, telImg.frame.origin.y, telInputBgView.frame.size.width*0.8-10, telImg.frame.size.height)
-        telTF.textColor = UIColor.whiteColor()
-        telTF.attributedPlaceholder = NSAttributedString(string: "请输入手机号", attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
-        telTF.clearButtonMode = .WhileEditing
-        telTF.text = NSUserDefaults.standardUserDefaults().stringForKey(userName_key)
-        telTF.keyboardType = .NumberPad
-        telTF.returnKeyType = .Next
+        telTF.frame = CGRect(x: telInputBgView.frame.size.width*0.2+5, y: telImg.frame.origin.y, width: telInputBgView.frame.size.width*0.8-10, height: telImg.frame.size.height)
+        telTF.textColor = UIColor.white
+        telTF.attributedPlaceholder = NSAttributedString(string: "请输入手机号", attributes: [NSForegroundColorAttributeName:UIColor.white])
+        telTF.clearButtonMode = .whileEditing
+        telTF.text = UserDefaults.standard.string(forKey: userName_key)
+        telTF.keyboardType = .numberPad
+        telTF.returnKeyType = .next
         telTF.delegate = self
         telInputBgView.addSubview(telTF)
         
         // 输入背景视图
-        let pwdInputBgView = UIView(frame: CGRectMake(screenSize.width*0.1, CGRectGetMaxY(telInputBgView.frame)+kHeightScale*20, screenSize.width*0.8, screenSize.height*0.08))
+        let pwdInputBgView = UIView(frame: CGRect(x: screenSize.width*0.1, y: telInputBgView.frame.maxY+kHeightScale*20, width: screenSize.width*0.8, height: screenSize.height*0.08))
         pwdInputBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
         pwdInputBgView.layer.cornerRadius = 8
         rootScrollView.addSubview(pwdInputBgView)
         
         // 密码 ImageView
-        let pwdImg = UIImageView(frame: CGRectMake(0, CGRectGetHeight(pwdInputBgView.frame)*0.34, pwdInputBgView.frame.size.width*0.2, CGRectGetHeight(pwdInputBgView.frame)*0.33))
+        let pwdImg = UIImageView(frame: CGRect(x: 0, y: pwdInputBgView.frame.height*0.34, width: pwdInputBgView.frame.size.width*0.2, height: pwdInputBgView.frame.height*0.33))
         pwdImg.image = UIImage(named: "ic_密码")
-        pwdImg.contentMode = .ScaleAspectFit
+        pwdImg.contentMode = .scaleAspectFit
         pwdInputBgView.addSubview(pwdImg)
         
         // 密码 右边虚线
@@ -107,47 +107,47 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
             pwdInputBgView,
             color: lightGrayColor,
             fromPoint:
-            CGPointMake(CGRectGetMaxX(pwdImg.frame),
-                pwdInputBgView.frame.size.height*0.2),
+            CGPoint(x: pwdImg.frame.maxX,
+                y: pwdInputBgView.frame.size.height*0.2),
             toPoint:
-            CGPointMake(CGRectGetMaxX(pwdImg.frame),
-                pwdInputBgView.frame.size.height*0.8),
+            CGPoint(x: pwdImg.frame.maxX,
+                y: pwdInputBgView.frame.size.height*0.8),
             lineWidth: 1,
             pattern: [1,0])
 
         // 密码输入框
-        pwdTF.frame = CGRectMake(CGRectGetMaxX(pwdImg.frame)+5, 0, CGRectGetMaxX(pwdInputBgView.frame)-CGRectGetMaxX(pwdImg.frame)+5, pwdInputBgView.frame.size.height)
-        pwdTF.attributedPlaceholder = NSAttributedString(string: "请输入密码", attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
-        pwdTF.textColor = UIColor.whiteColor()
-        pwdTF.keyboardType = .Default
-        pwdTF.secureTextEntry = true
+        pwdTF.frame = CGRect(x: pwdImg.frame.maxX+5, y: 0, width: pwdInputBgView.frame.maxX-pwdImg.frame.maxX+5, height: pwdInputBgView.frame.size.height)
+        pwdTF.attributedPlaceholder = NSAttributedString(string: "请输入密码", attributes: [NSForegroundColorAttributeName:UIColor.white])
+        pwdTF.textColor = UIColor.white
+        pwdTF.keyboardType = .default
+        pwdTF.isSecureTextEntry = true
         pwdTF.delegate = self
         pwdInputBgView.addSubview(pwdTF)
         
         // 忘记密码按钮
         //CGRectGetMaxY(inputBgView.frame)+screenSize.height*0.075
-        let forgetPwdBtn = UIButton(frame: CGRectMake(
-            0,
-            CGRectGetMaxY(pwdInputBgView.frame)+screenSize.height*0.026,
-            screenSize.width*0.176,
-            screenSize.height*0.027))
-        forgetPwdBtn.setTitle("忘记密码？", forState: .Normal)
-        forgetPwdBtn.setTitleColor(baseColor, forState: .Normal)
-        forgetPwdBtn.addTarget(self, action: #selector(forgetPwdBtnClick), forControlEvents: .TouchUpInside)
+        let forgetPwdBtn = UIButton(frame: CGRect(
+            x: 0,
+            y: pwdInputBgView.frame.maxY+screenSize.height*0.026,
+            width: screenSize.width*0.176,
+            height: screenSize.height*0.027))
+        forgetPwdBtn.setTitle("忘记密码？", for: UIControlState())
+        forgetPwdBtn.setTitleColor(baseColor, for: UIControlState())
+        forgetPwdBtn.addTarget(self, action: #selector(forgetPwdBtnClick), for: .touchUpInside)
         forgetPwdBtn.center.x = self.view.center.x
         rootScrollView.addSubview(forgetPwdBtn)
         forgetPwdBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         
         // 没有账号 Label
-        let noAccountLab = UILabel(frame: CGRectMake(
-            screenSize.width*0.233,
-            CGRectGetMaxY(forgetPwdBtn.frame)+screenSize.height*0.0335,
-            0,
-            0))
-        noAccountLab.textColor = UIColor.whiteColor()
-        noAccountLab.font = UIFont.systemFontOfSize(14)
+        let noAccountLab = UILabel(frame: CGRect(
+            x: screenSize.width*0.233,
+            y: forgetPwdBtn.frame.maxY+screenSize.height*0.0335,
+            width: 0,
+            height: 0))
+        noAccountLab.textColor = UIColor.white
+        noAccountLab.font = UIFont.systemFont(ofSize: 14)
         noAccountLab.text = "您还没有挑战高薪账号？"
-        noAccountLab.textAlignment = .Right
+        noAccountLab.textAlignment = .right
 //        noAccountLab.textColor = UIColor(red: 152/255.0, green: 151/255.0, blue: 152/255.0, alpha: 1)
         noAccountLab.sizeToFit()
         rootScrollView.addSubview(noAccountLab)
@@ -155,33 +155,33 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
         
         
         // 立即注册按钮
-        let registerBtn = UIButton(frame: CGRectMake(
-            CGRectGetMaxX(noAccountLab.frame),
-            0,
-            screenSize.width-CGRectGetMaxX(noAccountLab.frame),
-            noAccountLab.frame.size.height))
-        registerBtn.setTitle("立即注册", forState: .Normal)
-        registerBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
-        registerBtn.setTitleColor(baseColor, forState: .Normal)
-        registerBtn.addTarget(self, action: #selector(registerPwdBtnClick), forControlEvents: .TouchUpInside)
+        let registerBtn = UIButton(frame: CGRect(
+            x: noAccountLab.frame.maxX,
+            y: 0,
+            width: screenSize.width-noAccountLab.frame.maxX,
+            height: noAccountLab.frame.size.height))
+        registerBtn.setTitle("立即注册", for: UIControlState())
+        registerBtn.titleLabel!.font = UIFont.systemFont(ofSize: 14)
+        registerBtn.setTitleColor(baseColor, for: UIControlState())
+        registerBtn.addTarget(self, action: #selector(registerPwdBtnClick), for: .touchUpInside)
         registerBtn.sizeToFit()
         registerBtn.center.y = noAccountLab.center.y
         rootScrollView.addSubview(registerBtn)
 //        registerBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         
         // 登录按钮
-        let loginBtn = UIButton(frame: CGRectMake(0, CGRectGetMaxY(registerBtn.frame)+screenSize.height*0.045, screenSize.width*0.8, screenSize.height*0.0645))
+        let loginBtn = UIButton(frame: CGRect(x: 0, y: registerBtn.frame.maxY+screenSize.height*0.045, width: screenSize.width*0.8, height: screenSize.height*0.0645))
         loginBtn.backgroundColor = baseColor
         loginBtn.layer.cornerRadius = 8
-        loginBtn.setTitle("登录", forState: .Normal)
-        loginBtn.addTarget(self, action: #selector(loginBtnClick), forControlEvents: .TouchUpInside)
+        loginBtn.setTitle("登录", for: UIControlState())
+        loginBtn.addTarget(self, action: #selector(loginBtnClick), for: .touchUpInside)
         loginBtn.center.x = self.view.center.x
         rootScrollView.addSubview(loginBtn)
         
         // or Label
         let orLab = UILabel()
         orLab.text = "or"
-        orLab.textAlignment = .Center
+        orLab.textAlignment = .center
         orLab.sizeToFit()
         orLab.center.x = self.view.center.x
         orLab.frame.origin.y = screenSize.height*0.787
@@ -189,21 +189,21 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
         rootScrollView.addSubview(orLab)
         
         // or前 线
-        let frontOrLine = UIView(frame: CGRectMake(
-            orLab.frame.origin.x-screenSize.width*0.024-screenSize.width*0.4,
-            0,
-            screenSize.width*0.4,
-            1))
+        let frontOrLine = UIView(frame: CGRect(
+            x: orLab.frame.origin.x-screenSize.width*0.024-screenSize.width*0.4,
+            y: 0,
+            width: screenSize.width*0.4,
+            height: 1))
         frontOrLine.backgroundColor = UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1)
         frontOrLine.center.y = orLab.center.y
         rootScrollView.addSubview(frontOrLine)
         
         // or后 线
-        let behindOrLine = UIView(frame: CGRectMake(
-            CGRectGetMaxX(orLab.frame)+screenSize.width*0.024,
-            0,
-            screenSize.width*0.4,
-            1))
+        let behindOrLine = UIView(frame: CGRect(
+            x: orLab.frame.maxX+screenSize.width*0.024,
+            y: 0,
+            width: screenSize.width*0.4,
+            height: 1))
         behindOrLine.backgroundColor = UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1)
         behindOrLine.center.y = orLab.center.y
         rootScrollView.addSubview(behindOrLine)
@@ -213,31 +213,31 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
         
         for i in 0 ... 2 {
             
-            let threeLoginBtn = UIButton(frame: CGRectMake(CGFloat(i)*screenSize.width/3.0, CGRectGetMaxY(orLab.frame), screenSize.width/3.0, screenSize.height-CGRectGetMaxY(orLab.frame)))
+            let threeLoginBtn = UIButton(frame: CGRect(x: CGFloat(i)*screenSize.width/3.0, y: orLab.frame.maxY, width: screenSize.width/3.0, height: screenSize.height-orLab.frame.maxY))
 //            threeLoginBtn.backgroundColor = UIColor(red: CGFloat(arc4random_uniform(255))/255.0, green: CGFloat(arc4random_uniform(255))/255.0, blue: CGFloat(arc4random_uniform(255))/255.0, alpha: 1)
             rootScrollView.addSubview(threeLoginBtn)
             
-            let threeImg = UIImageView(frame: CGRectMake(
-                threeLoginBtn.frame.size.width*0.3,
-                threeLoginBtn.frame.size.height*0.2,
-                threeLoginBtn.frame.size.width*0.4,
-                threeLoginBtn.frame.size.width*0.4))
-            threeImg.layer.cornerRadius = CGRectGetWidth(threeImg.frame)/2.0
+            let threeImg = UIImageView(frame: CGRect(
+                x: threeLoginBtn.frame.size.width*0.3,
+                y: threeLoginBtn.frame.size.height*0.2,
+                width: threeLoginBtn.frame.size.width*0.4,
+                height: threeLoginBtn.frame.size.width*0.4))
+            threeImg.layer.cornerRadius = threeImg.frame.width/2.0
 //            threeImg.backgroundColor = UIColor.grayColor()
             threeImg.image = UIImage(named: threeImageNameArray[i])
             threeLoginBtn.addSubview(threeImg)
             
-            let threeLab = UILabel(frame: CGRectMake(
-                threeImg.frame.origin.x,
-                CGRectGetMaxY(threeImg.frame)+screenSize.height*0.025,
-                threeImg.frame.size.width,
-                threeLoginBtn.frame.size.height-CGRectGetMaxY(threeImg.frame)-screenSize.height*0.05))
-            threeLab.textColor = UIColor.whiteColor()
+            let threeLab = UILabel(frame: CGRect(
+                x: threeImg.frame.origin.x,
+                y: threeImg.frame.maxY+screenSize.height*0.025,
+                width: threeImg.frame.size.width,
+                height: threeLoginBtn.frame.size.height-threeImg.frame.maxY-screenSize.height*0.05))
+            threeLab.textColor = UIColor.white
             threeLoginBtn.addSubview(threeLab)
             
-            threeLab.textAlignment = .Center
+            threeLab.textAlignment = .center
             threeLab.text = threeNameArray[i]
-            threeLab.font = UIFont.systemFontOfSize(12)
+            threeLab.font = UIFont.systemFont(ofSize: 12)
             threeLab.adjustsFontSizeToFitWidth = true
             
             
@@ -248,7 +248,7 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: UITextFieldDelegate
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == telTF {
             pwdTF.becomeFirstResponder()
         }else if textField == pwdTF {
@@ -260,19 +260,19 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
     // MARK: 登录按钮点击事件
     func loginBtnClick() {
         
-        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
         
         // 判断 手机号 密码 是否为空
         if telTF.text!.isEmpty {
 
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请输入手机号"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }else if pwdTF.text!.isEmpty {
 
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请输入密码"
             checkCodeHud.hide(true, afterDelay: 1)
             return
@@ -284,42 +284,42 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
     // MARK: 自动登录
     func autoLogin() {
         
-        let logInfo = NSUserDefaults.standardUserDefaults().objectForKey(logInfo_key) as? Dictionary<String,String>
+        let logInfo = UserDefaults.standard.object(forKey: logInfo_key) as? Dictionary<String,String>
         
         if logInfo != nil {
-            let usernameStr = logInfo![userName_key] ?? ""
-            let passwordStr = logInfo![userPwd_key] ?? ""
+            let usernameStr = logInfo![userName_key]
+            let passwordStr = logInfo![userPwd_key]
             telTF.text = usernameStr
             pwdTF.text = passwordStr
             
-            let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
             checkCodeHud.removeFromSuperViewOnHide = true
             
             LoginMethod(telTF.text!, password: pwdTF.text!, hud: checkCodeHud)
         }
     }
     // MARK: 登录方法
-    func LoginMethod(phone: String, password:String, hud: MBProgressHUD){
+    func LoginMethod(_ phone: String, password:String, hud: MBProgressHUD){
         
         
         
         LoginNetUtil().applogin(phone, password: password) { (success, response) in
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 
                 if success {
                     
                     hud.hide(true)
-                    NSUserDefaults.standardUserDefaults().setObject([userName_key:phone,userPwd_key:password], forKey: logInfo_key)
-                    NSUserDefaults.standardUserDefaults().setValue(phone, forKey: userName_key)
+                    UserDefaults.standard.set([userName_key:phone,userPwd_key:password], forKey: logInfo_key)
+                    UserDefaults.standard.setValue(phone, forKey: userName_key)
 
                     self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
                 }else{
                     
-                    hud.mode = .Text
-                    hud.labelFont = UIFont.systemFontOfSize(14)
+                    hud.mode = .text
+                    hud.labelFont = UIFont.systemFont(ofSize: 14)
                     hud.labelText = "登录失败"
-                    hud.detailsLabelFont = UIFont.systemFontOfSize(16)
+                    hud.detailsLabelFont = UIFont.systemFont(ofSize: 16)
                     hud.detailsLabelText = response as! String
                     hud.hide(true, afterDelay: 1)
                 }

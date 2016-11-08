@@ -9,26 +9,26 @@
 import UIKit
 
 protocol ChChCityTableViewCellDelegate {
-    func cityTableViewCellCityBtnClick(cityBtn:UIButton, indexPath:NSIndexPath, index:Int)
+    func cityTableViewCellCityBtnClick(_ cityBtn:UIButton, indexPath:IndexPath, index:Int)
 }
 
 class ChChCityTableViewCell: UITableViewCell {
     
     var delegate:ChChCityTableViewCellDelegate?
     
-    private var indexPath:NSIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+    fileprivate var indexPath:IndexPath = IndexPath(row: 0, section: 0)
     
 //    var cityBtnsTitleArray = Array<String>()
     
-    func setBtns(cityBtnsTitleArray:[String], indexPath:NSIndexPath) {
+    func setBtns(_ cityBtnsTitleArray:[String], indexPath:IndexPath) {
         self.indexPath = indexPath
         setBtns(cityBtnsTitleArray)
     }
     
-    func setBtns(cityBtnsTitleArray:[String]) {
+    func setBtns(_ cityBtnsTitleArray:[String]) {
         
         for view in self.contentView.subviews {
-            if view.isKindOfClass(UIButton) {
+            if view.isKind(of: UIButton.self) {
                 view.removeFromSuperview()
             }
         }
@@ -39,17 +39,17 @@ class ChChCityTableViewCell: UITableViewCell {
         var cityBtnWidth:CGFloat = 0
         let cityBtnHeight:CGFloat = 25
         
-        for (i,city) in cityBtnsTitleArray.enumerate() {
+        for (i,city) in cityBtnsTitleArray.enumerated() {
             cityBtnWidth = calculateWidth(city, size: 14, height: cityBtnHeight)+cityBtnMargin*4
-            let cityBtn = UIButton(frame: CGRectMake(cityBtnX, cityBtnY, cityBtnWidth, cityBtnHeight))
+            let cityBtn = UIButton(frame: CGRect(x: cityBtnX, y: cityBtnY, width: cityBtnWidth, height: cityBtnHeight))
             cityBtn.layer.cornerRadius = cityBtnHeight/2.0
             cityBtn.layer.borderWidth = 1
-            cityBtn.layer.borderColor = UIColor(red: 209/255.0, green: 209/255.0, blue: 209/255.0, alpha: 1).CGColor
-            cityBtn.titleLabel?.font = UIFont.systemFontOfSize(14)
-            cityBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            cityBtn.setTitle(city, forState: .Normal)
+            cityBtn.layer.borderColor = UIColor(red: 209/255.0, green: 209/255.0, blue: 209/255.0, alpha: 1).cgColor
+            cityBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+            cityBtn.setTitleColor(UIColor.black, for: UIControlState())
+            cityBtn.setTitle(city, for: UIControlState())
             cityBtn.tag = 1000+i
-            cityBtn.addTarget(self, action: #selector(cityBtnClick(_:)), forControlEvents: .TouchUpInside)
+            cityBtn.addTarget(self, action: #selector(cityBtnClick(_:)), for: .touchUpInside)
             self.contentView.addSubview(cityBtn)
             
             if i+1 < cityBtnsTitleArray.count {
@@ -68,7 +68,7 @@ class ChChCityTableViewCell: UITableViewCell {
         }
     }
     
-    func cityBtnClick(cityBtn:UIButton) {
+    func cityBtnClick(_ cityBtn:UIButton) {
 //        print(cityBtn.currentTitle)
         self.delegate?.cityTableViewCellCityBtnClick(cityBtn, indexPath: self.indexPath, index: cityBtn.tag-1000)
     }
@@ -78,7 +78,7 @@ class ChChCityTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

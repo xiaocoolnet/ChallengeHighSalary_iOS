@@ -9,10 +9,10 @@
 import UIKit
 
 enum FromVCType {
-    case Intension
-    case JobExperience
-    case CompanyInfo
-    case Default
+    case intension
+    case jobExperience
+    case companyInfo
+    case `default`
 }
 
 class CHSReChooseIndustryCategoriesViewController: UIViewController {
@@ -21,7 +21,7 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
     
     var navTitle = ""
     
-    var vcType:FromVCType = .Default
+    var vcType:FromVCType = .default
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,16 +31,16 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
         setSubviews()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: 设置子视图
@@ -48,13 +48,13 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
         
         self.automaticallyAdjustsScrollViewInsets = false
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
         
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
         self.title = navTitle
         
-        let scrollView = UIScrollView(frame: CGRectMake(0, 64, screenSize.width, screenSize.height-64-44))
+        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-64-44))
         
         self.view.addSubview(scrollView)
         
@@ -66,20 +66,20 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
         var industryBtnWidth:CGFloat = 0
         let industryBtnHeight:CGFloat = 30
         
-        for (i,industryName) in industryNameArray.enumerate() {
+        for (i,industryName) in industryNameArray.enumerated() {
             
             industryBtnWidth = calculateWidth(industryName, size: 15, height: industryBtnHeight)+industryBtnMargin_x*2
-            let industryBtn = UIButton(frame: CGRectMake(industryBtnX, industryBtnY, industryBtnWidth, industryBtnHeight))
+            let industryBtn = UIButton(frame: CGRect(x: industryBtnX, y: industryBtnY, width: industryBtnWidth, height: industryBtnHeight))
             industryBtn.tag = 100+i
             industryBtn.layer.cornerRadius = 6
             industryBtn.layer.borderWidth = 1
-            industryBtn.layer.borderColor = UIColor(red: 187/255.0, green: 187/255.0, blue: 187/255.0, alpha: 1).CGColor
-            industryBtn.titleLabel?.font = UIFont.systemFontOfSize(15)
-            industryBtn.setTitleColor(UIColor(red: 187/255.0, green: 187/255.0, blue: 187/255.0, alpha: 1), forState: .Normal)
-            industryBtn.setTitle(industryName, forState: .Normal)
-            industryBtn.setTitleColor(UIColor.whiteColor(), forState: .Selected)
-            industryBtn.backgroundColor = UIColor.clearColor()
-            industryBtn.addTarget(self, action: #selector(industryBtnClick(_:)), forControlEvents: .TouchUpInside)
+            industryBtn.layer.borderColor = UIColor(red: 187/255.0, green: 187/255.0, blue: 187/255.0, alpha: 1).cgColor
+            industryBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+            industryBtn.setTitleColor(UIColor(red: 187/255.0, green: 187/255.0, blue: 187/255.0, alpha: 1), for: UIControlState())
+            industryBtn.setTitle(industryName, for: UIControlState())
+            industryBtn.setTitleColor(UIColor.white, for: .selected)
+            industryBtn.backgroundColor = UIColor.clear
+            industryBtn.addTarget(self, action: #selector(industryBtnClick(_:)), for: .touchUpInside)
             scrollView.addSubview(industryBtn)
             
             if i+1 < industryNameArray.count {
@@ -96,13 +96,13 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
             }
         }
         
-        scrollView.contentSize = CGSizeMake(0, industryBtnHeight + industryBtnY + industryBtnMargin_y)
+        scrollView.contentSize = CGSize(width: 0, height: industryBtnHeight + industryBtnY + industryBtnMargin_y)
         
-        let noMyIndustryBtn = UIButton(frame: CGRectMake(0, screenSize.height-44, screenSize.width, 44))
-        noMyIndustryBtn.backgroundColor = UIColor.whiteColor()
-        noMyIndustryBtn.titleLabel?.font = UIFont.systemFontOfSize(16)
-        noMyIndustryBtn.setTitleColor(baseColor, forState: .Normal)
-        noMyIndustryBtn.setTitle("我找不到符合的行业", forState: .Normal)
+        let noMyIndustryBtn = UIButton(frame: CGRect(x: 0, y: screenSize.height-44, width: screenSize.width, height: 44))
+        noMyIndustryBtn.backgroundColor = UIColor.white
+        noMyIndustryBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        noMyIndustryBtn.setTitleColor(baseColor, for: UIControlState())
+        noMyIndustryBtn.setTitle("我找不到符合的行业", for: UIControlState())
 //        noMyIndustryBtn(self, action: #selector(noMyIndustryBtnClick), forControlEvents: .TouchUpInside)
         self.view.addSubview(noMyIndustryBtn)
         
@@ -111,35 +111,35 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
     // MARK: 点击 行业
     var flag = false
     
-    func industryBtnClick(industryBtn: UIButton) {
+    func industryBtnClick(_ industryBtn: UIButton) {
         
         if flag {return}
         
-        industryBtn.selected = !industryBtn.selected
-        if industryBtn.selected {
+        industryBtn.isSelected = !industryBtn.isSelected
+        if industryBtn.isSelected {
             industryBtn.backgroundColor = baseColor
         }else{
-            industryBtn.backgroundColor = UIColor.clearColor()
+            industryBtn.backgroundColor = UIColor.clear
         }
         
-        if self.vcType == .Intension {
-            NSNotificationCenter.defaultCenter().postNotificationName("PersonalChangeJobIntensionNotification", object: nil, userInfo: ["type":"Categories","value":industryNameArray[industryBtn.tag-100]])
+        if self.vcType == .intension {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "PersonalChangeJobIntensionNotification"), object: nil, userInfo: ["type":"Categories","value":industryNameArray[industryBtn.tag-100]])
 
-        }else if self.vcType == .JobExperience {
-            NSNotificationCenter.defaultCenter().postNotificationName("PersonalChangeJobExperienceNotification", object: nil, userInfo: ["type":"Categories","value":industryNameArray[industryBtn.tag-100]])
+        }else if self.vcType == .jobExperience {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "PersonalChangeJobExperienceNotification"), object: nil, userInfo: ["type":"Categories","value":industryNameArray[industryBtn.tag-100]])
 
-        }else if self.vcType == .CompanyInfo {
-            NSNotificationCenter.defaultCenter().postNotificationName("PersonalChangeCompanyInfoNotification", object: nil, userInfo: ["type":"Categories","value":industryNameArray[industryBtn.tag-100]])
+        }else if self.vcType == .companyInfo {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "PersonalChangeCompanyInfoNotification"), object: nil, userInfo: ["type":"Categories","value":industryNameArray[industryBtn.tag-100]])
             
         }
         
         flag = true
         
-        let time: NSTimeInterval = 0.5
-        let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+        let time: TimeInterval = 0.5
+        let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
         
-        dispatch_after(delay, dispatch_get_main_queue()) {
-            self.navigationController?.popViewControllerAnimated(true)
+        DispatchQueue.main.asyncAfter(deadline: delay) {
+            _ = self.navigationController?.popViewController(animated: true)
         }
 
     }

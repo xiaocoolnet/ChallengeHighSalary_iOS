@@ -38,11 +38,11 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = true
         
         self.loadData()
 
@@ -53,7 +53,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         
         var flag = 0
         
-        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
         
         checkCodeHud.labelText = "正在获取公司信息"
@@ -64,9 +64,9 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         object_id: (self.jobInfo?.jobid ?? "")!,
         type: "1") { (success, response) in
             if success {
-                self.collectionBtn.selected = true
+                self.collectionBtn.isSelected = true
             }else{
-                self.collectionBtn.selected = false
+                self.collectionBtn.isSelected = false
             }
             flag += 1
             
@@ -80,7 +80,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         FTNetUtil().getMyCompany_info((self.jobInfo?.userid ?? "")!) { (success, response) in
             if success {
                 self.company_infoData = response as! Company_infoDataModel
-                self.positionBtn.setTitle("共\((self.company_infoData.jobs?.count)!)个职位", forState: .Normal)
+                self.positionBtn.setTitle("共\((self.company_infoData.jobs?.count)!)个职位", for: UIControlState())
                 
                 flag += 1
                 
@@ -94,7 +94,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
                 flag += 1
                 
                 if flag >= 2 {
-                    checkCodeHud.mode = .Text
+                    checkCodeHud.mode = .text
                     checkCodeHud.labelText = "获取公司信息失败"
                     checkCodeHud.hide(true, afterDelay: 1)
                 }
@@ -105,7 +105,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
    
     // MARK: 设置 NavigationBar
@@ -113,18 +113,18 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.title = "职位信息"
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
 
         // rightBarButtonItems
-        let shareBtn = UIButton(frame: CGRectMake(0, 0, 24, 24))
-        shareBtn.setImage(UIImage(named: "ic_分享"), forState: .Normal)
-        shareBtn.addTarget(self, action: #selector(shareBtnClick), forControlEvents: .TouchUpInside)
+        let shareBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+        shareBtn.setImage(UIImage(named: "ic_分享"), for: UIControlState())
+        shareBtn.addTarget(self, action: #selector(shareBtnClick), for: .touchUpInside)
         let shareItem = UIBarButtonItem(customView: shareBtn)
         
-        collectionBtn.frame = CGRectMake(0, 0, 24, 24)
-        collectionBtn.setImage(UIImage(named: "ic_收藏"), forState: .Normal)
-        collectionBtn.setImage(UIImage(named: "ic_收藏_sel"), forState: .Selected)
-        collectionBtn.addTarget(self, action: #selector(collectionBtnClick), forControlEvents: .TouchUpInside)
+        collectionBtn.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+        collectionBtn.setImage(UIImage(named: "ic_收藏"), for: UIControlState())
+        collectionBtn.setImage(UIImage(named: "ic_收藏_sel"), for: .selected)
+        collectionBtn.addTarget(self, action: #selector(collectionBtnClick), for: .touchUpInside)
         
         let collectionItem = UIBarButtonItem(customView: collectionBtn)
         
@@ -134,10 +134,10 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
     // MARK:- 收藏按钮点击事件
     func collectionBtnClick() {
         
-        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
         
-        if collectionBtn.selected {
+        if collectionBtn.isSelected {
             // MARK: 取消收藏
             checkCodeHud.labelText = "正在取消收藏"
             
@@ -147,14 +147,14 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
                 type: "1") { (success, response) in
                     if success {
                         
-                        self.collectionBtn.selected = false
+                        self.collectionBtn.isSelected = false
                         
-                        checkCodeHud.mode = .Text
+                        checkCodeHud.mode = .text
                         checkCodeHud.labelText = "取消收藏成功"
                         checkCodeHud.hide(true, afterDelay: 1)
                         
                     }else{
-                        checkCodeHud.mode = .Text
+                        checkCodeHud.mode = .text
                         checkCodeHud.labelText = "取消收藏失败"
                         checkCodeHud.hide(true, afterDelay: 1)
                         
@@ -172,14 +172,14 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
                 description: "") { (success, response) in
                     if success {
                         
-                        self.collectionBtn.selected = true
+                        self.collectionBtn.isSelected = true
                         
-                        checkCodeHud.mode = .Text
+                        checkCodeHud.mode = .text
                         checkCodeHud.labelText = "已加入收藏列表"
                         checkCodeHud.hide(true, afterDelay: 1)
                         
                     }else{
-                        checkCodeHud.mode = .Text
+                        checkCodeHud.mode = .text
                         checkCodeHud.labelText = "加入收藏列表失败"
                         checkCodeHud.hide(true, afterDelay: 1)
                     
@@ -194,220 +194,220 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
         //MARK: scrollView
-        rootScrollView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height-20-44-kHeightScale*44)
+        rootScrollView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-20-44-kHeightScale*44)
         rootScrollView.tag = 101
         rootScrollView.delegate = self
         self.view.addSubview(rootScrollView)
         
         //MARK: 概况
-        let noteView = UIView(frame: CGRectMake(0, 0, screenSize.width, kHeightScale*125))
-        noteView.backgroundColor = UIColor.whiteColor()
+        let noteView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: kHeightScale*125))
+        noteView.backgroundColor = UIColor.white
         rootScrollView.addSubview(noteView)
         
-        let titleLab = UILabel(frame: CGRectMake(8, 0, screenSize.width, kHeightScale*50))
-        titleLab.textColor = UIColor.blackColor()
-        titleLab.font = UIFont.boldSystemFontOfSize(16)
+        let titleLab = UILabel(frame: CGRect(x: 8, y: 0, width: screenSize.width, height: kHeightScale*50))
+        titleLab.textColor = UIColor.black
+        titleLab.font = UIFont.boldSystemFont(ofSize: 16)
         titleLab.text = self.jobInfo?.title ?? ""
         titleLab.sizeToFit()
         titleLab.frame.origin.y = (kHeightScale*50 - titleLab.frame.size.height)/2.0
         noteView.addSubview(titleLab)
         
-        let salaryLab = UILabel(frame: CGRectMake(CGRectGetMaxX(titleLab.frame), 0, screenSize.width, kHeightScale*50))
+        let salaryLab = UILabel(frame: CGRect(x: titleLab.frame.maxX, y: 0, width: screenSize.width, height: kHeightScale*50))
         salaryLab.textColor = UIColor(red: 253/255.0, green: 151/255.0, blue: 39/255.0, alpha: 1)
-        salaryLab.font = UIFont.boldSystemFontOfSize(16)
+        salaryLab.font = UIFont.boldSystemFont(ofSize: 16)
         salaryLab.text = "【￥\((self.jobInfo?.salary ?? "")!)】"
         salaryLab.sizeToFit()
         salaryLab.center.y = titleLab.center.y
         noteView.addSubview(salaryLab)
         
-        let overviewNameArray = [self.jobInfo?.city?.componentsSeparatedByString("-").last ?? "",self.jobInfo?.experience ?? "",self.jobInfo?.education ?? "",self.jobInfo?.work_property ?? ""]
+        let overviewNameArray = [self.jobInfo?.city?.components(separatedBy: "-").last ?? "",self.jobInfo?.experience ?? "",self.jobInfo?.education ?? "",self.jobInfo?.work_property ?? ""]
         let overviewImgNameArray = ["ic_地点","ic_工作经验","ic_学历","ic_全职"]
-        for (i,overviewName) in overviewNameArray.enumerate() {
-            let overviewBtn = UIButton(frame: CGRectMake(
-                screenSize.width/CGFloat(overviewNameArray.count)*CGFloat(i),
-                CGRectGetMaxY(salaryLab.frame)+CGRectGetMinY(salaryLab.frame),
-                screenSize.width/CGFloat(overviewNameArray.count),
-                kHeightScale*35))
-            overviewBtn.setImage(UIImage(named: overviewImgNameArray[i]), forState: .Normal)
-            overviewBtn.titleLabel?.font = UIFont.systemFontOfSize(14)
-            overviewBtn.setTitleColor(UIColor(red: 95/255.0, green: 95/255.0, blue: 95/255.0, alpha: 1), forState: .Normal)
-            overviewBtn.setTitle(overviewName, forState: .Normal)
+        for (i,overviewName) in overviewNameArray.enumerated() {
+            let overviewBtn = UIButton(frame: CGRect(
+                x: screenSize.width/CGFloat(overviewNameArray.count)*CGFloat(i),
+                y: salaryLab.frame.maxY+salaryLab.frame.minY,
+                width: screenSize.width/CGFloat(overviewNameArray.count),
+                height: kHeightScale*35))
+            overviewBtn.setImage(UIImage(named: overviewImgNameArray[i]), for: UIControlState())
+            overviewBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+            overviewBtn.setTitleColor(UIColor(red: 95/255.0, green: 95/255.0, blue: 95/255.0, alpha: 1), for: UIControlState())
+            overviewBtn.setTitle(overviewName, for: UIControlState())
             
             noteView.addSubview(overviewBtn)
         }
         
-        let noteLab = UILabel(frame: CGRectMake(8, kHeightScale*85, screenSize.width, kHeightScale*40))
+        let noteLab = UILabel(frame: CGRect(x: 8, y: kHeightScale*85, width: screenSize.width, height: kHeightScale*40))
         noteLab.textColor = UIColor(red: 166/255.0, green: 166/255.0, blue: 166/255.0, alpha: 1)
-        noteLab.font = UIFont.systemFontOfSize(14)
+        noteLab.font = UIFont.systemFont(ofSize: 14)
         noteLab.text = "职位诱惑："+(self.jobInfo?.welfare ?? "")!
         noteView.addSubview(noteLab)
         
         noteLab.sizeToFit()
         
-        noteView.frame.size.height = CGRectGetMaxY(noteLab.frame)+10
+        noteView.frame.size.height = noteLab.frame.maxY+10
         
         //MARK: 公司主页
-        let companyView = UIView(frame: CGRectMake(
-            0,
-            CGRectGetMaxY(noteView.frame)+kHeightScale*10,
-            screenSize.width,
-            kHeightScale*168))
-        companyView.backgroundColor = UIColor.whiteColor()
+        let companyView = UIView(frame: CGRect(
+            x: 0,
+            y: noteView.frame.maxY+kHeightScale*10,
+            width: screenSize.width,
+            height: kHeightScale*168))
+        companyView.backgroundColor = UIColor.white
         rootScrollView.addSubview(companyView)
         
-        let headerBtn = UIButton(frame: CGRectMake(8, 0, kHeightScale*50, kHeightScale*50))
+        let headerBtn = UIButton(frame: CGRect(x: 8, y: 0, width: kHeightScale*50, height: kHeightScale*50))
 
         if self.jobInfo?.authentication == "1" {
             
-            let companyLab = UILabel(frame: CGRectMake(8, 0, screenSize.width-16, kHeightScale*40))
+            let companyLab = UILabel(frame: CGRect(x: 8, y: 0, width: screenSize.width-16, height: kHeightScale*40))
             companyLab.textColor = baseColor
-            companyLab.font = UIFont.systemFontOfSize(14)
-            companyLab.textAlignment = .Left
+            companyLab.font = UIFont.systemFont(ofSize: 14)
+            companyLab.textAlignment = .left
             companyLab.text = "公司主页"
             companyView.addSubview(companyLab)
             
-            let companyBtn = UIButton(frame: CGRectMake(8, 0, screenSize.width-16, kHeightScale*40))
-            companyBtn.setTitleColor(UIColor(red: 131/255.0, green: 131/255.0, blue: 131/255.0, alpha: 1), forState: .Normal)
-            companyBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
-            companyBtn.contentHorizontalAlignment = .Right
-            companyBtn.setTitle(self.jobInfo?.company_name ?? "", forState: .Normal)
-            companyBtn.addTarget(self, action: #selector(companyBtnClick), forControlEvents: .TouchUpInside)
+            let companyBtn = UIButton(frame: CGRect(x: 8, y: 0, width: screenSize.width-16, height: kHeightScale*40))
+            companyBtn.setTitleColor(UIColor(red: 131/255.0, green: 131/255.0, blue: 131/255.0, alpha: 1), for: UIControlState())
+            companyBtn.titleLabel!.font = UIFont.systemFont(ofSize: 14)
+            companyBtn.contentHorizontalAlignment = .right
+            companyBtn.setTitle(self.jobInfo?.company_name ?? "", for: UIControlState())
+            companyBtn.addTarget(self, action: #selector(companyBtnClick), for: .touchUpInside)
             companyView.addSubview(companyBtn)
             
             drawLine(
                 companyView,
                 color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1),
-                fromPoint: CGPointMake(8, CGRectGetMaxY(companyBtn.frame)),
-                toPoint: CGPointMake(screenSize.width-8, CGRectGetMaxY(companyBtn.frame)),
+                fromPoint: CGPoint(x: 8, y: companyBtn.frame.maxY),
+                toPoint: CGPoint(x: screenSize.width-8, y: companyBtn.frame.maxY),
                 lineWidth: 1,
                 pattern: [10,5])
             
-            headerBtn.frame = CGRectMake(8, CGRectGetMaxY(companyBtn.frame)+1+8, kHeightScale*50, kHeightScale*50)
+            headerBtn.frame = CGRect(x: 8, y: companyBtn.frame.maxY+1+8, width: kHeightScale*50, height: kHeightScale*50)
 
         }else{
-            headerBtn.frame = CGRectMake(8, 8, kHeightScale*50, kHeightScale*50)
+            headerBtn.frame = CGRect(x: 8, y: 8, width: kHeightScale*50, height: kHeightScale*50)
         }
         
         headerBtn.backgroundColor = baseColor
         headerBtn.layer.cornerRadius = kHeightScale*25
         headerBtn.clipsToBounds = true
-        headerBtn.sd_setImageWithURL(NSURL(string: kImagePrefix+(self.jobInfo?.logo ?? "")!), forState: .Normal)
+        headerBtn.sd_setImage(with: URL(string: kImagePrefix+(self.jobInfo?.logo ?? "")!), for: UIControlState())
         companyView.addSubview(headerBtn)
         
-        let nameBtn = UIButton(frame: CGRectMake(
-            CGRectGetMaxX(headerBtn.frame)+kWidthScale*17,
-            CGRectGetMinY(headerBtn.frame),
-            kWidthScale*200,
-            headerBtn.frame.size.height/2.0))
-        nameBtn.contentHorizontalAlignment = .Left
-        nameBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        nameBtn.setTitle(self.jobInfo?.realname ?? "", forState: .Normal)
+        let nameBtn = UIButton(frame: CGRect(
+            x: headerBtn.frame.maxX+kWidthScale*17,
+            y: headerBtn.frame.minY,
+            width: kWidthScale*200,
+            height: headerBtn.frame.size.height/2.0))
+        nameBtn.contentHorizontalAlignment = .left
+        nameBtn.setTitleColor(UIColor.black, for: UIControlState())
+        nameBtn.setTitle(self.jobInfo?.realname ?? "", for: UIControlState())
 //        nameBtn.setImage(UIImage(named: "ic_女士"), forState: .Normal)
 //        exchangeBtnImageAndTitle(nameBtn, margin: 5)
         companyView.addSubview(nameBtn)
         
-        let hrNoteLab = UILabel(frame: CGRectMake(
-            CGRectGetMaxX(headerBtn.frame)+kWidthScale*17,
-            CGRectGetMaxY(nameBtn.frame),
-            screenSize.width-CGRectGetMaxX(headerBtn.frame)+kWidthScale*17,
-            headerBtn.frame.size.height/2.0))
-        hrNoteLab.textAlignment = .Left
+        let hrNoteLab = UILabel(frame: CGRect(
+            x: headerBtn.frame.maxX+kWidthScale*17,
+            y: nameBtn.frame.maxY,
+            width: screenSize.width-headerBtn.frame.maxX+kWidthScale*17,
+            height: headerBtn.frame.size.height/2.0))
+        hrNoteLab.textAlignment = .left
         hrNoteLab.textColor = UIColor(red: 101/255.0, green: 101/255.0, blue: 101/255.0, alpha: 1)
-        hrNoteLab.font = UIFont.systemFontOfSize(14)
-        hrNoteLab.text = "\((self.jobInfo?.myjob ?? "")!) | \((self.jobInfo?.industry?.stringByReplacingOccurrencesOfString("/", withString: " | ") ?? "")!)"
+        hrNoteLab.font = UIFont.systemFont(ofSize: 14)
+        hrNoteLab.text = "\((self.jobInfo?.myjob ?? "")!) | \((self.jobInfo?.industry?.replacingOccurrences(of: "/", with: " | ") ?? "")!)"
         companyView.addSubview(hrNoteLab)
         
-        positionBtn.frame = CGRectMake(
-            screenSize.width-kWidthScale*85-8,
-            CGRectGetMinY(headerBtn.frame),
-            kWidthScale*85,
-            headerBtn.frame.size.height/2.0)
+        positionBtn.frame = CGRect(
+            x: screenSize.width-kWidthScale*85-8,
+            y: headerBtn.frame.minY,
+            width: kWidthScale*85,
+            height: headerBtn.frame.size.height/2.0)
         positionBtn.layer.cornerRadius = 8
-        positionBtn.layer.borderColor = baseColor.CGColor
+        positionBtn.layer.borderColor = baseColor.cgColor
         positionBtn.layer.borderWidth = 1
-        positionBtn.setTitleColor(baseColor, forState: .Normal)
-        positionBtn.titleLabel?.font = UIFont.systemFontOfSize(13)
-        positionBtn.addTarget(self, action: #selector(positionBtnClick), forControlEvents: .TouchUpInside)
+        positionBtn.setTitleColor(baseColor, for: UIControlState())
+        positionBtn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        positionBtn.addTarget(self, action: #selector(positionBtnClick), for: .touchUpInside)
         companyView.addSubview(positionBtn)
         
         drawLine(
             companyView,
             color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1),
-            fromPoint: CGPointMake(8, CGRectGetMaxY(headerBtn.frame)+8),
-            toPoint: CGPointMake(screenSize.width-8, CGRectGetMaxY(headerBtn.frame)+8),
+            fromPoint: CGPoint(x: 8, y: headerBtn.frame.maxY+8),
+            toPoint: CGPoint(x: screenSize.width-8, y: headerBtn.frame.maxY+8),
             lineWidth: 1,
             pattern: [10,5])
         
         let margin:CGFloat = 8
 
-        let countBtn = UIButton(frame: CGRectMake(8, CGRectGetMaxY(headerBtn.frame)+1+8+8, screenSize.width-16, kHeightScale*60))
-        countBtn.setImage(UIImage(named: "ic_职位详情页_人数"), forState: .Normal)
-        countBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        countBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
+        let countBtn = UIButton(frame: CGRect(x: 8, y: headerBtn.frame.maxY+1+8+8, width: screenSize.width-16, height: kHeightScale*60))
+        countBtn.setImage(UIImage(named: "ic_职位详情页_人数"), for: UIControlState())
+        countBtn.setTitleColor(UIColor.black, for: UIControlState())
+        countBtn.titleLabel!.font = UIFont.systemFont(ofSize: 14)
         countBtn.titleLabel?.numberOfLines = 0
-        countBtn.contentHorizontalAlignment = .Left
-        countBtn.setTitle("\((self.jobInfo?.count ?? "0")!)", forState: .Normal)
+        countBtn.contentHorizontalAlignment = .left
+        countBtn.setTitle("\((self.jobInfo?.count ?? "0")!)", for: UIControlState())
         countBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
         companyView.addSubview(countBtn)
         
         countBtn.sizeToFit()
         
-        let company_webBtn = UIButton(frame: CGRectMake(8, CGRectGetMaxY(countBtn.frame)+8, screenSize.width-16, kHeightScale*60))
-        company_webBtn.setImage(UIImage(named: "ic_职位详情页_网址"), forState: .Normal)
-        company_webBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        company_webBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
+        let company_webBtn = UIButton(frame: CGRect(x: 8, y: countBtn.frame.maxY+8, width: screenSize.width-16, height: kHeightScale*60))
+        company_webBtn.setImage(UIImage(named: "ic_职位详情页_网址"), for: UIControlState())
+        company_webBtn.setTitleColor(UIColor.black, for: UIControlState())
+        company_webBtn.titleLabel!.font = UIFont.systemFont(ofSize: 14)
         company_webBtn.titleLabel?.numberOfLines = 0
-        company_webBtn.contentHorizontalAlignment = .Left
-        company_webBtn.setTitle((self.jobInfo?.company_web ?? "")!, forState: .Normal)
+        company_webBtn.contentHorizontalAlignment = .left
+        company_webBtn.setTitle((self.jobInfo?.company_web ?? "")!, for: UIControlState())
         company_webBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
         companyView.addSubview(company_webBtn)
         
         company_webBtn.sizeToFit()
         
-        let company_nameBtn = UIButton(frame: CGRectMake(8, CGRectGetMaxY(company_webBtn.frame)+8, screenSize.width-16, kHeightScale*60))
-        company_nameBtn.setImage(UIImage(named: "ic_职位详情页_公司"), forState: .Normal)
-        company_nameBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        company_nameBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
+        let company_nameBtn = UIButton(frame: CGRect(x: 8, y: company_webBtn.frame.maxY+8, width: screenSize.width-16, height: kHeightScale*60))
+        company_nameBtn.setImage(UIImage(named: "ic_职位详情页_公司"), for: UIControlState())
+        company_nameBtn.setTitleColor(UIColor.black, for: UIControlState())
+        company_nameBtn.titleLabel!.font = UIFont.systemFont(ofSize: 14)
         company_nameBtn.titleLabel?.numberOfLines = 0
-        company_nameBtn.contentHorizontalAlignment = .Left
-        company_nameBtn.setTitle((self.jobInfo?.company_name ?? "")!, forState: .Normal)
+        company_nameBtn.contentHorizontalAlignment = .left
+        company_nameBtn.setTitle((self.jobInfo?.company_name ?? "")!, for: UIControlState())
         company_nameBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
         companyView.addSubview(company_nameBtn)
         
         company_nameBtn.sizeToFit()
         
-        let placeBtn = UIButton(frame: CGRectMake(8, CGRectGetMaxY(company_nameBtn.frame)+8, screenSize.width-16, kHeightScale*60))
-        placeBtn.setImage(UIImage(named: "ic_职位详情页_地点"), forState: .Normal)
-        placeBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        placeBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
+        let placeBtn = UIButton(frame: CGRect(x: 8, y: company_nameBtn.frame.maxY+8, width: screenSize.width-16, height: kHeightScale*60))
+        placeBtn.setImage(UIImage(named: "ic_职位详情页_地点"), for: UIControlState())
+        placeBtn.setTitleColor(UIColor.black, for: UIControlState())
+        placeBtn.titleLabel!.font = UIFont.systemFont(ofSize: 14)
         placeBtn.titleLabel?.numberOfLines = 0
-        placeBtn.contentHorizontalAlignment = .Left
-        placeBtn.setTitle("上班地点：\((self.jobInfo?.city?.stringByReplacingOccurrencesOfString("-", withString: "") ?? "")!)\((self.jobInfo?.address ?? "")!)", forState: .Normal)
+        placeBtn.contentHorizontalAlignment = .left
+        placeBtn.setTitle("上班地点：\((self.jobInfo?.city?.replacingOccurrences(of: "-", with: "") ?? "")!)\((self.jobInfo?.address ?? "")!)", for: UIControlState())
         placeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
         companyView.addSubview(placeBtn)
         
         placeBtn.sizeToFit()
         
-        companyView.frame.size.height = CGRectGetMaxY(placeBtn.frame)+10
+        companyView.frame.size.height = placeBtn.frame.maxY+10
         
         //MARK: 职位描述
-        positionView.frame = CGRectMake(0, CGRectGetMaxY(companyView.frame)+kHeightScale*10, screenSize.width, kHeightScale*220)
-        positionView.backgroundColor = UIColor.whiteColor()
+        positionView.frame = CGRect(x: 0, y: companyView.frame.maxY+kHeightScale*10, width: screenSize.width, height: kHeightScale*220)
+        positionView.backgroundColor = UIColor.white
         rootScrollView.addSubview(positionView)
         
-        let positionLab = UILabel(frame: CGRectMake(8, 0, screenSize.width-16, kHeightScale*40))
+        let positionLab = UILabel(frame: CGRect(x: 8, y: 0, width: screenSize.width-16, height: kHeightScale*40))
         positionLab.textColor = baseColor
-        positionLab.font = UIFont.systemFontOfSize(14)
-        positionLab.textAlignment = .Left
+        positionLab.font = UIFont.systemFont(ofSize: 14)
+        positionLab.textAlignment = .left
         positionLab.text = "职位描述"
         positionView.addSubview(positionLab)
         
-        drawDashed(positionView, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(8, CGRectGetMaxY(positionLab.frame)), toPoint: CGPointMake(screenSize.width-8, CGRectGetMaxY(positionLab.frame)), lineWidth: 1)
+        drawDashed(positionView, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPoint(x: 8, y: positionLab.frame.maxY), toPoint: CGPoint(x: screenSize.width-8, y: positionLab.frame.maxY), lineWidth: 1)
         
-        descriptionLab.frame = CGRectMake(8, CGRectGetMaxY(positionLab.frame)+1+8, screenSize.width-16, kHeightScale*135)
-        descriptionLab.textColor = UIColor.blackColor()
-        descriptionLab.font = UIFont.systemFontOfSize(14)
-        descriptionLab.textAlignment = .Left
+        descriptionLab.frame = CGRect(x: 8, y: positionLab.frame.maxY+1+8, width: screenSize.width-16, height: kHeightScale*135)
+        descriptionLab.textColor = UIColor.black
+        descriptionLab.font = UIFont.systemFont(ofSize: 14)
+        descriptionLab.textAlignment = .left
         descriptionLab.numberOfLines = 0
         descriptionLab.text = self.jobInfo?.description_job ?? ""
         positionView.addSubview(descriptionLab)
@@ -416,33 +416,33 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
             
             descriptionLab.frame.size.height = kHeightScale*135
             
-            let showAllBtn = UIButton(frame: CGRectMake(8, CGRectGetMaxY(descriptionLab.frame)+1+8, screenSize.width-16, calculateHeight("显示全部", size: 14, width: screenSize.width-16)+8+8))
-            showAllBtn.setTitleColor(baseColor, forState: .Normal)
-            showAllBtn.titleLabel!.font = UIFont.systemFontOfSize(14)
-            showAllBtn.setTitle("显示全部", forState: .Normal)
-            showAllBtn.setTitle("收起", forState: .Selected)
+            let showAllBtn = UIButton(frame: CGRect(x: 8, y: descriptionLab.frame.maxY+1+8, width: screenSize.width-16, height: calculateHeight("显示全部", size: 14, width: screenSize.width-16)+8+8))
+            showAllBtn.setTitleColor(baseColor, for: UIControlState())
+            showAllBtn.titleLabel!.font = UIFont.systemFont(ofSize: 14)
+            showAllBtn.setTitle("显示全部", for: UIControlState())
+            showAllBtn.setTitle("收起", for: .selected)
 
-            showAllBtn.addTarget(self, action: #selector(showAllBtnClick(_:)), forControlEvents: .TouchUpInside)
+            showAllBtn.addTarget(self, action: #selector(showAllBtnClick(_:)), for: .touchUpInside)
             positionView.addSubview(showAllBtn)
             
             drawLine(
                 showAllBtn,
                 color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1),
-                fromPoint: CGPointMake(8, 0),
-                toPoint: CGPointMake(screenSize.width-8, 0),
+                fromPoint: CGPoint(x: 8, y: 0),
+                toPoint: CGPoint(x: screenSize.width-8, y: 0),
                 lineWidth: 1,
                 pattern: [10,5])
             
-            positionView.frame.size.height = CGRectGetMaxY(showAllBtn.frame)
+            positionView.frame.size.height = showAllBtn.frame.maxY
             
-            rootScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(positionView.frame)+kHeightScale*10)
+            rootScrollView.contentSize = CGSize(width: 0, height: positionView.frame.maxY+kHeightScale*10)
         }else{
 
             descriptionLab.frame.size.height = calculateHeight((self.jobInfo?.description_job ?? "")!, size: 14, width: screenSize.width-16)+8
             
-            positionView.frame.size.height = CGRectGetMaxY(descriptionLab.frame)+kHeightScale*10
+            positionView.frame.size.height = descriptionLab.frame.maxY+kHeightScale*10
 
-            rootScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(positionView.frame)+kHeightScale*10)
+            rootScrollView.contentSize = CGSize(width: 0, height: positionView.frame.maxY+kHeightScale*10)
         }
         
         //MARK: 下方视图背景
@@ -484,30 +484,30 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
 //        self.utilView_applyJob.backgroundColor = UIColor.whiteColor()
 //        self.utilView.addSubview(self.utilView_applyJob)
         
-        self.utilView.frame = CGRectMake(
-            0,
-            screenSize.height-kHeightScale*44,
-            screenSize.width,
-            kHeightScale*44)
+        self.utilView.frame = CGRect(
+            x: 0,
+            y: screenSize.height-kHeightScale*44,
+            width: screenSize.width,
+            height: kHeightScale*44)
         self.view.addSubview(self.utilView)
         
-        let chatBtn_2 = UIButton(frame: CGRectMake(
-            0,
-            0,
-            screenSize.width,
-            kHeightScale*44))
+        let chatBtn_2 = UIButton(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: screenSize.width,
+            height: kHeightScale*44))
         chatBtn_2.backgroundColor = baseColor
         //        chatBtn_2.layer.cornerRadius = chatBtn.frame.size.height/2.0
-        chatBtn_2.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        chatBtn_2.setTitle("立即沟通", forState: .Normal)
-        chatBtn_2.addTarget(self, action: #selector(chatBtnClick), forControlEvents: .TouchUpInside)
+        chatBtn_2.setTitleColor(UIColor.white, for: UIControlState())
+        chatBtn_2.setTitle("立即沟通", for: UIControlState())
+        chatBtn_2.addTarget(self, action: #selector(chatBtnClick), for: .touchUpInside)
         self.utilView.addSubview(chatBtn_2)
     }
     //MARK:-
     
-    func showAllBtnClick(showAllBtn:UIButton) {
+    func showAllBtnClick(_ showAllBtn:UIButton) {
         
-        if showAllBtn.selected {
+        if showAllBtn.isSelected {
             
             descriptionLab.frame.size.height = kHeightScale*135
             
@@ -516,12 +516,12 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
             descriptionLab.frame.size.height = calculateHeight((self.jobInfo?.description_job ?? "")!, size: 14, width: screenSize.width-16)+8
         }
         
-        showAllBtn.frame.origin.y = CGRectGetMaxY(descriptionLab.frame)+1+8
-        positionView.frame.size.height = CGRectGetMaxY(showAllBtn.frame)
+        showAllBtn.frame.origin.y = descriptionLab.frame.maxY+1+8
+        positionView.frame.size.height = showAllBtn.frame.maxY
         
-        rootScrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(positionView.frame)+kHeightScale*10)
+        rootScrollView.contentSize = CGSize(width: 0, height: positionView.frame.maxY+kHeightScale*10)
         
-        showAllBtn.selected = !showAllBtn.selected
+        showAllBtn.isSelected = !showAllBtn.isSelected
 
     }
     //MARK: 公司主页点击事件
@@ -545,13 +545,13 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         let imageArray = ["ic_qq","ic_weixin","ic_share_friendzone"]
         let imageNameArray = ["QQ","微信","朋友圈"]
         
-        let bgView = UIButton(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
+        let bgView = UIButton(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
         bgView.backgroundColor = UIColor(white: 0.5, alpha: 0.3)
         bgView.tag = 101
-        bgView.addTarget(self, action: #selector(shareViewHide(_:)), forControlEvents: .TouchUpInside)
-        UIApplication.sharedApplication().keyWindow!.addSubview(bgView)
+        bgView.addTarget(self, action: #selector(shareViewHide(_:)), for: .touchUpInside)
+        UIApplication.shared.keyWindow!.addSubview(bgView)
         
-        let bottomView = UIView(frame: CGRectMake(0, CGRectGetMaxY(bgView.frame), screenSize.width, screenSize.height*0.4))
+        let bottomView = UIView(frame: CGRect(x: 0, y: bgView.frame.maxY, width: screenSize.width, height: screenSize.height*0.4))
         bottomView.backgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1)
         bgView.addSubview(bottomView)
         
@@ -565,58 +565,58 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         
         var labelMaxY:CGFloat = 0
         
-        for (i,_) in imageArray.enumerate() {
+        for (i,_) in imageArray.enumerated() {
             
-            let shareBtn_1 = UIButton(frame: CGRectMake(
-                margin*(CGFloat(i%shareBtnCount)+1)+shareBtnWidth*CGFloat(i%shareBtnCount),
-                margin_y*(CGFloat(i/shareBtnCount)+1)+(shareBtnWidth+margin_y+labelHeight)*CGFloat(i/shareBtnCount),
-                shareBtnWidth,
-                shareBtnWidth))
+            let shareBtn_1 = UIButton(frame: CGRect(
+                x: margin*(CGFloat(i%shareBtnCount)+1)+shareBtnWidth*CGFloat(i%shareBtnCount),
+                y: margin_y*(CGFloat(i/shareBtnCount)+1)+(shareBtnWidth+margin_y+labelHeight)*CGFloat(i/shareBtnCount),
+                width: shareBtnWidth,
+                height: shareBtnWidth))
             shareBtn_1.layer.cornerRadius = shareBtnWidth/2.0
-            shareBtn_1.backgroundColor = UIColor.blueColor()
-            shareBtn_1.setImage(UIImage(named: imageArray[i]), forState: .Normal)
+            shareBtn_1.backgroundColor = UIColor.blue
+            shareBtn_1.setImage(UIImage(named: imageArray[i]), for: UIControlState())
             shareBtn_1.tag = 1000+i
 //            shareBtn_1.addTarget(self, action: #selector(shareBtnClick(_:)), forControlEvents: .TouchUpInside)
             bottomView.addSubview(shareBtn_1)
             print("挑战高薪-机会-个人信息页-分享视图-按钮 \(i) frame == \(shareBtn_1.frame)")
             
-            let shareLab_1 = UILabel(frame: CGRectMake(
-                CGRectGetMinX(shareBtn_1.frame)-margin/2.0,
-                CGRectGetMaxY(shareBtn_1.frame)+margin_y/2.0,
-                shareBtnWidth+margin,
-                labelHeight))
-            shareLab_1.textColor = UIColor.grayColor()
-            shareLab_1.font = UIFont.systemFontOfSize(14)
-            shareLab_1.textAlignment = .Center
+            let shareLab_1 = UILabel(frame: CGRect(
+                x: shareBtn_1.frame.minX-margin/2.0,
+                y: shareBtn_1.frame.maxY+margin_y/2.0,
+                width: shareBtnWidth+margin,
+                height: labelHeight))
+            shareLab_1.textColor = UIColor.gray
+            shareLab_1.font = UIFont.systemFont(ofSize: 14)
+            shareLab_1.textAlignment = .center
             shareLab_1.text = imageNameArray[i]
             bottomView.addSubview(shareLab_1)
             
-            labelMaxY = CGRectGetMaxY(shareLab_1.frame)
+            labelMaxY = shareLab_1.frame.maxY
         }
         
-        let line = UIView(frame: CGRectMake(0, labelMaxY+margin_y/2.0, screenSize.width, 1))
-        line.backgroundColor = UIColor.lightGrayColor()
+        let line = UIView(frame: CGRect(x: 0, y: labelMaxY+margin_y/2.0, width: screenSize.width, height: 1))
+        line.backgroundColor = UIColor.lightGray
         bottomView.addSubview(line)
         
         let cancelBtnHeight = shareBtnWidth*0.8
         
-        let cancelBtn = UIButton(frame: CGRectMake(0, CGRectGetMaxY(line.frame), screenSize.width, cancelBtnHeight))
+        let cancelBtn = UIButton(frame: CGRect(x: 0, y: line.frame.maxY, width: screenSize.width, height: cancelBtnHeight))
         cancelBtn.backgroundColor = UIColor(red: 248/255.0, green: 248/255.0, blue: 248/255.0, alpha: 1)
-        cancelBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        cancelBtn.setTitle("取消", forState: .Normal)
+        cancelBtn.setTitleColor(UIColor.black, for: UIControlState())
+        cancelBtn.setTitle("取消", for: UIControlState())
         cancelBtn.tag = 102
-        cancelBtn.addTarget(self, action: #selector(shareViewHide(_:)), forControlEvents: .TouchUpInside)
+        cancelBtn.addTarget(self, action: #selector(shareViewHide(_:)), for: .touchUpInside)
         bottomView.addSubview(cancelBtn)
         
-        bottomView.frame.size.height = CGRectGetMaxY(cancelBtn.frame)
+        bottomView.frame.size.height = cancelBtn.frame.maxY
         
-        UIView.animateWithDuration(0.5) {
-            bottomView.frame.origin.y = screenSize.height - CGRectGetMaxY(cancelBtn.frame)
-        }
+        UIView.animate(withDuration: 0.5, animations: {
+            bottomView.frame.origin.y = screenSize.height - cancelBtn.frame.maxY
+        }) 
     }
     
     // 分享视图取消事件
-    func shareViewHide(shareView:UIButton) {
+    func shareViewHide(_ shareView:UIButton) {
         if shareView.tag == 102 {
             shareView.superview!.superview!.removeFromSuperview()
         }else{

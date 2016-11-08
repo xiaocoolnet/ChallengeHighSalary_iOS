@@ -15,10 +15,10 @@ class FTTaCompanyInfoViewController: UIViewController, UITableViewDataSource {
     let nameArray = ["公司logo","公司全称","公司官网","所属行业","人员规模","融资阶段"]
     let detailNameArray = ["","北京互联科技有限公司","http://www.hulian.net","移动互联网","20-99人","未融资"]
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.tabBarController?.tabBar.hidden = true
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     override func viewDidLoad() {
@@ -31,7 +31,7 @@ class FTTaCompanyInfoViewController: UIViewController, UITableViewDataSource {
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: 设置子视图
@@ -39,54 +39,54 @@ class FTTaCompanyInfoViewController: UIViewController, UITableViewDataSource {
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
 
         self.title = "公司信息"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Done, target: self, action: #selector(clickSaveBtn))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .done, target: self, action: #selector(clickSaveBtn))
         
-        rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height)
+        rootTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         rootTableView.rowHeight = 50
         rootTableView.dataSource = self
         self.view.addSubview(rootTableView)
         
-        rootTableView.tableFooterView = UIView(frame: CGRectZero)
+        rootTableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
     // MARK: 点击保存按钮
     func clickSaveBtn() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK:- tableView dataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return nameArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("companyInfoCell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "companyInfoCell")
         if cell == nil {
-            cell = UITableViewCell(style: .Value1, reuseIdentifier: "companyInfoCell")
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "companyInfoCell")
         }
-        cell?.accessoryType = .DisclosureIndicator
+        cell?.accessoryType = .disclosureIndicator
         
-        cell?.selectionStyle = .None
-        cell?.textLabel?.font = UIFont.systemFontOfSize(16)
-        cell?.textLabel?.textColor = UIColor.blackColor()
-        cell?.textLabel?.textAlignment = .Left
-        cell?.textLabel?.text = nameArray[indexPath.row]
+        cell?.selectionStyle = .none
+        cell?.textLabel?.font = UIFont.systemFont(ofSize: 16)
+        cell?.textLabel?.textColor = UIColor.black
+        cell?.textLabel?.textAlignment = .left
+        cell?.textLabel?.text = nameArray[(indexPath as NSIndexPath).row]
         
-        if indexPath.row == 0 {
-            let logoImg = UIImageView(frame: CGRectMake(0, 0, 40, 40))
+        if (indexPath as NSIndexPath).row == 0 {
+            let logoImg = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
             logoImg.layer.cornerRadius = 20
-            logoImg.backgroundColor = UIColor.orangeColor()
+            logoImg.backgroundColor = UIColor.orange
             cell?.accessoryView = logoImg
         }else{
             cell?.accessoryView = nil
-            cell?.detailTextLabel?.font = UIFont.systemFontOfSize(14)
+            cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 14)
             cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
-            cell?.detailTextLabel?.textAlignment = .Right
-            cell?.detailTextLabel?.text = detailNameArray[indexPath.row]
+            cell?.detailTextLabel?.textAlignment = .right
+            cell?.detailTextLabel?.text = detailNameArray[(indexPath as NSIndexPath).row]
         }
         
         return cell!

@@ -7,6 +7,26 @@
 //
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, CHSReProjectDescriptionDelegate {
     
@@ -54,16 +74,16 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
         setSubviews()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: 设置子视图
@@ -71,48 +91,48 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
 
         self.title = "项目经验"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .Done, target: self, action: #selector(clickSaveBtn))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .done, target: self, action: #selector(clickSaveBtn))
         
-        rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height)
+        rootTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         rootTableView.rowHeight = 60
         rootTableView.dataSource = self
         rootTableView.delegate = self
         self.view.addSubview(rootTableView)
         
-        rootTableView.tableFooterView = UIView(frame: CGRectZero)
+        rootTableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
     // MARK: 点击保存按钮
     func clickSaveBtn() {
         
-        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if self.projectNameTf.text!.isEmpty {
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请输入项目名称"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }else if detailArray[1] == "请选择开始时间" {
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请选择开始时间"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }else if detailArray[2] == "请选择结束时间" {
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请选择结束时间"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }else if detailArray[3] == "请填写项目描述" {
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请填写项目描述"
             checkCodeHud.hide(true, afterDelay: 1)
             return
@@ -120,7 +140,7 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
             
             if pickSelectedRowArray[0][0] > pickSelectedRowArray[1][0] {
                 
-                checkCodeHud.mode = .Text
+                checkCodeHud.mode = .text
                 checkCodeHud.labelText = "开始时间晚于结束时间"
                 checkCodeHud.detailsLabelText = "请重新选择起止时间"
                 checkCodeHud.hide(true, afterDelay: 1)
@@ -128,7 +148,7 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
             }else if pickSelectedRowArray[0][0] == pickSelectedRowArray[1][0]{
                 
                 if pickSelectedRowArray[0][1] > pickSelectedRowArray[1][1]{
-                    checkCodeHud.mode = .Text
+                    checkCodeHud.mode = .text
                     checkCodeHud.labelText = "开始时间晚于结束时间"
                     checkCodeHud.detailsLabelText = "请重新选择起止时间"
                     checkCodeHud.hide(true, afterDelay: 1)
@@ -138,15 +158,15 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
         }
         
         if CHSUserInfo.currentUserInfo.project?.first?.project_name ==  self.projectNameTf.text! && CHSUserInfo.currentUserInfo.project?.first?.start_time ==  self.detailArray[1] && CHSUserInfo.currentUserInfo.project?.first?.end_time ==  self.detailArray[2] && CHSUserInfo.currentUserInfo.project?.first?.description_project ==  self.project_description {
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "信息未修改"
             checkCodeHud.hide(true, afterDelay: 1)
             
-            let time: NSTimeInterval = 1.0
-            let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+            let time: TimeInterval = 1.0
+            let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             
-            dispatch_after(delay, dispatch_get_main_queue()) {
-                self.navigationController?.popViewControllerAnimated(true)
+            DispatchQueue.main.asyncAfter(deadline: delay) {
+                _ = self.navigationController?.popViewController(animated: true)
             }
             return
         }
@@ -170,19 +190,19 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
 //                    ]
                     self.detailArray = [self.projectNameTf.text!,self.detailArray[1],self.detailArray[2],"已填写"]
                     
-                    checkCodeHud.mode = .Text
+                    checkCodeHud.mode = .text
                     checkCodeHud.labelText = "保存项目经验成功"
                     checkCodeHud.hide(true, afterDelay: 1)
                     
-                    let time: NSTimeInterval = 1.0
-                    let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                    let time: TimeInterval = 1.0
+                    let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
                     
-                    dispatch_after(delay, dispatch_get_main_queue()) {
-                        self.navigationController?.popViewControllerAnimated(true)
+                    DispatchQueue.main.asyncAfter(deadline: delay) {
+                        _ = self.navigationController?.popViewController(animated: true)
                     }
                 }else{
                     
-                    checkCodeHud.mode = .Text
+                    checkCodeHud.mode = .text
                     checkCodeHud.labelText = "保存工作经历失败"
                     checkCodeHud.hide(true, afterDelay: 1)
                 }
@@ -192,38 +212,38 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
     }
     
     // MARK:- tableView dataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return nameArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("myInfoCell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "myInfoCell")
         if cell == nil {
-            cell = UITableViewCell(style: .Value1, reuseIdentifier: "myInfoCell")
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "myInfoCell")
         }
         
-        cell?.selectionStyle = .None
-        cell?.accessoryType = .DisclosureIndicator
-        cell?.textLabel?.font = UIFont.systemFontOfSize(16)
-        cell?.textLabel?.textColor = UIColor.blackColor()
-        cell?.textLabel?.textAlignment = .Left
-        cell?.textLabel?.text = nameArray[indexPath.row]
+        cell?.selectionStyle = .none
+        cell?.accessoryType = .disclosureIndicator
+        cell?.textLabel?.font = UIFont.systemFont(ofSize: 16)
+        cell?.textLabel?.textColor = UIColor.black
+        cell?.textLabel?.textAlignment = .left
+        cell?.textLabel?.text = nameArray[(indexPath as NSIndexPath).row]
         
-        if indexPath.row == 0 {
+        if (indexPath as NSIndexPath).row == 0 {
             
-            projectNameTf.frame = CGRectMake(0, 0, 150, 50)
-            projectNameTf.font = UIFont.systemFontOfSize(14)
+            projectNameTf.frame = CGRect(x: 0, y: 0, width: 150, height: 50)
+            projectNameTf.font = UIFont.systemFont(ofSize: 14)
             projectNameTf.placeholder = "输入项目名称"
-            projectNameTf.textAlignment = .Right
+            projectNameTf.textAlignment = .right
             projectNameTf.text = projectNameTf.text == "" ? detailArray[0]:projectNameTf.text
             cell?.accessoryView = projectNameTf
         }else{
             
             
-            cell?.detailTextLabel?.font = UIFont.systemFontOfSize(14)
+            cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 14)
             cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
-            cell?.detailTextLabel?.textAlignment = .Right
-            cell?.detailTextLabel?.text = detailArray[indexPath.row]
+            cell?.detailTextLabel?.textAlignment = .right
+            cell?.detailTextLabel?.text = detailArray[(indexPath as NSIndexPath).row]
         }
         
         return cell!
@@ -232,9 +252,9 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
     // MARK:- tableView delegate
     var othersDrop = DropDown()
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        switch (indexPath.section,indexPath.row) {
+        switch ((indexPath as NSIndexPath).section,(indexPath as NSIndexPath).row) {
         case (0,3):
             
             let projectDescriptionVC = CHSReProjectDescriptionViewController()
@@ -247,20 +267,20 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
             let bigBgView = UIButton(frame: self.view.bounds)
             bigBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
             bigBgView.tag = 1000
-            bigBgView.addTarget(self, action: #selector(pickerCancelClick), forControlEvents: .TouchUpInside)
+            bigBgView.addTarget(self, action: #selector(pickerCancelClick), for: .touchUpInside)
             self.view.addSubview(bigBgView)
             
-            let pickerBgView = UIView(frame: CGRectMake(0, screenSize.height-kHeightScale*240, screenSize.width, kHeightScale*240))
-            pickerBgView.backgroundColor = UIColor.whiteColor()
+            let pickerBgView = UIView(frame: CGRect(x: 0, y: screenSize.height-kHeightScale*240, width: screenSize.width, height: kHeightScale*240))
+            pickerBgView.backgroundColor = UIColor.white
             bigBgView.addSubview(pickerBgView)
             
-            let pickerLab = UILabel(frame: CGRectMake(0, 0, screenSize.width, 43))
-            pickerLab.textAlignment = .Center
+            let pickerLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 43))
+            pickerLab.textAlignment = .center
             pickerBgView.addSubview(pickerLab)
             
-            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(0, 43), toPoint: CGPointMake(screenSize.width, 43), lineWidth: 1)
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPoint(x: 0, y: 43), toPoint: CGPoint(x: screenSize.width, y: 43), lineWidth: 1)
             
-            pickerView = UIPickerView(frame: CGRectMake(0, 44, screenSize.width, kHeightScale*240-88))
+            pickerView = UIPickerView(frame: CGRect(x: 0, y: 44, width: screenSize.width, height: kHeightScale*240-88))
             
             //            pickerView.subviews[0].layer.borderWidth = 0.5
             //
@@ -271,22 +291,22 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
             
             pickerBgView.addSubview(pickerView)
             
-            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(0, kHeightScale*240-44), toPoint: CGPointMake(screenSize.width, kHeightScale*240-44), lineWidth: 1)
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPoint(x: 0, y: kHeightScale*240-44), toPoint: CGPoint(x: screenSize.width, y: kHeightScale*240-44), lineWidth: 1)
             
-            let cancelBtn = UIButton(frame: CGRectMake(0, kHeightScale*240-43, screenSize.width/2.0-0.5, 43))
-            cancelBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            cancelBtn.setTitle("取消", forState: .Normal)
-            cancelBtn.addTarget(self, action: #selector(pickerCancelClick), forControlEvents: .TouchUpInside)
+            let cancelBtn = UIButton(frame: CGRect(x: 0, y: kHeightScale*240-43, width: screenSize.width/2.0-0.5, height: 43))
+            cancelBtn.setTitleColor(UIColor.black, for: UIControlState())
+            cancelBtn.setTitle("取消", for: UIControlState())
+            cancelBtn.addTarget(self, action: #selector(pickerCancelClick), for: .touchUpInside)
             pickerBgView.addSubview(cancelBtn)
             
-            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(screenSize.width/2.0-0.5, kHeightScale*240-43), toPoint: CGPointMake(screenSize.width/2.0-0.5, kHeightScale*240), lineWidth: 1)
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPoint(x: screenSize.width/2.0-0.5, y: kHeightScale*240-43), toPoint: CGPoint(x: screenSize.width/2.0-0.5, y: kHeightScale*240), lineWidth: 1)
             
-            let sureBtn = UIButton(frame: CGRectMake(screenSize.width/2.0-0.5, kHeightScale*240-43, screenSize.width/2.0-0.5, 43))
-            sureBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            sureBtn.setTitle("确定", forState: .Normal)
-            sureBtn.addTarget(self, action: #selector(sureBtnClick), forControlEvents: .TouchUpInside)
+            let sureBtn = UIButton(frame: CGRect(x: screenSize.width/2.0-0.5, y: kHeightScale*240-43, width: screenSize.width/2.0-0.5, height: 43))
+            sureBtn.setTitleColor(UIColor.black, for: UIControlState())
+            sureBtn.setTitle("确定", for: UIControlState())
+            sureBtn.addTarget(self, action: #selector(sureBtnClick), for: .touchUpInside)
             pickerBgView.addSubview(sureBtn)
-            switch (indexPath.section,indexPath.row) {
+            switch ((indexPath as NSIndexPath).section,(indexPath as NSIndexPath).row) {
             case (0,1):
 
                 pickerLab.text = "开始时间"
@@ -321,23 +341,23 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
         
         if pickerView.tag == 101 {
             
-            detailArray[1] = "\(pickYearLowRequiredArray[pickerView.selectedRowInComponent(0)]).\(pickMonthLowRequiredArray[pickerView.selectedRowInComponent(1)])"
+            detailArray[1] = "\(pickYearLowRequiredArray[pickerView.selectedRow(inComponent: 0)]).\(pickMonthLowRequiredArray[pickerView.selectedRow(inComponent: 1)])"
             
-            pickSelectedRowArray[0][0] = pickerView.selectedRowInComponent(0)
-            pickSelectedRowArray[0][1] = pickerView.selectedRowInComponent(1)
+            pickSelectedRowArray[0][0] = pickerView.selectedRow(inComponent: 0)
+            pickSelectedRowArray[0][1] = pickerView.selectedRow(inComponent: 1)
         }else if pickerView.tag == 102 {
             
-            detailArray[2] = "\(pickYearSupRequiredArray[pickerView.selectedRowInComponent(0)]).\(pickMonthSupRequiredArray[pickerView.selectedRowInComponent(1)])"
+            detailArray[2] = "\(pickYearSupRequiredArray[pickerView.selectedRow(inComponent: 0)]).\(pickMonthSupRequiredArray[pickerView.selectedRow(inComponent: 1)])"
             
-            pickSelectedRowArray[1][0] = pickerView.selectedRowInComponent(0)
-            pickSelectedRowArray[1][1] = pickerView.selectedRowInComponent(1)
+            pickSelectedRowArray[1][0] = pickerView.selectedRow(inComponent: 0)
+            pickSelectedRowArray[1][1] = pickerView.selectedRow(inComponent: 1)
         }
         
         self.view.viewWithTag(1000)?.removeFromSuperview()
     }
     
     // MARK: 改变分割线颜色
-    func changeSeparatorWithView(view: UIView) {
+    func changeSeparatorWithView(_ view: UIView) {
         
         if view.bounds.size.height <= 1 {
             view.backgroundColor = baseColor
@@ -349,7 +369,7 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
     }
     
     // MARK:- UIPickerView DataSource
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         
         if pickerView.tag == 101 {
             return 2
@@ -360,7 +380,7 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
         }
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
         if pickerView.tag == 101 {
             
@@ -387,11 +407,11 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
     }
     
     // MARK:- UIPickerView Delegate
-    func pickerView(pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 25
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
 //        if pickerView.tag == 101 {
 //            
@@ -403,19 +423,19 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
         pickerView.reloadAllComponents()
     }
     
-    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         
         self.changeSeparatorWithView(pickerView)
         
-        let view = UILabel(frame: CGRectMake(0, 0, 20, 25))
+        let view = UILabel(frame: CGRect(x: 0, y: 0, width: 20, height: 25))
         //        view.backgroundColor = UIColor.cyanColor()
-        view.frame.size = pickerView.rowSizeForComponent(component)
-        view.textAlignment = .Center
+        view.frame.size = pickerView.rowSize(forComponent: component)
+        view.textAlignment = .center
         
-        if row == pickerView.selectedRowInComponent(component) {
+        if row == pickerView.selectedRow(inComponent: component) {
             view.textColor = baseColor
         }else{
-            view.textColor = UIColor.lightGrayColor()
+            view.textColor = UIColor.lightGray
         }
         
         if pickerView.tag == 101 {
@@ -440,7 +460,7 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
     
     
     // MARK: 项目描述 代理
-    func CHSReProjectDescriptionClickSaveBtn(content: String) {
+    func CHSReProjectDescriptionClickSaveBtn(_ content: String) {
         self.project_description = content
     }
     

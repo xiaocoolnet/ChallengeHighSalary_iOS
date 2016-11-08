@@ -7,9 +7,29 @@
 //
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
 
 protocol CHSReProjectDescriptionDelegate {
-    func CHSReProjectDescriptionClickSaveBtn(content:String)
+    func CHSReProjectDescriptionClickSaveBtn(_ content:String)
 }
 
 class CHSReProjectDescriptionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
@@ -30,17 +50,17 @@ class CHSReProjectDescriptionViewController: UIViewController, UITableViewDataSo
         setSubviews()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: popViewcontroller
     func popViewcontroller() {
         
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK:- 设置子视图
@@ -48,20 +68,20 @@ class CHSReProjectDescriptionViewController: UIViewController, UITableViewDataSo
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
         
         self.title = "项目描述"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .Done, target: self, action: #selector(clickSaveBtn))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .done, target: self, action: #selector(clickSaveBtn))
         
-        rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height)
+        rootTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         rootTableView.rowHeight = 60
-        rootTableView.separatorStyle = .None
+        rootTableView.separatorStyle = .none
         rootTableView.dataSource = self
         rootTableView.delegate = self
         self.view.addSubview(rootTableView)
         
-        rootTableView.tableFooterView = UIView(frame: CGRectZero)
+        rootTableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
     // MARK: 点击保存按钮
@@ -70,9 +90,9 @@ class CHSReProjectDescriptionViewController: UIViewController, UITableViewDataSo
         
         if self.myAdvantagesTv.text!.isEmpty {
             
-            let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
             checkCodeHud.removeFromSuperViewOnHide = true
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请输入项目描述"
             checkCodeHud.hide(true, afterDelay: 1)
             return
@@ -80,37 +100,37 @@ class CHSReProjectDescriptionViewController: UIViewController, UITableViewDataSo
         
         self.delegate?.CHSReProjectDescriptionClickSaveBtn(myAdvantagesTv.text!)
 
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK:- tableView dataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("jobContentCell")
+        var cell = tableView.dequeueReusableCell(withIdentifier: "jobContentCell")
         if cell == nil {
-            cell = UITableViewCell(style: .Value1, reuseIdentifier: "jobContentCell")
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "jobContentCell")
         }
         
-        cell?.selectionStyle = .None
+        cell?.selectionStyle = .none
         
-        if indexPath.row == 0 {
-            myAdvantagesTv.frame = CGRectMake(0, 0, screenSize.width, kHeightScale*115)
+        if (indexPath as NSIndexPath).row == 0 {
+            myAdvantagesTv.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: kHeightScale*115)
             myAdvantagesTv.placeholder = "请输入项目描述，5-500字"
             myAdvantagesTv.text = project_description
             myAdvantagesTv.delegate = self
             cell?.contentView.addSubview(myAdvantagesTv)
             
-            drawDashed((cell?.contentView)!, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(8, 115), toPoint: CGPointMake(screenSize.width-8, 115), lineWidth: 1/UIScreen.mainScreen().scale)
+            drawDashed((cell?.contentView)!, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPoint(x: 8, y: 115), toPoint: CGPoint(x: screenSize.width-8, y: 115), lineWidth: 1/UIScreen.main.scale)
             
         }else{
             
-            cell?.detailTextLabel?.font = UIFont.systemFontOfSize(13)
+            cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 13)
             cell?.detailTextLabel?.textColor = baseColor
-            cell?.detailTextLabel?.textAlignment = .Right
+            cell?.detailTextLabel?.textAlignment = .right
             
             
             
@@ -123,26 +143,26 @@ class CHSReProjectDescriptionViewController: UIViewController, UITableViewDataSo
         return cell!
     }
     
-    func generateAttributesStr(numStr:Int) -> NSAttributedString {
+    func generateAttributesStr(_ numStr:Int) -> NSAttributedString {
         
         let nsStr = NSString(string: "还可以输入\(numStr)字")
         let attStr = NSMutableAttributedString(string: "还可以输入\(numStr)字")
         
         attStr.addAttributes([NSForegroundColorAttributeName: baseColor], range: NSMakeRange(0, nsStr.length))
         
-        attStr.addAttributes([NSForegroundColorAttributeName: UIColor.blackColor()], range: nsStr.rangeOfString("还可以输入"))
+        attStr.addAttributes([NSForegroundColorAttributeName: UIColor.black], range: nsStr.range(of: "还可以输入"))
         
-        attStr.addAttributes([NSForegroundColorAttributeName: UIColor.blackColor()], range: nsStr.rangeOfString("字"))
+        attStr.addAttributes([NSForegroundColorAttributeName: UIColor.black], range: nsStr.range(of: "字"))
         
         return attStr
     }
     
     // MARK:- tableView delegate
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if indexPath.row == 0 {
+        if (indexPath as NSIndexPath).row == 0 {
             return 116
-        }else if indexPath.row == 1 {
+        }else if (indexPath as NSIndexPath).row == 1 {
             return 40
         }else{
             return 0
@@ -152,24 +172,24 @@ class CHSReProjectDescriptionViewController: UIViewController, UITableViewDataSo
     // MARK: 限制输入字数
     let jobContentMaxCount = 500
     
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         
         let lang = textInputMode?.primaryLanguage
         if lang == "zh-Hans" {
             let range = textView.markedTextRange
             if range == nil {
                 if textView.text?.characters.count >= jobContentMaxCount {
-                    textView.text = textView.text?.substringToIndex((textView.text?.startIndex.advancedBy(jobContentMaxCount))!)
+                    textView.text = textView.text?.substring(to: (textView.text?.characters.index((textView.text?.startIndex)!, offsetBy: jobContentMaxCount))!)
                 }
             }
         }
         else {
             if textView.text?.characters.count >= jobContentMaxCount {
-                textView.text = textView.text?.substringToIndex((textView.text?.startIndex.advancedBy(jobContentMaxCount))!)
+                textView.text = textView.text?.substring(to: (textView.text?.characters.index((textView.text?.startIndex)!, offsetBy: jobContentMaxCount))!)
             }
         }
         
-        let cell = rootTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0))
+        let cell = rootTableView.cellForRow(at: IndexPath(row: 1, section: 0))
         cell?.detailTextLabel?.attributedText = generateAttributesStr(jobContentMaxCount-myAdvantagesTv.text.characters.count)
         cell?.detailTextLabel?.sizeToFit()
     }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1F0002961DAC952E00D57CE6 /* LoReFTInfoInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0002951DAC952E00D57CE6 /* LoReFTInfoInputViewController.swift */; };
+		1F081C3C1DD161A90030444F /* NetUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F081C3B1DD161A90030444F /* NetUtil.swift */; };
 		1F0B59451DAB2FC700A172E3 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B59441DAB2FC700A172E3 /* UIPlaceHolderTextView.m */; };
 		1F0B59471DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B59461DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift */; };
 		1F0B59491DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0B59481DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift */; };
@@ -169,7 +170,6 @@
 		1FF3C6AD1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF3C6AB1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.xib */; };
 		1FF524D11D88DBD800E1B70F /* LoginNetUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF524D01D88DBD800E1B70F /* LoginNetUtil.swift */; };
 		1FF524D51D88E8C700E1B70F /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF524D41D88E8C700E1B70F /* LoginModel.swift */; };
-		1FF524D71D88EC2B00E1B70F /* D3Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF524D61D88EC2B00E1B70F /* D3Model.swift */; };
 		1FF524DE1D88F6EC00E1B70F /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF524DB1D88F6EC00E1B70F /* MBProgressHUD.m */; };
 		1FF9DB161D96145D00F0C69D /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF9DB151D96145D00F0C69D /* GuideViewController.swift */; };
 		1FF9DB181D96216500F0C69D /* FTMiSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF9DB171D96216500F0C69D /* FTMiSettingViewController.swift */; };
@@ -204,6 +204,7 @@
 /* Begin PBXFileReference section */
 		19E16B208398D4D955F3015A /* Pods_ChallengeHighSalary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChallengeHighSalary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F0002951DAC952E00D57CE6 /* LoReFTInfoInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReFTInfoInputViewController.swift; sourceTree = "<group>"; };
+		1F081C3B1DD161A90030444F /* NetUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetUtil.swift; sourceTree = "<group>"; };
 		1F0B59431DAB2FC700A172E3 /* UIPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceHolderTextView.h; sourceTree = "<group>"; };
 		1F0B59441DAB2FC700A172E3 /* UIPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPlaceHolderTextView.m; sourceTree = "<group>"; };
 		1F0B59461DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReChooseIdentityViewController.swift; sourceTree = "<group>"; };
@@ -383,7 +384,6 @@
 		1FF3C6AB1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSChInterviewEvaTableViewCell.xib; sourceTree = "<group>"; };
 		1FF524D01D88DBD800E1B70F /* LoginNetUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginNetUtil.swift; sourceTree = "<group>"; };
 		1FF524D41D88E8C700E1B70F /* LoginModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
-		1FF524D61D88EC2B00E1B70F /* D3Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = D3Model.swift; sourceTree = "<group>"; };
 		1FF524DA1D88F6EC00E1B70F /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		1FF524DB1D88F6EC00E1B70F /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		1FF9DB151D96145D00F0C69D /* GuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
@@ -499,7 +499,6 @@
 				1F0B594C1DAB8AA100A172E3 /* UIImage+Extension.swift */,
 				1F0B59421DAB2FC700A172E3 /* UIPlaceHolderTextView */,
 				1FF524D81D88F6EC00E1B70F /* MBProgressHUD */,
-				1FF524D61D88EC2B00E1B70F /* D3Model.swift */,
 				1FF06CC51D7D609A0032943B /* DropDown */,
 				1FF06CC11D7D50E20032943B /* LFLUISegmentedControl */,
 				1F4FD25C1D76C01D00FF7040 /* BButton */,
@@ -788,6 +787,7 @@
 				1FF9DB151D96145D00F0C69D /* GuideViewController.swift */,
 				1FB6D5EA1D9B5B2A00262BBD /* CHSUserInfo.swift */,
 				1FEC4A361DB8C7AE004A0FC1 /* PublicNetUtil.swift */,
+				1F081C3B1DD161A90030444F /* NetUtil.swift */,
 			);
 			name = "Tool(工具)";
 			sourceTree = "<group>";
@@ -1205,13 +1205,16 @@
 					1FCDFEBB1D73E6DB0067970B = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = H58LYH4V4T;
+						LastSwiftMigration = 0800;
 					};
 					1FCDFECF1D73E6DB0067970B = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 1FCDFEBB1D73E6DB0067970B;
 					};
 					1FCDFEDA1D73E6DB0067970B = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 1FCDFEBB1D73E6DB0067970B;
 					};
 				};
@@ -1376,7 +1379,6 @@
 				1FC3CCA41D9CA055004AA4C6 /* FTMiMyInterviewInvitationViewController.swift in Sources */,
 				1FF9DB1A1D9622CA00F0C69D /* FTMiMyCollectionViewController.swift in Sources */,
 				1FEF80A41D810E5700486F9C /* FTTaNoPositionTableViewCell.swift in Sources */,
-				1FF524D71D88EC2B00E1B70F /* D3Model.swift in Sources */,
 				1FEF809F1D810A5B00486F9C /* FTMeHomeViewController.swift in Sources */,
 				1FF06CD31D7D609A0032943B /* DPDKeyboardListener.swift in Sources */,
 				1FEC64DA1D9120A60045038C /* CHSMiSetPasswordViewController.swift in Sources */,
@@ -1410,6 +1412,7 @@
 				1FF9DB281D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.swift in Sources */,
 				1FEF809D1D810A4D00486F9C /* FTTaHomeViewController.swift in Sources */,
 				1F577B111DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.swift in Sources */,
+				1F081C3C1DD161A90030444F /* NetUtil.swift in Sources */,
 				1FA93F511D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.swift in Sources */,
 				1FCCC5951DADE72A0065A799 /* CHSReChoosePositionTypeViewController.swift in Sources */,
 				1F5B672C1DAA352600F74666 /* FTNetUtil.swift in Sources */,
@@ -1580,7 +1583,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
@@ -1625,7 +1628,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -1644,7 +1647,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = "";
 				INFOPLIST_FILE = ChallengeHighSalary/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1655,7 +1658,7 @@
 				PRODUCT_NAME = ChallengeHighSalary;
 				PROVISIONING_PROFILE = "4dd1a223-f46f-43ea-92f1-ef7503cdb76f";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ChallengeHighSalary/ChallengeHighSalary-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "";
 			};
 			name = Debug;
@@ -1670,7 +1673,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = "";
 				INFOPLIST_FILE = ChallengeHighSalary/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1681,7 +1684,7 @@
 				PRODUCT_NAME = ChallengeHighSalary;
 				PROVISIONING_PROFILE = "4dd1a223-f46f-43ea-92f1-ef7503cdb76f";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ChallengeHighSalary/ChallengeHighSalary-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "";
 			};
 			name = Release;
@@ -1698,7 +1701,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xiaocool.Challenge-high-salaryTests";
 				PRODUCT_NAME = ChallengeHighSalary;
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChallengeHighSalary.app/ChallengeHighSalary";
 			};
 			name = Debug;
@@ -1714,7 +1717,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xiaocool.Challenge-high-salaryTests";
 				PRODUCT_NAME = ChallengeHighSalary;
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChallengeHighSalary.app/ChallengeHighSalary";
 			};
 			name = Release;
@@ -1729,7 +1732,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xiaocool.Challenge-high-salaryUITests";
 				PRODUCT_NAME = ChallengeHighSalary;
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = ChallengeHighSalary;
 			};
 			name = Debug;
@@ -1744,7 +1747,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xiaocool.Challenge-high-salaryUITests";
 				PRODUCT_NAME = ChallengeHighSalary;
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = ChallengeHighSalary;
 			};
 			name = Release;

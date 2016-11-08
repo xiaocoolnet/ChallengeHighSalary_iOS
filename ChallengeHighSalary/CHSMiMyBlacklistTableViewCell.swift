@@ -16,11 +16,11 @@ class CHSMiMyBlacklistTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        cancelBlacklistBtn.layer.borderColor = baseColor.CGColor
+        cancelBlacklistBtn.layer.borderColor = baseColor.cgColor
         cancelBlacklistBtn.layer.borderWidth = 1
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

@@ -23,18 +23,18 @@ class CHSReEduExperienceViewController: UIViewController, UITableViewDataSource,
         setSubviews()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = true
         
         self.rootTableView.reloadData()
     }
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: 设置子视图
@@ -42,20 +42,20 @@ class CHSReEduExperienceViewController: UIViewController, UITableViewDataSource,
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
 
         self.title = "教育经历"
 //        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .Done, target: self, action: #selector(clickSaveBtn))
         
-        rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height)
+        rootTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         rootTableView.rowHeight = 60
-        rootTableView.separatorStyle = .None
+        rootTableView.separatorStyle = .none
         rootTableView.dataSource = self
         rootTableView.delegate = self
         self.view.addSubview(rootTableView)
         
-        rootTableView.tableFooterView = UIView(frame: CGRectZero)
+        rootTableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
 //    // MARK: 点击保存按钮
@@ -64,26 +64,26 @@ class CHSReEduExperienceViewController: UIViewController, UITableViewDataSource,
 //    }
     
     // MARK:- tableView dataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (CHSUserInfo.currentUserInfo.education!.count ?? 0)+1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.row == (CHSUserInfo.currentUserInfo.education!.count ?? 0) {
+        if (indexPath as NSIndexPath).row == (CHSUserInfo.currentUserInfo.education!.count ?? 0) {
             
-            var cell = tableView.dequeueReusableCellWithIdentifier("ChChSearchTableViewCell_clearHistory")
+            var cell = tableView.dequeueReusableCell(withIdentifier: "ChChSearchTableViewCell_clearHistory")
             if cell == nil {
-                cell = UITableViewCell(style: .Default, reuseIdentifier: "ChChSearchTableViewCell_clearHistory")
+                cell = UITableViewCell(style: .default, reuseIdentifier: "ChChSearchTableViewCell_clearHistory")
                 
-                cell!.selectionStyle = .None
+                cell!.selectionStyle = .none
                 
-                let btn = UIButton(frame: CGRectMake(0, 0, screenSize.width, 60))
-                btn.setImage(UIImage(named: "ic_添加"), forState: .Normal)
-                btn.titleLabel?.font = UIFont.systemFontOfSize(17)
-                btn.setTitleColor(baseColor, forState: .Normal)
-                btn.setTitle("添加教育经历", forState: .Normal)
-                btn.enabled = false
+                let btn = UIButton(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 60))
+                btn.setImage(UIImage(named: "ic_添加"), for: UIControlState())
+                btn.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+                btn.setTitleColor(baseColor, for: UIControlState())
+                btn.setTitle("添加教育经历", for: UIControlState())
+                btn.isEnabled = false
                 cell?.contentView.addSubview(btn)
             }
 //            cell?.backgroundColor = UIColor.whiteColor()
@@ -96,27 +96,27 @@ class CHSReEduExperienceViewController: UIViewController, UITableViewDataSource,
             return cell!
         }else {
             
-            var cell = tableView.dequeueReusableCellWithIdentifier("eduExperienceCell")
+            var cell = tableView.dequeueReusableCell(withIdentifier: "eduExperienceCell")
             if cell == nil {
-                cell = UITableViewCell(style: .Value1, reuseIdentifier: "eduExperienceCell")
+                cell = UITableViewCell(style: .value1, reuseIdentifier: "eduExperienceCell")
             }
             
-            cell?.selectionStyle = .None
+            cell?.selectionStyle = .none
             
-            cell?.accessoryType = .DisclosureIndicator
-            cell?.textLabel?.font = UIFont.systemFontOfSize(16)
-            cell?.textLabel?.textColor = UIColor.blackColor()
-            cell?.textLabel?.textAlignment = .Left
-            cell?.textLabel?.text = CHSUserInfo.currentUserInfo.education![indexPath.row].school
+            cell?.accessoryType = .disclosureIndicator
+            cell?.textLabel?.font = UIFont.systemFont(ofSize: 16)
+            cell?.textLabel?.textColor = UIColor.black
+            cell?.textLabel?.textAlignment = .left
+            cell?.textLabel?.text = CHSUserInfo.currentUserInfo.education![(indexPath as NSIndexPath).row].school
             
 
-            cell?.detailTextLabel?.font = UIFont.systemFontOfSize(14)
+            cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 14)
             cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
-            cell?.detailTextLabel?.textAlignment = .Right
-            cell?.detailTextLabel?.text = CHSUserInfo.currentUserInfo.education![indexPath.row].time
+            cell?.detailTextLabel?.textAlignment = .right
+            cell?.detailTextLabel?.text = CHSUserInfo.currentUserInfo.education![(indexPath as NSIndexPath).row].time
                         
-            if indexPath.row < CHSUserInfo.currentUserInfo.education!.count {
-                drawDashed((cell?.contentView)!, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(8, 59), toPoint: CGPointMake(screenSize.width-8, 59), lineWidth: 1/UIScreen.mainScreen().scale)
+            if (indexPath as NSIndexPath).row < CHSUserInfo.currentUserInfo.education!.count {
+                drawDashed((cell?.contentView)!, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPoint(x: 8, y: 59), toPoint: CGPoint(x: screenSize.width-8, y: 59), lineWidth: 1/UIScreen.main.scale)
             }
             
             return cell!
@@ -124,15 +124,15 @@ class CHSReEduExperienceViewController: UIViewController, UITableViewDataSource,
     }
     
     // MARK:- tableView delegate
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.row == (CHSUserInfo.currentUserInfo.education!.count ?? 0) {
+        if (indexPath as NSIndexPath).row == (CHSUserInfo.currentUserInfo.education!.count ?? 0) {
             
             self.navigationController?.pushViewController(CHSReEditEduExperienceViewController(), animated: true)
         }else {
             
             let editEduExperienceVC = CHSReEditEduExperienceViewController()
-            editEduExperienceVC.selectedIndex = indexPath.row
+            editEduExperienceVC.selectedIndex = (indexPath as NSIndexPath).row
             self.navigationController?.pushViewController(editEduExperienceVC, animated: true)
         }
     }

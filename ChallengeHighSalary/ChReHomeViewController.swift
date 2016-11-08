@@ -7,6 +7,26 @@
 //
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -28,12 +48,12 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         loadData()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
+        self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.alpha = 1
-        self.tabBarController?.tabBar.hidden = false
+        self.tabBarController?.tabBar.isHidden = false
         
         if CHSUserInfo.currentUserInfo.work_property != "" && CHSUserInfo.currentUserInfo.address != "" && CHSUserInfo.currentUserInfo.position_type != "" && CHSUserInfo.currentUserInfo.categories != "" && CHSUserInfo.currentUserInfo.wantsalary != "" && CHSUserInfo.currentUserInfo.jobstate != ""{
             self.resumeItemStatusArray[0] = "完整"
@@ -66,7 +86,7 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: 加载数据
     func loadData() {
         
-        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
         checkCodeHud.labelText = "正在获取简历信息"
             
@@ -100,12 +120,12 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.resumeItemStatusArray[4] = "待完善"
                 }
                 
-                checkCodeHud.mode = .Text
+                checkCodeHud.mode = .text
                 checkCodeHud.labelText = "获取简历信息成功"
                 checkCodeHud.hide(true, afterDelay: 1)
                 print("获取简历信息成功")
             }else{
-                checkCodeHud.mode = .Text
+                checkCodeHud.mode = .text
                 checkCodeHud.labelText = "获取简历信息失败"
                 checkCodeHud.hide(true, afterDelay: 1)
                 print("获取简历信息失败")
@@ -120,65 +140,65 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         
         self.title = "简历"
         
-        let previewBtn = UIButton(frame: CGRectMake(0, 0, 60, 24))
+        let previewBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 60, height: 24))
         previewBtn.layer.cornerRadius = 6
-        previewBtn.layer.borderColor = UIColor.whiteColor().CGColor
+        previewBtn.layer.borderColor = UIColor.white.cgColor
         previewBtn.layer.borderWidth = 1
-        previewBtn.titleLabel?.font = UIFont.systemFontOfSize(13)
-        previewBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        previewBtn.setTitle("预览", forState: .Normal)
-        previewBtn.addTarget(self, action: #selector(clickPreviewBtn), forControlEvents: .TouchUpInside)
+        previewBtn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        previewBtn.setTitleColor(UIColor.white, for: UIControlState())
+        previewBtn.setTitle("预览", for: UIControlState())
+        previewBtn.addTarget(self, action: #selector(clickPreviewBtn), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: previewBtn)
         
         // top imageBgView
-        let topBgImageView = UIImageView(frame: CGRectMake(0, 64, screenSize.width, kHeightScale*213))
-        topBgImageView.userInteractionEnabled = true
+        let topBgImageView = UIImageView(frame: CGRect(x: 0, y: 64, width: screenSize.width, height: kHeightScale*213))
+        topBgImageView.isUserInteractionEnabled = true
 //        topBgImageView.backgroundColor = UIColor.whiteColor()
         topBgImageView.image = UIImage(named: "ic_简历_home_bg")
         self.view.addSubview(topBgImageView)
         
         // header imageview
-        let headerImageView = UIImageView(frame: CGRectMake((screenSize.width-screenSize.width*0.16)/2.0, screenSize.height*0.087, screenSize.width*0.16, screenSize.width*0.16))
+        let headerImageView = UIImageView(frame: CGRect(x: (screenSize.width-screenSize.width*0.16)/2.0, y: screenSize.height*0.087, width: screenSize.width*0.16, height: screenSize.width*0.16))
         headerImageView.layer.cornerRadius = screenSize.width*0.08
         headerImageView.clipsToBounds = true
 
-        headerImageView.sd_setImageWithURL(NSURL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!, placeholderImage: UIImage(named: "temp_default_headerImg"))
+        headerImageView.sd_setImage(with: URL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!, placeholderImage: UIImage(named: "temp_default_headerImg"))
 
         topBgImageView.addSubview(headerImageView)
         
         // name Label
-        let nameLab = UILabel(frame: CGRectMake(0, 0, 30, 25))
+        let nameLab = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 25))
         nameLab.textColor = baseColor
         nameLab.text = CHSUserInfo.currentUserInfo.realName
-        nameLab.font = UIFont.boldSystemFontOfSize(16)
+        nameLab.font = UIFont.boldSystemFont(ofSize: 16)
         nameLab.sizeToFit()
         nameLab.center.x = self.view.center.x
-        nameLab.frame.origin.y = CGRectGetMaxY(headerImageView.frame)+10
+        nameLab.frame.origin.y = headerImageView.frame.maxY+10
         topBgImageView.addSubview(nameLab)
         
         // Overview Label
-        let overviewLab = UILabel(frame: CGRectMake(0, 0, 30, 25))
+        let overviewLab = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 25))
         overviewLab.textColor = UIColor(red: 159/255.0, green: 159/255.0, blue: 159/255.0, alpha: 1)
         let sexStr = CHSUserInfo.currentUserInfo.sex == "0" ? "女":"男"
         let jobExpStr = CHSUserInfo.currentUserInfo.work_life
         let cityStr = CHSUserInfo.currentUserInfo.city
         
         overviewLab.text = "\(sexStr) | \(jobExpStr)工作经验 | \(cityStr)"
-        overviewLab.font = UIFont.systemFontOfSize(14)
+        overviewLab.font = UIFont.systemFont(ofSize: 14)
         overviewLab.sizeToFit()
         overviewLab.center.x = self.view.center.x
-        overviewLab.frame.origin.y = CGRectGetMaxY(nameLab.frame)+10
+        overviewLab.frame.origin.y = nameLab.frame.maxY+10
         topBgImageView.addSubview(overviewLab)
         
         // 编辑 按钮
-        let editBtn = UIButton(frame: CGRectMake(CGRectGetMaxX(overviewLab.frame)+5, 0, 15.5, 20))
-        editBtn.setImage(UIImage(named: "ic_编辑"), forState: .Normal)
+        let editBtn = UIButton(frame: CGRect(x: overviewLab.frame.maxX+5, y: 0, width: 15.5, height: 20))
+        editBtn.setImage(UIImage(named: "ic_编辑"), for: UIControlState())
         editBtn.center.y = overviewLab.center.y
-        editBtn.addTarget(self, action: #selector(clickEditBtn), forControlEvents: .TouchUpInside)
+        editBtn.addTarget(self, action: #selector(clickEditBtn), for: .touchUpInside)
         topBgImageView.addSubview(editBtn)
         
         // TableView
-        myTableView.frame = CGRectMake(0, CGRectGetMaxY(topBgImageView.frame)+12, screenSize.width, screenSize.height-CGRectGetMaxY(topBgImageView.frame)-49)
+        myTableView.frame = CGRect(x: 0, y: topBgImageView.frame.maxY+12, width: screenSize.width, height: screenSize.height-topBgImageView.frame.maxY-49)
         myTableView.backgroundColor = UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
         myTableView.rowHeight = 50
         myTableView.dataSource = self
@@ -186,7 +206,7 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         
         self.view.addSubview(myTableView)
         // 用于去掉多余Cell的分割线
-        let removeRedundantCellSepLine = UIView(frame: CGRectZero)
+        let removeRedundantCellSepLine = UIView(frame: CGRect.zero)
         myTableView.tableFooterView = removeRedundantCellSepLine
         
     }
@@ -204,41 +224,41 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     // MARK:- tableView DataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return resumeItemArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("resumeCell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "resumeCell")
         if (cell == nil) {
-            cell = UITableViewCell(style: .Value1, reuseIdentifier: "resumeCell")
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "resumeCell")
         }
-        cell?.selectionStyle = .None
-        cell?.accessoryType = .DisclosureIndicator
-        cell?.textLabel?.font = UIFont.boldSystemFontOfSize(16)
-        cell?.textLabel?.textColor = UIColor.blackColor()
-        cell?.textLabel?.textAlignment = .Left
-        cell?.textLabel?.text = resumeItemArray[indexPath.row]
+        cell?.selectionStyle = .none
+        cell?.accessoryType = .disclosureIndicator
+        cell?.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        cell?.textLabel?.textColor = UIColor.black
+        cell?.textLabel?.textAlignment = .left
+        cell?.textLabel?.text = resumeItemArray[(indexPath as NSIndexPath).row]
         
-        cell?.detailTextLabel?.font = UIFont.systemFontOfSize(14)
-        cell?.detailTextLabel?.textColor = resumeItemStatusArray[indexPath.row]=="待完善" ? baseColor:UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
-        cell?.detailTextLabel?.textAlignment = .Right
-        cell?.detailTextLabel?.text = resumeItemStatusArray[indexPath.row]
+        cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 14)
+        cell?.detailTextLabel?.textColor = resumeItemStatusArray[(indexPath as NSIndexPath).row]=="待完善" ? baseColor:UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
+        cell?.detailTextLabel?.textAlignment = .right
+        cell?.detailTextLabel?.text = resumeItemStatusArray[(indexPath as NSIndexPath).row]
         
         return cell!
     }
     
     // MARK:- tableView DataSource
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == 0 {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).row == 0 {
             self.navigationController?.pushViewController(CHSReJobIntensionViewController(), animated: true)
-        }else if indexPath.row == 1 {
+        }else if (indexPath as NSIndexPath).row == 1 {
             self.navigationController?.pushViewController(CHSReEduExperienceViewController(), animated: true)
-        }else if indexPath.row == 2 {
+        }else if (indexPath as NSIndexPath).row == 2 {
             self.navigationController?.pushViewController(CHSReJobExperienceViewController(), animated: true)
-        }else if indexPath.row == 3 {
+        }else if (indexPath as NSIndexPath).row == 3 {
             self.navigationController?.pushViewController(CHSReProjectExperienceViewController(), animated: true)
-        }else if indexPath.row == 4 {
+        }else if (indexPath as NSIndexPath).row == 4 {
             self.navigationController?.pushViewController(CHSReMyAdvantagesViewController(), animated: true)
         }
     }

@@ -49,12 +49,12 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
     let weiboTf = UITextField()
     var weiboNumber:String?
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.navigationController?.navigationBar.setBackgroundImage(nil, forBarMetrics: .Compact)
-        self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.setBackgroundImage(nil, for: .compact)
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     override func viewDidLoad() {
@@ -69,7 +69,7 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
     // MARK: 加载数据
     func loadData() {
         
-        selectedImage = CHSUserInfo.currentUserInfo.avatar == "" ? nil:UIImage(data: NSData(contentsOfURL: NSURL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!)!)
+        selectedImage = CHSUserInfo.currentUserInfo.avatar == "" ? nil:UIImage(data: try! Data(contentsOf: URL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!))
         nameText = CHSUserInfo.currentUserInfo.realName == "" ? nil:CHSUserInfo.currentUserInfo.realName
         positionText = CHSUserInfo.currentUserInfo.myjob == "" ? nil:CHSUserInfo.currentUserInfo.myjob
         emailText = CHSUserInfo.currentUserInfo.email == "" ? nil:CHSUserInfo.currentUserInfo.email
@@ -81,7 +81,7 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: 设置子视图
@@ -89,55 +89,55 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
         
         self.title = "企业信息"
         
-        rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height-64-44)
+        rootTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-64-44)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         rootTableView.rowHeight = 60
         rootTableView.dataSource = self
         rootTableView.delegate = self
         self.view.addSubview(rootTableView)
         
-        rootTableView.tableFooterView = UIView(frame: CGRectZero)
+        rootTableView.tableFooterView = UIView(frame: CGRect.zero)
         
-        let postPositionBtn = UIButton(frame: CGRectMake(0, screenSize.height-44, screenSize.width, 44))
+        let postPositionBtn = UIButton(frame: CGRect(x: 0, y: screenSize.height-44, width: screenSize.width, height: 44))
         postPositionBtn.backgroundColor = baseColor
-        postPositionBtn.titleLabel?.font = UIFont.systemFontOfSize(16)
-        postPositionBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        postPositionBtn.setTitle("保存", forState: .Normal)
-        postPositionBtn.addTarget(self, action: #selector(clickSaveBtn), forControlEvents: .TouchUpInside)
+        postPositionBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        postPositionBtn.setTitleColor(UIColor.white, for: UIControlState())
+        postPositionBtn.setTitle("保存", for: UIControlState())
+        postPositionBtn.addTarget(self, action: #selector(clickSaveBtn), for: .touchUpInside)
         self.view.addSubview(postPositionBtn)
     }
     
     // MARK: 点击保存按钮
     func clickSaveBtn() {
         
-        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if (selectedImage == nil) {
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请先上传头像"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }else if nameText == nil {
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请输入真实姓名"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }else if positionText == nil {
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请输入职位名"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }else if companyText == nil {
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请输入公司名"
             checkCodeHud.hide(true, afterDelay: 1)
             return
@@ -145,9 +145,9 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
             
             checkCodeHud.labelText = "正在上传头像"
 
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyyMMddHHmmss"
-            let dateStr = dateFormatter.stringFromDate(NSDate())
+            let dateStr = dateFormatter.string(from: Date())
             let imageName = "avatar" + dateStr + CHSUserInfo.currentUserInfo.userid + ".png"
             
             LoginNetUtil().uploadImage(imageName, image: selectedImage!) { (success, response) in
@@ -169,26 +169,26 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
                             
                             if success {
                                 
-                                checkCodeHud.mode = .Text
+                                checkCodeHud.mode = .text
                                 checkCodeHud.labelText = "保存个人信息成功"
                                 checkCodeHud.hide(true, afterDelay: 1)
                                 
-                                let time: NSTimeInterval = 1.0
-                                let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                                let time: TimeInterval = 1.0
+                                let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
                                 
-                                dispatch_after(delay, dispatch_get_main_queue()) {
-                                    self.presentViewController(FTRoHomeViewController(), animated: true, completion: nil)
+                                DispatchQueue.main.asyncAfter(deadline: delay) {
+                                    self.present(FTRoHomeViewController(), animated: true, completion: nil)
                                 }
                             }else{
                                 
-                                checkCodeHud.mode = .Text
+                                checkCodeHud.mode = .text
                                 checkCodeHud.labelText = "保存个人信息失败"
                                 checkCodeHud.hide(true, afterDelay: 1)
                             }
                     })
                 }else{
                     
-                    checkCodeHud.mode = .Text
+                    checkCodeHud.mode = .text
                     checkCodeHud.labelText = "上传头像失败"
                     checkCodeHud.hide(true, afterDelay: 1)
                 }
@@ -198,15 +198,15 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
     }
     
     // MARK: LoReFTInfoInputViewControllerDelegate
-    func LoReFTInfoInputClickSaveBtn(infoType: InfoType, text: String) {
+    func LoReFTInfoInputClickSaveBtn(_ infoType: InfoType, text: String) {
         switch infoType {
-        case .Name:
+        case .name:
             nameText = text
-        case .Position:
+        case .position:
             positionText = text
-        case .Email:
+        case .email:
             emailText = text
-        case .CompanyName:
+        case .companyName:
             companyText = text
         default:
             break
@@ -214,37 +214,37 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
     }
     
     // MARK:- tableView dataSource
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return nameArray[section].count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("myInfoCell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "myInfoCell")
         if cell == nil {
-            cell = UITableViewCell(style: .Value1, reuseIdentifier: "myInfoCell")
+            cell = UITableViewCell(style: .value1, reuseIdentifier: "myInfoCell")
         }
         
-        cell?.selectionStyle = .None
-        cell?.accessoryType = .DisclosureIndicator
-        switch indexPath.section {
+        cell?.selectionStyle = .none
+        cell?.accessoryType = .disclosureIndicator
+        switch (indexPath as NSIndexPath).section {
         case 0:
-            switch indexPath.row {
+            switch (indexPath as NSIndexPath).row {
             case 0:
-                headerImg.frame = CGRectMake(0, 0, 50, 50)
+                headerImg.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
                 headerImg.layer.cornerRadius = 25
                 headerImg.clipsToBounds = true
                 headerImg.image = selectedImage == nil ? UIImage(named: "temp_default_headerImg"):selectedImage
                 cell?.accessoryView = headerImg
             case 1:
-                cell?.detailTextLabel?.font = UIFont.systemFontOfSize(16)
-                cell?.detailTextLabel?.textAlignment = .Right
+                cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 16)
+                cell?.detailTextLabel?.textAlignment = .right
                 
                 if (nameText != nil) {
-                    cell?.detailTextLabel?.textColor = UIColor.blackColor()
+                    cell?.detailTextLabel?.textColor = UIColor.black
                     cell?.detailTextLabel?.text = nameText!
                 }else{
                     cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
@@ -259,15 +259,15 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
             }
         case 1:
             
-            cell?.detailTextLabel?.font = UIFont.systemFontOfSize(16)
-            cell?.detailTextLabel?.textAlignment = .Right
+            cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 16)
+            cell?.detailTextLabel?.textAlignment = .right
             cell?.detailTextLabel?.text = "选填"
             cell?.accessoryView = nil
             
-            switch indexPath.row {
+            switch (indexPath as NSIndexPath).row {
             case 0:
                 if (positionText != nil) {
-                    cell?.detailTextLabel?.textColor = UIColor.blackColor()
+                    cell?.detailTextLabel?.textColor = UIColor.black
                     cell?.detailTextLabel?.text = positionText!
                 }else{
                     cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
@@ -275,7 +275,7 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
                 }
             case 1:
                 if (emailText != nil) {
-                    cell?.detailTextLabel?.textColor = UIColor.blackColor()
+                    cell?.detailTextLabel?.textColor = UIColor.black
                     cell?.detailTextLabel?.text = emailText!
                 }else{
                     cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
@@ -283,7 +283,7 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
                 }
             case 2:
                 if (companyText != nil) {
-                    cell?.detailTextLabel?.textColor = UIColor.blackColor()
+                    cell?.detailTextLabel?.textColor = UIColor.black
                     cell?.detailTextLabel?.text = companyText!
                 }else{
                     cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
@@ -293,23 +293,23 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
                 break
             }
         case 2:
-            switch indexPath.row {
+            switch (indexPath as NSIndexPath).row {
             case 0:
-                QQTf.frame = CGRectMake(0, 0, screenSize.width*0.5, 50)
+                QQTf.frame = CGRect(x: 0, y: 0, width: screenSize.width*0.5, height: 50)
                 QQTf.placeholder = "请输入QQ账号"
-                QQTf.textAlignment = .Right
+                QQTf.textAlignment = .right
                 QQTf.text = QQTf.text == "" ?  QQNumber:QQTf.text
                 cell?.accessoryView = QQTf
             case 1:
-                wechatTf.frame = CGRectMake(0, 0, screenSize.width*0.5, 50)
+                wechatTf.frame = CGRect(x: 0, y: 0, width: screenSize.width*0.5, height: 50)
                 wechatTf.placeholder = "请输入微信账号"
-                wechatTf.textAlignment = .Right
+                wechatTf.textAlignment = .right
                 wechatTf.text = wechatTf.text == "" ?  wechatNumber:wechatTf.text!
                 cell?.accessoryView = wechatTf
             case 2:
-                weiboTf.frame = CGRectMake(0, 0, screenSize.width*0.5, 50)
+                weiboTf.frame = CGRect(x: 0, y: 0, width: screenSize.width*0.5, height: 50)
                 weiboTf.placeholder = "请输入微博账号"
-                weiboTf.textAlignment = .Right
+                weiboTf.textAlignment = .right
                 weiboTf.text = weiboTf.text == "" ? weiboNumber:weiboTf.text!
                 cell?.accessoryView = weiboTf
             default:
@@ -319,13 +319,13 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
             cell?.accessoryView = nil
         }
         
-        cell?.textLabel?.text = nameArray[indexPath.section][indexPath.row]
+        cell?.textLabel?.text = nameArray[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
         
         return cell!
     }
     
     // MARK:- tableView delegate
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 1 {
             return 35
         }else if section == 2 {
@@ -334,26 +334,26 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
             return 0.0001
         }
     }
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if section == 1 {
             
-            let sectionHeaderBgView = UIView(frame: CGRectMake(0, 0, screenSize.width, 35))
+            let sectionHeaderBgView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 35))
             
-            let sectionHeaderLab = UILabel(frame: CGRectMake(20, 0, screenSize.width-40, 35))
-            sectionHeaderLab.font = UIFont.systemFontOfSize(15)
-            sectionHeaderLab.textColor = UIColor.lightGrayColor()
+            let sectionHeaderLab = UILabel(frame: CGRect(x: 20, y: 0, width: screenSize.width-40, height: 35))
+            sectionHeaderLab.font = UIFont.systemFont(ofSize: 15)
+            sectionHeaderLab.textColor = UIColor.lightGray
             sectionHeaderLab.text = "我的职业信息"
             sectionHeaderBgView.addSubview(sectionHeaderLab)
             
             return sectionHeaderBgView
         }else if section == 2 {
             
-            let sectionHeaderBgView = UIView(frame: CGRectMake(0, 0, screenSize.width, 35))
+            let sectionHeaderBgView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 35))
             
-            let sectionHeaderLab = UILabel(frame: CGRectMake(20, 0, screenSize.width-40, 35))
-            sectionHeaderLab.font = UIFont.systemFontOfSize(15)
-            sectionHeaderLab.textColor = UIColor.lightGrayColor()
+            let sectionHeaderLab = UILabel(frame: CGRect(x: 20, y: 0, width: screenSize.width-40, height: 35))
+            sectionHeaderLab.font = UIFont.systemFont(ofSize: 15)
+            sectionHeaderLab.textColor = UIColor.lightGray
             sectionHeaderLab.text = "账号关联"
             sectionHeaderBgView.addSubview(sectionHeaderLab)
             
@@ -363,49 +363,49 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
         }
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        switch (indexPath.section,indexPath.row) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch ((indexPath as NSIndexPath).section,(indexPath as NSIndexPath).row) {
         case (0,0):
             
-            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
-            let cameraAction = UIAlertAction(title: "拍照", style: .Default, handler: { (action) in
+            let cameraAction = UIAlertAction(title: "拍照", style: .default, handler: { (action) in
                 
-                if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
                     let picker = UIImagePickerController()
                     picker.delegate = self
                     picker.allowsEditing = true
-                    picker.sourceType = .Camera
-                    self.presentViewController(picker, animated: true, completion: nil)
+                    picker.sourceType = .camera
+                    self.present(picker, animated: true, completion: nil)
                 }else{
                     print("无法打开相机")
                 }
             })
             alert.addAction(cameraAction)
             
-            let photoLibraryAction = UIAlertAction(title: "从手机相册选择", style: .Default, handler: { (action) in
+            let photoLibraryAction = UIAlertAction(title: "从手机相册选择", style: .default, handler: { (action) in
                 
                 let picker = UIImagePickerController()
-                picker.sourceType = .PhotoLibrary
+                picker.sourceType = .photoLibrary
                 picker.delegate = self
                 picker.allowsEditing = true
-                self.presentViewController(picker, animated: true, completion: nil)
+                self.present(picker, animated: true, completion: nil)
             })
             alert.addAction(photoLibraryAction)
             
-            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
             alert.addAction(cancelAction)
             
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         case (0,1):
             
-            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            let cell = tableView.cellForRow(at: indexPath)
             
             let vc = LoReFTInfoInputViewController()
-            vc.infoType = .Name
+            vc.infoType = .name
             vc.selfTitle = "姓名"
             vc.placeHolder = "请输入真实姓名"
-            vc.tfText = cell?.detailTextLabel?.textColor == UIColor.blackColor() ? (cell?.detailTextLabel?.text)!:""
+            vc.tfText = cell?.detailTextLabel?.textColor == UIColor.black ? (cell?.detailTextLabel?.text)!:""
             vc.tipText = "请填写您的真实的姓名"
             vc.hudTipText = "请输入真实姓名"
             vc.maxCount = 4
@@ -415,13 +415,13 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
             self.navigationController?.pushViewController(vc, animated: true)
         case (1,0):
             
-            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            let cell = tableView.cellForRow(at: indexPath)
             
             let vc = LoReFTInfoInputViewController()
-            vc.infoType = .Position
+            vc.infoType = .position
             vc.selfTitle = "职位选择"
             vc.placeHolder = "请输入职位名"
-            vc.tfText = cell?.detailTextLabel?.textColor == UIColor.blackColor() ? (cell?.detailTextLabel?.text)!:""
+            vc.tfText = cell?.detailTextLabel?.textColor == UIColor.black ? (cell?.detailTextLabel?.text)!:""
             vc.tipText = "请填写您的现任职位，不能包含特殊符号"
             vc.hudTipText = "请输入职位名"
             vc.maxCount = 10
@@ -431,13 +431,13 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
             self.navigationController?.pushViewController(vc, animated: true)
         case (1,1):
             
-            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            let cell = tableView.cellForRow(at: indexPath)
             
             let vc = LoReFTInfoInputViewController()
-            vc.infoType = .Email
+            vc.infoType = .email
             vc.selfTitle = "职位选择"
             vc.placeHolder = "请输入职位名"
-            vc.tfText = cell?.detailTextLabel?.textColor == UIColor.blackColor() ? (cell?.detailTextLabel?.text)!:""
+            vc.tfText = cell?.detailTextLabel?.textColor == UIColor.black ? (cell?.detailTextLabel?.text)!:""
             vc.tipText = "请填写您的现任职位，不能包含特殊符号"
             vc.hudTipText = "请输入职位名"
             vc.maxCount = 20
@@ -447,13 +447,13 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
             self.navigationController?.pushViewController(vc, animated: true)
         case (1,2):
             
-            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            let cell = tableView.cellForRow(at: indexPath)
             
             let vc = LoReFTInfoInputViewController()
-            vc.infoType = .CompanyName
+            vc.infoType = .companyName
             vc.selfTitle = "当前公司"
             vc.placeHolder = "请输入公司全称"
-            vc.tfText = cell?.detailTextLabel?.textColor == UIColor.blackColor() ? (cell?.detailTextLabel?.text)!:""
+            vc.tfText = cell?.detailTextLabel?.textColor == UIColor.black ? (cell?.detailTextLabel?.text)!:""
             vc.tipText = "公司全称是您所在公司的营业执照或劳动合同上的公司名称，请确保您的填写完全匹配"
             vc.hudTipText = "请输入公司全称"
             vc.maxCount = 50
@@ -467,7 +467,7 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
     }
     
     // MARK: UIImagePickerControllerDelegate
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         let type = info[UIImagePickerControllerMediaType] as! String
         if type != "public.image" {
@@ -479,7 +479,7 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
 
         headerImg.image = selectedImage
         
-        picker.dismissViewControllerAnimated(true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
     }
     
     // MARK: 上传图片

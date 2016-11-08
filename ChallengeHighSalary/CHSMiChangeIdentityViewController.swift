@@ -10,11 +10,11 @@ import UIKit
 
 class CHSMiChangeIdentityViewController: UIViewController {
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = true
-        self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     override func viewDidLoad() {
@@ -23,11 +23,11 @@ class CHSMiChangeIdentityViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         // 挑战高薪 头部
-        let topBgImg = UIImageView(frame: CGRectMake(
-            0,
-            0,
-            screenSize.width,
-            screenSize.height*0.4185))
+        let topBgImg = UIImageView(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: screenSize.width,
+            height: screenSize.height*0.4185))
         topBgImg.image = UIImage(named: "ic_切换身份_背景")
         self.view.addSubview(topBgImg)
         
@@ -35,55 +35,55 @@ class CHSMiChangeIdentityViewController: UIViewController {
         textImg.center = topBgImg.center
         self.view.addSubview(textImg)
         
-        let backBtn = UIButton(frame: CGRectMake(8, 28, kHeightScale*25, kHeightScale*25))
+        let backBtn = UIButton(frame: CGRect(x: 8, y: 28, width: kHeightScale*25, height: kHeightScale*25))
         //        backBtn.backgroundColor = baseColor
-        backBtn.setImage(UIImage(named: "ic_返回_white"), forState: .Normal)
-        backBtn.addTarget(self, action: #selector(backBtnClick), forControlEvents: .TouchUpInside)
+        backBtn.setImage(UIImage(named: "ic_返回_white"), for: UIControlState())
+        backBtn.addTarget(self, action: #selector(backBtnClick), for: .touchUpInside)
         self.view.addSubview(backBtn)
         
         let margin:CGFloat = 8
         
         // 抢人才按钮
-        let forTalentBtn = UIButton(frame: CGRectMake(
-            0,
-            screenSize.height*0.5,
-            screenSize.width*0.858,
-            screenSize.height*0.066))
-        forTalentBtn.backgroundColor = UIColor.whiteColor()
+        let forTalentBtn = UIButton(frame: CGRect(
+            x: 0,
+            y: screenSize.height*0.5,
+            width: screenSize.width*0.858,
+            height: screenSize.height*0.066))
+        forTalentBtn.backgroundColor = UIColor.white
         forTalentBtn.layer.cornerRadius = screenSize.height*0.033
-        forTalentBtn.layer.borderColor = baseColor.CGColor
+        forTalentBtn.layer.borderColor = baseColor.cgColor
         forTalentBtn.layer.borderWidth = 1
-        forTalentBtn.setTitleColor(baseColor, forState: .Normal)
-        forTalentBtn.setImage(UIImage(named: "ic_切换身份_招人_green"), forState: .Normal)
-        forTalentBtn.setTitle("我要招人", forState: .Normal)
-        forTalentBtn.addTarget(self, action: #selector(forTalentBtnClick), forControlEvents: .TouchUpInside)
+        forTalentBtn.setTitleColor(baseColor, for: UIControlState())
+        forTalentBtn.setImage(UIImage(named: "ic_切换身份_招人_green"), for: UIControlState())
+        forTalentBtn.setTitle("我要招人", for: UIControlState())
+        forTalentBtn.addTarget(self, action: #selector(forTalentBtnClick), for: .touchUpInside)
         forTalentBtn.center.x = self.view.center.x
         forTalentBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -margin/2.0, 0, margin/2.0)
         forTalentBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin/2.0, 0, -margin/2.0)
         self.view.addSubview(forTalentBtn)
         
         // 挑战高薪 按钮
-        let cHSalaryBtn = UIButton(frame: CGRectMake(
-            0,
-            screenSize.height*0.6,
-            screenSize.width*0.858,
-            screenSize.height*0.066))
+        let cHSalaryBtn = UIButton(frame: CGRect(
+            x: 0,
+            y: screenSize.height*0.6,
+            width: screenSize.width*0.858,
+            height: screenSize.height*0.066))
         cHSalaryBtn.backgroundColor = baseColor
         cHSalaryBtn.layer.cornerRadius = screenSize.height*0.033
-        cHSalaryBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        cHSalaryBtn.setImage(UIImage(named: "ic_切换身份_求职_white"), forState: .Normal)
-        cHSalaryBtn.setTitle("我要求职", forState: .Normal)
+        cHSalaryBtn.setTitleColor(UIColor.white, for: UIControlState())
+        cHSalaryBtn.setImage(UIImage(named: "ic_切换身份_求职_white"), for: UIControlState())
+        cHSalaryBtn.setTitle("我要求职", for: UIControlState())
         cHSalaryBtn.center.x = self.view.center.x
         cHSalaryBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -margin/2.0, 0, margin/2.0)
         cHSalaryBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin/2.0, 0, -margin/2.0)
-        cHSalaryBtn.userInteractionEnabled = false
+        cHSalaryBtn.isUserInteractionEnabled = false
         self.view.addSubview(cHSalaryBtn)
         
     }
     
     // MARK:- backBtn 点击事件
     func backBtnClick() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: 找人才 按钮 点击事件
@@ -92,13 +92,13 @@ class CHSMiChangeIdentityViewController: UIViewController {
         if CHSUserInfo.currentUserInfo.usertype == "2" || CHSUserInfo.currentUserInfo.usertype == "3" {
             
             // 找人才 过渡界面
-            let welLab = UILabel(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
+            let welLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
             welLab.backgroundColor = baseColor
             welLab.numberOfLines = 0
-            welLab.textColor = UIColor.whiteColor()
-            welLab.font = UIFont.boldSystemFontOfSize(20)
+            welLab.textColor = UIColor.white
+            welLab.font = UIFont.boldSystemFont(ofSize: 20)
             welLab.adjustsFontSizeToFitWidth = true
-            welLab.textAlignment = .Center
+            welLab.textAlignment = .center
             welLab.text = "机不可失失不再来，快抢人才！"
             self.view.addSubview(welLab)
             
@@ -108,20 +108,20 @@ class CHSMiChangeIdentityViewController: UIViewController {
             toVC.viewControllers![0].view.frame.origin.x = -screenSize.width
             self.view.addSubview(toVC.view)
             
-            let time: NSTimeInterval = 1.0
-            let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+            let time: TimeInterval = 1.0
+            let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             
-            dispatch_after(delay, dispatch_get_main_queue()) {
+            DispatchQueue.main.asyncAfter(deadline: delay) {
                 
-                UIView.animateWithDuration(1, animations: {
+                UIView.animate(withDuration: 1, animations: {
                     toVC.view.frame.origin.x = 0
                     toVC.viewControllers![0].view.frame.origin.x = 0
                     
-                }) { (finished) in
+                }, completion: { (finished) in
                     if finished {
-                        UIApplication.sharedApplication().keyWindow?.rootViewController = toVC
+                        UIApplication.shared.keyWindow?.rootViewController = toVC
                     }
-                }
+                }) 
             }
         }else{
             self.navigationController?.pushViewController(LoReFTPersonalInfoViewController(), animated: true)

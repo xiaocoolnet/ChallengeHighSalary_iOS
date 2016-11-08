@@ -10,7 +10,7 @@ import UIKit
 
 class FTMeHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    let rootTableView = UITableView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height-20-44-49), style: .Plain)
+    let rootTableView = UITableView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height-20-44-49), style: .plain)
     
     let dataArray = [
         [
@@ -66,11 +66,11 @@ class FTMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         setSubviews()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = false
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     // MARK: 设置 NavigationBar
@@ -84,11 +84,11 @@ class FTMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     func setSubviews() {
         
         self.automaticallyAdjustsScrollViewInsets = false
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
         // tableView
-        rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height-20-44-49)
-        rootTableView.registerNib(UINib.init(nibName: "FTMeHomeTableViewCell", bundle: nil), forCellReuseIdentifier: "FTMeHomeCell")
+        rootTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-20-44-49)
+        rootTableView.register(UINib.init(nibName: "FTMeHomeTableViewCell", bundle: nil), forCellReuseIdentifier: "FTMeHomeCell")
         rootTableView.rowHeight = 66
         rootTableView.dataSource = self
         rootTableView.delegate = self
@@ -96,26 +96,26 @@ class FTMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     // MARK: UITableView DataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.dataArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("FTMeHomeCell") as! FTMeHomeTableViewCell
-        cell.selectionStyle = .None
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FTMeHomeCell") as! FTMeHomeTableViewCell
+        cell.selectionStyle = .none
         
-        cell.titleLab.text = self.dataArray[indexPath.row]["title"]!
-        cell.descriptionLab.text = self.dataArray[indexPath.row]["description"]!
-        cell.timeLab.text = self.dataArray[indexPath.row]["time"]!
+        cell.titleLab.text = self.dataArray[(indexPath as NSIndexPath).row]["title"]!
+        cell.descriptionLab.text = self.dataArray[(indexPath as NSIndexPath).row]["description"]!
+        cell.timeLab.text = self.dataArray[(indexPath as NSIndexPath).row]["time"]!
         
         return cell
     }
     
     // MARK: UITableView Delegate
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        switch self.dataArray[indexPath.row]["type"]! {
+        switch self.dataArray[(indexPath as NSIndexPath).row]["type"]! {
         case "1":
             self.navigationController?.pushViewController(FTMeSysMessageViewController(), animated: true)
         case "2":

@@ -7,16 +7,16 @@
 //
 
 import UIKit
-import Alamofire
+import HandyJSON
 
 class PublicNetUtil: NSObject {
     // MARK: 检测是否收藏
     // userid,object_id,type:1、招聘、2、简历
     func CheckHadFavorite(
-        userid:String,
+        _ userid:String,
         object_id:String,
         type:String,
-        handle:ResponseClosures) {
+        handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"CheckHadFavorite"
         let param = [
@@ -24,17 +24,18 @@ class PublicNetUtil: NSObject {
             "object_id":object_id,
             "type":type
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
                 if checkCode.status == "success" {
-                    handle(success: true, response: nil)
+                    handle(true, nil)
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }
@@ -43,12 +44,12 @@ class PublicNetUtil: NSObject {
     // MARK: 收藏
     // userid,object_id,type:1、招聘、2、简历, title,description
     func addfavorite(
-        userid:String,
+        _ userid:String,
         object_id:String,
         type:String,
         title:String,
         description:String,
-        handle:ResponseClosures) {
+        handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"addfavorite"
         let param = [
@@ -58,17 +59,19 @@ class PublicNetUtil: NSObject {
             "title":title,
             "description":description
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if checkCode.status == "success" {
-                    handle(success: true, response: nil)
+                    handle(true, nil)
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }
@@ -77,10 +80,10 @@ class PublicNetUtil: NSObject {
     // MARK: 取消收藏
     // userid,object_id(招聘或简历的id),type:(1、招聘、2、简历)
     func cancelfavorite(
-        userid:String,
+        _ userid:String,
         object_id:String,
         type:String,
-        handle:ResponseClosures) {
+        handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"cancelfavorite"
         let param = [
@@ -88,17 +91,19 @@ class PublicNetUtil: NSObject {
             "object_id":object_id,
             "type":type
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if checkCode.status == "success" {
-                    handle(success: true, response: nil)
+                    handle(true, nil)
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }
@@ -107,36 +112,41 @@ class PublicNetUtil: NSObject {
     // MARK: 获取收藏列表
     // userid,type(1、招聘、2、简历)
     func getfavoritelist(
-        userid:String,
+        _ userid:String,
         type:String,
-        handle:ResponseClosures) {
+        handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"getfavoritelist"
         let param = [
             "userid":userid,
             "type":type
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if checkCode.status == "success" {
                     if type == "1" {
                         
-                        let jobInfoModel:JobInfoModel = JobInfoModel.jsonToModelWithData(json)
+                        let jobInfoModel = JSONDeserializer<JobInfoModel>.deserializeFrom(dict: json as! NSDictionary?)!
 
-                        handle(success: true, response: jobInfoModel.data)
+
+                        handle(true, jobInfoModel.data as AnyObject?)
 
                     }else{
-                        let myResume:MyResumeModel = MyResumeModel.jsonToModelWithData(json)
-                        handle(success: true, response: myResume.data)
+                        
+                        let myResume = JSONDeserializer<MyResumeModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+
+                        handle(true, myResume.data)
 
                     }
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }
@@ -146,10 +156,10 @@ class PublicNetUtil: NSObject {
     // companyid,jobid,userid  
     // 出参：list （data：1已投递，0未投递）
     func ApplyJob_judge(
-        userid:String,
+        _ userid:String,
         companyid:String,
         jobid:String,
-        handle:ResponseClosures) {
+        handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"ApplyJob_judge"
         let param = [
@@ -157,18 +167,22 @@ class PublicNetUtil: NSObject {
             "companyid":companyid,
             "jobid":jobid
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if checkCode.status == "success" {
-                    let checkCode:errorModel = errorModel.jsonToModelWithData(json)
-                    handle(success: true, response: checkCode.data)
+                    
+                    let checkCode = JSONDeserializer<errorModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+                    handle(true, checkCode.data as AnyObject?)
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }

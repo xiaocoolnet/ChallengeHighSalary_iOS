@@ -8,11 +8,12 @@
 
 import UIKit
 import Alamofire
+import HandyJSON
 
 class CHSMiNetUtil: NSObject {
     
     // MARK: 更换手机号
-    func updateUserPhone(phone:String, code:String, handle:ResponseClosures) {
+    func updateUserPhone(_ phone:String, code:String, handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"UpdateUserPhone"
         let param = [
@@ -20,62 +21,68 @@ class CHSMiNetUtil: NSObject {
             "phone":phone,
             "code":code
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let status:StatusModel = StatusModel.jsonToModelWithData(json)
+                let status = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if status.status == "success" {
-                    handle(success: true, response: "")
+                    handle(true, "" as AnyObject?)
                 }else{
-                    handle(success: false, response: "更换手机号失败")
+                    handle(false, "更换手机号失败" as AnyObject?)
                 }
             }
         }
     }
     
     // MARK: 输入旧密码
-    func oldpassword(password:String, handle:ResponseClosures) {
+    func oldpassword(_ password:String, handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"applogin"
         let param = [
             "phone":CHSUserInfo.currentUserInfo.phoneNumber,
             "password":password
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let status:StatusModel = StatusModel.jsonToModelWithData(json)
+                let status = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+//                let status:StatusModel = StatusModel.jsonToModel(json)
                 if status.status == "success" {
-                    handle(success: true, response: "")
+                    handle(true, "" as AnyObject?)
                 }else{
-                    handle(success: false, response: "密码错误")
+                    handle(false, "密码错误" as AnyObject?)
                 }
             }
         }
     }
     
     // MARK: 修改密码
-    func changePassword(password:String, handle:ResponseClosures) {
+    func changePassword(_ password:String, handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"changePassword"
         let param = [
             "phone":CHSUserInfo.currentUserInfo.phoneNumber,
             "password":password
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let status:StatusModel = StatusModel.jsonToModelWithData(json)
+                let status = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+//                let status:StatusModel = StatusModel.jsonToModel(json)
                 if status.status == "success" {
-                    handle(success: true, response: "")
+                    handle(true, "" as AnyObject?)
                 }else{
-                    handle(success: false, response: "密码修改失败")
+                    handle(false, "密码修改失败" as AnyObject?)
                 }
             }
         }

@@ -10,12 +10,12 @@ import UIKit
 
 class LoReChooseIdentityViewController: UIViewController {
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = true
         
-        self.navigationController?.interactivePopGestureRecognizer?.enabled = false
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
     
     override func viewDidLoad() {
@@ -24,11 +24,11 @@ class LoReChooseIdentityViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         // 挑战高薪 头部
-        let topBgImg = UIImageView(frame: CGRectMake(
-            0,
-            0,
-            screenSize.width,
-            screenSize.height*0.4185))
+        let topBgImg = UIImageView(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: screenSize.width,
+            height: screenSize.height*0.4185))
         topBgImg.image = UIImage(named: "ic_身份选择_背景")
         self.view.addSubview(topBgImg)
         
@@ -39,34 +39,34 @@ class LoReChooseIdentityViewController: UIViewController {
         let margin:CGFloat = 8
         
         // 抢人才按钮
-        let forTalentBtn = UIButton(frame: CGRectMake(
-            0,
-            screenSize.height*0.5,
-            screenSize.width*0.858,
-            screenSize.height*0.066))
+        let forTalentBtn = UIButton(frame: CGRect(
+            x: 0,
+            y: screenSize.height*0.5,
+            width: screenSize.width*0.858,
+            height: screenSize.height*0.066))
         forTalentBtn.backgroundColor = baseColor
         forTalentBtn.layer.cornerRadius = 8
-        forTalentBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        forTalentBtn.setImage(UIImage(named: "ic_身份选择_抢人才"), forState: .Normal)
-        forTalentBtn.setTitle("抢人才", forState: .Normal)
-        forTalentBtn.addTarget(self, action: #selector(forTalentBtnClick), forControlEvents: .TouchUpInside)
+        forTalentBtn.setTitleColor(UIColor.white, for: UIControlState())
+        forTalentBtn.setImage(UIImage(named: "ic_身份选择_抢人才"), for: UIControlState())
+        forTalentBtn.setTitle("抢人才", for: UIControlState())
+        forTalentBtn.addTarget(self, action: #selector(forTalentBtnClick), for: .touchUpInside)
         forTalentBtn.center.x = self.view.center.x
         forTalentBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -margin/2.0, 0, margin/2.0)
         forTalentBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin/2.0, 0, -margin/2.0)
         self.view.addSubview(forTalentBtn)
         
         // 挑战高薪 按钮
-        let cHSalaryBtn = UIButton(frame: CGRectMake(
-            0,
-            screenSize.height*0.6,
-            screenSize.width*0.858,
-            screenSize.height*0.066))
+        let cHSalaryBtn = UIButton(frame: CGRect(
+            x: 0,
+            y: screenSize.height*0.6,
+            width: screenSize.width*0.858,
+            height: screenSize.height*0.066))
         cHSalaryBtn.backgroundColor = baseColor
         cHSalaryBtn.layer.cornerRadius = 8
-        cHSalaryBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        cHSalaryBtn.setImage(UIImage(named: "ic_身份选择_挑战高薪"), forState: .Normal)
-        cHSalaryBtn.setTitle("挑战高薪", forState: .Normal)
-        cHSalaryBtn.addTarget(self, action: #selector(chSalaryBtnClick), forControlEvents: .TouchUpInside)
+        cHSalaryBtn.setTitleColor(UIColor.white, for: UIControlState())
+        cHSalaryBtn.setImage(UIImage(named: "ic_身份选择_挑战高薪"), for: UIControlState())
+        cHSalaryBtn.setTitle("挑战高薪", for: UIControlState())
+        cHSalaryBtn.addTarget(self, action: #selector(chSalaryBtnClick), for: .touchUpInside)
         cHSalaryBtn.center.x = self.view.center.x
         cHSalaryBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -margin/2.0, 0, margin/2.0)
         cHSalaryBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin/2.0, 0, -margin/2.0)

@@ -65,7 +65,7 @@ class CHSUserInfo {
     
     
     static let currentUserInfo = CHSUserInfo()
-    private init() {
+    fileprivate init() {
         
     }
 }

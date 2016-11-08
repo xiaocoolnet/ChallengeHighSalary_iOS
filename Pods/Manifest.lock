@@ -1,7 +1,7 @@
 PODS:
-  - Alamofire (3.5.1)
-  - D3Model (2.0.3)
-  - PagingMenuController (0.9.1)
+  - Alamofire (4.0.1)
+  - HandyJSON (1.2.1)
+  - PagingMenuController (1.4.0)
   - Pgyer (2.8.4)
   - PickerView (0.2.3)
   - SDWebImage (3.8.2):
@@ -9,21 +9,21 @@ PODS:
   - SDWebImage/Core (3.8.2)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.5)
-  - D3Model (~> 2.0.3)
-  - PagingMenuController (~> 0.9.1)
+  - Alamofire (~> 4.0.1)
+  - HandyJSON (~> 1.2.1)
+  - PagingMenuController (~> 1.4.0)
   - Pgyer (= 2.8.4)
   - PickerView (~> 0.2.3)
   - SDWebImage (~> 3.8)
 
 SPEC CHECKSUMS:
-  Alamofire: 0dfba1184a543e2aa160f4e39cac4e8aba48d223
-  D3Model: c82b45de2df793bc5c6906dfb74955eb8aa9e3e9
-  PagingMenuController: 95bab00761e1ba4f4f9fa6bf22ac71b065a675aa
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  HandyJSON: c20190bca46cc6e7fb87073df63ecbe90770a7b0
+  PagingMenuController: 79a9ce7472839d9afd0a6b879af6132822644a47
   Pgyer: 26edfcc8da6da6383fabfdbccd2f77c623b9d6eb
   PickerView: 0e70263bcea25b3809634e7b7c4b1710a657de5a
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: 74baebf5aaefcea6b794eacc8230ac0147c4d119
+PODFILE CHECKSUM: 790d4cb72ae76ccc55ed3be142c5b65eb8cf8fb8
 
 COCOAPODS: 1.0.1

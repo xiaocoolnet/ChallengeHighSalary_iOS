@@ -15,19 +15,21 @@ class CHSMiMyBounsTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        self.backgroundColor = UIColor.clearColor()
-        self.drawDashed(LineView, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(10, 0), toPoint: CGPointMake(screenSize.width-8-8-10-10, 0), lineWidth: 1)
+        self.backgroundColor = UIColor.clear
+        self.drawDashed(LineView, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPoint(x: 10, y: 0), toPoint: CGPoint(x: screenSize.width-8-8-10-10, y: 0), lineWidth: 1)
     }
     
-    func drawDashed(onView:UIView, color:UIColor, fromPoint:CGPoint, toPoint:CGPoint, lineWidth:CGFloat) {
+    func drawDashed(_ onView:UIView, color:UIColor, fromPoint:CGPoint, toPoint:CGPoint, lineWidth:CGFloat) {
         
         let dotteShapLayer = CAShapeLayer()
-        let mdotteShapePath = CGPathCreateMutable()
-        dotteShapLayer.fillColor = UIColor.clearColor().CGColor
-        dotteShapLayer.strokeColor = color.CGColor
+        let mdotteShapePath = CGMutablePath()
+        dotteShapLayer.fillColor = UIColor.clear.cgColor
+        dotteShapLayer.strokeColor = color.cgColor
         dotteShapLayer.lineWidth = lineWidth
-        CGPathMoveToPoint(mdotteShapePath, nil, fromPoint.x, fromPoint.y)
-        CGPathAddLineToPoint(mdotteShapePath, nil, toPoint.x, toPoint.y)
+        mdotteShapePath.move(to: fromPoint)
+        mdotteShapePath.addLine(to: toPoint)
+//        CGPathMoveToPoint(mdotteShapePath, nil, fromPoint.x, fromPoint.y)
+//        CGPathAddLineToPoint(mdotteShapePath, nil, toPoint.x, toPoint.y)
         //        CGPathAddLineToPoint(mdotteShapePath, nil, 200, 200)
         dotteShapLayer.path = mdotteShapePath
         let arr :NSArray = NSArray(array: [10,5])
@@ -36,7 +38,7 @@ class CHSMiMyBounsTableViewCell: UITableViewCell {
         onView.layer.addSublayer(dotteShapLayer)
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

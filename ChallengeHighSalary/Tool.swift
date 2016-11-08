@@ -9,9 +9,10 @@
 import Foundation
 import UIKit
 import SDWebImage
+import HandyJSON
 
 //MARK:- 基础数据
-let screenSize = UIScreen.mainScreen().bounds.size
+let screenSize = UIScreen.main.bounds.size
 let kWidthScale = screenSize.width/375
 let kHeightScale = screenSize.height/667
 
@@ -35,31 +36,32 @@ let userPwd_key = "login_password"
 let CHSMiMessageRemindSetting_key_pre = "CHSMiMessageRemindSetting"
 let FTPublishJobSelectedNameArray_key = "publishJobSelectedNameArray"
 
-var isLogin = NSUserDefaults.standardUserDefaults().boolForKey(isLogin_key)
+var isLogin = UserDefaults.standard.bool(forKey: isLogin_key)
 var positioningCity = "未知"
 
 //MARK:- 公用方法
-typealias ResponseClosures = (success:Bool,response:AnyObject?)->Void
+typealias ResponseClosures = (_ success:Bool,_ response:AnyObject?)->Void
 
-@objc(StatusModel)
-class StatusModel: D3Model {
+class StatusModel: HandyJSON {
     
     var status: String = ""
     
+    required init() {}
+
 }
 
-@objc(errorModel)
-class errorModel: D3Model {
+class errorModel: HandyJSON {
     
     
     var status: String = ""
     
     var data: String = ""
     
-    
+    required init() {}
+
 }
 
-typealias TimerHandle = (timeInterVal:Int)->Void
+typealias TimerHandle = (_ timeInterVal:Int)->Void
 
 //MARK: 计时器类
 class TimeManager{
@@ -67,9 +69,9 @@ class TimeManager{
     
     //两行代码创建一个单例
     static let shareManager = TimeManager()
-    private init() {
+    fileprivate init() {
     }
-    func begainTimerWithKey(key:String,timeInterval:Float,process:TimerHandle,finish:TimerHandle){
+    func begainTimerWithKey(_ key:String,timeInterval:Float,process:@escaping TimerHandle,finish:@escaping TimerHandle){
         if taskDic.count > 20 {
             print("任务太多")
             return
@@ -93,19 +95,19 @@ class TimeTask :NSObject{
     var leftTime:Float = 0
     var totolTime:Float = 0
     var backgroundID:UIBackgroundTaskIdentifier?
-    var timer:NSTimer?
+    var timer:Timer?
     
-    func configureWithTime(myKey:String,time:Float,processHandle:TimerHandle,finishHandle:TimerHandle) -> TimeTask {
-        backgroundID = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
+    func configureWithTime(_ myKey:String,time:Float,processHandle:@escaping TimerHandle,finishHandle:@escaping TimerHandle) -> TimeTask {
+        backgroundID = UIApplication.shared.beginBackgroundTask(expirationHandler: nil)
         key = myKey
         totolTime = time
         leftTime = totolTime
         FHandle = finishHandle
         PHandle = processHandle
-        timer = NSTimer(timeInterval: 1.0, target: self, selector:#selector(sendHandle), userInfo: nil, repeats: true)
+        timer = Timer(timeInterval: 1.0, target: self, selector:#selector(sendHandle), userInfo: nil, repeats: true)
         
         //将timer源写入runloop中被监听，commonMode-滑动不停止
-        NSRunLoop.currentRunLoop().addTimer(self.timer!, forMode: NSRunLoopCommonModes)
+        RunLoop.current.add(self.timer!, forMode: RunLoopMode.commonModes)
         return self
     }
     
@@ -113,26 +115,26 @@ class TimeTask :NSObject{
         leftTime -= 1
         if leftTime > 0 {
             if PHandle != nil {
-                PHandle!(timeInterVal:Int(leftTime))
+                PHandle!(Int(leftTime))
             }
         }else{
             timer?.invalidate()
-            TimeManager.shareManager.taskDic.removeValueForKey(key!)
+            TimeManager.shareManager.taskDic.removeValue(forKey: key!)
             if FHandle != nil {
-                FHandle!(timeInterVal: 0)
+                FHandle!(0)
             }
         }
     }
 }
 
 //MARK: 验证手机号是否正确
-func isPhoneNumber(phoneNumber:String) -> Bool {
+func isPhoneNumber(_ phoneNumber:String) -> Bool {
     if phoneNumber.characters.count == 0 {
         return false
     }
     let mobile = "^(13[0-9]|15[0-9]|18[0-9]|17[0-9]|147)\\d{8}$"
     let regexMobile = NSPredicate(format: "SELF MATCHES %@",mobile)
-    if regexMobile.evaluateWithObject(phoneNumber) == true {
+    if regexMobile.evaluate(with: phoneNumber) == true {
         return true
     }else
     {
@@ -141,15 +143,17 @@ func isPhoneNumber(phoneNumber:String) -> Bool {
 }
 
 //MARK: 画虚线
-func drawDashed(onView:UIView, color:UIColor, fromPoint:CGPoint, toPoint:CGPoint, lineWidth:CGFloat) {
+func drawDashed(_ onView:UIView, color:UIColor, fromPoint:CGPoint, toPoint:CGPoint, lineWidth:CGFloat) {
     
     let dotteShapLayer = CAShapeLayer()
-    let mdotteShapePath = CGPathCreateMutable()
-    dotteShapLayer.fillColor = UIColor.clearColor().CGColor
-    dotteShapLayer.strokeColor = color.CGColor
+    let mdotteShapePath = CGMutablePath()
+    dotteShapLayer.fillColor = UIColor.clear.cgColor
+    dotteShapLayer.strokeColor = color.cgColor
     dotteShapLayer.lineWidth = lineWidth
-    CGPathMoveToPoint(mdotteShapePath, nil, fromPoint.x, fromPoint.y)
-    CGPathAddLineToPoint(mdotteShapePath, nil, toPoint.x, toPoint.y)
+    mdotteShapePath.move(to: fromPoint)
+    mdotteShapePath.addLine(to: toPoint)
+//    CGPathMoveToPoint(mdotteShapePath, nil, fromPoint.x, fromPoint.y)
+//    CGPathAddLineToPoint(mdotteShapePath, nil, toPoint.x, toPoint.y)
     //        CGPathAddLineToPoint(mdotteShapePath, nil, 200, 200)
     dotteShapLayer.path = mdotteShapePath
     let arr :NSArray = NSArray(array: [10,5])
@@ -171,15 +175,17 @@ func drawDashed(onView:UIView, color:UIColor, fromPoint:CGPoint, toPoint:CGPoint
 }
 
 //MARK: 画直线
-func drawLine(onView:UIView, color:UIColor, fromPoint:CGPoint, toPoint:CGPoint, lineWidth:CGFloat, pattern:[NSNumber] = [10,5]) {
+func drawLine(_ onView:UIView, color:UIColor, fromPoint:CGPoint, toPoint:CGPoint, lineWidth:CGFloat, pattern:[NSNumber] = [10,5]) {
     
     let dotteShapLayer = CAShapeLayer()
-    let mdotteShapePath = CGPathCreateMutable()
-    dotteShapLayer.fillColor = color.CGColor
-    dotteShapLayer.strokeColor = color.CGColor
+    let mdotteShapePath = CGMutablePath()
+    dotteShapLayer.fillColor = color.cgColor
+    dotteShapLayer.strokeColor = color.cgColor
     dotteShapLayer.lineWidth = lineWidth
-    CGPathMoveToPoint(mdotteShapePath, nil, fromPoint.x, fromPoint.y)
-    CGPathAddLineToPoint(mdotteShapePath, nil, toPoint.x, toPoint.y)
+    mdotteShapePath.move(to: fromPoint)
+    mdotteShapePath.addLine(to: toPoint)
+//    CGPathMoveToPoint(mdotteShapePath, nil, fromPoint.x, fromPoint.y)
+//    CGPathAddLineToPoint(mdotteShapePath, nil, toPoint.x, toPoint.y)
     //        CGPathAddLineToPoint(mdotteShapePath, nil, 200, 200)
     dotteShapLayer.path = mdotteShapePath
 //    let arr :NSArray = NSArray(array: [1,0])
@@ -201,25 +207,25 @@ func drawLine(onView:UIView, color:UIColor, fromPoint:CGPoint, toPoint:CGPoint, 
 }
 
 //MARK: 计算文本最佳高度
-func calculateHeight(string:String,size:CGFloat,width:  CGFloat) -> CGFloat {
-    let options : NSStringDrawingOptions = NSStringDrawingOptions.UsesLineFragmentOrigin
+func calculateHeight(_ string:String,size:CGFloat,width:  CGFloat) -> CGFloat {
+    let options : NSStringDrawingOptions = NSStringDrawingOptions.usesLineFragmentOrigin
     //let screenBounds:CGRect = UIScreen.mainScreen().bounds
-    let boundingRect = String(string).boundingRectWithSize(CGSizeMake(width, 0), options: options, attributes: [NSFontAttributeName:UIFont.systemFontOfSize(size)], context: nil)
+    let boundingRect = String(string).boundingRect(with: CGSize(width: width, height: 0), options: options, attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: size)], context: nil)
     return boundingRect.height
 }
 
 //MARK: 计算文本最佳宽度
-func calculateWidth(string:String,size:CGFloat,height:  CGFloat) -> CGFloat {
-    let options : NSStringDrawingOptions = NSStringDrawingOptions.UsesLineFragmentOrigin
+func calculateWidth(_ string:String,size:CGFloat,height:  CGFloat) -> CGFloat {
+    let options : NSStringDrawingOptions = NSStringDrawingOptions.usesLineFragmentOrigin
     //let screenBounds:CGRect = UIScreen.mainScreen().bounds
-    let boundingRect = String(string).boundingRectWithSize(CGSizeMake(0, height), options: options, attributes: [NSFontAttributeName:UIFont.systemFontOfSize(size)], context: nil)
+    let boundingRect = String(string).boundingRect(with: CGSize(width: 0, height: height), options: options, attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: size)], context: nil)
     
     return boundingRect.width
 }
 
 //MARK: 交换 button 位置 （图片靠右）
 var exchangedBtnArray = [UIButton]()
-func exchangeBtnImageAndTitle(button: UIButton, margin: CGFloat) {
+func exchangeBtnImageAndTitle(_ button: UIButton, margin: CGFloat) {
     
     // 防止重复交换
     for exchangedBtn in exchangedBtnArray {
@@ -235,7 +241,7 @@ func exchangeBtnImageAndTitle(button: UIButton, margin: CGFloat) {
         
         if button.bounds.size.width >= button.titleLabel!.bounds.size.width+(button.currentImage?.size.width)!+margin || button.bounds.size.width == 0 {
             
-            if button.contentHorizontalAlignment == .Right {
+            if button.contentHorizontalAlignment == .right {
                 
                 button.imageEdgeInsets = UIEdgeInsetsMake(0, button.titleLabel!.bounds.size.width, 0, -button.titleLabel!.bounds.size.width)
                 button.titleEdgeInsets = UIEdgeInsetsMake(0, -(button.currentImage?.size.width)!-margin, 0, (button.currentImage?.size.width)!+margin)
@@ -256,12 +262,12 @@ func exchangeBtnImageAndTitle(button: UIButton, margin: CGFloat) {
 //    }
 }
 
-func adjustBtnsTitleLabelAndImgaeView(button:UIButton) {
+func adjustBtnsTitleLabelAndImgaeView(_ button:UIButton) {
     if (button.titleLabel != nil) && (button.imageView != nil) && (button.currentImage != nil) {
         
         let margin:CGFloat = 5
-        button.titleLabel?.sizeThatFits(CGSizeMake(button.frame.width-(button.currentImage?.size.width)!-margin, button.frame.height))
-        button.imageForState(.Normal)
-        button.imageView?.frame.origin.x = CGRectGetMaxX((button.titleLabel?.frame)!)+margin
+        button.titleLabel?.sizeThatFits(CGSize(width: button.frame.width-(button.currentImage?.size.width)!-margin, height: button.frame.height))
+        button.image(for: UIControlState())
+        button.imageView?.frame.origin.x = (button.titleLabel?.frame)!.maxX+margin
     }
 }

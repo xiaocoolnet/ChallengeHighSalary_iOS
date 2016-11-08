@@ -26,26 +26,26 @@ class CHSChInterviewEvaTableViewCell: UITableViewCell {
     func setEvaTagLabs() {
         
         for view in self.contentView.subviews {
-            if view.isKindOfClass(UIButton) {
+            if view.isKind(of: UIButton.self) {
                 view.removeFromSuperview()
             }
         }
         
         let evaTagLabMargin:CGFloat = 10
         var evaTagLabX:CGFloat = evaTagLabMargin
-        var evaTagLabY:CGFloat = CGRectGetMaxY(headerImg.frame)+8
+        var evaTagLabY:CGFloat = headerImg.frame.maxY+8
         var evaTagLabWidth:CGFloat = 0
         let evaTagLabHeight:CGFloat = 20
         
-        for (i,evaTag) in evaTagArray.enumerate() {
+        for (i,evaTag) in evaTagArray.enumerated() {
             evaTagLabWidth = calculateWidth(evaTag, size: 14, height: evaTagLabHeight)+evaTagLabMargin*4
-            let evaTagLab = UILabel(frame: CGRectMake(evaTagLabX, evaTagLabY, evaTagLabWidth, evaTagLabHeight))
+            let evaTagLab = UILabel(frame: CGRect(x: evaTagLabX, y: evaTagLabY, width: evaTagLabWidth, height: evaTagLabHeight))
             evaTagLab.layer.cornerRadius = evaTagLabHeight/2.0
             evaTagLab.layer.borderWidth = 1
-            evaTagLab.layer.borderColor = UIColor(red: 209/255.0, green: 209/255.0, blue: 209/255.0, alpha: 1).CGColor
-            evaTagLab.font = UIFont.systemFontOfSize(13)
-            evaTagLab.textColor = UIColor.lightGrayColor()
-            evaTagLab.textAlignment = .Center
+            evaTagLab.layer.borderColor = UIColor(red: 209/255.0, green: 209/255.0, blue: 209/255.0, alpha: 1).cgColor
+            evaTagLab.font = UIFont.systemFont(ofSize: 13)
+            evaTagLab.textColor = UIColor.lightGray
+            evaTagLab.textAlignment = .center
             evaTagLab.text = evaTag
             self.contentView.addSubview(evaTagLab)
             
@@ -65,24 +65,24 @@ class CHSChInterviewEvaTableViewCell: UITableViewCell {
         }
         
         let evaContentHeight = calculateHeight(evaContent, size: 13, width: screenSize.width-evaTagLabX)
-        let evaContentLab = UILabel(frame: CGRectMake(10, evaTagLabY+evaTagLabMargin, screenSize.width-10, evaContentHeight))
-        evaContentLab.font = UIFont.systemFontOfSize(13)
-        evaContentLab.textColor = UIColor.blackColor()
+        let evaContentLab = UILabel(frame: CGRect(x: 10, y: evaTagLabY+evaTagLabMargin, width: screenSize.width-10, height: evaContentHeight))
+        evaContentLab.font = UIFont.systemFont(ofSize: 13)
+        evaContentLab.textColor = UIColor.black
         evaContentLab.text = evaContent
         self.contentView.addSubview(evaContentLab)
         
         let usefulBtnWidth = calculateWidth("有用(0)", size: 15, height: 30)+30+20
-        let usefulBtn = UIButton(frame: CGRectMake(screenSize.width-usefulBtnWidth-8, CGRectGetMaxY(evaContentLab.frame)+10, usefulBtnWidth, 30))
-        usefulBtn.contentHorizontalAlignment = .Right
-        usefulBtn.setImage(UIImage(named: "1"), forState: .Normal)
-        usefulBtn.imageView?.contentMode = .ScaleAspectFit
-        usefulBtn.titleLabel?.font = UIFont.systemFontOfSize(15)
-        usefulBtn.setTitleColor(UIColor(red: 75/255.0, green: 182/255.0, blue: 146/255.0, alpha: 1), forState: .Normal)
-        usefulBtn.setTitle("有用(0)", forState: .Normal)
+        let usefulBtn = UIButton(frame: CGRect(x: screenSize.width-usefulBtnWidth-8, y: evaContentLab.frame.maxY+10, width: usefulBtnWidth, height: 30))
+        usefulBtn.contentHorizontalAlignment = .right
+        usefulBtn.setImage(UIImage(named: "1"), for: UIControlState())
+        usefulBtn.imageView?.contentMode = .scaleAspectFit
+        usefulBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        usefulBtn.setTitleColor(UIColor(red: 75/255.0, green: 182/255.0, blue: 146/255.0, alpha: 1), for: UIControlState())
+        usefulBtn.setTitle("有用(0)", for: UIControlState())
         self.contentView.addSubview(usefulBtn)
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

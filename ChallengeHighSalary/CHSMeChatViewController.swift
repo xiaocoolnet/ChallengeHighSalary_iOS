@@ -12,8 +12,8 @@ class CHSMeChatViewController: UIViewController {
 
     var jobInfo:JobInfoDataModel? {
         didSet {
-            self.selfTitle = (self.jobInfo?.realname ?? "")!
-            self.conversationId = (self.jobInfo?.userid ?? "")!
+            self.selfTitle = (self.jobInfo?.realname)!
+            self.conversationId = (self.jobInfo?.userid)!
         }
     }
     
@@ -30,7 +30,7 @@ class CHSMeChatViewController: UIViewController {
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     
@@ -41,7 +41,7 @@ class CHSMeChatViewController: UIViewController {
         
         self.automaticallyAdjustsScrollViewInsets = false
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
         
         
 //        NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];

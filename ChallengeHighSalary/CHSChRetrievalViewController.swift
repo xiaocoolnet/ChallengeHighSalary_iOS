@@ -22,18 +22,18 @@ class CHSChRetrievalViewController: UIViewController {
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK:- 设置子视图
     func setSubviews() {
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
 
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         self.title = "检索"
         
-        let btnBgView = UIView(frame: CGRectMake(0, 0, 0, 0))
+        let btnBgView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         self.view.addSubview(btnBgView)
         
         var cateBtnMaxX:CGFloat = 0
@@ -44,29 +44,29 @@ class CHSChRetrievalViewController: UIViewController {
         let margin_x_mid = kWidthScale*30
         let margin_y_mid = kHeightScale*30
         
-        for (i,retrievalName) in retrievalNameArray.enumerate() {
+        for (i,retrievalName) in retrievalNameArray.enumerated() {
             
-            let cateBtn = UIButton(frame: CGRectMake(
-                (shareBtnWidth+margin_x_mid)*CGFloat(i%shareBtnCount),
-                (shareBtnWidth+margin_y_mid)*CGFloat(i/shareBtnCount),
-                shareBtnWidth,
-                shareBtnWidth))
+            let cateBtn = UIButton(frame: CGRect(
+                x: (shareBtnWidth+margin_x_mid)*CGFloat(i%shareBtnCount),
+                y: (shareBtnWidth+margin_y_mid)*CGFloat(i/shareBtnCount),
+                width: shareBtnWidth,
+                height: shareBtnWidth))
             cateBtn.layer.cornerRadius = shareBtnWidth/2.0
             cateBtn.layer.borderWidth = 2
-            cateBtn.layer.borderColor = baseColor.CGColor
-            cateBtn.backgroundColor = UIColor.whiteColor()
-            cateBtn.setTitleColor(baseColor, forState: .Normal)
-            cateBtn.setTitle(retrievalName, forState: .Normal)
+            cateBtn.layer.borderColor = baseColor.cgColor
+            cateBtn.backgroundColor = UIColor.white
+            cateBtn.setTitleColor(baseColor, for: UIControlState())
+            cateBtn.setTitle(retrievalName, for: UIControlState())
             cateBtn.tag = 1000+i
             //            shareBtn_1.addTarget(self, action: #selector(shareBtnClick(_:)), forControlEvents: .TouchUpInside)
             btnBgView.addSubview(cateBtn)
 //            print(cateBtn.frame)
             
-            cateBtnMaxX = CGRectGetMaxX(cateBtn.frame)
-            cateBtnMaxY = CGRectGetMaxY(cateBtn.frame)
+            cateBtnMaxX = cateBtn.frame.maxX
+            cateBtnMaxY = cateBtn.frame.maxY
         }
         
-        btnBgView.frame.size = CGSizeMake(cateBtnMaxX, cateBtnMaxY)
+        btnBgView.frame.size = CGSize(width: cateBtnMaxX, height: cateBtnMaxY)
         
         btnBgView.center = self.view.center
     }

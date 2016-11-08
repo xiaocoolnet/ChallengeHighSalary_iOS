@@ -32,76 +32,76 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK:- 设置子视图
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
 
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
         self.title = "手机绑定"
         
         // MARK: 当前手机号 Label
-        let currentPhoneLab = UILabel(frame: CGRectMake(0, kHeightScale*40+44+20, screenSize.width, kHeightScale*15))
+        let currentPhoneLab = UILabel(frame: CGRect(x: 0, y: kHeightScale*40+44+20, width: screenSize.width, height: kHeightScale*15))
         currentPhoneLab.textColor = UIColor(red: 156/255.0, green: 156/255.0, blue: 156/255.0, alpha: 1)
-        currentPhoneLab.textAlignment = .Center
-        currentPhoneLab.font = UIFont.systemFontOfSize(14)
+        currentPhoneLab.textAlignment = .center
+        currentPhoneLab.font = UIFont.systemFont(ofSize: 14)
         currentPhoneLab.text = "当前手机号"
         self.view.addSubview(currentPhoneLab)
         
         // MARK: 手机号
-        let phoneLab = UILabel(frame: CGRectMake(0, kHeightScale*65+44+20, screenSize.width, kHeightScale*15))
-        phoneLab.textColor = UIColor.blackColor()
-        phoneLab.textAlignment = .Center
-        phoneLab.font = UIFont.boldSystemFontOfSize(16)
+        let phoneLab = UILabel(frame: CGRect(x: 0, y: kHeightScale*65+44+20, width: screenSize.width, height: kHeightScale*15))
+        phoneLab.textColor = UIColor.black
+        phoneLab.textAlignment = .center
+        phoneLab.font = UIFont.boldSystemFont(ofSize: 16)
         phoneLab.text = "159****2525"
         self.view.addSubview(phoneLab)
         
         // MARK: 新手机号 背景
-        let newPhoneBgView = UIView(frame: CGRectMake(kWidthScale*10, kHeightScale*105+44+20, screenSize.width-kWidthScale*20, kHeightScale*50))
+        let newPhoneBgView = UIView(frame: CGRect(x: kWidthScale*10, y: kHeightScale*105+44+20, width: screenSize.width-kWidthScale*20, height: kHeightScale*50))
         newPhoneBgView.layer.cornerRadius = 6
-        newPhoneBgView.backgroundColor = UIColor.whiteColor()
+        newPhoneBgView.backgroundColor = UIColor.white
         self.view.addSubview(newPhoneBgView)
         
         // 电话前缀
-        let telLab = UIButton(frame: CGRectMake(
-            0,
-            0,
-            kWidthScale*58,
-            newPhoneBgView.frame.size.height))
-        telLab.setTitleColor(baseColor, forState: .Normal)
-        telLab.setTitle("+86", forState: .Normal)
-        telLab.setImage(UIImage(named: "ic_下拉箭头"), forState: .Normal)
+        let telLab = UIButton(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: kWidthScale*58,
+            height: newPhoneBgView.frame.size.height))
+        telLab.setTitleColor(baseColor, for: UIControlState())
+        telLab.setTitle("+86", for: UIControlState())
+        telLab.setImage(UIImage(named: "ic_下拉箭头"), for: UIControlState())
         exchangeBtnImageAndTitle(telLab, margin: 2)
         newPhoneBgView.addSubview(telLab)
         
         // 电话前缀右边虚线
-        drawDashed(newPhoneBgView, color: UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1), fromPoint: CGPointMake(CGRectGetMaxX(telLab.frame), CGRectGetMinY(telLab.frame)+5), toPoint: CGPointMake(CGRectGetMaxX(telLab.frame), newPhoneBgView.frame.size.height-5), lineWidth: 1)
+        drawDashed(newPhoneBgView, color: UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1), fromPoint: CGPoint(x: telLab.frame.maxX, y: telLab.frame.minY+5), toPoint: CGPoint(x: telLab.frame.maxX, y: newPhoneBgView.frame.size.height-5), lineWidth: 1)
         
         // 电话号码输入框
-        telTF.frame = CGRectMake(CGRectGetMaxX(telLab.frame)+5, 0, screenSize.width-kWidthScale*59, newPhoneBgView.frame.size.height)
+        telTF.frame = CGRect(x: telLab.frame.maxX+5, y: 0, width: screenSize.width-kWidthScale*59, height: newPhoneBgView.frame.size.height)
         telTF.placeholder = "请输入手机号"
-        telTF.keyboardType = .NumberPad
-        telTF.returnKeyType = .Next
+        telTF.keyboardType = .numberPad
+        telTF.returnKeyType = .next
         telTF.delegate = self
         newPhoneBgView.addSubview(telTF)
         
         // MARK: 验证码 背景
-        let checkCodeBgView = UIView(frame: CGRectMake(kWidthScale*10, CGRectGetMaxY(newPhoneBgView.frame)+kHeightScale*20, screenSize.width-kWidthScale*20, kHeightScale*50))
+        let checkCodeBgView = UIView(frame: CGRect(x: kWidthScale*10, y: newPhoneBgView.frame.maxY+kHeightScale*20, width: screenSize.width-kWidthScale*20, height: kHeightScale*50))
         checkCodeBgView.layer.cornerRadius = 6
-        checkCodeBgView.backgroundColor = UIColor.whiteColor()
+        checkCodeBgView.backgroundColor = UIColor.white
         self.view.addSubview(checkCodeBgView)
         
         // 验证码 前 背景视图
-        let checkCodeView = UIImageView(frame: CGRectMake(
-            0,
-            0,
-            kWidthScale*58,
-            newPhoneBgView.frame.size.height))
+        let checkCodeView = UIImageView(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: kWidthScale*58,
+            height: newPhoneBgView.frame.size.height))
 //        checkCodeView.backgroundColor = UIColor.grayColor()
         checkCodeBgView.addSubview(checkCodeView)
         // 验证码 ImageView
@@ -110,64 +110,64 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
         checkCodeBgView.addSubview(checkCodeImg)
         
         // 验证码右边虚线
-        drawDashed(checkCodeBgView, color: UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1), fromPoint: CGPointMake(CGRectGetMaxX(checkCodeView.frame), CGRectGetMinY(checkCodeView.frame)+5), toPoint: CGPointMake(CGRectGetMaxX(checkCodeView.frame), checkCodeBgView.frame.size.height-5), lineWidth: 1)
+        drawDashed(checkCodeBgView, color: UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1), fromPoint: CGPoint(x: checkCodeView.frame.maxX, y: checkCodeView.frame.minY+5), toPoint: CGPoint(x: checkCodeView.frame.maxX, y: checkCodeBgView.frame.size.height-5), lineWidth: 1)
         
         // 验证码输入框
-        checkCodeTF.frame = CGRectMake(
-            CGRectGetMaxX(telLab.frame)+5,
-            0,
-            newPhoneBgView.frame.size.width-kWidthScale*110-CGRectGetMaxX(telLab.frame)+5,
-            newPhoneBgView.frame.size.height)
+        checkCodeTF.frame = CGRect(
+            x: telLab.frame.maxX+5,
+            y: 0,
+            width: newPhoneBgView.frame.size.width-kWidthScale*110-telLab.frame.maxX+5,
+            height: newPhoneBgView.frame.size.height)
         checkCodeTF.placeholder = "验证码"
-        checkCodeTF.keyboardType = .NumberPad
-        checkCodeTF.returnKeyType = .Done
+        checkCodeTF.keyboardType = .numberPad
+        checkCodeTF.returnKeyType = .done
         checkCodeTF.delegate = self
         checkCodeBgView.addSubview(checkCodeTF)
         
         // 获取验证码 按钮
-        getCheckCodeBtn.frame = CGRectMake(
-            newPhoneBgView.frame.size.width-kWidthScale*(96+14),
-            kHeightScale*10,
-            kWidthScale*96,
-            kHeightScale*30)
+        getCheckCodeBtn.frame = CGRect(
+            x: newPhoneBgView.frame.size.width-kWidthScale*(96+14),
+            y: kHeightScale*10,
+            width: kWidthScale*96,
+            height: kHeightScale*30)
         //        getCheckCodeBtn.backgroundColor = baseColor
         getCheckCodeBtn.layer.cornerRadius = 15
-        getCheckCodeBtn.layer.borderColor = baseColor.CGColor
+        getCheckCodeBtn.layer.borderColor = baseColor.cgColor
         getCheckCodeBtn.layer.borderWidth = 1
-        getCheckCodeBtn.titleLabel?.font = UIFont.systemFontOfSize(16)
-        getCheckCodeBtn.setTitleColor(baseColor, forState: .Normal)
-        getCheckCodeBtn.setTitle("获取验证码", forState: .Normal)
-        getCheckCodeBtn.addTarget(self, action: #selector(getCheckCodeBtnClick), forControlEvents: .TouchUpInside)
+        getCheckCodeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        getCheckCodeBtn.setTitleColor(baseColor, for: UIControlState())
+        getCheckCodeBtn.setTitle("获取验证码", for: UIControlState())
+        getCheckCodeBtn.addTarget(self, action: #selector(getCheckCodeBtnClick), for: .touchUpInside)
         checkCodeBgView.addSubview(getCheckCodeBtn)
         
         // 确认更换 按钮
-        let sureChangeBtn = UIButton(frame: CGRectMake(kWidthScale*10, CGRectGetMaxY(checkCodeBgView.frame)+kHeightScale*96, screenSize.width-kWidthScale*20, kHeightScale*45))
+        let sureChangeBtn = UIButton(frame: CGRect(x: kWidthScale*10, y: checkCodeBgView.frame.maxY+kHeightScale*96, width: screenSize.width-kWidthScale*20, height: kHeightScale*45))
         sureChangeBtn.backgroundColor = baseColor
         sureChangeBtn.layer.cornerRadius = kHeightScale*22.5
-        sureChangeBtn.titleLabel?.font = UIFont.systemFontOfSize(16)
-        sureChangeBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        sureChangeBtn.setTitle("确认更换", forState: .Normal)
-        sureChangeBtn.addTarget(self, action: #selector(sureChangeBtnClick), forControlEvents: .TouchUpInside)
+        sureChangeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        sureChangeBtn.setTitleColor(UIColor.white, for: UIControlState())
+        sureChangeBtn.setTitle("确认更换", for: UIControlState())
+        sureChangeBtn.addTarget(self, action: #selector(sureChangeBtnClick), for: .touchUpInside)
         self.view.addSubview(sureChangeBtn)
         
         // 提示 Label
-        let tipLab = UILabel(frame: CGRectMake(
-            0,
-            CGRectGetMaxY(sureChangeBtn.frame)+kHeightScale*15,
-            screenSize.width,
-            kHeightScale*15))
-        tipLab.font = UIFont.systemFontOfSize(12)
+        let tipLab = UILabel(frame: CGRect(
+            x: 0,
+            y: sureChangeBtn.frame.maxY+kHeightScale*15,
+            width: screenSize.width,
+            height: kHeightScale*15))
+        tipLab.font = UIFont.systemFont(ofSize: 12)
         tipLab.textColor = UIColor(red: 161/255.0, green: 161/255.0, blue: 161/255.0, alpha: 1)
         tipLab.text = "修改手机号后，可以使用新的手机号登录"
-        tipLab.textAlignment = .Center
+        tipLab.textAlignment = .center
         self.view.addSubview(tipLab)
     }
     
     // MARK: UITextFieldDelegate
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == telTF {
             checkCodeTF.becomeFirstResponder()
-            if self.getCheckCodeBtn.userInteractionEnabled {
+            if self.getCheckCodeBtn.isUserInteractionEnabled {
                 getCheckCodeBtnClick()
             }
         }else if textField == checkCodeTF {
@@ -179,12 +179,12 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
     //  倒计时功能
     func getCheckCodeCountdown(){
         processHandle = {[unowned self] (timeInterVal) in
-            dispatch_async(dispatch_get_main_queue(), {
-                self.getCheckCodeBtn.userInteractionEnabled = false
+            DispatchQueue.main.async(execute: {
+                self.getCheckCodeBtn.isUserInteractionEnabled = false
                 let btnTitle = String(timeInterVal) + "秒后重新获取"
-                self.getCheckCodeBtn.titleLabel?.font = UIFont.systemFontOfSize(12)
+                self.getCheckCodeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
                 
-                self.getCheckCodeBtn.setTitle(btnTitle, forState: .Normal)
+                self.getCheckCodeBtn.setTitle(btnTitle, for: UIControlState())
                 
                 
                 
@@ -192,10 +192,10 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
         }
         
         finishHandle = {[unowned self] (timeInterVal) in
-            dispatch_async(dispatch_get_main_queue(), {
-                self.getCheckCodeBtn.userInteractionEnabled = true
-                self.getCheckCodeBtn.titleLabel?.font = UIFont.systemFontOfSize(12)
-                self.getCheckCodeBtn.setTitle("重新获取验证码", forState: .Normal)
+            DispatchQueue.main.async(execute: {
+                self.getCheckCodeBtn.isUserInteractionEnabled = true
+                self.getCheckCodeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+                self.getCheckCodeBtn.setTitle("重新获取验证码", for: UIControlState())
             })
         }
         TimeManager.shareManager.taskDic["changePhone"]?.FHandle = finishHandle
@@ -205,17 +205,17 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
     // MARK: 获取验证码按钮点击事件
     func getCheckCodeBtnClick() {
         
-        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
         
         // 判断手机号是否为空
         if telTF.text!.isEmpty {
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请输入手机号"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }else if !isPhoneNumber(telTF.text!) {
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "手机号输入有误"
             checkCodeHud.hide(true, afterDelay: 1)
             return
@@ -225,9 +225,9 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
             
             if success {
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     
-                    checkCodeHud.mode = .Text
+                    checkCodeHud.mode = .text
                     checkCodeHud.labelText = response as! String
                     checkCodeHud.hide(true, afterDelay: 1)
                     TimeManager.shareManager.taskDic["changePhone"]?.leftTime = 0
@@ -238,7 +238,7 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
                 
                 LoginNetUtil().SendMobileCode(self.telTF.text!) { (success, response) in
                     
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         
                         if success {
                             
@@ -249,7 +249,7 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
                         }else{
                             
                             print("no success")
-                            checkCodeHud.mode = .Text
+                            checkCodeHud.mode = .text
                             checkCodeHud.labelText = "获取验证码失败"
                             checkCodeHud.hide(true, afterDelay: 1)
                             
@@ -264,22 +264,22 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
     
     // MARK:- 确认更换按钮点击事件
     func sureChangeBtnClick() {
-        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
         
         // 判断手机号是否为空
         if telTF.text!.isEmpty {
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请输入手机号"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }else if !isPhoneNumber(telTF.text!) {// 判断手机号格式是否正确
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "手机号输入有误"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }else if checkCodeTF.text!.isEmpty {
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请输入验证码"
             checkCodeHud.hide(true, afterDelay: 1)
             return
@@ -287,25 +287,25 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
         
         CHSMiNetUtil().updateUserPhone(telTF.text!, code: checkCodeTF.text!) { (success, response) in
             if success {
-                checkCodeHud.mode = .Text
+                checkCodeHud.mode = .text
                 checkCodeHud.labelText = "更换手机号成功"
                 checkCodeHud.hide(true, afterDelay: 1)
                 
-                let time: NSTimeInterval = 1.0
-                let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                let time: TimeInterval = 1.0
+                let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
                 
-                dispatch_after(delay, dispatch_get_main_queue()) {
-                    self.navigationController?.popViewControllerAnimated(true)
+                DispatchQueue.main.asyncAfter(deadline: delay) {
+                    _ = self.navigationController?.popViewController(animated: true)
                 }
             }else{
-                checkCodeHud.mode = .Text
-                checkCodeHud.labelText = String(response!)
+                checkCodeHud.mode = .text
+                checkCodeHud.labelText = String(describing: response!)
                 checkCodeHud.hide(true, afterDelay: 1)
             }
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         TimeManager.shareManager.taskDic["changePhone"]?.FHandle = nil
         TimeManager.shareManager.taskDic["changePhone"]?.PHandle = nil

@@ -10,11 +10,11 @@ import UIKit
 
 class FTMiChangeIdentityViewController: UIViewController {
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = true
-        self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     override func viewDidLoad() {
@@ -23,11 +23,11 @@ class FTMiChangeIdentityViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         // 挑战高薪 头部
-        let topBgImg = UIImageView(frame: CGRectMake(
-            0,
-            0,
-            screenSize.width,
-            screenSize.height*0.4185))
+        let topBgImg = UIImageView(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: screenSize.width,
+            height: screenSize.height*0.4185))
         topBgImg.image = UIImage(named: "ic_切换身份_背景")
         self.view.addSubview(topBgImg)
         
@@ -35,45 +35,45 @@ class FTMiChangeIdentityViewController: UIViewController {
         textImg.center = topBgImg.center
         self.view.addSubview(textImg)
         
-        let backBtn = UIButton(frame: CGRectMake(8, 28, kHeightScale*25, kHeightScale*25))
+        let backBtn = UIButton(frame: CGRect(x: 8, y: 28, width: kHeightScale*25, height: kHeightScale*25))
         //        backBtn.backgroundColor = baseColor
-        backBtn.setImage(UIImage(named: "ic_返回_white"), forState: .Normal)
-        backBtn.addTarget(self, action: #selector(backBtnClick), forControlEvents: .TouchUpInside)
+        backBtn.setImage(UIImage(named: "ic_返回_white"), for: UIControlState())
+        backBtn.addTarget(self, action: #selector(backBtnClick), for: .touchUpInside)
         self.view.addSubview(backBtn)
         
         let margin:CGFloat = 8
         
         // 抢人才按钮
-        let forTalentBtn = UIButton(frame: CGRectMake(
-            0,
-            screenSize.height*0.5,
-            screenSize.width*0.858,
-            screenSize.height*0.066))
+        let forTalentBtn = UIButton(frame: CGRect(
+            x: 0,
+            y: screenSize.height*0.5,
+            width: screenSize.width*0.858,
+            height: screenSize.height*0.066))
         forTalentBtn.backgroundColor = baseColor
         forTalentBtn.layer.cornerRadius = screenSize.height*0.033
-        forTalentBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        forTalentBtn.setImage(UIImage(named: "ic_切换身份_招人_white"), forState: .Normal)
-        forTalentBtn.setTitle("我要招人", forState: .Normal)
+        forTalentBtn.setTitleColor(UIColor.white, for: UIControlState())
+        forTalentBtn.setImage(UIImage(named: "ic_切换身份_招人_white"), for: UIControlState())
+        forTalentBtn.setTitle("我要招人", for: UIControlState())
         forTalentBtn.center.x = self.view.center.x
         forTalentBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -margin/2.0, 0, margin/2.0)
         forTalentBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin/2.0, 0, -margin/2.0)
-        forTalentBtn.userInteractionEnabled = false
+        forTalentBtn.isUserInteractionEnabled = false
         self.view.addSubview(forTalentBtn)
         
         // 挑战高薪 按钮
-        let cHSalaryBtn = UIButton(frame: CGRectMake(
-            0,
-            screenSize.height*0.6,
-            screenSize.width*0.858,
-            screenSize.height*0.066))
-        cHSalaryBtn.backgroundColor = UIColor.whiteColor()
+        let cHSalaryBtn = UIButton(frame: CGRect(
+            x: 0,
+            y: screenSize.height*0.6,
+            width: screenSize.width*0.858,
+            height: screenSize.height*0.066))
+        cHSalaryBtn.backgroundColor = UIColor.white
         cHSalaryBtn.layer.cornerRadius = screenSize.height*0.033
-        cHSalaryBtn.layer.borderColor = baseColor.CGColor
+        cHSalaryBtn.layer.borderColor = baseColor.cgColor
         cHSalaryBtn.layer.borderWidth = 1
-        cHSalaryBtn.setTitleColor(baseColor, forState: .Normal)
-        cHSalaryBtn.setImage(UIImage(named: "ic_切换身份_求职_green"), forState: .Normal)
-        cHSalaryBtn.setTitle("我要求职", forState: .Normal)
-        cHSalaryBtn.addTarget(self, action: #selector(chSalaryBtnClick), forControlEvents: .TouchUpInside)
+        cHSalaryBtn.setTitleColor(baseColor, for: UIControlState())
+        cHSalaryBtn.setImage(UIImage(named: "ic_切换身份_求职_green"), for: UIControlState())
+        cHSalaryBtn.setTitle("我要求职", for: UIControlState())
+        cHSalaryBtn.addTarget(self, action: #selector(chSalaryBtnClick), for: .touchUpInside)
         cHSalaryBtn.center.x = self.view.center.x
         cHSalaryBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -margin/2.0, 0, margin/2.0)
         cHSalaryBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin/2.0, 0, -margin/2.0)
@@ -83,7 +83,7 @@ class FTMiChangeIdentityViewController: UIViewController {
     
     // MARK:- backBtn 点击事件
     func backBtnClick() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: 挑战高薪 按钮 点击事件
@@ -92,13 +92,13 @@ class FTMiChangeIdentityViewController: UIViewController {
         if CHSUserInfo.currentUserInfo.usertype == "1" || CHSUserInfo.currentUserInfo.usertype == "3" {
             
             // 挑战高薪 过渡界面
-            let welLab = UILabel(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
+            let welLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
             welLab.backgroundColor = baseColor
             welLab.numberOfLines = 0
-            welLab.textColor = UIColor.whiteColor()
-            welLab.font = UIFont.boldSystemFontOfSize(20)
+            welLab.textColor = UIColor.white
+            welLab.font = UIFont.boldSystemFont(ofSize: 20)
             welLab.adjustsFontSizeToFitWidth = true
-            welLab.textAlignment = .Center
+            welLab.textAlignment = .center
             welLab.text = "千万不要低估了自己\n也不要高估了那些拿到高薪的人~！\n查看职位还有可能获得奖金哦！"
             self.view.addSubview(welLab)
             
@@ -108,20 +108,20 @@ class FTMiChangeIdentityViewController: UIViewController {
             toVC.viewControllers![0].view.frame.origin.x = -screenSize.width
             self.view.addSubview(toVC.view)
             
-            let time: NSTimeInterval = 1.0
-            let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+            let time: TimeInterval = 1.0
+            let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             
-            dispatch_after(delay, dispatch_get_main_queue()) {
+            DispatchQueue.main.asyncAfter(deadline: delay) {
                 
-                UIView.animateWithDuration(1, animations: {
+                UIView.animate(withDuration: 1, animations: {
                     toVC.view.frame.origin.x = 0
                     toVC.viewControllers![0].view.frame.origin.x = 0
                     
-                }) { (finished) in
+                }, completion: { (finished) in
                     if finished {
-                        UIApplication.sharedApplication().keyWindow?.rootViewController = toVC
+                        UIApplication.shared.keyWindow?.rootViewController = toVC
                     }
-                }
+                }) 
             }
         }else{
             self.navigationController?.pushViewController(LoReCHSPersonalInfoViewController(), animated: true)

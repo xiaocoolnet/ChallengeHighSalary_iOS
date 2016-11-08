@@ -26,16 +26,16 @@ class CHSReJobExpSkillViewController: UIViewController {
         setSubviews()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: 设置子视图
@@ -43,51 +43,51 @@ class CHSReJobExpSkillViewController: UIViewController {
         
         self.automaticallyAdjustsScrollViewInsets = false
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .Done, target: self, action: #selector(saveBtnClick))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .done, target: self, action: #selector(saveBtnClick))
         
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
         self.title = "技能标签"
         
         // 提示 Label
-        let tipLab = UILabel(frame: CGRectMake(0, 64+10, screenSize.width, 40))
+        let tipLab = UILabel(frame: CGRect(x: 0, y: 64+10, width: screenSize.width, height: 40))
         tipLab.textColor = UIColor(red: 170/255.0, green: 170/255.0, blue: 170/255.0, alpha: 1)
-        tipLab.textAlignment = .Center
+        tipLab.textAlignment = .center
         tipLab.text = "最多三个标签"
-        tipLab.font = UIFont.systemFontOfSize(16)
+        tipLab.font = UIFont.systemFont(ofSize: 16)
         self.view.addSubview(tipLab)
         
         // 设置标签 button
         let skillBtnMargin_x:CGFloat = 10
         let skillBtnMargin_y:CGFloat = 10
         var skillBtnX:CGFloat = skillBtnMargin_x
-        var skillBtnY:CGFloat = CGRectGetMaxY(tipLab.frame)+skillBtnMargin_y
+        var skillBtnY:CGFloat = tipLab.frame.maxY+skillBtnMargin_y
         var skillBtnWidth:CGFloat = 0
         let skillBtnHeight:CGFloat = 30
         
-        for (i,skillName) in skillNameArray.enumerate() {
+        for (i,skillName) in skillNameArray.enumerated() {
             
             skillBtnWidth = calculateWidth(skillName, size: 15, height: skillBtnHeight)+skillBtnMargin_x*2
-            let skillBtn = UIButton(frame: CGRectMake(skillBtnX, skillBtnY, skillBtnWidth, skillBtnHeight))
+            let skillBtn = UIButton(frame: CGRect(x: skillBtnX, y: skillBtnY, width: skillBtnWidth, height: skillBtnHeight))
             skillBtn.tag = 100+i
             skillBtn.layer.cornerRadius = 6
             skillBtn.layer.borderWidth = 1
-            skillBtn.layer.borderColor = UIColor(red: 187/255.0, green: 187/255.0, blue: 187/255.0, alpha: 1).CGColor
-            skillBtn.titleLabel?.font = UIFont.systemFontOfSize(15)
-            skillBtn.setTitleColor(UIColor(red: 187/255.0, green: 187/255.0, blue: 187/255.0, alpha: 1), forState: .Normal)
-            skillBtn.setTitle(skillName, forState: .Normal)
-            skillBtn.setTitleColor(UIColor.whiteColor(), forState: .Selected)
-            skillBtn.backgroundColor = UIColor.clearColor()
-            skillBtn.addTarget(self, action: #selector(skillBtnClick(_:)), forControlEvents: .TouchUpInside)
+            skillBtn.layer.borderColor = UIColor(red: 187/255.0, green: 187/255.0, blue: 187/255.0, alpha: 1).cgColor
+            skillBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+            skillBtn.setTitleColor(UIColor(red: 187/255.0, green: 187/255.0, blue: 187/255.0, alpha: 1), for: UIControlState())
+            skillBtn.setTitle(skillName, for: UIControlState())
+            skillBtn.setTitleColor(UIColor.white, for: .selected)
+            skillBtn.backgroundColor = UIColor.clear
+            skillBtn.addTarget(self, action: #selector(skillBtnClick(_:)), for: .touchUpInside)
             self.view.addSubview(skillBtn)
             
-            for str in orignalSelectSkillStr.componentsSeparatedByString("-") {
+            for str in orignalSelectSkillStr.components(separatedBy: "-") {
                 
                 if (skillName == str) {
 
-                    skillBtn.selected = true
+                    skillBtn.isSelected = true
                     skillBtn.backgroundColor = baseColor
                     
                     selectSkillArray[i] = skillName
@@ -119,23 +119,23 @@ class CHSReJobExpSkillViewController: UIViewController {
             skillBtnX = skillBtnWidth + skillBtnX + skillBtnMargin_x
         }
         
-        let addBtn = UIButton(frame: CGRectMake(skillBtnX, skillBtnY, addBtnWidth, skillBtnHeight))
+        let addBtn = UIButton(frame: CGRect(x: skillBtnX, y: skillBtnY, width: addBtnWidth, height: skillBtnHeight))
         //        addBtn.layer.cornerRadius = 6
         //        addBtn.layer.borderWidth = 1
         //        addBtn.layer.borderColor = baseColor.CGColor
         
-        addBtn.contentVerticalAlignment = .Center
-        addBtn.titleLabel?.font = UIFont.systemFontOfSize(24)
-        addBtn.setTitleColor(baseColor, forState: .Normal)
-        addBtn.setTitle("+", forState: .Normal)
-        addBtn.backgroundColor = UIColor.clearColor()
-        addBtn.addTarget(self, action: #selector(addBtnClick), forControlEvents: .TouchUpInside)
+        addBtn.contentVerticalAlignment = .center
+        addBtn.titleLabel?.font = UIFont.systemFont(ofSize: 24)
+        addBtn.setTitleColor(baseColor, for: UIControlState())
+        addBtn.setTitle("+", for: UIControlState())
+        addBtn.backgroundColor = UIColor.clear
+        addBtn.addTarget(self, action: #selector(addBtnClick), for: .touchUpInside)
         self.view.addSubview(addBtn)
         
         let borderLayer = CAShapeLayer()
-        borderLayer.strokeColor = baseColor.CGColor
+        borderLayer.strokeColor = baseColor.cgColor
         borderLayer.fillColor = nil
-        borderLayer.path = UIBezierPath(roundedRect: addBtn.bounds, cornerRadius: 6).CGPath
+        borderLayer.path = UIBezierPath(roundedRect: addBtn.bounds, cornerRadius: 6).cgPath
         borderLayer.frame = addBtn.bounds;
         
         borderLayer.lineWidth = 1
@@ -149,7 +149,7 @@ class CHSReJobExpSkillViewController: UIViewController {
     }
     
     // MARK: 点击技能标签
-    func skillBtnClick(skillBtn: UIButton) {
+    func skillBtnClick(_ skillBtn: UIButton) {
         
         var count = 0
         for selectSkillName in selectSkillArray {
@@ -158,22 +158,22 @@ class CHSReJobExpSkillViewController: UIViewController {
             }
         }
         
-        if count >= 3 && !skillBtn.selected {
+        if count >= 3 && !skillBtn.isSelected {
             
-            let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
             checkCodeHud.removeFromSuperViewOnHide = true
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "最多选择3个标签"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }
         
-        skillBtn.selected = !skillBtn.selected
-        if skillBtn.selected {
+        skillBtn.isSelected = !skillBtn.isSelected
+        if skillBtn.isSelected {
             skillBtn.backgroundColor = baseColor
             selectSkillArray[skillBtn.tag-100] = skillNameArray[skillBtn.tag-100]
         }else{
-            skillBtn.backgroundColor = UIColor.clearColor()
+            skillBtn.backgroundColor = UIColor.clear
             selectSkillArray[skillBtn.tag-100] = ""
         }
         
@@ -202,17 +202,17 @@ class CHSReJobExpSkillViewController: UIViewController {
         }
         
         if count == 0 {
-            let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
             checkCodeHud.removeFromSuperViewOnHide = true
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请选择技能标签"
             checkCodeHud.hide(true, afterDelay: 1)
         }else if count > 3 {
             
-            let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
             checkCodeHud.removeFromSuperViewOnHide = true
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "最多选择3个标签"
             checkCodeHud.hide(true, afterDelay: 1)
             return
@@ -230,13 +230,13 @@ class CHSReJobExpSkillViewController: UIViewController {
                     }
                 }
             }
-            NSNotificationCenter.defaultCenter().postNotificationName("PersonalChangeJobExperienceNotification", object: nil, userInfo: ["type":"Skill","value":str])
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "PersonalChangeJobExperienceNotification"), object: nil, userInfo: ["type":"Skill","value":str])
 
 //            var FTPublishJobSelectedNameArray = NSUserDefaults.standardUserDefaults().arrayForKey(FTPublishJobSelectedNameArray_key) as! [Array<String>]
 //            FTPublishJobSelectedNameArray[1][2] = "\(count)个技能"
 //            NSUserDefaults.standardUserDefaults().setValue(FTPublishJobSelectedNameArray, forKey: FTPublishJobSelectedNameArray_key)
             
-            self.navigationController?.popViewControllerAnimated(true)
+            _ = self.navigationController?.popViewController(animated: true)
         }
     }
     

@@ -26,27 +26,27 @@ class ChChSearchViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: 设置 NavigationBar
     func setNavigationBar() {
         
-        let cityBtn = UIButton(frame: CGRectMake(0, 0, 65, 44))
+        let cityBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 65, height: 44))
         cityBtn.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 10)
-        cityBtn.contentHorizontalAlignment = .Center
-        cityBtn.titleLabel?.font = UIFont.systemFontOfSize(17)
-        cityBtn.setTitle("烟台", forState: .Normal)
-        cityBtn.titleLabel!.lineBreakMode =  .ByTruncatingTail
-        cityBtn.addTarget(self, action: #selector(cityBtnClick), forControlEvents: .TouchUpInside)
-        cityBtn.setImage(UIImage(named: "城市下拉箭头"), forState: .Normal)
+        cityBtn.contentHorizontalAlignment = .center
+        cityBtn.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        cityBtn.setTitle("烟台", for: UIControlState())
+        cityBtn.titleLabel!.lineBreakMode =  .byTruncatingTail
+        cityBtn.addTarget(self, action: #selector(cityBtnClick), for: .touchUpInside)
+        cityBtn.setImage(UIImage(named: "城市下拉箭头"), for: UIControlState())
         exchangeBtnImageAndTitle(cityBtn, margin: 5)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cityBtn)
         
         //        let seg = UISegmentedControl(frame: CGRectMake(0, 0, 160, 44))
-        let searchBar = UISearchBar(frame: CGRectMake(0, 0, screenSize.width*2/3.0, 24))
+        let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: screenSize.width*2/3.0, height: 24))
         searchBar.placeholder = "职位/公司/技能/姓名"
-        searchBar.returnKeyType = .Search
+        searchBar.returnKeyType = .search
         searchBar.delegate = self
         self.navigationItem.titleView = searchBar
         
-        let cancelBtn = UIButton(frame: CGRectMake(0, 0, 40, 44))
-        cancelBtn.setTitle("取消", forState: .Normal)
-        cancelBtn.addTarget(self, action: #selector(cancelBtnClick), forControlEvents: .TouchUpInside)
+        let cancelBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 44))
+        cancelBtn.setTitle("取消", for: UIControlState())
+        cancelBtn.addTarget(self, action: #selector(cancelBtnClick), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cancelBtn)
     }
     
@@ -55,11 +55,11 @@ class ChChSearchViewController: UIViewController, UITableViewDataSource, UITable
         self.navigationController?.pushViewController(ChChCityViewController(), animated: true)
     }
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print("searchBarSearchButtonClicked")
         if (searchBar.text != nil) {
             searhHistoryArray.append(searchBar.text!)
-            NSUserDefaults.standardUserDefaults().setValue(searhHistoryArray, forKey: "searhHistory")
+            UserDefaults.standard.setValue(searhHistoryArray, forKey: "searhHistory")
             self.myTableView.reloadData()
         }
         
@@ -67,12 +67,12 @@ class ChChSearchViewController: UIViewController, UITableViewDataSource, UITable
     
     // MARK: 取消按钮点击事件
     func cancelBtnClick() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     func loadData() {
-        if (NSUserDefaults.standardUserDefaults().arrayForKey("searhHistory") != nil) {
-            searhHistoryArray = NSUserDefaults.standardUserDefaults().arrayForKey("searhHistory") as! Array<String>
+        if (UserDefaults.standard.array(forKey: "searhHistory") != nil) {
+            searhHistoryArray = UserDefaults.standard.array(forKey: "searhHistory") as! Array<String>
             myTableView.reloadData()
         }
     }
@@ -81,20 +81,20 @@ class ChChSearchViewController: UIViewController, UITableViewDataSource, UITable
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
-        myTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height-64-49)
+        myTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-64-49)
         myTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         myTableView.rowHeight = 55
         myTableView.dataSource = self
         myTableView.delegate = self
-        myTableView.registerClass(ChChSearchTableViewCell.self, forCellReuseIdentifier: "ChChSearchTableViewCell")
+        myTableView.register(ChChSearchTableViewCell.self, forCellReuseIdentifier: "ChChSearchTableViewCell")
         self.view.addSubview(myTableView)
         // 用于去掉多余Cell的分割线
-        let removeRedundantCellSepLine = UIView(frame: CGRectZero)
+        let removeRedundantCellSepLine = UIView(frame: CGRect.zero)
         myTableView.tableFooterView = removeRedundantCellSepLine
     }
     
     // MARK:- TableView DataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searhHistoryArray.count == 0 {
             return 0
         }else{
@@ -102,36 +102,36 @@ class ChChSearchViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.row == searhHistoryArray.count {
+        if (indexPath as NSIndexPath).row == searhHistoryArray.count {
             
-            var cell = tableView.dequeueReusableCellWithIdentifier("ChChSearchTableViewCell_clearHistory")
+            var cell = tableView.dequeueReusableCell(withIdentifier: "ChChSearchTableViewCell_clearHistory")
             if cell == nil {
-                cell = UITableViewCell(style: .Default, reuseIdentifier: "ChChSearchTableViewCell_clearHistory")
+                cell = UITableViewCell(style: .default, reuseIdentifier: "ChChSearchTableViewCell_clearHistory")
             }
-            cell!.selectionStyle = .None
-            cell?.textLabel?.textAlignment = .Center
-            cell?.textLabel?.textColor = UIColor.grayColor()
-            cell?.textLabel?.font = UIFont.systemFontOfSize(14)
+            cell!.selectionStyle = .none
+            cell?.textLabel?.textAlignment = .center
+            cell?.textLabel?.textColor = UIColor.gray
+            cell?.textLabel?.font = UIFont.systemFont(ofSize: 14)
             cell?.textLabel?.text = "清空搜索记录"
             return cell!
         }else{
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("ChChSearchTableViewCell") as! ChChSearchTableViewCell
-            cell.selectionStyle = .None
-            cell.accessoryType = .DisclosureIndicator
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ChChSearchTableViewCell") as! ChChSearchTableViewCell
+            cell.selectionStyle = .none
+            cell.accessoryType = .disclosureIndicator
             
-            cell.titImage.setImage(nil, forState: .Normal)
-            cell.titLab.text = searhHistoryArray[indexPath.row]
+            cell.titImage.setImage(nil, for: UIControlState())
+            cell.titLab.text = searhHistoryArray[(indexPath as NSIndexPath).row]
             
             return cell
         }
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == searhHistoryArray.count {
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("searhHistory")
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).row == searhHistoryArray.count {
+            UserDefaults.standard.removeObject(forKey: "searhHistory")
             self.searhHistoryArray.removeAll()
             self.myTableView.reloadData()
             

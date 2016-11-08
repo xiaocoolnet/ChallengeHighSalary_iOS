@@ -20,16 +20,16 @@ class FTTaPositionTypeViewController: UIViewController, UITableViewDataSource, U
         setSubviews()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: 设置子视图
@@ -37,14 +37,14 @@ class FTTaPositionTypeViewController: UIViewController, UITableViewDataSource, U
         
         self.automaticallyAdjustsScrollViewInsets = false
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
         
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
         self.title = "职位类型"
         
         // tableView
-        rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height-20-44)
+        rootTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-20-44)
         rootTableView.rowHeight = 70
         rootTableView.dataSource = self
         rootTableView.delegate = self
@@ -52,39 +52,39 @@ class FTTaPositionTypeViewController: UIViewController, UITableViewDataSource, U
     }
     
     // MARK: UITableView DataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("CHSMiSettingCell")
+        var cell = tableView.dequeueReusableCell(withIdentifier: "CHSMiSettingCell")
         if cell == nil {
-            cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "CHSMiSettingCell")
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "CHSMiSettingCell")
         }
-        cell!.selectionStyle = .None
+        cell!.selectionStyle = .none
         
-        cell!.accessoryType = .DisclosureIndicator
+        cell!.accessoryType = .disclosureIndicator
         
-        cell?.textLabel?.font = UIFont.systemFontOfSize(15)
-        cell?.textLabel?.textAlignment = .Left
-        cell?.textLabel?.textColor = UIColor.blackColor()
+        cell?.textLabel?.font = UIFont.systemFont(ofSize: 15)
+        cell?.textLabel?.textAlignment = .left
+        cell?.textLabel?.textColor = UIColor.black
         
         cell?.textLabel!.text = "网络|通信|电子"
         
-        cell?.detailTextLabel?.font = UIFont.systemFontOfSize(13)
-        cell?.detailTextLabel?.textAlignment = .Left
-        cell?.detailTextLabel?.textColor = UIColor.lightGrayColor()
+        cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 13)
+        cell?.detailTextLabel?.textAlignment = .left
+        cell?.detailTextLabel?.textColor = UIColor.lightGray
         
         cell?.detailTextLabel?.text = "计算机/互联网/通信 | 电子/电气 | 机械/仪器仪表"
         
-        cell?.backgroundColor = UIColor.whiteColor()
+        cell?.backgroundColor = UIColor.white
         
         return cell!
     }
     
     // MARK: UITableView Delegate
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.navigationController?.pushViewController(FTTaChoosePositionViewController(), animated: true)
     }
     

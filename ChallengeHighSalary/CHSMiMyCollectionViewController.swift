@@ -10,7 +10,7 @@ import UIKit
 
 class CHSMiMyCollectionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    let rootTableView = UITableView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height-20-44-49-37), style: .Grouped)
+    let rootTableView = UITableView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height-20-44-49-37), style: .grouped)
     let sureDeleteBtn = UIButton()
     
     var jobInfoData: [JobInfoDataModel]?
@@ -25,11 +25,11 @@ class CHSMiMyCollectionViewController: UIViewController, UITableViewDataSource, 
         setSubviews()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = true
         
         self.loadData()
     }
@@ -50,33 +50,33 @@ class CHSMiMyCollectionViewController: UIViewController, UITableViewDataSource, 
         
         self.title = "我的收藏"
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
 
         // rightBarButtonItem
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_删除"), style: .Done, target: self, action: #selector(deleteBtnClick))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_删除"), style: .done, target: self, action: #selector(deleteBtnClick))
     }
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: 删除按钮点击事件
     func deleteBtnClick() {
         print("CHSMiMyCollectionViewController deleteBtnClick")
         
-        if self.sureDeleteBtn.hidden {
+        if self.sureDeleteBtn.isHidden {
             
             self.rootTableView.frame.size.height = screenSize.height-20-44-sureDeleteBtn.frame.size.height
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消", style: .Done, target: self, action: #selector(deleteBtnClick))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消", style: .done, target: self, action: #selector(deleteBtnClick))
 
         }else{
             self.rootTableView.frame.size.height = screenSize.height-20-44
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_删除"), style: .Done, target: self, action: #selector(deleteBtnClick))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_删除"), style: .done, target: self, action: #selector(deleteBtnClick))
 
         }
-        self.sureDeleteBtn.hidden = !self.sureDeleteBtn.hidden
-        self.rootTableView.editing = !self.rootTableView.editing;
+        self.sureDeleteBtn.isHidden = !self.sureDeleteBtn.isHidden
+        self.rootTableView.isEditing = !self.rootTableView.isEditing;
 
 //        self.rootTableView.editing = true
 //        self.navigationController?.pushViewController(ChChSearchViewController(), animated: true)
@@ -84,31 +84,34 @@ class CHSMiMyCollectionViewController: UIViewController, UITableViewDataSource, 
     
     // MARK: 下方确认删除按钮 点击事件
     func sureDeleteBtnClick() {
-        let alert = UIAlertController(title: "", message: "确定要删除所选的 \(self.deleteJobInfoData.count) 个收藏吗？", preferredStyle: .Alert)
-        self.presentViewController(alert, animated: true, completion: nil)
+        let alert = UIAlertController(title: "", message: "确定要删除所选的 \(self.deleteJobInfoData.count) 个收藏吗？", preferredStyle: .alert)
+        self.present(alert, animated: true, completion: nil)
         
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         alert.addAction(cancelAction)
         
-        let sureAction = UIAlertAction(title: "确定", style: .Default, handler: { (sureAction) in
+        let sureAction = UIAlertAction(title: "确定", style: .default, handler: { (sureAction) in
             
             var jobidStr = ""
-            for (i,jobInfo) in self.deleteJobInfoData.enumerate() {
+            for (i,jobInfo) in self.deleteJobInfoData.enumerated() {
                 if i == self.deleteJobInfoData.count-1 {
-                    jobidStr += "\((jobInfo.jobid ?? "")!)"
+                    jobidStr += "\((jobInfo.jobid)!)"
                 }else{
-                    jobidStr += "\((jobInfo.jobid ?? "")!),"
+                    jobidStr += "\((jobInfo.jobid)!),"
                 }
             }
-            PublicNetUtil().cancelfavorite(CHSUserInfo.currentUserInfo.userid, object_id: jobidStr, type: "1", handle: { (success, response) in
-                if success {
-                    for jobInfo in self.deleteJobInfoData {
-                        self.jobInfoData?.removeAtIndex((self.jobInfoData?.indexOf(jobInfo))!)
-                    }
-                    self.rootTableView.reloadData()
-                    self.deleteBtnClick()
-                }
-            })
+//            PublicNetUtil().cancelfavorite(CHSUserInfo.currentUserInfo.userid, object_id: jobidStr, type: "1", handle: { (success, response) in
+//                if success {
+//                    for jobInfo in self.deleteJobInfoData {
+//                        self.jobInfoData?.remove(at: (self.jobInfoData?.index(where: { (jobInfo) -> Bool in
+//                            
+//                        }))!)
+////                        self.jobInfoData?.remove(at: (self.jobInfoData?.index(of: jobInfo))!)
+//                    }
+//                    self.rootTableView.reloadData()
+//                    self.deleteBtnClick()
+//                }
+//            })
             
         })
         alert.addAction(sureAction)
@@ -118,97 +121,116 @@ class CHSMiMyCollectionViewController: UIViewController, UITableViewDataSource, 
     func setSubviews() {
         
         self.automaticallyAdjustsScrollViewInsets = false
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
 
         // tableView
-        rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height-20-44)
-        rootTableView.registerNib(UINib.init(nibName: "ChChFindJobTableViewCell", bundle: nil), forCellReuseIdentifier: "ChChFindJobTableViewCell")
-        rootTableView.separatorStyle = .None
+        rootTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-20-44)
+        rootTableView.register(UINib.init(nibName: "ChChFindJobTableViewCell", bundle: nil), forCellReuseIdentifier: "ChChFindJobTableViewCell")
+        rootTableView.separatorStyle = .none
         rootTableView.rowHeight = 140
         rootTableView.dataSource = self
         rootTableView.delegate = self
         self.view.addSubview(rootTableView)
-        self.rootTableView.editing = false
+        self.rootTableView.isEditing = false
         self.rootTableView.allowsMultipleSelectionDuringEditing = true
         
-        sureDeleteBtn.frame = CGRectMake(
-            0,
-            screenSize.height-kHeightScale*44,
-            screenSize.width,
-            kHeightScale*44)
+        sureDeleteBtn.frame = CGRect(
+            x: 0,
+            y: screenSize.height-kHeightScale*44,
+            width: screenSize.width,
+            height: kHeightScale*44)
         sureDeleteBtn.backgroundColor = baseColor
         //        chatBtn_2.layer.cornerRadius = chatBtn.frame.size.height/2.0
-        sureDeleteBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        sureDeleteBtn.setTitle("删除", forState: .Normal)
-        sureDeleteBtn.addTarget(self, action: #selector(sureDeleteBtnClick), forControlEvents: .TouchUpInside)
+        sureDeleteBtn.setTitleColor(UIColor.white, for: UIControlState())
+        sureDeleteBtn.setTitle("删除", for: UIControlState())
+        sureDeleteBtn.addTarget(self, action: #selector(sureDeleteBtnClick), for: .touchUpInside)
         self.view.addSubview(sureDeleteBtn)
-        sureDeleteBtn.hidden = true
+        sureDeleteBtn.isHidden = true
 
     }
     
     // MARK: UITableView DataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return (self.jobInfoData?.count ?? 0)!
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("ChChFindJobTableViewCell") as! ChChFindJobTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ChChFindJobTableViewCell") as! ChChFindJobTableViewCell
 //        cell.selectionStyle = .None
         
-        cell.jobInfo = self.jobInfoData![indexPath.section]
+        cell.jobInfo = self.jobInfoData![(indexPath as NSIndexPath).section]
 //        cell.companyBtn.addTarget(self, action: #selector(companyBtnClick), forControlEvents: .TouchUpInside)
         
         return cell
     }
     
     //是否可以编辑  默认的时YES
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
     //选择编辑的方式,按照选择的方式对表进行处理
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
             
         }
     }
     
     // MARK: UITableView Delegate
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 8
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if tableView.editing {
-            self.deleteJobInfoData.append(self.jobInfoData![indexPath.section])
+        if tableView.isEditing {
+            self.deleteJobInfoData.append(self.jobInfoData![(indexPath as NSIndexPath).section])
         }else{
             
             let personalInfoVC = CHSChPersonalInfoViewController()
-            personalInfoVC.jobInfo = self.jobInfoData![indexPath.section]
+            personalInfoVC.jobInfo = self.jobInfoData![(indexPath as NSIndexPath).section]
             
             self.navigationController?.pushViewController(personalInfoVC, animated: true)
         }
     }
     
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        if tableView.editing {
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if tableView.isEditing {
             
-            let index = self.deleteJobInfoData.indexOf(self.jobInfoData![indexPath.section])
+//            self.deleteJobInfoData.index(where: { (jobInfo) -> Bool in
+//                
+//                self.deleteJobInfoData.remove(at: <#T##Int#>)
+//                
+//            })
+//            self.deleteJobInfoData.remove(at: self.deleteJobInfoData.index(where: { (jobInfo) -> Bool in
+//                
+//            })!)
             
-            if (index != nil) {
-                self.deleteJobInfoData.removeAtIndex(index!)
-            }
+//            let jobInfo = self.jobInfoData?[indexPath.section]
+//            let index = self.deleteJobInfoData.index(where: { (jobInfo) -> Bool in
+//                
+//                self.deleteJobInfoData.remove(at: <#T##Int#>)
+//                self.deleteJobInfoData.remove(at: index!)
+//
+//            })
+//            self.deleteJobInfoData?.remove(at: (self.jobInfoData?.index(where: { (jobInfo) -> Bool in
+//                
+//            }))!)
+//            let index = self.deleteJobInfoData.index(of: self.jobInfoData![(indexPath as NSIndexPath).section])
+//            
+//            if (index != nil) {
+//                self.deleteJobInfoData.remove(at: index!)
+//            }
             
 //            for (i,jobInfo) in self.deleteJobInfoData!.enumerate() {
 //                if jobInfo == self.jobInfoData![indexPath.row] {
@@ -218,8 +240,8 @@ class CHSMiMyCollectionViewController: UIViewController, UITableViewDataSource, 
         }
     }
     
-    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return UITableViewCellEditingStyle(rawValue: UITableViewCellEditingStyle.Delete.rawValue|UITableViewCellEditingStyle.Insert.rawValue)!
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle(rawValue: UITableViewCellEditingStyle.delete.rawValue|UITableViewCellEditingStyle.insert.rawValue)!
     }
     
    

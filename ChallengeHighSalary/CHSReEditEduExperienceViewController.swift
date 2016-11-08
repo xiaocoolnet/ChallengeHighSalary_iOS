@@ -7,6 +7,26 @@
 //
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
 
 class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource,UITextViewDelegate {
     
@@ -43,16 +63,16 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
         setSubviews()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: 设置子视图
@@ -60,55 +80,55 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
 
         self.title = "编写教育经历"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .Done, target: self, action: #selector(clickSaveBtn))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .done, target: self, action: #selector(clickSaveBtn))
         
-        rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height)
+        rootTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         rootTableView.rowHeight = 60
-        rootTableView.separatorStyle = .None
+        rootTableView.separatorStyle = .none
         rootTableView.dataSource = self
         rootTableView.delegate = self
         self.view.addSubview(rootTableView)
         
-        rootTableView.tableFooterView = UIView(frame: CGRectZero)
+        rootTableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
     // MARK: 点击保存按钮
     func clickSaveBtn() {
         
-        let checkCodeHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if schoolNameTf.text!.isEmpty {
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请输入学校名称"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }else if majorNameTf.text!.isEmpty {
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请输入专业"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }else if detailArray[2] == "选择学历" {
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请选择学历"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }else if detailArray[3] == "请选择就读时间段" {
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请选择就读时间段"
             checkCodeHud.hide(true, afterDelay: 1)
             return
         }else if schoolExpTv.text!.isEmpty {
             
-            checkCodeHud.mode = .Text
+            checkCodeHud.mode = .text
             checkCodeHud.labelText = "请输入在校经历"
             checkCodeHud.hide(true, afterDelay: 1)
             return
@@ -122,15 +142,15 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
                     CHSUserInfo.currentUserInfo.education![self.selectedIndex!].degree ==  detailArray[2] &&
                     CHSUserInfo.currentUserInfo.education![self.selectedIndex!].time ==  detailArray[3] && CHSUserInfo.currentUserInfo.education![self.selectedIndex!].experience == schoolExpTv.text! {
                 
-                checkCodeHud.mode = .Text
+                checkCodeHud.mode = .text
                 checkCodeHud.labelText = "信息未修改"
                 checkCodeHud.hide(true, afterDelay: 1)
                 
-                let time: NSTimeInterval = 1.0
-                let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                let time: TimeInterval = 1.0
+                let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
                 
-                dispatch_after(delay, dispatch_get_main_queue()) {
-                    self.navigationController?.popViewControllerAnimated(true)
+                DispatchQueue.main.asyncAfter(deadline: delay) {
+                    _ = self.navigationController?.popViewController(animated: true)
                 }
                 
                 return
@@ -165,19 +185,19 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
                     
                     CHSUserInfo.currentUserInfo.education?.append(eduModel)
                     
-                    checkCodeHud.mode = .Text
+                    checkCodeHud.mode = .text
                     checkCodeHud.labelText = "保存教育经历成功"
                     checkCodeHud.hide(true, afterDelay: 1)
                     
-                    let time: NSTimeInterval = 1.0
-                    let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+                    let time: TimeInterval = 1.0
+                    let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
                     
-                    dispatch_after(delay, dispatch_get_main_queue()) {
-                        self.navigationController?.popViewControllerAnimated(true)
+                    DispatchQueue.main.asyncAfter(deadline: delay) {
+                        _ = self.navigationController?.popViewController(animated: true)
                     }
                 }else{
                     
-                    checkCodeHud.mode = .Text
+                    checkCodeHud.mode = .text
                     checkCodeHud.labelText = "保存教育经历失败"
                     checkCodeHud.hide(true, afterDelay: 1)
                 }
@@ -186,7 +206,7 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
     }
     
     // MARK:- tableView dataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return nameArray.count
         }else{
@@ -194,56 +214,56 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
         }
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.section == 0 {
+        if (indexPath as NSIndexPath).section == 0 {
             
-            var cell = tableView.dequeueReusableCellWithIdentifier("jobExperience")
+            var cell = tableView.dequeueReusableCell(withIdentifier: "jobExperience")
             if cell == nil {
-                cell = UITableViewCell(style: .Value1, reuseIdentifier: "jobExperience")
+                cell = UITableViewCell(style: .value1, reuseIdentifier: "jobExperience")
                 
-                cell?.selectionStyle = .None
+                cell?.selectionStyle = .none
                 
-                cell?.accessoryType = .DisclosureIndicator
-                cell?.textLabel?.font = UIFont.systemFontOfSize(16)
-                cell?.textLabel?.textColor = UIColor.blackColor()
-                cell?.textLabel?.textAlignment = .Left
-                cell?.textLabel?.text = nameArray[indexPath.row]
+                cell?.accessoryType = .disclosureIndicator
+                cell?.textLabel?.font = UIFont.systemFont(ofSize: 16)
+                cell?.textLabel?.textColor = UIColor.black
+                cell?.textLabel?.textAlignment = .left
+                cell?.textLabel?.text = nameArray[(indexPath as NSIndexPath).row]
                 
-                if indexPath.row == 0 {
+                if (indexPath as NSIndexPath).row == 0 {
                     
-                    schoolNameTf.frame = CGRectMake(0, 0, 150, 50)
-                    schoolNameTf.font = UIFont.systemFontOfSize(14)
-                    schoolNameTf.placeholder = detailArray[indexPath.row]
-                    schoolNameTf.textAlignment = .Right
+                    schoolNameTf.frame = CGRect(x: 0, y: 0, width: 150, height: 50)
+                    schoolNameTf.font = UIFont.systemFont(ofSize: 14)
+                    schoolNameTf.placeholder = detailArray[(indexPath as NSIndexPath).row]
+                    schoolNameTf.textAlignment = .right
                     cell?.accessoryView = schoolNameTf
-                }else if indexPath.row == 1 {
+                }else if (indexPath as NSIndexPath).row == 1 {
                     
-                    majorNameTf.frame = CGRectMake(0, 0, 150, 50)
-                    majorNameTf.font = UIFont.systemFontOfSize(14)
-                    majorNameTf.placeholder = detailArray[indexPath.row]
-                    majorNameTf.textAlignment = .Right
+                    majorNameTf.frame = CGRect(x: 0, y: 0, width: 150, height: 50)
+                    majorNameTf.font = UIFont.systemFont(ofSize: 14)
+                    majorNameTf.placeholder = detailArray[(indexPath as NSIndexPath).row]
+                    majorNameTf.textAlignment = .right
                     cell?.accessoryView = majorNameTf
                 }else{
                     
                     
-                    cell?.detailTextLabel?.font = UIFont.systemFontOfSize(14)
+                    cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 14)
                     cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
-                    cell?.detailTextLabel?.textAlignment = .Right
-                    cell?.detailTextLabel?.text = detailArray[indexPath.row]
+                    cell?.detailTextLabel?.textAlignment = .right
+                    cell?.detailTextLabel?.text = detailArray[(indexPath as NSIndexPath).row]
                     
                 }
                 
-                if indexPath.row < nameArray.count-1 {
-                    drawDashed((cell?.contentView)!, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(8, 59), toPoint: CGPointMake(screenSize.width-8, 59), lineWidth: 1/UIScreen.mainScreen().scale)
+                if (indexPath as NSIndexPath).row < nameArray.count-1 {
+                    drawDashed((cell?.contentView)!, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPoint(x: 8, y: 59), toPoint: CGPoint(x: screenSize.width-8, y: 59), lineWidth: 1/UIScreen.main.scale)
                 }
             }
             
-            if indexPath.row == 0 {
+            if (indexPath as NSIndexPath).row == 0 {
                 
                 
                 if (self.selectedIndex != nil) {
@@ -251,7 +271,7 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
                 }else{
                     schoolNameTf.text = schoolNameTf.text == "" ? nil:schoolNameTf.text
                 }
-            }else if indexPath.row == 1 {
+            }else if (indexPath as NSIndexPath).row == 1 {
                 
                 if (self.selectedIndex != nil) {
                     majorNameTf.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].major
@@ -262,46 +282,46 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
                 
                 
                 if (self.selectedIndex != nil) {
-                    if indexPath.row == 2 {
+                    if (indexPath as NSIndexPath).row == 2 {
                         cell?.detailTextLabel?.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].degree
-                    }else if indexPath.row == 3 {
+                    }else if (indexPath as NSIndexPath).row == 3 {
                         cell?.detailTextLabel?.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].time
                     }
                 }else{
-                    cell?.detailTextLabel?.text = detailArray[indexPath.row]
+                    cell?.detailTextLabel?.text = detailArray[(indexPath as NSIndexPath).row]
                 }
             }
             
-            if indexPath.row < nameArray.count-1 {
-                drawDashed((cell?.contentView)!, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(8, 59), toPoint: CGPointMake(screenSize.width-8, 59), lineWidth: 1/UIScreen.mainScreen().scale)
+            if (indexPath as NSIndexPath).row < nameArray.count-1 {
+                drawDashed((cell?.contentView)!, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPoint(x: 8, y: 59), toPoint: CGPoint(x: screenSize.width-8, y: 59), lineWidth: 1/UIScreen.main.scale)
             }
             
             return cell!
         }else{
-            var cell = tableView.dequeueReusableCellWithIdentifier("jobContentCell")
+            var cell = tableView.dequeueReusableCell(withIdentifier: "jobContentCell")
             
             if cell == nil {
-                cell = UITableViewCell(style: .Value1, reuseIdentifier: "jobContentCell")
+                cell = UITableViewCell(style: .value1, reuseIdentifier: "jobContentCell")
                 
-                cell?.selectionStyle = .None
+                cell?.selectionStyle = .none
                 
-                if indexPath.row == 0 {
-                    schoolExpTv.frame = CGRectMake(0, 0, screenSize.width, kHeightScale*115)
-                    schoolExpTv.font = UIFont.systemFontOfSize(14)
+                if (indexPath as NSIndexPath).row == 0 {
+                    schoolExpTv.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: kHeightScale*115)
+                    schoolExpTv.font = UIFont.systemFont(ofSize: 14)
                     schoolExpTv.delegate = self
                     cell?.contentView.addSubview(schoolExpTv)
                     
-                    drawDashed((cell?.contentView)!, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(8, 115), toPoint: CGPointMake(screenSize.width-8, 115), lineWidth: 1/UIScreen.mainScreen().scale)
+                    drawDashed((cell?.contentView)!, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPoint(x: 8, y: 115), toPoint: CGPoint(x: screenSize.width-8, y: 115), lineWidth: 1/UIScreen.main.scale)
                     
                 }else{
                     
-                    cell?.detailTextLabel?.font = UIFont.systemFontOfSize(13)
+                    cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 13)
                     cell?.detailTextLabel?.textColor = baseColor
-                    cell?.detailTextLabel?.textAlignment = .Right
+                    cell?.detailTextLabel?.textAlignment = .right
                 }
             }
             
-            if indexPath.row == 0 {
+            if (indexPath as NSIndexPath).row == 0 {
                 
                 if (self.selectedIndex != nil) {
                     schoolExpTv.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].experience
@@ -322,7 +342,7 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
     }
         
     // MARK:- tableView delegate
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 35
         }else if section == 1 {
@@ -332,26 +352,26 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
         }
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if section == 0 {
             
-            let sectionHeaderBgView = UIView(frame: CGRectMake(0, 0, screenSize.width, 35))
+            let sectionHeaderBgView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 35))
             
-            let sectionHeaderLab = UILabel(frame: CGRectMake(20, 0, screenSize.width-40, 35))
-            sectionHeaderLab.font = UIFont.systemFontOfSize(15)
-            sectionHeaderLab.textColor = UIColor.lightGrayColor()
+            let sectionHeaderLab = UILabel(frame: CGRect(x: 20, y: 0, width: screenSize.width-40, height: 35))
+            sectionHeaderLab.font = UIFont.systemFont(ofSize: 15)
+            sectionHeaderLab.textColor = UIColor.lightGray
             sectionHeaderLab.text = "教育经历"
             sectionHeaderBgView.addSubview(sectionHeaderLab)
             
             return sectionHeaderBgView
         }else if section == 1 {
             
-            let sectionHeaderBgView = UIView(frame: CGRectMake(0, 0, screenSize.width, 35))
+            let sectionHeaderBgView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 35))
             
-            let sectionHeaderLab = UILabel(frame: CGRectMake(20, 0, screenSize.width-40, 35))
-            sectionHeaderLab.font = UIFont.systemFontOfSize(15)
-            sectionHeaderLab.textColor = UIColor.lightGrayColor()
+            let sectionHeaderLab = UILabel(frame: CGRect(x: 20, y: 0, width: screenSize.width-40, height: 35))
+            sectionHeaderLab.font = UIFont.systemFont(ofSize: 15)
+            sectionHeaderLab.textColor = UIColor.lightGray
             sectionHeaderLab.text = "在校经历"
             sectionHeaderBgView.addSubview(sectionHeaderLab)
             
@@ -361,14 +381,14 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
         }
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if indexPath.section == 0 {
+        if (indexPath as NSIndexPath).section == 0 {
             return 60
-        }else if indexPath.section == 1 {
-            if indexPath.row == 0 {
+        }else if (indexPath as NSIndexPath).section == 1 {
+            if (indexPath as NSIndexPath).row == 0 {
                 return 116
-            }else if indexPath.row == 1 {
+            }else if (indexPath as NSIndexPath).row == 1 {
                 return 40
             }else{
                 return 0
@@ -378,8 +398,8 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
         }
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        switch (indexPath.section,indexPath.row) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch ((indexPath as NSIndexPath).section,(indexPath as NSIndexPath).row) {
         case (0,1):
             break
             self.navigationController?.pushViewController(CHSReChoosePositionTypeViewController(), animated: true)
@@ -389,20 +409,20 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
             let bigBgView = UIButton(frame: self.view.bounds)
             bigBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
             bigBgView.tag = 1000
-            bigBgView.addTarget(self, action: #selector(pickerCancelClick), forControlEvents: .TouchUpInside)
+            bigBgView.addTarget(self, action: #selector(pickerCancelClick), for: .touchUpInside)
             self.view.addSubview(bigBgView)
             
-            let pickerBgView = UIView(frame: CGRectMake(0, screenSize.height-kHeightScale*240, screenSize.width, kHeightScale*240))
-            pickerBgView.backgroundColor = UIColor.whiteColor()
+            let pickerBgView = UIView(frame: CGRect(x: 0, y: screenSize.height-kHeightScale*240, width: screenSize.width, height: kHeightScale*240))
+            pickerBgView.backgroundColor = UIColor.white
             bigBgView.addSubview(pickerBgView)
             
-            let pickerLab = UILabel(frame: CGRectMake(0, 0, screenSize.width, 43))
-            pickerLab.textAlignment = .Center
+            let pickerLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 43))
+            pickerLab.textAlignment = .center
             pickerBgView.addSubview(pickerLab)
             
-            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(0, 43), toPoint: CGPointMake(screenSize.width, 43), lineWidth: 1)
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPoint(x: 0, y: 43), toPoint: CGPoint(x: screenSize.width, y: 43), lineWidth: 1)
             
-            pickerView = UIPickerView(frame: CGRectMake(0, 44, screenSize.width, kHeightScale*240-88))
+            pickerView = UIPickerView(frame: CGRect(x: 0, y: 44, width: screenSize.width, height: kHeightScale*240-88))
             
             //            pickerView.subviews[0].layer.borderWidth = 0.5
             //
@@ -413,23 +433,23 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
             
             pickerBgView.addSubview(pickerView)
             
-            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(0, kHeightScale*240-44), toPoint: CGPointMake(screenSize.width, kHeightScale*240-44), lineWidth: 1)
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPoint(x: 0, y: kHeightScale*240-44), toPoint: CGPoint(x: screenSize.width, y: kHeightScale*240-44), lineWidth: 1)
             
-            let cancelBtn = UIButton(frame: CGRectMake(0, kHeightScale*240-43, screenSize.width/2.0-0.5, 43))
-            cancelBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            cancelBtn.setTitle("取消", forState: .Normal)
-            cancelBtn.addTarget(self, action: #selector(pickerCancelClick), forControlEvents: .TouchUpInside)
+            let cancelBtn = UIButton(frame: CGRect(x: 0, y: kHeightScale*240-43, width: screenSize.width/2.0-0.5, height: 43))
+            cancelBtn.setTitleColor(UIColor.black, for: UIControlState())
+            cancelBtn.setTitle("取消", for: UIControlState())
+            cancelBtn.addTarget(self, action: #selector(pickerCancelClick), for: .touchUpInside)
             pickerBgView.addSubview(cancelBtn)
             
-            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPointMake(screenSize.width/2.0-0.5, kHeightScale*240-43), toPoint: CGPointMake(screenSize.width/2.0-0.5, kHeightScale*240), lineWidth: 1)
+            drawDashed(pickerBgView, color: UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1), fromPoint: CGPoint(x: screenSize.width/2.0-0.5, y: kHeightScale*240-43), toPoint: CGPoint(x: screenSize.width/2.0-0.5, y: kHeightScale*240), lineWidth: 1)
             
-            let sureBtn = UIButton(frame: CGRectMake(screenSize.width/2.0-0.5, kHeightScale*240-43, screenSize.width/2.0-0.5, 43))
-            sureBtn.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            sureBtn.setTitle("确定", forState: .Normal)
-            sureBtn.addTarget(self, action: #selector(sureBtnClick), forControlEvents: .TouchUpInside)
+            let sureBtn = UIButton(frame: CGRect(x: screenSize.width/2.0-0.5, y: kHeightScale*240-43, width: screenSize.width/2.0-0.5, height: 43))
+            sureBtn.setTitleColor(UIColor.black, for: UIControlState())
+            sureBtn.setTitle("确定", for: UIControlState())
+            sureBtn.addTarget(self, action: #selector(sureBtnClick), for: .touchUpInside)
             pickerBgView.addSubview(sureBtn)
             
-            switch (indexPath.section,indexPath.row) {
+            switch ((indexPath as NSIndexPath).section,(indexPath as NSIndexPath).row) {
             case (0,2):
                 pickerLab.text = "学历"
                 
@@ -452,24 +472,24 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
     // MARK: 限制输入字数
     let schoolExpMaxCount = 300
     
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         
         let lang = textInputMode?.primaryLanguage
         if lang == "zh-Hans" {
             let range = textView.markedTextRange
             if range == nil {
                 if textView.text?.characters.count >= schoolExpMaxCount {
-                    textView.text = textView.text?.substringToIndex((textView.text?.startIndex.advancedBy(schoolExpMaxCount))!)
+                    textView.text = textView.text?.substring(to: (textView.text?.characters.index((textView.text?.startIndex)!, offsetBy: schoolExpMaxCount))!)
                 }
             }
         }
         else {
             if textView.text?.characters.count >= schoolExpMaxCount {
-                textView.text = textView.text?.substringToIndex((textView.text?.startIndex.advancedBy(schoolExpMaxCount))!)
+                textView.text = textView.text?.substring(to: (textView.text?.characters.index((textView.text?.startIndex)!, offsetBy: schoolExpMaxCount))!)
             }
         }
         
-        let cell = rootTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))
+        let cell = rootTableView.cellForRow(at: IndexPath(row: 1, section: 1))
         cell?.detailTextLabel?.text = "\((textView.text?.characters.count)!)/\(schoolExpMaxCount)"
     }
     
@@ -483,14 +503,14 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
         
         if pickerView.tag == 101 {
             
-            detailArray[2] = "\(pickEduArray[pickerView.selectedRowInComponent(0)])"
+            detailArray[2] = "\(pickEduArray[pickerView.selectedRow(inComponent: 0)])"
             
-            pickSelectedRowArray[0][0] = pickerView.selectedRowInComponent(0)
+            pickSelectedRowArray[0][0] = pickerView.selectedRow(inComponent: 0)
         }else if pickerView.tag == 102 {
             
-            detailArray[3] = "\(pickSchoolTimeLowRequiredArray[pickerView.selectedRowInComponent(0)])-\(pickSchoolTimeSupRequiredArray[pickerView.selectedRowInComponent(2)])"
+            detailArray[3] = "\(pickSchoolTimeLowRequiredArray[pickerView.selectedRow(inComponent: 0)])-\(pickSchoolTimeSupRequiredArray[pickerView.selectedRow(inComponent: 2)])"
             
-            pickSelectedRowArray[1][0] = pickerView.selectedRowInComponent(0)
+            pickSelectedRowArray[1][0] = pickerView.selectedRow(inComponent: 0)
         }
         
         //        NSUserDefaults.standardUserDefaults().setValue(detailArray, forKey: FTPublishJobdetailArray_key)
@@ -501,7 +521,7 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
     }
     
     // MARK: 改变分割线颜色
-    func changeSeparatorWithView(view: UIView) {
+    func changeSeparatorWithView(_ view: UIView) {
         
         if view.bounds.size.height <= 1 {
             view.backgroundColor = baseColor
@@ -513,7 +533,7 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
     }
     
     // MARK:- UIPickerView DataSource
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         
         if pickerView.tag == 101 {
             return 1
@@ -524,7 +544,7 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
         }
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
         if pickerView.tag == 101 {
             
@@ -545,11 +565,11 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
     }
     
     // MARK:- UIPickerView Delegate
-    func pickerView(pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 25
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         if pickerView.tag == 101 {
             
@@ -566,19 +586,19 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
         pickerView.reloadAllComponents()
     }
     
-    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         
         self.changeSeparatorWithView(pickerView)
         
-        let view = UILabel(frame: CGRectMake(0, 0, 20, 25))
+        let view = UILabel(frame: CGRect(x: 0, y: 0, width: 20, height: 25))
         //        view.backgroundColor = UIColor.cyanColor()
-        view.frame.size = pickerView.rowSizeForComponent(component)
-        view.textAlignment = .Center
+        view.frame.size = pickerView.rowSize(forComponent: component)
+        view.textAlignment = .center
         
-        if row == pickerView.selectedRowInComponent(component) {
+        if row == pickerView.selectedRow(inComponent: component) {
             view.textColor = baseColor
         }else{
-            view.textColor = UIColor.lightGrayColor()
+            view.textColor = UIColor.lightGray
         }
         
         if pickerView.tag == 101 {

@@ -10,12 +10,12 @@ import UIKit
 
 class WeHomeViewController: UIViewController {
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = true
+        self.navigationController?.navigationBar.isHidden = true
         
-        self.navigationController?.interactivePopGestureRecognizer?.enabled = false
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
 
     }
     
@@ -25,11 +25,11 @@ class WeHomeViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         // 挑战高薪 头部
-        let topBgImg = UIImageView(frame: CGRectMake(
-            0,
-            0,
-            screenSize.width,
-            screenSize.height*0.4185))
+        let topBgImg = UIImageView(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: screenSize.width,
+            height: screenSize.height*0.4185))
         topBgImg.image = UIImage(named: "ic_身份选择_背景")
         self.view.addSubview(topBgImg)
         
@@ -40,50 +40,50 @@ class WeHomeViewController: UIViewController {
         let margin:CGFloat = 8
 
         // 抢人才按钮
-        let forTalentBtn = UIButton(frame: CGRectMake(
-            0,
-            screenSize.height*0.5,
-            screenSize.width*0.858,
-            screenSize.height*0.066))
+        let forTalentBtn = UIButton(frame: CGRect(
+            x: 0,
+            y: screenSize.height*0.5,
+            width: screenSize.width*0.858,
+            height: screenSize.height*0.066))
         forTalentBtn.backgroundColor = baseColor
         forTalentBtn.layer.cornerRadius = 8
-        forTalentBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        forTalentBtn.setImage(UIImage(named: "ic_身份选择_抢人才"), forState: .Normal)
-        forTalentBtn.setTitle("抢人才", forState: .Normal)
-        forTalentBtn.addTarget(self, action: #selector(forTalentBtnClick), forControlEvents: .TouchUpInside)
+        forTalentBtn.setTitleColor(UIColor.white, for: UIControlState())
+        forTalentBtn.setImage(UIImage(named: "ic_身份选择_抢人才"), for: UIControlState())
+        forTalentBtn.setTitle("抢人才", for: UIControlState())
+        forTalentBtn.addTarget(self, action: #selector(forTalentBtnClick), for: .touchUpInside)
         forTalentBtn.center.x = self.view.center.x
         forTalentBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -margin/2.0, 0, margin/2.0)
         forTalentBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin/2.0, 0, -margin/2.0)
         self.view.addSubview(forTalentBtn)
         
         // 挑战高薪 按钮
-        let cHSalaryBtn = UIButton(frame: CGRectMake(
-            0,
-            screenSize.height*0.6,
-            screenSize.width*0.858,
-            screenSize.height*0.066))
+        let cHSalaryBtn = UIButton(frame: CGRect(
+            x: 0,
+            y: screenSize.height*0.6,
+            width: screenSize.width*0.858,
+            height: screenSize.height*0.066))
         cHSalaryBtn.backgroundColor = baseColor
         cHSalaryBtn.layer.cornerRadius = 8
-        cHSalaryBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        cHSalaryBtn.setImage(UIImage(named: "ic_身份选择_挑战高薪"), forState: .Normal)
-        cHSalaryBtn.setTitle("挑战高薪", forState: .Normal)
-        cHSalaryBtn.addTarget(self, action: #selector(chSalaryBtnClick), forControlEvents: .TouchUpInside)
+        cHSalaryBtn.setTitleColor(UIColor.white, for: UIControlState())
+        cHSalaryBtn.setImage(UIImage(named: "ic_身份选择_挑战高薪"), for: UIControlState())
+        cHSalaryBtn.setTitle("挑战高薪", for: UIControlState())
+        cHSalaryBtn.addTarget(self, action: #selector(chSalaryBtnClick), for: .touchUpInside)
         cHSalaryBtn.center.x = self.view.center.x
         cHSalaryBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -margin/2.0, 0, margin/2.0)
         cHSalaryBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin/2.0, 0, -margin/2.0)
         self.view.addSubview(cHSalaryBtn)
         
         // 退出登录 按钮
-        let logOutBtn = UIButton(frame: CGRectMake(
-            0,
-            screenSize.height*0.934,
-            screenSize.width,
-            screenSize.height*0.066))
-        logOutBtn.backgroundColor = UIColor.whiteColor()
-        logOutBtn.setTitleColor(baseColor, forState: .Normal)
-        logOutBtn.setImage(UIImage(named: "ic_身份选择_退出"), forState: .Normal)
-        logOutBtn.setTitle("退出登录", forState: .Normal)
-        logOutBtn.addTarget(self, action: #selector(logOutBtnClick), forControlEvents: .TouchUpInside)
+        let logOutBtn = UIButton(frame: CGRect(
+            x: 0,
+            y: screenSize.height*0.934,
+            width: screenSize.width,
+            height: screenSize.height*0.066))
+        logOutBtn.backgroundColor = UIColor.white
+        logOutBtn.setTitleColor(baseColor, for: UIControlState())
+        logOutBtn.setImage(UIImage(named: "ic_身份选择_退出"), for: UIControlState())
+        logOutBtn.setTitle("退出登录", for: UIControlState())
+        logOutBtn.addTarget(self, action: #selector(logOutBtnClick), for: .touchUpInside)
         logOutBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -margin/2.0, 0, margin/2.0)
         logOutBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin/2.0, 0, -margin/2.0)
         self.view.addSubview(logOutBtn)
@@ -97,13 +97,13 @@ class WeHomeViewController: UIViewController {
 
             
             // 找人才 过渡界面
-            let welLab = UILabel(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
+            let welLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
             welLab.backgroundColor = baseColor
             welLab.numberOfLines = 0
-            welLab.textColor = UIColor.whiteColor()
-            welLab.font = UIFont.boldSystemFontOfSize(20)
+            welLab.textColor = UIColor.white
+            welLab.font = UIFont.boldSystemFont(ofSize: 20)
             welLab.adjustsFontSizeToFitWidth = true
-            welLab.textAlignment = .Center
+            welLab.textAlignment = .center
             welLab.text = "机不可失失不再来，快抢人才！"
             self.view.addSubview(welLab)
             
@@ -113,20 +113,20 @@ class WeHomeViewController: UIViewController {
             toVC.viewControllers![0].view.frame.origin.x = -screenSize.width
             self.view.addSubview(toVC.view)
             
-            let time: NSTimeInterval = 1.0
-            let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+            let time: TimeInterval = 1.0
+            let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             
-            dispatch_after(delay, dispatch_get_main_queue()) {
+            DispatchQueue.main.asyncAfter(deadline: delay) {
                 
-                UIView.animateWithDuration(1, animations: {
+                UIView.animate(withDuration: 1, animations: {
                     toVC.view.frame.origin.x = 0
                     toVC.viewControllers![0].view.frame.origin.x = 0
                     
-                }) { (finished) in
+                }, completion: { (finished) in
                     if finished {
-                        self.presentViewController(toVC, animated: false, completion: nil)
+                        self.present(toVC, animated: false, completion: nil)
                     }
-                }
+                }) 
             }
         }else{
             self.navigationController?.pushViewController(LoReFTPersonalInfoViewController(), animated: true)
@@ -140,13 +140,13 @@ class WeHomeViewController: UIViewController {
         if CHSUserInfo.currentUserInfo.usertype == "1" || CHSUserInfo.currentUserInfo.usertype == "3" {
             
             // 挑战高薪 过渡界面
-            let welLab = UILabel(frame: CGRectMake(0, 0, screenSize.width, screenSize.height))
+            let welLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
             welLab.backgroundColor = baseColor
             welLab.numberOfLines = 0
-            welLab.textColor = UIColor.whiteColor()
-            welLab.font = UIFont.boldSystemFontOfSize(20)
+            welLab.textColor = UIColor.white
+            welLab.font = UIFont.boldSystemFont(ofSize: 20)
             welLab.adjustsFontSizeToFitWidth = true
-            welLab.textAlignment = .Center
+            welLab.textAlignment = .center
             welLab.text = "千万不要低估了自己\n也不要高估了那些拿到高薪的人~！\n查看职位还有可能获得奖金哦！"
             self.view.addSubview(welLab)
             
@@ -156,20 +156,20 @@ class WeHomeViewController: UIViewController {
             toVC.viewControllers![0].view.frame.origin.x = -screenSize.width
             self.view.addSubview(toVC.view)
             
-            let time: NSTimeInterval = 1.0
-            let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
+            let time: TimeInterval = 1.0
+            let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             
-            dispatch_after(delay, dispatch_get_main_queue()) {
+            DispatchQueue.main.asyncAfter(deadline: delay) {
                 
-                UIView.animateWithDuration(1, animations: {
+                UIView.animate(withDuration: 1, animations: {
                     toVC.view.frame.origin.x = 0
                     toVC.viewControllers![0].view.frame.origin.x = 0
                     
-                }) { (finished) in
+                }, completion: { (finished) in
                     if finished {
-                        self.presentViewController(toVC, animated: false, completion: nil)
+                        self.present(toVC, animated: false, completion: nil)
                     }
-                }
+                }) 
             }
         }else{
             self.navigationController?.pushViewController(LoReCHSPersonalInfoViewController(), animated: true)
@@ -180,19 +180,19 @@ class WeHomeViewController: UIViewController {
     // MARK: 退出 按钮 点击事件
     func logOutBtnClick() {
         
-        let signOutAlert = UIAlertController(title: "", message: "确定退出登录？", preferredStyle: .Alert)
-        self.presentViewController(signOutAlert, animated: true, completion: nil)
+        let signOutAlert = UIAlertController(title: "", message: "确定退出登录？", preferredStyle: .alert)
+        self.present(signOutAlert, animated: true, completion: nil)
         
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         signOutAlert.addAction(cancelAction)
         
-        let sureAction = UIAlertAction(title: "确定", style: .Default, handler: { (sureAction) in
+        let sureAction = UIAlertAction(title: "确定", style: .default, handler: { (sureAction) in
             
-            NSUserDefaults.standardUserDefaults().setBool(false, forKey: isLogin_key)
-            NSUserDefaults.standardUserDefaults().removeObjectForKey(logInfo_key)
+            UserDefaults.standard.set(false, forKey: isLogin_key)
+            UserDefaults.standard.removeObject(forKey: logInfo_key)
             //                self.presentViewController(UINavigationController(rootViewController: LoHomeViewController()), animated: true, completion: nil)
             
-            UIApplication.sharedApplication().keyWindow?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
+            UIApplication.shared.keyWindow?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
         })
         signOutAlert.addAction(sureAction)
         

@@ -7,32 +7,36 @@
 //
 
 import UIKit
-import Alamofire
+import HandyJSON
 
 class CHSNetUtil: NSObject {
     
     // MARK: 获取招聘列表
     // userid
     func getjoblist(
-        userid:String,
-        handle:ResponseClosures) {
+        _ userid:String,
+        handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"getjoblist"
         let param = [
             "userid":userid
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+//                let checkCode:StatusModel = StatusModel.jsonToModel(json)
                 if checkCode.status == "success" {
-                    let jobInfoModel:JobInfoModel = JobInfoModel.jsonToModelWithData(json)
-                    handle(success: true, response: jobInfoModel.data)
+                    let jobInfoModel = JSONDeserializer<JobInfoModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+//                    let jobInfoModel:JobInfoModel = JobInfoModel.jsonToModel(json)
+                    handle(true, jobInfoModel.data as AnyObject?)
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }
@@ -40,22 +44,26 @@ class CHSNetUtil: NSObject {
     
     // MARK: 获取获取企业信息列表
     // userid
-    func getCompanyList(handle:ResponseClosures) {
+    func getCompanyList(_ handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"getCompanyList"
         
-        Alamofire.request(.GET, url, parameters: nil).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: nil) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if checkCode.status == "success" {
-                    let jobInfoModel:CompanyListModel = CompanyListModel.jsonToModelWithData(json)
-                    handle(success: true, response: jobInfoModel.data)
+                    
+                    let jobInfoModel = JSONDeserializer<CompanyListModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+                    handle(true, jobInfoModel.data as AnyObject?)
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }
@@ -64,22 +72,25 @@ class CHSNetUtil: NSObject {
     // MARK: 获取我的简历
     // userid
     func getMyResume(
-        userid:String,
-        handle:ResponseClosures) {
+        _ userid:String,
+        handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"getMyResume"
         let param = [
             "userid":userid
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let statusModel:StatusModel = StatusModel.jsonToModelWithData(json)
+                
+                let statusModel = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+                
                 if statusModel.status == "success" {
                     
-                    let myResume:MyResumeModel = MyResumeModel.jsonToModelWithData(json)
+                    let myResume = JSONDeserializer<MyResumeModel>.deserializeFrom(dict: json as! NSDictionary?)!
                     
                     CHSUserInfo.currentUserInfo.userid = (myResume.data?.userid)!
                     CHSUserInfo.currentUserInfo.realName = (myResume.data?.realname)!
@@ -108,10 +119,10 @@ class CHSNetUtil: NSObject {
                     CHSUserInfo.currentUserInfo.work = myResume.data?.work
                     CHSUserInfo.currentUserInfo.project = myResume.data?.project
                     
-                    handle(success: true, response: nil)
+                    handle(true, nil)
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }
@@ -120,14 +131,14 @@ class CHSNetUtil: NSObject {
     // MARK: 发布 求职意向
     // userid,work_property,address,position_type,categories,wantsalary,jobstate
     func PublishIntension(
-        userid:String,
+        _ userid:String,
         work_property:String,
         address:String,
         position_type:String,
         categories:String,
         wantsalary:String,
         jobstate:String,
-        handle:ResponseClosures) {
+        handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"PublishIntension"
         let param = [
@@ -139,17 +150,19 @@ class CHSNetUtil: NSObject {
             "wantsalary":wantsalary,
             "jobstate":jobstate
             ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if checkCode.status == "success" {
-                    handle(success: true, response: nil)
+                    handle(true, nil)
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }
@@ -158,13 +171,13 @@ class CHSNetUtil: NSObject {
     // MARK: 发布 教育经历
     // userid,school,major,degree,time,experience
     func PublishEducation(
-        userid:String,
+        _ userid:String,
         school:String,
         major:String,
         degree:String,
         time:String,
         experience:String,
-        handle:ResponseClosures) {
+        handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"PublishEducation"
         let param = [
@@ -175,17 +188,19 @@ class CHSNetUtil: NSObject {
             "time":time,
             "experience":experience
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if checkCode.status == "success" {
-                    handle(success: true, response: nil)
+                    handle(true, nil)
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }
@@ -194,14 +209,14 @@ class CHSNetUtil: NSObject {
     // MARK: 发布 工作经历
     // userid,company_name,company_industry,jobtype,skill,work_period,content
     func PublishWork(
-        userid:String,
+        _ userid:String,
         company_name:String,
         company_industry:String,
         jobtype:String,
         skill:String,
         work_period:String,
         content:String,
-        handle:ResponseClosures) {
+        handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"PublishWork"
         let param = [
@@ -213,17 +228,19 @@ class CHSNetUtil: NSObject {
             "work_period":work_period,
             "content":content
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:CheckphoneModel = CheckphoneModel.jsonToModelWithData(json)
+                
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if checkCode.status == "success" {
-                    handle(success: true, response: nil)
+                    handle(true, nil)
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }
@@ -232,12 +249,12 @@ class CHSNetUtil: NSObject {
     // MARK: 发布 项目经验
     // userid,project_name,start_time,end_time,description
     func PublishProject(
-        userid:String,
+        _ userid:String,
         project_name:String,
         start_time:String,
         end_time:String,
         description_project:String,
-        handle:ResponseClosures) {
+        handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"PublishProject"
         let param = [
@@ -247,12 +264,14 @@ class CHSNetUtil: NSObject {
             "end_time":end_time,
             "description_project":description_project
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:CheckphoneModel = CheckphoneModel.jsonToModelWithData(json)
+                
+                let checkCode = JSONDeserializer<CheckphoneModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if checkCode.status == "success" {
                     
                     CHSUserInfo.currentUserInfo.project?.first?.project_name =  project_name
@@ -260,10 +279,10 @@ class CHSNetUtil: NSObject {
                     CHSUserInfo.currentUserInfo.project?.first?.end_time =  end_time
                     CHSUserInfo.currentUserInfo.project?.first?.description_project =  description_project
                     
-                    handle(success: true, response: nil)
+                    handle(true, nil)
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }
@@ -272,29 +291,31 @@ class CHSNetUtil: NSObject {
     // MARK: 发布 我的优势
     // userid,advantage
     func PublishAdvantage(
-        userid:String,
+        _ userid:String,
         advantage:String,
-        handle:ResponseClosures) {
+        handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"PublishAdvantage"
         let param = [
             "userid":userid,
             "advantage":advantage
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:CheckphoneModel = CheckphoneModel.jsonToModelWithData(json)
+                
+                let checkCode = JSONDeserializer<CheckphoneModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if checkCode.status == "success" {
                     
                     CHSUserInfo.currentUserInfo.advantage =  advantage
                     
-                    handle(success: true, response: nil)
+                    handle(true, nil)
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }

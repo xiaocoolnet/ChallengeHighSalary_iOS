@@ -10,7 +10,7 @@ import UIKit
 
 class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    let rootTableView = UITableView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height-20-44-49), style: .Plain)
+    let rootTableView = UITableView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height-20-44-49), style: .plain)
     
     var dataArray = [
         [
@@ -56,14 +56,14 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         setSubviews()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = false
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = false
         
         
-        self.dataArray.removeRange(Range(4 ..< self.dataArray.count))
+        self.dataArray.removeSubrange(Range(4 ..< self.dataArray.count))
 //        for conversation in [] {
 ////            [
 ////                "title":"王小妞",
@@ -133,11 +133,11 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     func setSubviews() {
         
         self.automaticallyAdjustsScrollViewInsets = false
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
         // tableView
-        rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height-20-44-49)
-        rootTableView.registerNib(UINib.init(nibName: "CHSMeHomeTableViewCell", bundle: nil), forCellReuseIdentifier: "CHSMeHomeCell")
+        rootTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-20-44-49)
+        rootTableView.register(UINib.init(nibName: "CHSMeHomeTableViewCell", bundle: nil), forCellReuseIdentifier: "CHSMeHomeCell")
         rootTableView.rowHeight = 66
         rootTableView.dataSource = self
         rootTableView.delegate = self
@@ -145,34 +145,34 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     // MARK: UITableView DataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.dataArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("CHSMeHomeCell") as! CHSMeHomeTableViewCell
-        cell.selectionStyle = .None
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CHSMeHomeCell") as! CHSMeHomeTableViewCell
+        cell.selectionStyle = .none
         
-        switch self.dataArray[indexPath.row]["type"]! {
+        switch self.dataArray[(indexPath as NSIndexPath).row]["type"]! {
         case "5":
-            let url = NSURL(string: (self.dataArray[indexPath.row]["image"]! ?? "")!)
-            cell.iconImg.sd_setImageWithURL(url, placeholderImage: nil)
+            let url = URL(string: self.dataArray[(indexPath as NSIndexPath).row]["image"]!)
+            cell.iconImg.sd_setImage(with: url, placeholderImage: nil)
         default:
-            cell.iconImg.image = UIImage(named: self.dataArray[indexPath.row]["image"]!)
+            cell.iconImg.image = UIImage(named: self.dataArray[(indexPath as NSIndexPath).row]["image"]!)
         }
         
-        cell.titleLab.text = self.dataArray[indexPath.row]["title"]!
-        cell.descriptionLab.text = self.dataArray[indexPath.row]["description"]!
-        cell.timeLab.text = self.dataArray[indexPath.row]["time"]!
+        cell.titleLab.text = self.dataArray[(indexPath as NSIndexPath).row]["title"]!
+        cell.descriptionLab.text = self.dataArray[(indexPath as NSIndexPath).row]["description"]!
+        cell.timeLab.text = self.dataArray[(indexPath as NSIndexPath).row]["time"]!
         
         return cell
     }
     
     // MARK: UITableView Delegate
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        switch self.dataArray[indexPath.row]["type"]! {
+        switch self.dataArray[(indexPath as NSIndexPath).row]["type"]! {
         case "1":
             self.navigationController?.pushViewController(CHSMeSysMessageViewController(), animated: true)
         case "2":
@@ -188,7 +188,7 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
 
             chatController.hidesBottomBarWhenPushed = true
             
-            chatController.selfTitle = self.dataArray[indexPath.row]["title"]!
+            chatController.selfTitle = self.dataArray[(indexPath as NSIndexPath).row]["title"]!
 //            chatController.conversationId = self.conversations[indexPath.row-4].conversationId
             
             
@@ -200,7 +200,7 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
 
             chatController.hidesBottomBarWhenPushed = true
             
-            chatController.selfTitle = self.dataArray[indexPath.row]["title"]!
+            chatController.selfTitle = self.dataArray[(indexPath as NSIndexPath).row]["title"]!
 //            chatController.conversationId = self.conversations[indexPath.row-4].conversationId
             
             
@@ -210,18 +210,18 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     // Linux时间戳转标准时间
-    func timeStampToString(timeStamp:String)->String {
+    func timeStampToString(_ timeStamp:String)->String {
         
         let string = NSString(string: timeStamp)
         
-        let timeSta:NSTimeInterval = string.doubleValue
-        let dfmatter = NSDateFormatter()
+        let timeSta:TimeInterval = string.doubleValue
+        let dfmatter = DateFormatter()
         dfmatter.dateFormat="MM月dd日"
         
-        let date = NSDate(timeIntervalSince1970: timeSta)
+        let date = Date(timeIntervalSince1970: timeSta)
         
         //        print(dfmatter.stringFromDate(date))
-        return dfmatter.stringFromDate(date)
+        return dfmatter.string(from: date)
     }
     
     override func didReceiveMemoryWarning() {

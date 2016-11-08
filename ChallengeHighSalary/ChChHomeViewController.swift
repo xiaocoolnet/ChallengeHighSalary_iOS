@@ -26,50 +26,50 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     
     var salaryDrop = DropDown()
     var redEnvelopeDrop = DropDown()
-    let findJobTableView = UITableView(frame: CGRectMake(0, 0, screenSize.width, screenSize.height-20-44-49-37), style: .Grouped)
+    let findJobTableView = UITableView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height-20-44-49-37), style: .grouped)
     
     var scaleDrop = DropDown()
     var nearbyDrop = DropDown()
-    let findEmployerTableView = UITableView(frame: CGRectMake(screenSize.width, 0, screenSize.width, screenSize.height-20-44-49-37), style: .Plain)
+    let findEmployerTableView = UITableView(frame: CGRect(x: screenSize.width, y: 0, width: screenSize.width, height: screenSize.height-20-44-49-37), style: .plain)
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
         
         setNavigationBar()
         setSubviews()
         loadData()
         
-        if NSUserDefaults.standardUserDefaults().stringForKey("myCity") == nil {
+        if UserDefaults.standard.string(forKey: "myCity") == nil {
             AppDelegate().loadLocation()
         }else{
-            myCity = NSUserDefaults.standardUserDefaults().stringForKey("myCity")!
-            cityBtn.setTitle(myCity, forState: .Normal)
+            myCity = UserDefaults.standard.string(forKey: "myCity")!
+            cityBtn.setTitle(myCity, for: UIControlState())
         }
-        NSNotificationCenter.defaultCenter().addObserverForName("positioningCityNotification", object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (noti) in
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "positioningCityNotification"), object: nil, queue: OperationQueue.main, using: { (noti) in
             print("chchhome.. 执行")
             
-            if noti.object != nil && NSUserDefaults.standardUserDefaults().stringForKey("myCity") == nil {
+            if noti.object != nil && UserDefaults.standard.string(forKey: "myCity") == nil {
                 
-                NSUserDefaults.standardUserDefaults().setValue(positioningCity, forKey: "myCity")
+                UserDefaults.standard.setValue(positioningCity, forKey: "myCity")
                 myCity = positioningCity
-                self.cityBtn.setTitle(myCity, forState: .Normal)
+                self.cityBtn.setTitle(myCity, for: UIControlState())
             }
         })
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = false
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = false
         
-        cityBtn.setTitle(myCity, forState: .Normal)
+        cityBtn.setTitle(myCity, for: UIControlState())
 
         // 自定义下拉列表样式
         customizeDropDown()
@@ -100,30 +100,30 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     func setNavigationBar() {
         
         // 城市按钮
-        cityBtn.frame = CGRectMake(0, 0, 100, 44)
-        cityBtn.contentHorizontalAlignment = .Left
-        cityBtn.setTitle(myCity, forState: .Normal)
-        cityBtn.setImage(UIImage(named: "城市下拉箭头"), forState: .Normal)
+        cityBtn.frame = CGRect(x: 0, y: 0, width: 100, height: 44)
+        cityBtn.contentHorizontalAlignment = .left
+        cityBtn.setTitle(myCity, for: UIControlState())
+        cityBtn.setImage(UIImage(named: "城市下拉箭头"), for: UIControlState())
         exchangeBtnImageAndTitle(cityBtn, margin: 5)
-        cityBtn.addTarget(self, action: #selector(cityBtnClick), forControlEvents: .TouchUpInside)
+        cityBtn.addTarget(self, action: #selector(cityBtnClick), for: .touchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cityBtn)
         
         // UISegmentedControl
         let seg = UISegmentedControl(items: ["找工作","找雇主"])
-        seg.frame = CGRectMake(0, 0, 120, 24)
-        seg.addTarget(self, action: #selector(segValueChanged(_:)), forControlEvents: .ValueChanged)
+        seg.frame = CGRect(x: 0, y: 0, width: 120, height: 24)
+        seg.addTarget(self, action: #selector(segValueChanged(_:)), for: .valueChanged)
         seg.selectedSegmentIndex = 0
         self.navigationItem.titleView = seg
         
         // rightBarButtonItems
-        let retrievalBtn = UIButton(frame: CGRectMake(0, 0, 24, 24))
-        retrievalBtn.setImage(UIImage(named: "ic_筛选"), forState: .Normal)
-        retrievalBtn.addTarget(self, action: #selector(retrievalBtnClick), forControlEvents: .TouchUpInside)
+        let retrievalBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+        retrievalBtn.setImage(UIImage(named: "ic_筛选"), for: UIControlState())
+        retrievalBtn.addTarget(self, action: #selector(retrievalBtnClick), for: .touchUpInside)
         let retrievalItem = UIBarButtonItem(customView: retrievalBtn)
         
-        let searchBtn = UIButton(frame: CGRectMake(0, 0, 24, 24))
-        searchBtn.setImage(UIImage(named: "ic_搜索"), forState: .Normal)
-        searchBtn.addTarget(self, action: #selector(searchBtnClick), forControlEvents: .TouchUpInside)
+        let searchBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+        searchBtn.setImage(UIImage(named: "ic_搜索"), for: UIControlState())
+        searchBtn.addTarget(self, action: #selector(searchBtnClick), for: .touchUpInside)
         let searchItem = UIBarButtonItem(customView: searchBtn)
 
         self.navigationItem.rightBarButtonItems = [searchItem,retrievalItem]
@@ -153,10 +153,10 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     }
     
     // MARK: seg 点击事件
-    func segValueChanged(seg:UISegmentedControl) {
+    func segValueChanged(_ seg:UISegmentedControl) {
         print(seg.selectedSegmentIndex)
         
-        self.rootScrollView.contentOffset = CGPointMake(CGFloat(seg.selectedSegmentIndex)*screenSize.width, 0)
+        self.rootScrollView.contentOffset = CGPoint(x: CGFloat(seg.selectedSegmentIndex)*screenSize.width, y: 0)
     }
     
     // MARK: 设置子视图
@@ -164,9 +164,9 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         self.automaticallyAdjustsScrollViewInsets = false
         
-        rootScrollView.frame = CGRectMake(0, 64,screenSize.width ,screenSize.height-49-64)
-        rootScrollView.contentSize = CGSizeMake(screenSize.width*2, screenSize.height-49-64)
-        rootScrollView.scrollEnabled = false
+        rootScrollView.frame = CGRect(x: 0, y: 64,width: screenSize.width ,height: screenSize.height-49-64)
+        rootScrollView.contentSize = CGSize(width: screenSize.width*2, height: screenSize.height-49-64)
+        rootScrollView.isScrollEnabled = false
         self.view.addSubview(rootScrollView)
         
         setSubviews_findJob()
@@ -179,8 +179,8 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         // 薪资
         let salaryBtn = UIButton()
         salaryBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        salaryBtn.setTitle("薪资", forState: .Normal)
-        salaryBtn.setImage(UIImage(named: "ic_下拉"), forState: .Normal)
+        salaryBtn.setTitle("薪资", for: UIControlState())
+        salaryBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
         exchangeBtnImageAndTitle(salaryBtn, margin: 5)
         
         // 薪资 下拉
@@ -188,14 +188,14 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         salaryDrop.bottomOffset = CGPoint(x: 0, y: 37)
         salaryDrop.width = screenSize.width
-        salaryDrop.direction = .Bottom
+        salaryDrop.direction = .bottom
         
         salaryDrop.dataSource = ["不限","1万以下","1~2万","2~3万","3~4万","4~5万","5万以上"]
         
         // 下拉列表选中后的回调方法
         salaryDrop.selectionAction = { (index, item) in
             
-            salaryBtn.setTitle(item, forState: .Normal)
+            salaryBtn.setTitle(item, for: UIControlState())
             
             adjustBtnsTitleLabelAndImgaeView(salaryBtn)
             
@@ -204,8 +204,8 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         // 红包
         let redEnvelopeBtn = UIButton()
         redEnvelopeBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        redEnvelopeBtn.setTitle("红包", forState: .Normal)
-        redEnvelopeBtn.setImage(UIImage(named: "ic_下拉"), forState: .Normal)
+        redEnvelopeBtn.setTitle("红包", for: UIControlState())
+        redEnvelopeBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
         exchangeBtnImageAndTitle(redEnvelopeBtn, margin: 5)
         
         // 红包 下拉
@@ -213,31 +213,31 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         redEnvelopeDrop.bottomOffset = CGPoint(x: 0, y: 37)
         redEnvelopeDrop.width = screenSize.width
-        redEnvelopeDrop.direction = .Bottom
+        redEnvelopeDrop.direction = .bottom
         
         redEnvelopeDrop.dataSource = ["测试用","大红包","小红包","不大不小的红包"]
         
         // 下拉列表选中后的回调方法
         redEnvelopeDrop.selectionAction = { (index, item) in
             
-            redEnvelopeBtn.setTitle(item, forState: .Normal)
+            redEnvelopeBtn.setTitle(item, for: UIControlState())
             
             adjustBtnsTitleLabelAndImgaeView(redEnvelopeBtn)
 
         }
         
         // 选择菜单
-        let segChoose = LFLUISegmentedControl.segmentWithFrame(CGRectMake(0, 0,screenSize.width ,37), titleArray: ["最新","最热","最近","评价",salaryBtn,redEnvelopeBtn], defaultSelect: 0)
+        let segChoose = LFLUISegmentedControl.segment(withFrame: CGRect(x: 0, y: 0,width: screenSize.width ,height: 37), titleArray: ["最新","最热","最近","评价",salaryBtn,redEnvelopeBtn], defaultSelect: 0)!
         segChoose.tag = 101
         segChoose.lineColor(baseColor)
-        segChoose.titleColor(UIColor.blackColor(), selectTitleColor: baseColor, backGroundColor: UIColor.whiteColor(), titleFontSize: 14)
+        segChoose.titleColor(UIColor.black, selectTitleColor: baseColor, backGroundColor: UIColor.white, titleFontSize: 14)
         segChoose.delegate = self
         self.rootScrollView.addSubview(segChoose)
         
         // tableView
-        findJobTableView.frame = CGRectMake(0, CGRectGetMaxY(segChoose.frame), screenSize.width, screenSize.height-20-44-49-37)
-        findJobTableView.registerNib(UINib.init(nibName: "ChChFindJobTableViewCell", bundle: nil), forCellReuseIdentifier: "ChChFindJobTableViewCell")
-        findJobTableView.separatorStyle = .None
+        findJobTableView.frame = CGRect(x: 0, y: segChoose.frame.maxY, width: screenSize.width, height: screenSize.height-20-44-49-37)
+        findJobTableView.register(UINib.init(nibName: "ChChFindJobTableViewCell", bundle: nil), forCellReuseIdentifier: "ChChFindJobTableViewCell")
+        findJobTableView.separatorStyle = .none
         findJobTableView.rowHeight = 140
         findJobTableView.tag = 101
         findJobTableView.dataSource = self
@@ -251,8 +251,8 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         // 规模
         let scaleBtn = UIButton()
         scaleBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        scaleBtn.setTitle("规模", forState: .Normal)
-        scaleBtn.setImage(UIImage(named: "ic_下拉"), forState: .Normal)
+        scaleBtn.setTitle("规模", for: UIControlState())
+        scaleBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
         exchangeBtnImageAndTitle(scaleBtn, margin: 5)
         
         // 规模 下拉
@@ -260,14 +260,14 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         scaleDrop.bottomOffset = CGPoint(x: 0, y: 37)
         scaleDrop.width = screenSize.width
-        scaleDrop.direction = .Bottom
+        scaleDrop.direction = .bottom
         
         scaleDrop.dataSource = ["不限","一人","2人","3人"]
         
         // 下拉列表选中后的回调方法
         scaleDrop.selectionAction = { (index, item) in
             
-            scaleBtn.setTitle(item, forState: .Normal)
+            scaleBtn.setTitle(item, for: UIControlState())
             
             adjustBtnsTitleLabelAndImgaeView(scaleBtn)
 
@@ -276,8 +276,8 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         // 附近
         let nearbyBtn = UIButton()
         nearbyBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        nearbyBtn.setTitle("附近", forState: .Normal)
-        nearbyBtn.setImage(UIImage(named: "ic_下拉"), forState: .Normal)
+        nearbyBtn.setTitle("附近", for: UIControlState())
+        nearbyBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
         exchangeBtnImageAndTitle(nearbyBtn, margin: 5)
         
         // 附近 下拉
@@ -285,31 +285,31 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         nearbyDrop.bottomOffset = CGPoint(x: 0, y: 37)
         nearbyDrop.width = screenSize.width
-        nearbyDrop.direction = .Bottom
+        nearbyDrop.direction = .bottom
         
         nearbyDrop.dataSource = ["测试用","一米","两米","三米"]
         
         // 下拉列表选中后的回调方法
         nearbyDrop.selectionAction = { (index, item) in
             
-            nearbyBtn.setTitle(item, forState: .Normal)
+            nearbyBtn.setTitle(item, for: UIControlState())
             
             adjustBtnsTitleLabelAndImgaeView(nearbyBtn)
 
         }
         
         // 选择菜单
-        let segChoose = LFLUISegmentedControl.segmentWithFrame(CGRectMake(screenSize.width, 0,screenSize.width ,37), titleArray: ["最新",scaleBtn,nearbyBtn], defaultSelect: 0)
+        let segChoose = LFLUISegmentedControl.segment(withFrame: CGRect(x: screenSize.width, y: 0,width: screenSize.width ,height: 37), titleArray: ["最新",scaleBtn,nearbyBtn], defaultSelect: 0)!
         segChoose.tag = 102
         segChoose.lineColor(baseColor)
-        segChoose.titleColor(UIColor.blackColor(), selectTitleColor: baseColor, backGroundColor: UIColor.whiteColor(), titleFontSize: 14)
+        segChoose.titleColor(UIColor.black, selectTitleColor: baseColor, backGroundColor: UIColor.white, titleFontSize: 14)
         segChoose.delegate = self
         self.rootScrollView.addSubview(segChoose)
         
         // tableView
-        findEmployerTableView.frame = CGRectMake(screenSize.width, CGRectGetMaxY(segChoose.frame), screenSize.width, screenSize.height-20-44-49-37)
-        findEmployerTableView.registerNib(UINib.init(nibName: "ChChFindEmployerTableViewCell", bundle: nil), forCellReuseIdentifier: "ChChFindEmployerTableViewCell")
-        findEmployerTableView.separatorStyle = .None
+        findEmployerTableView.frame = CGRect(x: screenSize.width, y: segChoose.frame.maxY, width: screenSize.width, height: screenSize.height-20-44-49-37)
+        findEmployerTableView.register(UINib.init(nibName: "ChChFindEmployerTableViewCell", bundle: nil), forCellReuseIdentifier: "ChChFindEmployerTableViewCell")
+        findEmployerTableView.separatorStyle = .none
         findEmployerTableView.rowHeight = 250
         findEmployerTableView.tag = 102
         findEmployerTableView.dataSource = self
@@ -330,33 +330,33 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         appearance.shadowOpacity = 0.9
         appearance.shadowRadius = 0
         appearance.animationduration = 0.25
-        appearance.textColor = .darkGrayColor()
-        appearance.textFont = UIFont.systemFontOfSize(14)
+        appearance.textColor = .darkGray
+        appearance.textFont = UIFont.systemFont(ofSize: 14)
     }
     
     // MARK: LFLUISegmentedControlDelegate
-    func uisegumentSelectionChange(selection: Int, segmentTag: Int) {
+    func uisegumentSelectionChange(_ selection: Int, segmentTag: Int) {
         print("ChChHomeViewController click \(selection) item")
         
         if segmentTag == 101 {
             
             if selection == 4 {
-                salaryDrop.show()
+                _ = salaryDrop.show()
             }else if selection == 5 {
-                redEnvelopeDrop.show()
+                _ = redEnvelopeDrop.show()
             }
         }else if segmentTag == 102 {
             
             if selection == 1 {
-                scaleDrop.show()
+                _ = scaleDrop.show()
             }else if selection == 2 {
-                nearbyDrop.show()
+                _ = nearbyDrop.show()
             }
         }
     }
     
     // MARK: UITableView DataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == 101 {
             return 1
         }else{
@@ -364,7 +364,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         }
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         if tableView.tag == 101 {
             return self.jobList.count
         }else{
@@ -372,53 +372,53 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if tableView.tag == 101 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("ChChFindJobTableViewCell") as! ChChFindJobTableViewCell
-            cell.selectionStyle = .None
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ChChFindJobTableViewCell") as! ChChFindJobTableViewCell
+            cell.selectionStyle = .none
             
-            cell.jobInfo = self.jobList[indexPath.section]
-            cell.companyBtn.tag = indexPath.section
-            cell.companyBtn.addTarget(self, action: #selector(companyBtnClick(_:)), forControlEvents: .TouchUpInside)
+            cell.jobInfo = self.jobList[(indexPath as NSIndexPath).section]
+            cell.companyBtn.tag = (indexPath as NSIndexPath).section
+            cell.companyBtn.addTarget(self, action: #selector(companyBtnClick(_:)), for: .touchUpInside)
             
             return cell
         }else{
-            let cell = tableView.dequeueReusableCellWithIdentifier("ChChFindEmployerTableViewCell") as! ChChFindEmployerTableViewCell
-            cell.selectionStyle = .None
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ChChFindEmployerTableViewCell") as! ChChFindEmployerTableViewCell
+            cell.selectionStyle = .none
             
-            cell.companyInfo = self.companyList[indexPath.row]
-            cell.jobsCountBtn.tag = indexPath.row
-            cell.jobsCountBtn.addTarget(self, action: #selector(jobsCountBtnClick(_:)), forControlEvents: .TouchUpInside)
+            cell.companyInfo = self.companyList[(indexPath as NSIndexPath).row]
+            cell.jobsCountBtn.tag = (indexPath as NSIndexPath).row
+            cell.jobsCountBtn.addTarget(self, action: #selector(jobsCountBtnClick(_:)), for: .touchUpInside)
             return cell
         }
         
     }
     
     // MARK: UITableView Delegate
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 8
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.tag == 101 {
             let personalInfoVC = CHSChPersonalInfoViewController()
-            personalInfoVC.jobInfo = self.jobList[indexPath.section]
+            personalInfoVC.jobInfo = self.jobList[(indexPath as NSIndexPath).section]
             
             self.navigationController?.pushViewController(personalInfoVC, animated: true)
         }else{
             let btn = UIButton()
-            btn.tag = indexPath.row
+            btn.tag = (indexPath as NSIndexPath).row
             self.companyBtnClick(btn)
         }
     }
     
     // MARK:- companyBtnClick
-    func companyBtnClick(companyBtn:UIButton) {
+    func companyBtnClick(_ companyBtn:UIButton) {
         
         let companyHomeVC = CHSChCompanyHomeViewController()
         companyHomeVC.jobInfoUserid = self.jobList[companyBtn.tag].userid ?? ""
@@ -426,10 +426,10 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     }
     
     // MARK:- jobsCountBtnClick
-    func jobsCountBtnClick(jobsCountBtn:UIButton) {
+    func jobsCountBtnClick(_ jobsCountBtn:UIButton) {
         
         let companyPositionListVC = CHSChCompanyPositionListViewController()
-        companyPositionListVC.company_infoJobs = (self.companyList[jobsCountBtn.tag].jobs! ?? nil)!
+        companyPositionListVC.company_infoJobs = self.companyList[jobsCountBtn.tag].jobs!
         self.navigationController?.pushViewController(companyPositionListVC, animated: true)
     }
 

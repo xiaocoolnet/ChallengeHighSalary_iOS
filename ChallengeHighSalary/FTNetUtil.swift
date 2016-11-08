@@ -7,33 +7,37 @@
 //
 
 import UIKit
-import Alamofire
+import HandyJSON
 
 class FTNetUtil: NSObject {
     
     // MARK: 获取简历列表
     // userid,logo,company_name,company_web,industry,count,financing
     func getResumeList(
-        userid:String,
-        handle:ResponseClosures) {
+        _ userid:String,
+        handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"getResumeList"
         let param = [
             "userid":userid
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+//                let checkCode:StatusModel = StatusModel.jsonToModel(json)
                 if checkCode.status == "success" {
-                    let resumeListModel:ResumeListModel = ResumeListModel.jsonToModelWithData(json)
+                    let resumeListModel = JSONDeserializer<ResumeListModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+//                    let resumeListModel:ResumeListModel = ResumeListModel.jsonToModel(json)
                     
-                    handle(success: true, response: resumeListModel.data)
+                    handle(true, resumeListModel.data as AnyObject?)
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }
@@ -42,26 +46,29 @@ class FTNetUtil: NSObject {
     // MARK: 获取我的企业信息
     // userid,logo,company_name,company_web,industry,count,financing
     func getMyCompany_info(
-        userid:String,
-        handle:ResponseClosures) {
+        _ userid:String,
+        handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"getMyCompany_info"
         let param = [
             "userid":userid
             ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if checkCode.status == "success" {
-                    let company_infoModel:Company_infoModel = Company_infoModel.jsonToModelWithData(json)
+//                    let company_infoModel:Company_infoModel = Company_infoModel.jsonToModel(json)
                     
-                    handle(success: true, response: company_infoModel.data)
+                    let company_infoModel = JSONDeserializer<Company_infoModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+                    handle(true, company_infoModel.data)
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }
@@ -70,14 +77,14 @@ class FTNetUtil: NSObject {
     // MARK: 添加公司信息
     // userid,logo,company_name,company_web,industry,count,financing
     func company_info(
-        userid:String,
+        _ userid:String,
         logo:String,
         company_name:String,
         company_web:String,
         industry:String,
         count:String,
         financing:String,
-        handle:ResponseClosures) {
+        handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"company_info"
         let param = [
@@ -89,17 +96,20 @@ class FTNetUtil: NSObject {
             "count":count,
             "financing":financing,
             ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+//                let checkCode:StatusModel = StatusModel.jsonToModel(json)
                 if checkCode.status == "success" {
-                    handle(success: true, response: nil)
+                    handle(true, nil)
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }
@@ -108,7 +118,7 @@ class FTNetUtil: NSObject {
     // MARK: 发布招聘岗位
     // userid,jobtype,title(职位名称),skill,salary,experience,education,city,address,description
     func publishjob(
-        userid:String,
+        _ userid:String,
         jobtype:String,
         title:String,
         skill:String,
@@ -117,7 +127,7 @@ class FTNetUtil: NSObject {
         education:String,
         city:String,
         address:String,
-        description_job:String, handle:ResponseClosures) {
+        description_job:String, handle:@escaping ResponseClosures) {
 
         let url = kPortPrefix+"publishjob"
         let param = [
@@ -132,17 +142,18 @@ class FTNetUtil: NSObject {
             "address":address,
             "description_job":description_job,
         ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(false, error?.description as AnyObject?)
             }else{
-                let checkCode:StatusModel = StatusModel.jsonToModelWithData(json)
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
                 if checkCode.status == "success" {
-                    handle(success: true, response: nil)
+                    handle(true, nil)
                 }else{
                     
-                    handle(success: false, response: nil)
+                    handle(false, nil)
                 }
             }
         }

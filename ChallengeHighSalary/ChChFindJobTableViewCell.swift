@@ -47,14 +47,14 @@ class ChChFindJobTableViewCell: UITableViewCell {
         didSet {
             self.titleLab.text = jobInfo?.title
             self.company_nameLab.text = jobInfo?.company_name
-            self.logoImg.sd_setImageWithURL(NSURL(string: kImagePrefix+(jobInfo?.logo)!), placeholderImage: nil)
+            self.logoImg.sd_setImage(with: URL(string: kImagePrefix+(jobInfo?.logo)!), placeholderImage: nil)
             self.realnameLab.text = jobInfo?.realname
             self.myjobLab.text = jobInfo?.myjob
-            self.countLab.text = "公司规模"+(jobInfo?.count ?? "")!
-            self.company_scoreLab.text = "综合评分"+(jobInfo?.company_score ?? "")!
-            self.salaryLab.text = "￥ "+(jobInfo?.salary ?? "")!
+            self.countLab.text = "公司规模"+(jobInfo?.count)!
+            self.company_scoreLab.text = "综合评分"+(jobInfo?.company_score)!
+            self.salaryLab.text = "￥ "+(jobInfo?.salary)!
             self.distanceLab.text = jobInfo?.distance
-            self.cityLab.text = jobInfo?.city?.componentsSeparatedByString("-").last
+            self.cityLab.text = jobInfo?.city?.components(separatedBy: "-").last
             self.experienceLab.text = jobInfo?.experience
             self.educationLab.text = jobInfo?.education
 //            self.work_propertyLab.text = jobInfo?.work_property ?? "待补充"
@@ -67,20 +67,22 @@ class ChChFindJobTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        self.drawDashed(topLine, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(0, 0), toPoint: CGPointMake(topLine.frame.size.width, 0), lineWidth: 1)
+        self.drawDashed(topLine, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPoint(x: 0, y: 0), toPoint: CGPoint(x: topLine.frame.size.width, y: 0), lineWidth: 1)
         
-        self.drawDashed(bottomLine, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(0, 0), toPoint: CGPointMake(screenSize.width, 0), lineWidth: 1)
+        self.drawDashed(bottomLine, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPoint(x: 0, y: 0), toPoint: CGPoint(x: screenSize.width, y: 0), lineWidth: 1)
     }
     
-    func drawDashed(onView:UIView, color:UIColor, fromPoint:CGPoint, toPoint:CGPoint, lineWidth:CGFloat) {
+    func drawDashed(_ onView:UIView, color:UIColor, fromPoint:CGPoint, toPoint:CGPoint, lineWidth:CGFloat) {
         
         let dotteShapLayer = CAShapeLayer()
-        let mdotteShapePath = CGPathCreateMutable()
-        dotteShapLayer.fillColor = UIColor.clearColor().CGColor
-        dotteShapLayer.strokeColor = color.CGColor
+        let mdotteShapePath = CGMutablePath()
+        dotteShapLayer.fillColor = UIColor.clear.cgColor
+        dotteShapLayer.strokeColor = color.cgColor
         dotteShapLayer.lineWidth = lineWidth
-        CGPathMoveToPoint(mdotteShapePath, nil, fromPoint.x, fromPoint.y)
-        CGPathAddLineToPoint(mdotteShapePath, nil, toPoint.x, toPoint.y)
+        mdotteShapePath.move(to: fromPoint)
+        mdotteShapePath.addLine(to: toPoint)
+//        CGPathMoveToPoint(mdotteShapePath, nil, fromPoint.x, fromPoint.y)
+//        CGPathAddLineToPoint(mdotteShapePath, nil, toPoint.x, toPoint.y)
         //        CGPathAddLineToPoint(mdotteShapePath, nil, 200, 200)
         dotteShapLayer.path = mdotteShapePath
         let arr :NSArray = NSArray(array: [10,5])
@@ -89,7 +91,7 @@ class ChChFindJobTableViewCell: UITableViewCell {
         onView.layer.addSublayer(dotteShapLayer)
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

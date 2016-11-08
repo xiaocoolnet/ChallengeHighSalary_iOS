@@ -10,7 +10,7 @@ import UIKit
 
 class FTMiMyInterviewAllViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    let rootTableView = UITableView(frame: CGRectMake(0, 64, screenSize.width, screenSize.height-20-44), style: .Grouped)
+    let rootTableView = UITableView(frame: CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-20-44), style: .grouped)
     
     var typeDrop = DropDown()
     
@@ -24,7 +24,8 @@ class FTMiMyInterviewAllViewController: UIViewController, UITableViewDataSource,
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        self.navigationController?.popViewControllerAnimated(true)
+        
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: 设置子视图
@@ -34,14 +35,14 @@ class FTMiMyInterviewAllViewController: UIViewController, UITableViewDataSource,
         
         self.title = "我的面试邀请"
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .Done, target: self, action: #selector(popViewcontroller))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
 
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         
         // tableView
-        rootTableView.frame = CGRectMake(0, 64, screenSize.width, screenSize.height-20-44)
-        rootTableView.registerNib(UINib.init(nibName: "FTMyInterviewInvitationTableViewCell", bundle: nil), forCellReuseIdentifier: "FTMyInterviewInvitationCell")
-        rootTableView.separatorStyle = .None
+        rootTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-20-44)
+        rootTableView.register(UINib.init(nibName: "FTMyInterviewInvitationTableViewCell", bundle: nil), forCellReuseIdentifier: "FTMyInterviewInvitationCell")
+        rootTableView.separatorStyle = .none
         rootTableView.rowHeight = 130
         rootTableView.dataSource = self
         rootTableView.delegate = self
@@ -52,29 +53,29 @@ class FTMiMyInterviewAllViewController: UIViewController, UITableViewDataSource,
     
     // MARK:- 设置tableview 头视图
     func setHeaderView() {
-        let headerView = UIView(frame: CGRectMake(0, 0, screenSize.width, 44))
-        headerView.backgroundColor = UIColor.whiteColor()
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 44))
+        headerView.backgroundColor = UIColor.white
         
-        let tipLab = UILabel(frame: CGRectMake(
-            8,
-            0,
-            screenSize.width-8-8-100,
-            44))
-        tipLab.textAlignment = .Left
-        tipLab.textColor = UIColor.blackColor()
-        tipLab.font = UIFont.systemFontOfSize(14)
+        let tipLab = UILabel(frame: CGRect(
+            x: 8,
+            y: 0,
+            width: screenSize.width-8-8-100,
+            height: 44))
+        tipLab.textAlignment = .left
+        tipLab.textColor = UIColor.black
+        tipLab.font = UIFont.systemFont(ofSize: 14)
         tipLab.text = "你一共发出4个面试邀请"
         headerView.addSubview(tipLab)
         
-        let typeBtn = UIButton(frame: CGRectMake(
-            screenSize.width-100-8, 0, 100, 44))
-        typeBtn.contentHorizontalAlignment = .Right
-        typeBtn.setTitleColor(baseColor, forState: .Normal)
-        typeBtn.titleLabel?.font = UIFont.systemFontOfSize(14)
-        typeBtn.setTitle("全部", forState: .Normal)
-        typeBtn.setImage(UIImage(named: "ic_下拉"), forState: .Normal)
+        let typeBtn = UIButton(frame: CGRect(
+            x: screenSize.width-100-8, y: 0, width: 100, height: 44))
+        typeBtn.contentHorizontalAlignment = .right
+        typeBtn.setTitleColor(baseColor, for: UIControlState())
+        typeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        typeBtn.setTitle("全部", for: UIControlState())
+        typeBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
         exchangeBtnImageAndTitle(typeBtn, margin: 5)
-        typeBtn.addTarget(self, action: #selector(interviewTypeBtnClick), forControlEvents: .TouchUpInside)
+        typeBtn.addTarget(self, action: #selector(interviewTypeBtnClick), for: .touchUpInside)
         headerView.addSubview(typeBtn)
         
         // 面试邀请类型 下拉
@@ -82,14 +83,14 @@ class FTMiMyInterviewAllViewController: UIViewController, UITableViewDataSource,
         
         typeDrop.bottomOffset = CGPoint(x: 0, y: 38)
         typeDrop.width = screenSize.width
-        typeDrop.direction = .Bottom
+        typeDrop.direction = .bottom
         
         typeDrop.dataSource = ["不限","一年","2年","3年"]
         
         // 下拉列表选中后的回调方法
         typeDrop.selectionAction = { (index, item) in
             
-            typeBtn.setTitle(item, forState: .Normal)
+            typeBtn.setTitle(item, for: UIControlState())
         }
         
         self.rootTableView.tableHeaderView = headerView
@@ -97,36 +98,36 @@ class FTMiMyInterviewAllViewController: UIViewController, UITableViewDataSource,
     
     // 面试邀请类型 按钮 点击事件
     func interviewTypeBtnClick() {
-        typeDrop.show()
+        _ = typeDrop.show()
     }
     
     // MARK: UITableView DataSource
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 10
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("FTMyInterviewInvitationCell") as! FTMyInterviewInvitationTableViewCell
-        cell.selectionStyle = .None
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FTMyInterviewInvitationCell") as! FTMyInterviewInvitationTableViewCell
+        cell.selectionStyle = .none
         
         return cell
     }
     
     // MARK: UITableView Delegate
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 8
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //        self.navigationController?.pushViewController(CHSChPersonalInfoViewController(), animated: true)
     }
     
