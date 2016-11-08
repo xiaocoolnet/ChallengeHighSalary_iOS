@@ -522,9 +522,9 @@ class FTPersonalViewController: UIViewController {
             
             PublicNetUtil().addfavorite(
                 CHSUserInfo.currentUserInfo.userid,
-                object_id: (self.resumeData.resumes_id ?? "")!,
+                object_id: self.resumeData.resumes_id,
                 type: "2",
-                title: (self.resumeData.realname ?? "")!,
+                title: self.resumeData.realname,
                 description: "") { (success, response) in
                     if success {
                         

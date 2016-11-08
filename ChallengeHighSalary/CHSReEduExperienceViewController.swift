@@ -65,12 +65,12 @@ class CHSReEduExperienceViewController: UIViewController, UITableViewDataSource,
     
     // MARK:- tableView dataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (CHSUserInfo.currentUserInfo.education!.count ?? 0)+1
+        return (CHSUserInfo.currentUserInfo.education!.count)+1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if (indexPath as NSIndexPath).row == (CHSUserInfo.currentUserInfo.education!.count ?? 0) {
+        if (indexPath as NSIndexPath).row == (CHSUserInfo.currentUserInfo.education!.count) {
             
             var cell = tableView.dequeueReusableCell(withIdentifier: "ChChSearchTableViewCell_clearHistory")
             if cell == nil {
@@ -126,7 +126,7 @@ class CHSReEduExperienceViewController: UIViewController, UITableViewDataSource,
     // MARK:- tableView delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if (indexPath as NSIndexPath).row == (CHSUserInfo.currentUserInfo.education!.count ?? 0) {
+        if (indexPath as NSIndexPath).row == (CHSUserInfo.currentUserInfo.education!.count) {
             
             self.navigationController?.pushViewController(CHSReEditEduExperienceViewController(), animated: true)
         }else {

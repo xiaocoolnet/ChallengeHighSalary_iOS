@@ -351,7 +351,7 @@ class CHSRePreviewViewController: UIViewController {
 //            skillLab.frame.origin.x = jobView.frame.size.width-8-skillLab.frame.size.width
             jobView.addSubview(skillLab)
             
-            if i+1 < (CHSUserInfo.currentUserInfo.work?.first?.skill.components(separatedBy: "-"))?.count {
+            if i+1 < ((CHSUserInfo.currentUserInfo.work?.first?.skill.components(separatedBy: "-"))?.count)! {
                 
                 let nextBtnWidth = calculateWidth(((CHSUserInfo.currentUserInfo.work?.first?.skill.components(separatedBy: "-"))!)[i+1], size: 15, height: cityBtnHeight)+cityBtnMargin
                 
