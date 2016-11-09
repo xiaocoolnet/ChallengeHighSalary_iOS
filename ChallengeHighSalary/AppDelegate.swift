@@ -177,6 +177,7 @@ extension AppDelegate: CLLocationManagerDelegate
                 //国家编码
                 let CountryCode: NSString = (mark.addressDictionary! as NSDictionary).value(forKey: "CountryCode") as! NSString
                 //街道位置
+                let FormattedAddressLines:NSString = ((mark.addressDictionary! as NSDictionary).value(forKey: "FormattedAddressLines") as! NSArray).firstObject as! NSString
 //                let FormattedAddressLines: NSString = (mark.addressDictionary! as NSDictionary).value(forKey: "FormattedAddressLines")?.firstObject as! NSString
                 //具体位置
                 let Name: NSString = (mark.addressDictionary! as NSDictionary).value(forKey: "Name") as! NSString
@@ -194,7 +195,7 @@ extension AppDelegate: CLLocationManagerDelegate
                 print(city)
                 print(country)
                 print(CountryCode)
-//                print(FormattedAddressLines)
+                print(FormattedAddressLines)
                 print(Name)
                 print(State)
                 print(SubLocality)

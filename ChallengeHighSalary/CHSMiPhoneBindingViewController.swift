@@ -58,7 +58,16 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
         phoneLab.textColor = UIColor.black
         phoneLab.textAlignment = .center
         phoneLab.font = UIFont.boldSystemFont(ofSize: 16)
-        phoneLab.text = "159****2525"
+        
+        let phoneNum = CHSUserInfo.currentUserInfo.phoneNumber
+        
+        let startIdx = phoneNum.index(phoneNum.startIndex, offsetBy: 3)
+        let endIdx = phoneNum.index(phoneNum.endIndex, offsetBy: -4)
+
+        let range = startIdx ..< endIdx
+        
+        phoneLab.text = phoneNum.replacingCharacters(in: range, with: "****")
+        
         self.view.addSubview(phoneLab)
         
         // MARK: 新手机号 背景

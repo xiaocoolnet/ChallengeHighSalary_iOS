@@ -542,7 +542,8 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK:- 分享视图
     func shareBtnClick() {
-        let imageArray = ["ic_qq","ic_weixin","ic_share_friendzone"]
+        let imageArray = ["ic_share_QQ","ic_share_微信","ic_share_朋友圈"]
+        let imgArray = [#imageLiteral(resourceName: "ic_share_QQ"),#imageLiteral(resourceName: "ic_share_微信"),#imageLiteral(resourceName: "ic_share_朋友圈")]
         let imageNameArray = ["QQ","微信","朋友圈"]
         
         let bgView = UIButton(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
@@ -555,7 +556,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         bottomView.backgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1)
         bgView.addSubview(bottomView)
         
-        let shareBtnWidth:CGFloat = kWidthScale*70
+        let shareBtnWidth:CGFloat = kWidthScale*50
         //        let maxMargin:CGFloat = shareBtnWidth/3.0
         let shareBtnCount:Int = 3 // 每行的按钮数
         let margin = (screenSize.width-CGFloat(shareBtnCount)*shareBtnWidth)/CGFloat(shareBtnCount+1)
@@ -574,7 +575,8 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
                 height: shareBtnWidth))
             shareBtn_1.layer.cornerRadius = shareBtnWidth/2.0
             shareBtn_1.backgroundColor = UIColor.blue
-            shareBtn_1.setImage(UIImage(named: imageArray[i]), for: UIControlState())
+//            shareBtn_1.setImage(UIImage(named: imageArray[i]), for: UIControlState())
+            shareBtn_1.setBackgroundImage(imgArray[i], for: .normal)
             shareBtn_1.tag = 1000+i
 //            shareBtn_1.addTarget(self, action: #selector(shareBtnClick(_:)), forControlEvents: .TouchUpInside)
             bottomView.addSubview(shareBtn_1)
@@ -598,7 +600,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         line.backgroundColor = UIColor.lightGray
         bottomView.addSubview(line)
         
-        let cancelBtnHeight = shareBtnWidth*0.8
+        let cancelBtnHeight:CGFloat = 44
         
         let cancelBtn = UIButton(frame: CGRect(x: 0, y: line.frame.maxY, width: screenSize.width, height: cancelBtnHeight))
         cancelBtn.backgroundColor = UIColor(red: 248/255.0, green: 248/255.0, blue: 248/255.0, alpha: 1)

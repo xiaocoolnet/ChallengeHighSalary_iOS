@@ -58,7 +58,23 @@ class ChChSearchViewController: UIViewController, UITableViewDataSource, UITable
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print("searchBarSearchButtonClicked")
         if (searchBar.text != nil) {
-            searhHistoryArray.append(searchBar.text!)
+            
+            var hasText = false
+            for text in searhHistoryArray.enumerated() {
+                if text.element == searchBar.text {
+                    
+                    searhHistoryArray.remove(at: text.offset)
+                    searhHistoryArray.insert(text.element, at: 0)
+                    
+                    hasText = true
+                }
+            }
+            
+            if !hasText {
+                
+                searhHistoryArray.append(searchBar.text!)
+            }
+            
             UserDefaults.standard.setValue(searhHistoryArray, forKey: "searhHistory")
             self.myTableView.reloadData()
         }

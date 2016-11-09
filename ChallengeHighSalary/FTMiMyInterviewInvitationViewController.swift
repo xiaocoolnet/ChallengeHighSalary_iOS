@@ -11,9 +11,6 @@ import PagingMenuController
 
 class FTMiMyInterviewInvitationViewController: UIViewController {
     
-    let waitView = FTMiMyInterviewWaitViewController()
-    let finishView = FTMiMyInterviewFinishViewController()
-    
     override func viewWillAppear(_ animated: Bool) {
 
         self.navigationController?.navigationBar.isHidden = false
@@ -34,26 +31,56 @@ class FTMiMyInterviewInvitationViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "全部面试", style: .done, target: self, action: #selector(allInterviewBtnClick))
         
-        waitView.title = "待面试"
-        
-        finishView.title = "已结束"
-        
-//        let viewControllers = [waitView,finishView]
-//        let options = PagingMenuOptions()
 //        options.menuItemMargin = 5
-//        options.menuHeight = 44
-//        options.menuDisplayMode = .SegmentedControl
-//        options.backgroundColor = UIColor.whiteColor()
-//        options.selectedBackgroundColor = UIColor.whiteColor()
-//        options.font = UIFont.systemFontOfSize(18)
-//        options.selectedFont = UIFont.systemFontOfSize(18)
-//        options.selectedTextColor = baseColor
 //        options.menuItemMode = .Underline(height: 3, color: baseColor, horizontalPadding: 10, verticalPadding: 0)
-//        let pagingMenuController = PagingMenuController(viewControllers: viewControllers, options: options)
-//        pagingMenuController.view.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-64)
-//        addChildViewController(pagingMenuController)
-//        view.addSubview(pagingMenuController.view)
-//        pagingMenuController.didMoveToParentViewController(self)
+        
+        struct MenuItem1: MenuItemViewCustomizable {
+        
+            var displayMode: MenuItemDisplayMode {
+                let title = MenuItemText(text: "待面试", color: UIColor.lightGray, selectedColor: baseColor, font: UIFont.systemFont(ofSize: 16), selectedFont: UIFont.systemFont(ofSize: 16))
+                return .text(title: title)
+            }
+
+        }
+        struct MenuItem2: MenuItemViewCustomizable {
+        
+            var displayMode: MenuItemDisplayMode {
+                let title = MenuItemText(text: "已结束", color: UIColor.lightGray, selectedColor: baseColor, font: UIFont.systemFont(ofSize: 16), selectedFont: UIFont.systemFont(ofSize: 16))
+                return .text(title: title)
+            }
+        
+        }
+        
+        struct MenuOptions: MenuViewCustomizable {
+            
+            fileprivate var height: CGFloat = 44
+            
+            fileprivate var displayMode: MenuDisplayMode = .segmentedControl
+            
+            fileprivate var itemsOptions: [MenuItemViewCustomizable] = [MenuItem1(), MenuItem2()]
+            
+            fileprivate var focusMode: MenuFocusMode = .underline(height: 3, color: baseColor, horizontalPadding: 0, verticalPadding: 0)
+
+        }
+        
+        struct PagingMenuOptions: PagingMenuControllerCustomizable {
+            var componentType: ComponentType {
+                
+                let waitView = FTMiMyInterviewWaitViewController()
+                let finishView = FTMiMyInterviewFinishViewController()
+                
+                return .all(menuOptions: MenuOptions(), pagingControllers: [waitView, finishView])
+            }
+        }
+        
+        let options = PagingMenuOptions()
+        let pagingMenuController = PagingMenuController(options: options)
+        
+        pagingMenuController.view.frame.origin.y = 64
+        
+        addChildViewController(pagingMenuController)
+        view.addSubview(pagingMenuController.view)
+        pagingMenuController.didMove(toParentViewController: self)
         
         // Do any additional setup after loading the view.
     }

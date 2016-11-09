@@ -100,18 +100,37 @@ class CHSMiMyCollectionViewController: UIViewController, UITableViewDataSource, 
                     jobidStr += "\((jobInfo.jobid)!),"
                 }
             }
-//            PublicNetUtil().cancelfavorite(CHSUserInfo.currentUserInfo.userid, object_id: jobidStr, type: "1", handle: { (success, response) in
-//                if success {
-//                    for jobInfo in self.deleteJobInfoData {
-//                        self.jobInfoData?.remove(at: (self.jobInfoData?.index(where: { (jobInfo) -> Bool in
-//                            
-//                        }))!)
-////                        self.jobInfoData?.remove(at: (self.jobInfoData?.index(of: jobInfo))!)
-//                    }
-//                    self.rootTableView.reloadData()
-//                    self.deleteBtnClick()
-//                }
-//            })
+            
+            PublicNetUtil().cancelfavorite(CHSUserInfo.currentUserInfo.userid, object_id: jobidStr, type: "1", handle: { (success, response) in
+                
+                if success {
+                    
+                    for deleJobInfo in self.deleteJobInfoData.enumerated() {
+                        
+                        for jobInfo in (self.jobInfoData?.enumerated())! {
+                            if deleJobInfo.element.jobid == jobInfo.element.jobid {
+                                
+                                let index = self.deleteJobInfoData.index(where: { (jobIn) -> Bool in
+                                    return jobIn.jobid == deleJobInfo.element.jobid
+                                })
+                                
+                                if (index != nil) {
+                                    
+                                    self.deleteJobInfoData.remove(at: index!)
+                                }
+
+
+                                self.jobInfoData?.remove(at: jobInfo.offset)
+                                break
+                            }
+                        }
+                    }
+                    
+                    self.rootTableView.reloadData()
+                    self.deleteBtnClick()
+                    
+                }
+            })
             
         })
         alert.addAction(sureAction)
@@ -207,36 +226,11 @@ class CHSMiMyCollectionViewController: UIViewController, UITableViewDataSource, 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         if tableView.isEditing {
             
-//            self.deleteJobInfoData.index(where: { (jobInfo) -> Bool in
-//                
-//                self.deleteJobInfoData.remove(at: <#T##Int#>)
-//                
-//            })
-//            self.deleteJobInfoData.remove(at: self.deleteJobInfoData.index(where: { (jobInfo) -> Bool in
-//                
-//            })!)
-            
-//            let jobInfo = self.jobInfoData?[indexPath.section]
-//            let index = self.deleteJobInfoData.index(where: { (jobInfo) -> Bool in
-//                
-//                self.deleteJobInfoData.remove(at: <#T##Int#>)
-//                self.deleteJobInfoData.remove(at: index!)
-//
-//            })
-//            self.deleteJobInfoData?.remove(at: (self.jobInfoData?.index(where: { (jobInfo) -> Bool in
-//                
-//            }))!)
-//            let index = self.deleteJobInfoData.index(of: self.jobInfoData![(indexPath as NSIndexPath).section])
-//            
-//            if (index != nil) {
-//                self.deleteJobInfoData.remove(at: index!)
-//            }
-            
-//            for (i,jobInfo) in self.deleteJobInfoData!.enumerate() {
-//                if jobInfo == self.jobInfoData![indexPath.row] {
-//                    self.deleteJobInfoData?.removeAtIndex(i)
-//                }
-//            }
+            for (i,jobInfo) in self.deleteJobInfoData.enumerated() {
+                if jobInfo.jobid == self.jobInfoData![indexPath.section].jobid {
+                    self.deleteJobInfoData.remove(at: i)
+                }
+            }
         }
     }
     
