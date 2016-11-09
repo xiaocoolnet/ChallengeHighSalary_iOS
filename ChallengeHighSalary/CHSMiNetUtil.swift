@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 import HandyJSON
 
 class CHSMiNetUtil: NSObject {
@@ -25,7 +24,7 @@ class CHSMiNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
                 let status = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
 
@@ -49,7 +48,7 @@ class CHSMiNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
                 let status = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
 
@@ -74,7 +73,7 @@ class CHSMiNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
                 let status = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
 

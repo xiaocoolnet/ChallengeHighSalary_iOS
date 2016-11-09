@@ -22,7 +22,7 @@ class LoginNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
 
                 let checkCode = JSONDeserializer<CheckphoneModel>.deserializeFrom(dict: json as! NSDictionary?)!
@@ -34,20 +34,7 @@ class LoginNetUtil: NSObject {
                 }
             }
         }
-//        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
-//            
-//            if(error != nil){
-//                handle(success: false, response: error?.description)
-//            }else{
-//                let checkCode:CheckphoneModel = CheckphoneModel.jsonToModelWithData(json)
-//                if checkCode.status == "success" {
-//                    handle(success: true, response: checkCode.data)
-//                }else{
-//                    
-//                    handle(success: false, response: checkCode.data)
-//                }
-//            }
-//        }
+
     }
     
     // MARK: 发送验证码
@@ -60,7 +47,7 @@ class LoginNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
 
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
                 
                 let checkCode = JSONDeserializer<CheckCodeModel>.deserializeFrom(dict: json as! NSDictionary?)!
@@ -90,7 +77,7 @@ class LoginNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
                 let checkCode = JSONDeserializer<CheckphoneModel>.deserializeFrom(dict: json as! NSDictionary?)!
 
@@ -117,7 +104,7 @@ class LoginNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
     
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
                 
                 let status = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
@@ -171,7 +158,7 @@ class LoginNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
                 let status = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
 
@@ -215,7 +202,7 @@ class LoginNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
                 
                 let status = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
@@ -260,7 +247,7 @@ class LoginNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
                 
                 let status = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
@@ -298,26 +285,7 @@ class LoginNetUtil: NSObject {
                 handle(false, nil)
             }
         }
-//        Alamofire.upload(.POST, url, multipartFormData: { multipartFormData in
-//            
-//            multipartFormData.appendBodyPart(data: data!, name: "upfile", fileName: imageName, mimeType: "image/png")
-//            
-//            }, encodingCompletion: { response in
-//
-//                switch response {
-//                case .Success(let request, _, _):
-//                    request.response(completionHandler: { (request, response, json, error) in
-//                        print(response)
-//                        
-//                        handle(success: true, response: UIImage(data: data!))
-//                    })
-//                    
-//                case .Failure(let encodingError):
-//                    print(encodingError)
-//                    handle(success: false, response: nil)
-//                }
-//                
-//        })
+
     }
     
     // MARK: 修正图片的位置

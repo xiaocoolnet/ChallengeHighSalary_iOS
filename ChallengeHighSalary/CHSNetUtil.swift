@@ -24,7 +24,7 @@ class CHSNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
                 let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
 
@@ -51,7 +51,7 @@ class CHSNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: nil) { (json, error) in
             
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
                 
                 let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
@@ -82,7 +82,7 @@ class CHSNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
                 
                 let statusModel = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
@@ -153,7 +153,7 @@ class CHSNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
                 
                 let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
@@ -191,7 +191,7 @@ class CHSNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
                 
                 let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
@@ -231,7 +231,7 @@ class CHSNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
                 
                 let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
@@ -267,7 +267,7 @@ class CHSNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
                 
                 let checkCode = JSONDeserializer<CheckphoneModel>.deserializeFrom(dict: json as! NSDictionary?)!
@@ -303,7 +303,7 @@ class CHSNetUtil: NSObject {
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
-                handle(false, error?.description as AnyObject?)
+                handle(false, error.debugDescription as AnyObject?)
             }else{
                 
                 let checkCode = JSONDeserializer<CheckphoneModel>.deserializeFrom(dict: json as! NSDictionary?)!

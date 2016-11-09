@@ -2,8 +2,9 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'ChallengeHighSalary' do
-  pod 'Alamofire', '~> 4.0.1'
+#  pod 'Alamofire', '~> 4.0.1'
 #  pod 'D3Model', '~> 2.0.3'
+  pod 'AFNetworking', '~> 3.1.0'
   pod 'HandyJSON', '~> 1.2.1'
   pod 'PagingMenuController', '~> 1.4.0'
   pod 'PickerView', '~> 0.2.3'
