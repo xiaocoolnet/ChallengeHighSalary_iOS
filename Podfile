@@ -9,7 +9,9 @@ target 'ChallengeHighSalary' do
   pod 'PagingMenuController', '~> 1.4.0'
   pod 'PickerView', '~> 0.2.3'
   pod 'SDWebImage', '~>3.8'
-  pod 'Pgyer', '2.8.4'
+#  pod 'Pgyer', '2.8.4'
+  pod 'BmobSDK'
+  pod 'AMapLocation'  #定位 SDK
   
   post_install do |installer|
       installer.pods_project.targets.each do |target|

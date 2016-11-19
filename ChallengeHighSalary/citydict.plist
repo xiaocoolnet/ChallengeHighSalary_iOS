@@ -4,26 +4,26 @@
     <dict>
         <key>A</key>
         <array>
-            <string>阿坝藏族羌族自治州</string>
-            <string>阿克苏地区</string>
+            <string>阿坝藏族羌族</string>
+            <string>阿克苏</string>
             <string>阿拉尔</string>
             <string>阿拉善盟</string>
-            <string>阿勒泰地区</string>
-            <string>阿里地区</string>
+            <string>阿勒泰</string>
+            <string>阿里</string>
             <string>安康</string>
             <string>安庆</string>
             <string>安顺</string>
             <string>安阳</string>
             <string>鞍山</string>
-            <string>澳门特别行政区</string>
+            <string>澳门</string>
         </array>
         <key>B</key>
         <array>
             <string>巴彦淖尔</string>
-            <string>巴音郭楞蒙古自治州</string>
+            <string>巴音郭楞蒙古</string>
             <string>巴中</string>
             <string>白城</string>
-            <string>白沙黎族自治县</string>
+            <string>白沙黎族</string>
             <string>白山</string>
             <string>白银</string>
             <string>百色</string>
@@ -32,21 +32,21 @@
             <string>宝鸡</string>
             <string>保定</string>
             <string>保山</string>
-            <string>保亭黎族苗族自治县</string>
+            <string>保亭黎族苗族</string>
             <string>北海</string>
             <string>北京</string>
             <string>本溪</string>
-            <string>毕节地区</string>
+            <string>毕节</string>
             <string>滨州</string>
             <string>亳州</string>
-            <string>博尔塔拉蒙古自治州</string>
+            <string>博尔塔拉蒙古</string>
         </array>
         <key>C</key>
         <array>
             <string>沧州</string>
-            <string>昌都地区</string>
-            <string>昌吉回族自治州</string>
-            <string>昌江黎族自治县</string>
+            <string>昌都</string>
+            <string>昌吉回族</string>
+            <string>昌江黎族</string>
             <string>长春</string>
             <string>长沙</string>
             <string>长治</string>
@@ -63,22 +63,22 @@
             <string>赤峰</string>
             <string>崇左</string>
             <string>滁州</string>
-            <string>楚雄彝族自治州</string>
+            <string>楚雄彝族</string>
         </array>
         <key>D</key>
         <array>
             <string>达州</string>
-            <string>大理白族自治州</string>
+            <string>大理白族</string>
             <string>大连</string>
             <string>大庆</string>
             <string>大同</string>
-            <string>大兴安岭地区</string>
+            <string>大兴安岭</string>
             <string>丹东</string>
             <string>儋州</string>
-            <string>德宏傣族景颇族自治州</string>
+            <string>德宏傣族景颇族</string>
             <string>德阳</string>
             <string>德州</string>
-            <string>迪庆藏族自治州</string>
+            <string>迪庆藏族</string>
             <string>定安县</string>
             <string>定西</string>
             <string>东方</string>
@@ -89,7 +89,7 @@
         <array>
             <string>鄂尔多斯</string>
             <string>鄂州</string>
-            <string>恩施土家族苗族自治州</string>
+            <string>恩施土家族苗族</string>
         </array>
         <key>F</key>
         <array>
@@ -103,8 +103,8 @@
         </array>
         <key>G</key>
         <array>
-            <string>甘南藏族自治州</string>
-            <string>甘孜藏族自治州</string>
+            <string>甘南藏族</string>
+            <string>甘孜藏族</string>
             <string>赣州</string>
             <string>高雄</string>
             <string>高雄县</string>
@@ -115,23 +115,23 @@
             <string>贵港</string>
             <string>贵阳</string>
             <string>桂林</string>
-            <string>果洛藏族自治州</string>
+            <string>果洛藏族</string>
         </array>
         <key>H</key>
         <array>
             <string>哈尔滨</string>
-            <string>哈密地区</string>
+            <string>哈密</string>
             <string>海外</string>
-            <string>海北藏族自治州</string>
-            <string>海东地区</string>
+            <string>海北藏族</string>
+            <string>海东</string>
             <string>海口</string>
-            <string>海南藏族自治州</string>
-            <string>海西蒙古族藏族自治州</string>
+            <string>海南藏族</string>
+            <string>海西蒙古族藏族</string>
             <string>邯郸</string>
             <string>汉中</string>
             <string>杭州</string>
             <string>合肥</string>
-            <string>和田地区</string>
+            <string>和田</string>
             <string>河池</string>
             <string>河源</string>
             <string>菏泽</string>
@@ -141,7 +141,7 @@
             <string>黑河</string>
             <string>衡水</string>
             <string>衡阳</string>
-            <string>红河哈尼族彝族自治州</string>
+            <string>红河哈尼族彝族</string>
             <string>呼和浩特</string>
             <string>呼伦贝尔</string>
             <string>湖州</string>
@@ -152,7 +152,7 @@
             <string>淮北</string>
             <string>淮南</string>
             <string>黄冈</string>
-            <string>黄南藏族自治州</string>
+            <string>黄南藏族</string>
             <string>黄山</string>
             <string>黄石</string>
             <string>惠州</string>
@@ -187,10 +187,10 @@
         </array>
         <key>K</key>
         <array>
-            <string>喀什地区</string>
+            <string>喀什</string>
             <string>开封</string>
             <string>克拉玛依</string>
-            <string>克孜勒苏柯尔克孜自治州</string>
+            <string>克孜勒苏柯尔克孜</string>
             <string>昆明</string>
         </array>
         <key>L</key>
@@ -200,22 +200,22 @@
             <string>莱芜</string>
             <string>兰州</string>
             <string>廊坊</string>
-            <string>乐东黎族自治县</string>
+            <string>乐东黎族</string>
             <string>乐山</string>
             <string>丽江</string>
             <string>丽水</string>
             <string>连云港</string>
-            <string>凉山彝族自治州</string>
+            <string>凉山彝族</string>
             <string>辽阳</string>
             <string>辽源</string>
             <string>聊城</string>
-            <string>林芝地区</string>
+            <string>林芝</string>
             <string>临沧</string>
             <string>临汾</string>
             <string>临高县</string>
-            <string>临夏回族自治州</string>
+            <string>临夏回族</string>
             <string>临沂</string>
-            <string>陵水黎族自治县</string>
+            <string>陵水黎族</string>
             <string>柳州</string>
             <string>六安</string>
             <string>六盘水</string>
@@ -240,7 +240,7 @@
         <key>N</key>
         <array>
             <string>内江</string>
-            <string>那曲地区</string>
+            <string>那曲</string>
             <string>南昌</string>
             <string>南充</string>
             <string>南京</string>
@@ -252,7 +252,7 @@
             <string>南阳</string>
             <string>宁波</string>
             <string>宁德</string>
-            <string>怒江傈僳族自治州</string>
+            <string>怒江傈僳族</string>
         </array>
         <key>P</key>
         <array>
@@ -272,23 +272,23 @@
             <string>齐齐哈尔</string>
             <string>其他</string>
             <string>潜江</string>
-            <string>黔东南苗族侗族自治州</string>
-            <string>黔南布依族苗族自治州</string>
-            <string>黔西南布依族苗族自治州</string>
+            <string>黔东南苗族侗族</string>
+            <string>黔南布依族苗族</string>
+            <string>黔西南布依族苗族</string>
             <string>钦州</string>
             <string>秦皇岛</string>
             <string>青岛</string>
             <string>清远</string>
             <string>庆阳</string>
             <string>琼海</string>
-            <string>琼中黎族苗族自治县</string>
+            <string>琼中黎族苗族</string>
             <string>曲靖</string>
             <string>衢州</string>
             <string>泉州</string>
         </array>
         <key>R</key>
         <array>
-            <string>日喀则地区</string>
+            <string>日喀则</string>
             <string>日照</string>
         </array>
         <key>S</key>
@@ -296,7 +296,7 @@
             <string>三门峡</string>
             <string>三明</string>
             <string>三亚</string>
-            <string>山南地区</string>
+            <string>山南</string>
             <string>汕头</string>
             <string>汕尾</string>
             <string>商洛</string>
@@ -327,7 +327,7 @@
         </array>
         <key>T</key>
         <array>
-            <string>塔城地区</string>
+            <string>塔城</string>
             <string>台北</string>
             <string>台北县</string>
             <string>台东县</string>
@@ -349,9 +349,9 @@
             <string>通辽</string>
             <string>铜川</string>
             <string>铜陵</string>
-            <string>铜仁地区</string>
+            <string>铜仁</string>
             <string>图木舒克</string>
-            <string>吐鲁番地区</string>
+            <string>吐鲁番</string>
             <string>屯昌县</string>
         </array>
         <key>W</key>
@@ -363,7 +363,7 @@
             <string>渭南</string>
             <string>温州</string>
             <string>文昌</string>
-            <string>文山壮族苗族自治州</string>
+            <string>文山壮族苗族</string>
             <string>乌海</string>
             <string>乌兰察布</string>
             <string>乌鲁木齐</string>
@@ -380,15 +380,15 @@
             <string>西安</string>
             <string>西宁</string>
             <string>西沙群岛</string>
-            <string>西双版纳傣族自治州</string>
+            <string>西双版纳傣族</string>
             <string>锡林郭勒盟</string>
             <string>厦门</string>
             <string>仙桃</string>
             <string>咸宁</string>
             <string>咸阳</string>
-            <string>香港特别行政区</string>
+            <string>香港</string>
             <string>湘潭</string>
-            <string>湘西土家族苗族自治州</string>
+            <string>湘西土家族苗族</string>
             <string>襄樊</string>
             <string>孝感</string>
             <string>忻州</string>
@@ -408,13 +408,13 @@
             <string>雅安</string>
             <string>烟台</string>
             <string>延安</string>
-            <string>延边朝鲜族自治州</string>
+            <string>延边朝鲜族</string>
             <string>盐城</string>
             <string>扬州</string>
             <string>阳江</string>
             <string>阳泉</string>
             <string>伊春</string>
-            <string>伊犁哈萨克自治州</string>
+            <string>伊犁哈萨克</string>
             <string>宜宾</string>
             <string>宜昌</string>
             <string>宜春</string>
@@ -426,7 +426,7 @@
             <string>永州</string>
             <string>榆林</string>
             <string>玉林</string>
-            <string>玉树藏族自治州</string>
+            <string>玉树藏族</string>
             <string>玉溪</string>
             <string>岳阳</string>
             <string>云浮</string>
@@ -446,7 +446,7 @@
             <string>肇庆</string>
             <string>镇江</string>
             <string>郑州</string>
-            <string>中沙群岛的岛礁及其海域</string>
+            <string>中沙群岛</string>
             <string>中山</string>
             <string>中卫</string>
             <string>重庆</string>

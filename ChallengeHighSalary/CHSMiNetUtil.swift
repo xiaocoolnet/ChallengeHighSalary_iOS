@@ -19,7 +19,7 @@ class CHSMiNetUtil: NSObject {
             "userid":CHSUserInfo.currentUserInfo.userid,
             "phone":phone,
             "code":code
-        ];
+        ]
         
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             

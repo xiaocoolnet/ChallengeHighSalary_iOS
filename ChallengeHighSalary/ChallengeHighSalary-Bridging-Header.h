@@ -16,10 +16,12 @@
 #import "UIPlaceHolderTextView.h"
 #import "TPKeyboardAvoidingScrollView.h"
 #import "TPKeyboardAvoidingTableView.h"
-#import <PgySDK/PgyManager.h>
+//#import <PgySDK/PgyManager.h>
+
+#import <BmobSDK/Bmob.h>
+
+#import <AMapFoundationKit/AMapFoundationKit.h>
+
+#import <AMapLocationKit/AMapLocationKit.h>
 
 #endif /* ChallengeHighSalary_Bridging_Header_h */
-
-#ifdef __OBJC__
-#import <UIKit/UIKit.h>
-#endif

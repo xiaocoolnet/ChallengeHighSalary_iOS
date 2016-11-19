@@ -254,6 +254,8 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        self.projectNameTf.resignFirstResponder()
+        
         switch ((indexPath as NSIndexPath).section,(indexPath as NSIndexPath).row) {
         case (0,3):
             
@@ -262,7 +264,8 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
             projectDescriptionVC.project_description = self.project_description!
             self.navigationController?.pushViewController(projectDescriptionVC, animated: true)
             break
-        
+        case (0,0):
+            break
         default:
             let bigBgView = UIButton(frame: self.view.bounds)
             bigBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)

@@ -178,71 +178,71 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
         loginBtn.center.x = self.view.center.x
         rootScrollView.addSubview(loginBtn)
         
-        // or Label
-        let orLab = UILabel()
-        orLab.text = "or"
-        orLab.textAlignment = .center
-        orLab.sizeToFit()
-        orLab.center.x = self.view.center.x
-        orLab.frame.origin.y = screenSize.height*0.787
-        orLab.textColor = UIColor(red: 152/255.0, green: 151/255.0, blue: 152/255.0, alpha: 1)
-        rootScrollView.addSubview(orLab)
-        
-        // or前 线
-        let frontOrLine = UIView(frame: CGRect(
-            x: orLab.frame.origin.x-screenSize.width*0.024-screenSize.width*0.4,
-            y: 0,
-            width: screenSize.width*0.4,
-            height: 1))
-        frontOrLine.backgroundColor = UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1)
-        frontOrLine.center.y = orLab.center.y
-        rootScrollView.addSubview(frontOrLine)
-        
-        // or后 线
-        let behindOrLine = UIView(frame: CGRect(
-            x: orLab.frame.maxX+screenSize.width*0.024,
-            y: 0,
-            width: screenSize.width*0.4,
-            height: 1))
-        behindOrLine.backgroundColor = UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1)
-        behindOrLine.center.y = orLab.center.y
-        rootScrollView.addSubview(behindOrLine)
-        
-        let threeNameArray = ["QQ","微信","新浪微博"]
-        let threeImageNameArray = ["ic_qq","ic_weixin","ic_weibo"]
-        
-        for i in 0 ... 2 {
-            
-            let threeLoginBtn = UIButton(frame: CGRect(x: CGFloat(i)*screenSize.width/3.0, y: orLab.frame.maxY, width: screenSize.width/3.0, height: screenSize.height-orLab.frame.maxY))
-//            threeLoginBtn.backgroundColor = UIColor(red: CGFloat(arc4random_uniform(255))/255.0, green: CGFloat(arc4random_uniform(255))/255.0, blue: CGFloat(arc4random_uniform(255))/255.0, alpha: 1)
-            rootScrollView.addSubview(threeLoginBtn)
-            
-            let threeImg = UIImageView(frame: CGRect(
-                x: threeLoginBtn.frame.size.width*0.3,
-                y: threeLoginBtn.frame.size.height*0.2,
-                width: threeLoginBtn.frame.size.width*0.4,
-                height: threeLoginBtn.frame.size.width*0.4))
-            threeImg.layer.cornerRadius = threeImg.frame.width/2.0
-//            threeImg.backgroundColor = UIColor.grayColor()
-            threeImg.image = UIImage(named: threeImageNameArray[i])
-            threeLoginBtn.addSubview(threeImg)
-            
-            let threeLab = UILabel(frame: CGRect(
-                x: threeImg.frame.origin.x,
-                y: threeImg.frame.maxY+screenSize.height*0.025,
-                width: threeImg.frame.size.width,
-                height: threeLoginBtn.frame.size.height-threeImg.frame.maxY-screenSize.height*0.05))
-            threeLab.textColor = UIColor.white
-            threeLoginBtn.addSubview(threeLab)
-            
-            threeLab.textAlignment = .center
-            threeLab.text = threeNameArray[i]
-            threeLab.font = UIFont.systemFont(ofSize: 12)
-            threeLab.adjustsFontSizeToFitWidth = true
-            
-            
-//            frame: CGRectMake(CGRectGetMinX(threeImg.frame), CGRectGetMaxY(threeImg.frame), CGRectGetWidth(threeImg.frame), )
-        }
+//        // or Label
+//        let orLab = UILabel()
+//        orLab.text = "or"
+//        orLab.textAlignment = .center
+//        orLab.sizeToFit()
+//        orLab.center.x = self.view.center.x
+//        orLab.frame.origin.y = screenSize.height*0.787
+//        orLab.textColor = UIColor(red: 152/255.0, green: 151/255.0, blue: 152/255.0, alpha: 1)
+//        rootScrollView.addSubview(orLab)
+//        
+//        // or前 线
+//        let frontOrLine = UIView(frame: CGRect(
+//            x: orLab.frame.origin.x-screenSize.width*0.024-screenSize.width*0.4,
+//            y: 0,
+//            width: screenSize.width*0.4,
+//            height: 1))
+//        frontOrLine.backgroundColor = UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1)
+//        frontOrLine.center.y = orLab.center.y
+//        rootScrollView.addSubview(frontOrLine)
+//        
+//        // or后 线
+//        let behindOrLine = UIView(frame: CGRect(
+//            x: orLab.frame.maxX+screenSize.width*0.024,
+//            y: 0,
+//            width: screenSize.width*0.4,
+//            height: 1))
+//        behindOrLine.backgroundColor = UIColor(red: 226/255.0, green: 226/255.0, blue: 226/255.0, alpha: 1)
+//        behindOrLine.center.y = orLab.center.y
+//        rootScrollView.addSubview(behindOrLine)
+//        
+//        let threeNameArray = ["QQ","微信","新浪微博"]
+//        let threeImageNameArray = ["ic_qq","ic_weixin","ic_weibo"]
+//        
+//        for i in 0 ... 2 {
+//            
+//            let threeLoginBtn = UIButton(frame: CGRect(x: CGFloat(i)*screenSize.width/3.0, y: orLab.frame.maxY, width: screenSize.width/3.0, height: screenSize.height-orLab.frame.maxY))
+////            threeLoginBtn.backgroundColor = UIColor(red: CGFloat(arc4random_uniform(255))/255.0, green: CGFloat(arc4random_uniform(255))/255.0, blue: CGFloat(arc4random_uniform(255))/255.0, alpha: 1)
+//            rootScrollView.addSubview(threeLoginBtn)
+//            
+//            let threeImg = UIImageView(frame: CGRect(
+//                x: threeLoginBtn.frame.size.width*0.3,
+//                y: threeLoginBtn.frame.size.height*0.2,
+//                width: threeLoginBtn.frame.size.width*0.4,
+//                height: threeLoginBtn.frame.size.width*0.4))
+//            threeImg.layer.cornerRadius = threeImg.frame.width/2.0
+////            threeImg.backgroundColor = UIColor.grayColor()
+//            threeImg.image = UIImage(named: threeImageNameArray[i])
+//            threeLoginBtn.addSubview(threeImg)
+//            
+//            let threeLab = UILabel(frame: CGRect(
+//                x: threeImg.frame.origin.x,
+//                y: threeImg.frame.maxY+screenSize.height*0.025,
+//                width: threeImg.frame.size.width,
+//                height: threeLoginBtn.frame.size.height-threeImg.frame.maxY-screenSize.height*0.05))
+//            threeLab.textColor = UIColor.white
+//            threeLoginBtn.addSubview(threeLab)
+//            
+//            threeLab.textAlignment = .center
+//            threeLab.text = threeNameArray[i]
+//            threeLab.font = UIFont.systemFont(ofSize: 12)
+//            threeLab.adjustsFontSizeToFitWidth = true
+//            
+//            
+////            frame: CGRectMake(CGRectGetMinX(threeImg.frame), CGRectGetMaxY(threeImg.frame), CGRectGetWidth(threeImg.frame), )
+//        }
 
         autoLogin()
     }

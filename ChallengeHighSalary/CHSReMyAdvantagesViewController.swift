@@ -93,6 +93,22 @@ class CHSReMyAdvantagesViewController: UIViewController, UITableViewDataSource, 
             return
         }
         
+        if myAdvantagesTv.text == CHSUserInfo.currentUserInfo.advantage {
+            
+            checkCodeHud.mode = .text
+            checkCodeHud.labelText = "信息未修改"
+            checkCodeHud.hide(true, afterDelay: 1)
+            
+            let time: TimeInterval = 1.0
+            let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+            
+            DispatchQueue.main.asyncAfter(deadline: delay) {
+                _ = self.navigationController?.popViewController(animated: true)
+            }
+            
+            return
+        }
+        
         checkCodeHud.labelText = "正在保存我的优势"
         
         CHSNetUtil().PublishAdvantage(

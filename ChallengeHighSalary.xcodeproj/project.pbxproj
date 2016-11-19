@@ -59,6 +59,7 @@
 		1F5B672C1DAA352600F74666 /* FTNetUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B672B1DAA352600F74666 /* FTNetUtil.swift */; };
 		1F5B672E1DAA354A00F74666 /* FTModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B672D1DAA354A00F74666 /* FTModel.swift */; };
 		1F7B303A1D7FA36600D0BF56 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7B30391D7FA36600D0BF56 /* MapKit.framework */; };
+		1F7EDB031DDEA41D005FD660 /* CHSMeChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7EDB021DDEA41D005FD660 /* CHSMeChatTableViewCell.swift */; };
 		1F87411B1D82AF47007B8793 /* LoForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */; };
 		1F87411D1D82C22B007B8793 /* LoRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */; };
 		1F9CE7C11D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CE7C01D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift */; };
@@ -260,6 +261,7 @@
 		1F5B672B1DAA352600F74666 /* FTNetUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTNetUtil.swift; sourceTree = "<group>"; };
 		1F5B672D1DAA354A00F74666 /* FTModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTModel.swift; sourceTree = "<group>"; };
 		1F7B30391D7FA36600D0BF56 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		1F7EDB021DDEA41D005FD660 /* CHSMeChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMeChatTableViewCell.swift; sourceTree = "<group>"; };
 		1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoForgetPasswordViewController.swift; sourceTree = "<group>"; };
 		1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoRegisterViewController.swift; sourceTree = "<group>"; };
 		1F9CE7C01D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReEditPersonalInfoViewController.swift; sourceTree = "<group>"; };
@@ -479,6 +481,7 @@
 				1F577B3B1DA9F37000AB5D99 /* CHSMeLookMeTableViewCell.xib */,
 				1F577B3E1DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.swift */,
 				1F577B3F1DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.xib */,
+				1F7EDB021DDEA41D005FD660 /* CHSMeChatTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1206,6 +1209,17 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = H58LYH4V4T;
 						LastSwiftMigration = 0800;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.DataProtection = {
+								enabled = 0;
+							};
+							com.apple.HomeKit = {
+								enabled = 0;
+							};
+						};
 					};
 					1FCDFECF1D73E6DB0067970B = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1375,6 +1389,7 @@
 				1FB6D5FC1D9BC31400262BBD /* FTMiMyRewardViewController.swift in Sources */,
 				1FF1CE1F1DA8C5D1000F0A9A /* FTMeHomeTableViewCell.swift in Sources */,
 				1FDB001D1D8FB712007043B4 /* CHSReJobExperienceViewController.swift in Sources */,
+				1F7EDB031DDEA41D005FD660 /* CHSMeChatTableViewCell.swift in Sources */,
 				1FF06CC01D7D17960032943B /* ChChHomeViewController.swift in Sources */,
 				1FC3CCA41D9CA055004AA4C6 /* FTMiMyInterviewInvitationViewController.swift in Sources */,
 				1FF9DB1A1D9622CA00F0C69D /* FTMiMyCollectionViewController.swift in Sources */,
@@ -1644,8 +1659,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = "";
+				DEVELOPMENT_TEAM = H58LYH4V4T;
 				INFOPLIST_FILE = ChallengeHighSalary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1656,7 +1672,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.ChallengeHighSalary;
 				PRODUCT_NAME = ChallengeHighSalary;
-				PROVISIONING_PROFILE = "4dd1a223-f46f-43ea-92f1-ef7503cdb76f";
+				PROVISIONING_PROFILE = "86211341-344e-4967-9918-01424ba49205";
+				PROVISIONING_PROFILE_SPECIFIER = "XC iOS Ad Hoc: com.xiaocool.ChallengeHighSalary";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ChallengeHighSalary/ChallengeHighSalary-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "";
@@ -1670,8 +1687,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = "";
+				DEVELOPMENT_TEAM = H58LYH4V4T;
 				INFOPLIST_FILE = ChallengeHighSalary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1682,7 +1700,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.ChallengeHighSalary;
 				PRODUCT_NAME = ChallengeHighSalary;
-				PROVISIONING_PROFILE = "4dd1a223-f46f-43ea-92f1-ef7503cdb76f";
+				PROVISIONING_PROFILE = "86211341-344e-4967-9918-01424ba49205";
+				PROVISIONING_PROFILE_SPECIFIER = "XC iOS Ad Hoc: com.xiaocool.ChallengeHighSalary";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ChallengeHighSalary/ChallengeHighSalary-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				VERSIONING_SYSTEM = "";

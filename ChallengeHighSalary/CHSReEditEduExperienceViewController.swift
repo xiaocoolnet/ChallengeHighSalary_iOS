@@ -30,7 +30,16 @@ fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource,UITextViewDelegate {
     
-    var selectedIndex:Int?
+    var selectedIndex:Int? {
+        didSet {
+            detailArray = [
+                CHSUserInfo.currentUserInfo.education![self.selectedIndex!].school,
+                CHSUserInfo.currentUserInfo.education![self.selectedIndex!].major,
+                CHSUserInfo.currentUserInfo.education![self.selectedIndex!].degree,
+                CHSUserInfo.currentUserInfo.education![self.selectedIndex!].time
+            ]
+        }
+    }
     
     let rootTableView = UITableView()
     
@@ -102,41 +111,40 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
         let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
         
-        if schoolNameTf.text!.isEmpty {
+        if self.selectedIndex == nil {
             
-            checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入学校名称"
-            checkCodeHud.hide(true, afterDelay: 1)
-            return
-        }else if majorNameTf.text!.isEmpty {
-            
-            checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入专业"
-            checkCodeHud.hide(true, afterDelay: 1)
-            return
-        }else if detailArray[2] == "选择学历" {
-            
-            checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请选择学历"
-            checkCodeHud.hide(true, afterDelay: 1)
-            return
-        }else if detailArray[3] == "请选择就读时间段" {
-            
-            checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请选择就读时间段"
-            checkCodeHud.hide(true, afterDelay: 1)
-            return
-        }else if schoolExpTv.text!.isEmpty {
-            
-            checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入在校经历"
-            checkCodeHud.hide(true, afterDelay: 1)
-            return
-        }
-        
-        if self.selectedIndex != nil {
-            
-            if
+            if schoolNameTf.text!.isEmpty {
+                
+                checkCodeHud.mode = .text
+                checkCodeHud.labelText = "请输入学校名称"
+                checkCodeHud.hide(true, afterDelay: 1)
+                return
+            }else if majorNameTf.text!.isEmpty {
+                
+                checkCodeHud.mode = .text
+                checkCodeHud.labelText = "请输入专业"
+                checkCodeHud.hide(true, afterDelay: 1)
+                return
+            }else if detailArray[2] == "选择学历" {
+                
+                checkCodeHud.mode = .text
+                checkCodeHud.labelText = "请选择学历"
+                checkCodeHud.hide(true, afterDelay: 1)
+                return
+            }else if detailArray[3] == "请选择就读时间段" {
+                
+                checkCodeHud.mode = .text
+                checkCodeHud.labelText = "请选择就读时间段"
+                checkCodeHud.hide(true, afterDelay: 1)
+                return
+            }else if schoolExpTv.text!.isEmpty {
+                
+                checkCodeHud.mode = .text
+                checkCodeHud.labelText = "请输入在校经历"
+                checkCodeHud.hide(true, afterDelay: 1)
+                return
+            }
+        }else if
                 CHSUserInfo.currentUserInfo.education![self.selectedIndex!].school ==  schoolNameTf.text &&
                     CHSUserInfo.currentUserInfo.education![self.selectedIndex!].major ==  majorNameTf.text &&
                     CHSUserInfo.currentUserInfo.education![self.selectedIndex!].degree ==  detailArray[2] &&
@@ -154,7 +162,7 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
                 }
                 
                 return
-            }
+            
         }
         
         checkCodeHud.labelText = "正在保存教育经历"
@@ -266,30 +274,30 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
             if (indexPath as NSIndexPath).row == 0 {
                 
                 
-                if (self.selectedIndex != nil) {
-                    schoolNameTf.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].school
-                }else{
-                    schoolNameTf.text = schoolNameTf.text == "" ? nil:schoolNameTf.text
-                }
+//                if (self.selectedIndex != nil) {
+//                    schoolNameTf.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].school
+//                }else{
+//                }
+                schoolNameTf.text = schoolNameTf.text == "" ? nil:schoolNameTf.text
             }else if (indexPath as NSIndexPath).row == 1 {
                 
-                if (self.selectedIndex != nil) {
-                    majorNameTf.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].major
-                }else{
-                    majorNameTf.text = majorNameTf.text == "" ? nil:majorNameTf.text
-                }
+//                if (self.selectedIndex != nil) {
+//                    majorNameTf.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].major
+//                }else{
+//                }
+                majorNameTf.text = majorNameTf.text == "" ? nil:majorNameTf.text
             }else{
                 
-                
-                if (self.selectedIndex != nil) {
-                    if (indexPath as NSIndexPath).row == 2 {
-                        cell?.detailTextLabel?.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].degree
-                    }else if (indexPath as NSIndexPath).row == 3 {
-                        cell?.detailTextLabel?.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].time
-                    }
-                }else{
-                    cell?.detailTextLabel?.text = detailArray[(indexPath as NSIndexPath).row]
-                }
+//                
+//                if (self.selectedIndex != nil) {
+//                    if (indexPath as NSIndexPath).row == 2 {
+//                        cell?.detailTextLabel?.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].degree
+//                    }else if (indexPath as NSIndexPath).row == 3 {
+//                        cell?.detailTextLabel?.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].time
+//                    }
+//                }else{
+//                }
+                cell?.detailTextLabel?.text = detailArray[(indexPath as NSIndexPath).row]
             }
             
             if (indexPath as NSIndexPath).row < nameArray.count-1 {
@@ -323,12 +331,12 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
             
             if (indexPath as NSIndexPath).row == 0 {
                 
-                if (self.selectedIndex != nil) {
-                    schoolExpTv.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].experience
-                    self.textViewDidChange(schoolExpTv)
-                }else{
-                    schoolExpTv.text = schoolExpTv.text == "" ? nil:schoolExpTv.text
-                }
+//                if (self.selectedIndex != nil) {
+//                    schoolExpTv.text = CHSUserInfo.currentUserInfo.education![self.selectedIndex!].experience
+//                    self.textViewDidChange(schoolExpTv)
+//                }else{
+//                }
+                schoolExpTv.text = schoolExpTv.text == "" ? nil:schoolExpTv.text
                 
             }else{
                 cell?.detailTextLabel?.text = "\((schoolExpTv.text?.characters.count)!)/\(schoolExpMaxCount)"

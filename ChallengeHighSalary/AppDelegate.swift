@@ -13,14 +13,13 @@ import CoreLocation
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-    //保存获取到的本地位置
-    var currLocation : CLLocation!
-    //用于定位服务管理类，它能够给我们提供位置信息和高度信息，也可以监控设备进入或离开某个区域，还可以获得设备的运行方向
-    let locationManager : CLLocationManager = CLLocationManager()
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+//        Bmob.register(withAppKey: "ea5ad4cc1f92e1fbc45aa3eb399b1b28")
+        
+        AMapServices.shared().apiKey = "f5bd61f0a61bde209f87e5d42e2ad8a3"
         
         UITabBar.appearance().tintColor = baseColor
         UITabBar.appearance().backgroundColor = UIColor(red: 248/255.0, green: 248/255.0, blue: 248/255.0, alpha: 1)
@@ -31,9 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSForegroundColorAttributeName:UIColor.white
         ]
         
+        
         //  关闭用户手势反馈，默认为开启。
         //  [[PgyManager sharedPgyManager] setEnableFeedback:NO];
-        PgyManager.shared().isFeedbackEnabled = false
+//        PgyManager.shared().isFeedbackEnabled = false
         
         //  设置用户反馈激活模式为三指拖动，默认为摇一摇。
         //  [[PgyManager sharedPgyManager] setFeedbackActiveType:kPGYFeedbackActiveTypeThreeFingersPan];
@@ -51,13 +51,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //  启动SDK
         //  设置三指拖动激活摇一摇需在此调用之前
         //启动基本SDK
-        PgyManager.shared().start(withAppId: "65ddba40d825f80a8056adf5c0815f35")
-        //启动更新检查SDK
-//        PgyUpdateManager.sharedPgyManager().startManagerWithAppId("65ddba40d825f80a8056adf5c0815f35")
+//        PgyManager.shared().start(withAppId: "65ddba40d825f80a8056adf5c0815f35")
         
-//        loadLocation()
-        
-        UserDefaults.standard.removeObject(forKey: "appVersion")
+//        UserDefaults.standard.removeObject(forKey: "appVersion")
+//        UserDefaults.standard.removeObject(forKey: myCity_key)
+
         
         // 得到当前应用的版本号
         let infoDictionary = Bundle.main.infoDictionary
@@ -110,111 +108,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
-}
-
-extension AppDelegate: CLLocationManagerDelegate
-{
-    
-    //打开定位
-    func loadLocation()
-    {
-        
-        locationManager.delegate = self
-        //定位方式
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        
-        //iOS8.0以上才可以使用
-        if(UIDevice.current.systemVersion >= "8.0"){
-            //始终允许访问位置信息
-            locationManager.requestAlwaysAuthorization()
-            //使用应用程序期间允许访问位置数据
-            locationManager.requestWhenInUseAuthorization()
-        }
-        //开启定位
-        locationManager.startUpdatingLocation()
-    }
-    
-    
-    
-    //获取定位信息
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        //取得locations数组的最后一个
-        let location:CLLocation = locations[locations.count-1]
-        currLocation = locations.last!
-        //判断是否为空
-        if(location.horizontalAccuracy > 0){
-            let lat = Double(String(format: "%.1f", location.coordinate.latitude))
-            let long = Double(String(format: "%.1f", location.coordinate.longitude))
-            print("纬度:\(long!)")
-            print("经度:\(lat!)")
-            LonLatToCity()
-            //停止定位
-            locationManager.stopUpdatingLocation()
-        }
-        
-    }
-    
-    //出现错误
-    func locationManager(_ manager: CLLocationManager, didFinishDeferredUpdatesWithError error: Error?) {
-        print("didFinishDeferredUpdatesWithError",error)
-    }
-    
-    ///将经纬度转换为城市名
-    func LonLatToCity() {
-        let geocoder: CLGeocoder = CLGeocoder()
-        
-        geocoder.reverseGeocodeLocation(currLocation) { (placemark, error) -> Void in
-            
-            if(error == nil)
-            {
-                let array = placemark! as NSArray
-                let mark = array.firstObject as! CLPlacemark
-                //城市
-                let city: String = (mark.addressDictionary! as NSDictionary).value(forKey: "City") as! String
-                //国家
-                let country: NSString = (mark.addressDictionary! as NSDictionary).value(forKey: "Country") as! NSString
-                //国家编码
-                let CountryCode: NSString = (mark.addressDictionary! as NSDictionary).value(forKey: "CountryCode") as! NSString
-                //街道位置
-                let FormattedAddressLines:NSString = ((mark.addressDictionary! as NSDictionary).value(forKey: "FormattedAddressLines") as! NSArray).firstObject as! NSString
-//                let FormattedAddressLines: NSString = (mark.addressDictionary! as NSDictionary).value(forKey: "FormattedAddressLines")?.firstObject as! NSString
-                //具体位置
-                let Name: NSString = (mark.addressDictionary! as NSDictionary).value(forKey: "Name") as! NSString
-                //省
-                var State: String = (mark.addressDictionary! as NSDictionary).value(forKey: "State") as! String
-                //区
-                let SubLocality: NSString = (mark.addressDictionary! as NSDictionary).value(forKey: "SubLocality") as! NSString
-                
-                
-                //如果需要去掉“市”和“省”字眼
-                
-                State = State.replacingOccurrences(of: "省", with: "")
-                let citynameStr = city.replacingOccurrences(of: "市", with: "")
-                
-                print(city)
-                print(country)
-                print(CountryCode)
-                print(FormattedAddressLines)
-                print(Name)
-                print(State)
-                print(SubLocality)
-                
-                print(citynameStr)
-                positioningCity = citynameStr
-                
-                
-                
-            }
-            else
-            {
-                print(error)
-            }
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "positioningCityNotification"), object: error)
-        }
-        
-        
-    }
-    
 }
 

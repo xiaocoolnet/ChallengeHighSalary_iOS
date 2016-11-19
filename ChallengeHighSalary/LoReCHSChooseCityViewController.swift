@@ -15,7 +15,6 @@ class LoReCHSChooseCityViewController: UIViewController, UITableViewDataSource, 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        AppDelegate().loadLocation()
         self.tabBarController?.tabBar.isHidden = true
     }
     
@@ -45,10 +44,7 @@ class LoReCHSChooseCityViewController: UIViewController, UITableViewDataSource, 
         
         //        self.sectionCitySpell.addObjectsFromArray(self.citySpell as [AnyObject]);
         print(cityIndexArray)
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "positioningCityNotification"), object: nil, queue: OperationQueue.main, using: { (noti) in
-            print("chchcity.. 执行")
-            self.cityDict["定位"] = [positioningCity]
-        })
+       
     }
     
     // MARK: popViewcontroller

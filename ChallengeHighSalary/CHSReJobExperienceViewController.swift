@@ -685,7 +685,7 @@ class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource,
             
             pickYearSupRequiredArray = Array(pickYearLowRequiredArray[pickerView.selectedRow(inComponent: 0) ..< pickYearLowRequiredArray.count])
             
-            if pickYearSupRequiredArray[pickerView.selectedRow(inComponent: 3)] ==  pickYearLowRequiredArray[pickerView.selectedRow(inComponent: 0)]{
+            if pickYearSupRequiredArray[pickerView.selectedRow(inComponent: 3) >= pickYearSupRequiredArray.count ? 0:pickerView.selectedRow(inComponent: 3)] ==  pickYearLowRequiredArray[pickerView.selectedRow(inComponent: 0)]{
                 pickMonthSupRequiredArray = Array(pickMonthLowRequiredArray[pickerView.selectedRow(inComponent: 1) ..< pickMonthLowRequiredArray.count])
             }else{
                 pickMonthSupRequiredArray = pickMonthLowRequiredArray

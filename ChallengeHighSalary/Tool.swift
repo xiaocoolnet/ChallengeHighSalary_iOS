@@ -16,11 +16,15 @@ let screenSize = UIScreen.main.bounds.size
 let kWidthScale = screenSize.width/375
 let kHeightScale = screenSize.height/667
 
+let defaultLocationTimeout = 6
+let defaultReGeocodeTimeout = 3
+
+var displayLabel: UILabel!
 
 let baseColor = UIColor(red: 105/255.0, green: 216/255.0, blue: 147/255.0, alpha: 1)
 
 //MARK:- 网络数据
-let kDomainName = "http://122.114.156.127/"
+let kDomainName = "http://app.nzrc.cn/"
 let kPortPrefix = "\(kDomainName)index.php?g=apps&m=index&a="
 let kImagePrefix = "\(kDomainName)/uploads/microblog/"
 
@@ -28,6 +32,8 @@ let kImagePrefix = "\(kDomainName)/uploads/microblog/"
 // MARK: Key
 //var myCity = NSUserDefaults.standardUserDefaults().stringForKey("myCity")
 var myCity = "城市"
+let myCity_key = "myCity"
+let positioningCity_key = "positioningCity"
 let isLogin_key = "isLogin"
 let logInfo_key = "login_info"
 let userName_key = "login_name"
@@ -270,4 +276,29 @@ func adjustBtnsTitleLabelAndImgaeView(_ button:UIButton) {
         button.image(for: UIControlState())
         button.imageView?.frame.origin.x = (button.titleLabel?.frame)!.maxX+margin
     }
+}
+
+func changeCityName(cityName:String) -> String {
+    
+    //如果需要去掉“市”和“省”字眼
+    var newCityName = cityName
+    newCityName = newCityName.replacingOccurrences(of: "省", with: "")
+    newCityName = newCityName.replacingOccurrences(of: "市", with: "")
+    newCityName = newCityName.replacingOccurrences(of: "自治州", with: "")
+    newCityName = newCityName.replacingOccurrences(of: "地区", with: "")
+    newCityName = newCityName.replacingOccurrences(of: "自治县", with: "")
+    newCityName = newCityName.replacingOccurrences(of: "特别行政区", with: "")
+    
+    newCityName = newCityName.replacingOccurrences(of: "地區", with: "")
+    newCityName = newCityName.replacingOccurrences(of: "自治縣", with: "")
+    newCityName = newCityName.replacingOccurrences(of: "特別行政區", with: "")
+
+    
+    if newCityName.contains("中沙群岛") {
+        return "中沙群岛"
+    }else if newCityName.contains("中沙群島") {
+        return "中沙群島"
+    }
+    
+    return newCityName
 }

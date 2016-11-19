@@ -15,10 +15,13 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
     var cityDict = [String:Array<String>]()
     var cityIndexArray = Array<String>()
     
+    var locationManager = AMapLocationManager()
+    var locationError:String?
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        AppDelegate().loadLocation()
         self.tabBarController?.tabBar.isHidden = true
+        
     }
     
     override func viewDidLoad() {
@@ -28,6 +31,8 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
         
         loadData()
         setSubView()
+        
+        loadLocation()
     }
     
     func loadData() {
@@ -36,17 +41,8 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
         
         cityIndexArray = Array(cityDict.keys).sorted(){ $1 > $0 }
         
-        AppDelegate().loadLocation()
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "positioningCityNotification"), object: nil, queue: OperationQueue.main, using: { (noti) in
-            print("chchcity.. 执行")
-            if noti.object != nil {
-                
-                self.cityDict["定位"] = [positioningCity]
-                self.rootTableView.reloadSections(IndexSet(integer: 0), with: .automatic)
-            }
-        })
-//        if positioningCity == "未知" {
-//        }
+        
+
         let positioningCityArray = [positioningCity]
         let hotCityArray = ["上海","北京","广州","深圳","武汉","天津","西安","南京","杭州"]
         cityIndexArray.insert("定位", at: 0)
@@ -62,7 +58,18 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // MARK: popViewcontroller
     func popViewcontroller() {
-        let _ = self.navigationController?.popViewController(animated: true)
+        
+        if myCity == "城市" {
+            let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+            hud?.mode = .text
+            hud?.labelText = "请选择您的城市"
+            hud?.removeFromSuperViewOnHide = true
+            
+            hud?.hide(true, afterDelay: 1)
+        }else{
+            
+            let _ = self.navigationController?.popViewController(animated: true)
+        }
     }
     
     // MARK:- 设置子视图
@@ -160,14 +167,13 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
     func cityTableViewCellCityBtnClick(_ cityBtn: UIButton, indexPath: IndexPath, index:Int) {
         print(cityBtn.currentTitle)
         
-        if (indexPath as NSIndexPath).section == 0 && cityBtn.currentTitle == "未知" {
-            
-            AppDelegate().loadLocation()
+        if (indexPath as NSIndexPath).section == 0 && (cityBtn.currentTitle == "未知" || self.locationError != nil) {
 
+            self.loadLocation()
         }else{
             
-            UserDefaults.standard.setValue(cityBtn.currentTitle, forKey: "myCity")
-            myCity = (UserDefaults.standard.string(forKey: "myCity") ?? myCity)!
+            UserDefaults.standard.setValue(cityBtn.currentTitle, forKey: myCity_key)
+            myCity = (UserDefaults.standard.string(forKey: myCity_key) ?? myCity)!
             let _ = self.navigationController?.popViewController(animated: true)
         }
         
@@ -191,3 +197,100 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
     */
 
 }
+
+
+extension ChChCityViewController: AMapLocationManagerDelegate {
+    func loadLocation() {
+        
+        self.locationManager = AMapLocationManager()
+        self.locationManager.delegate = self
+        
+        // 如果需要持续定位返回逆地理编码信息，（自 V2.2.0版本起支持）需要做如下设置：
+        self.locationManager.locatingWithReGeocode = true
+        self.locationManager.startUpdatingLocation()
+    }
+    
+    func amapLocationManager(_ manager: AMapLocationManager!, didUpdate location: CLLocation!, reGeocode: AMapLocationReGeocode!) {
+        
+        print("location:", location)
+        
+        if let location = location {
+            
+            if let regeocode = reGeocode {
+                
+                self.locationError = nil
+                
+                self.locationManager.stopUpdatingLocation()
+                
+                UserDefaults.standard.set(changeCityName(cityName: (regeocode.city ?? regeocode.province)), forKey: positioningCity_key)
+                positioningCity = UserDefaults.standard.string(forKey: positioningCity_key)!
+                self.cityDict[self.cityIndexArray[0]] = [positioningCity]
+                self.rootTableView.reloadData()
+                
+                print("\(regeocode.formattedAddress) \n \(regeocode.citycode!)-\(regeocode.adcode!)-\(location.horizontalAccuracy)m")
+            }
+            else {
+                print("lat:\(location.coordinate.latitude); lon:\(location.coordinate.longitude); accuracy:\(location.horizontalAccuracy)m")
+            }
+            
+        }
+    }
+    
+    func amapLocationManager(_ manager: AMapLocationManager!, didFailWithError error: Error!) {
+        
+        if (error) != nil {
+            self.locationManager.stopUpdatingLocation()
+            
+            self.locationError = "定位失败，点击重试"
+            self.cityDict[self.cityIndexArray[0]] = ["定位失败，点击重试"]
+            self.rootTableView.reloadData()
+            
+            return
+            
+        }
+
+    }
+}
+
+//extension ChChCityViewController {
+//    
+//   
+//    
+//    func getLocation() {
+//        
+//        // 带逆地理（返回坐标和地址信息）。将下面代码中的 YES 改成 NO ，则不会返回地址信息。
+//        
+//        self.locationManager.requestLocation(withReGeocode: true) { (location, regeocode, error) in
+//            
+//            if let error = error {
+//                
+//                self.loactionError = error.localizedDescription
+//                self.cityDict[self.cityIndexArray[0]] = [error.localizedDescription]
+//                self.rootTableView.reloadData()
+//                
+//                return
+//                
+//            }
+//            
+//            print("location:", location)
+//            
+//            if let location = location {
+//                
+//                if let regeocode = regeocode {
+//                    
+//                    UserDefaults.standard.set(regeocode.city ?? regeocode.province, forKey: positioningCity_key)
+//                    positioningCity = UserDefaults.standard.string(forKey: positioningCity_key)!
+//                    self.cityDict[self.cityIndexArray[0]] = [positioningCity]
+//                    self.rootTableView.reloadData()
+//                    
+//                    print("\(regeocode.formattedAddress) \n \(regeocode.citycode!)-\(regeocode.adcode!)-\(location.horizontalAccuracy)m")
+//                }
+//                else {
+//                    print("lat:\(location.coordinate.latitude); lon:\(location.coordinate.longitude); accuracy:\(location.horizontalAccuracy)m")
+//                }
+//
+//            }
+//        }
+//    }
+//    
+//}

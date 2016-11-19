@@ -64,6 +64,30 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         
         
         self.dataArray.removeSubrange(Range(4 ..< self.dataArray.count))
+        
+        CHSNetUtil().GetChatListData(CHSUserInfo.currentUserInfo.userid) { (success, response) in
+            
+            if success {
+                
+                let chatList = response as? [GetChatListData]
+                for chatData in chatList! {
+                    
+                    let dic = [
+                        "title":(chatData.other_nickname ?? "title")!,
+                        "description":(chatData.last_content ?? "")!,
+                        "time":(chatData.create_time ?? "time")!,
+                        "image":(chatData.other_face ?? "image")!,
+                        "type":"5"
+                    ] as [String : String]
+                    
+                    self.dataArray.append(dic)
+                }
+                
+                self.rootTableView.reloadData()
+            }else {
+                
+            }
+        }
 //        for conversation in [] {
 ////            [
 ////                "title":"王小妞",
@@ -156,7 +180,7 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         
         switch self.dataArray[(indexPath as NSIndexPath).row]["type"]! {
         case "5":
-            let url = URL(string: self.dataArray[(indexPath as NSIndexPath).row]["image"]!)
+            let url = URL(string: (self.dataArray[(indexPath as NSIndexPath).row]["image"] ?? "")!)
             cell.iconImg.sd_setImage(with: url, placeholderImage: nil)
         default:
             cell.iconImg.image = UIImage(named: self.dataArray[(indexPath as NSIndexPath).row]["image"]!)

@@ -63,7 +63,7 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
 
         self.view.backgroundColor = UIColor.white
         
-        rootTableView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height-45)
+        rootTableView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         rootTableView.separatorStyle = .none
         rootTableView.register(UINib(nibName: "CHSChCompanyPositionTableViewCell", bundle: nil), forCellReuseIdentifier: "CHSChCompanyPositionCell")
@@ -80,12 +80,12 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
         backBtn.addTarget(self, action: #selector(backBtnClick), for: .touchUpInside)
         self.view.addSubview(backBtn)
         
-        let interviewEvaluateBtn = UIButton(frame: CGRect(x: 0, y: screenSize.height-45, width: screenSize.width, height: 45))
-        interviewEvaluateBtn.backgroundColor = baseColor
-        interviewEvaluateBtn.setTitleColor(UIColor.white, for: UIControlState())
-        interviewEvaluateBtn.setTitle("面试评价(2)", for: UIControlState())
-        interviewEvaluateBtn.addTarget(self, action: #selector(interviewEvaluateBtnClick), for: .touchUpInside)
-        self.view.addSubview(interviewEvaluateBtn)
+//        let interviewEvaluateBtn = UIButton(frame: CGRect(x: 0, y: screenSize.height-45, width: screenSize.width, height: 45))
+//        interviewEvaluateBtn.backgroundColor = baseColor
+//        interviewEvaluateBtn.setTitleColor(UIColor.white, for: UIControlState())
+//        interviewEvaluateBtn.setTitle("面试评价(2)", for: UIControlState())
+//        interviewEvaluateBtn.addTarget(self, action: #selector(interviewEvaluateBtnClick), for: .touchUpInside)
+//        self.view.addSubview(interviewEvaluateBtn)
     }
     
     // MARK:- backBtn 点击事件

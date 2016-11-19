@@ -23,8 +23,10 @@ class ChChSearchTableViewCell: UITableViewCell {
         for view in self.contentView.subviews {
             view.removeFromSuperview()
         }
-        titImage.frame = CGRect(x: 10, y: 10, width: 35, height: 35)
-        titImage.backgroundColor = UIColor.gray
+        titImage.frame = CGRect(x: 15, y: 15, width: 25, height: 25)
+        titImage.setBackgroundImage(#imageLiteral(resourceName: "ic_搜索历史"), for: .normal)
+//        titImage.setImage(#imageLiteral(resourceName: "ic_搜索历史"), for: .normal)
+//        titImage.backgroundColor = UIColor.gray
         titLab.frame = CGRect(x: 50, y: 10, width: screenSize.width/2, height: 35)
         titLab.font = UIFont.systemFont(ofSize: 18)
         

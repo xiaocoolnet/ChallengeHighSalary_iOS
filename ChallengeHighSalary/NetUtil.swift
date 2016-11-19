@@ -143,7 +143,10 @@ class NetUtil: NSObject {
         let request = AFHTTPRequestSerializer().multipartFormRequest(withMethod: "POST", urlString: URLString, parameters: nil, constructingBodyWith: { (formData) in
             formData.appendPart(withFileData: data, name: name, fileName: fileName, mimeType: mimeType)
             }, error: nil)
-        let manager = AFURLSessionManager(sessionConfiguration: URLSessionConfiguration.default)
+//        let manager = AFURLSessionManager(sessionConfiguration: URLSessionConfiguration.default)
+        let manager = AFHTTPSessionManager()
+        manager.responseSerializer.acceptableContentTypes = (NSSet(object: "image/jpeg") as! Set<String>)
+        
         
         let uploadTask = manager.uploadTask(withStreamedRequest: request as URLRequest, progress: { (uploadProgress) in
             

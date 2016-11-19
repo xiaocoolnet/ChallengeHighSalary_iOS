@@ -9,12 +9,6 @@
 import UIKit
 
 class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, UITableViewDataSource, UITableViewDelegate {
-
-    //保存获取到的本地位置
-    var currLocation : CLLocation!
-    //用于定位服务管理类，它能够给我们提供位置信息和高度信息，也可以监控设备进入或离开某个区域，还可以获得设备的运行方向
-    let locationManager : CLLocationManager = CLLocationManager()
-    
     
     let cityBtn = UIButton()
     
@@ -32,6 +26,8 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     var nearbyDrop = DropDown()
     let findEmployerTableView = UITableView(frame: CGRect(x: screenSize.width, y: 0, width: screenSize.width, height: screenSize.height-20-44-49-37), style: .plain)
     
+    var locationManager = AMapLocationManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,40 +35,38 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         self.view.backgroundColor = UIColor.white
         
-        
         setNavigationBar()
         setSubviews()
         loadData()
         
-        if UserDefaults.standard.string(forKey: "myCity") == nil {
-            AppDelegate().loadLocation()
-        }else{
-            myCity = UserDefaults.standard.string(forKey: "myCity")!
-            cityBtn.setTitle(myCity, for: UIControlState())
-        }
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "positioningCityNotification"), object: nil, queue: OperationQueue.main, using: { (noti) in
-            print("chchhome.. 执行")
-            
-            if noti.object != nil && UserDefaults.standard.string(forKey: "myCity") == nil {
-                
-                UserDefaults.standard.setValue(positioningCity, forKey: "myCity")
-                myCity = positioningCity
-                self.cityBtn.setTitle(myCity, for: UIControlState())
-            }
-        })
-        
     }
+    
+    var hud = MBProgressHUD()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = false
-        
-        cityBtn.setTitle(myCity, for: UIControlState())
 
         // 自定义下拉列表样式
         customizeDropDown()
+        
+        if UserDefaults.standard.string(forKey: myCity_key) == nil {
+            
+            hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+            hud.labelText = "正在获取当前位置"
+            hud.removeFromSuperViewOnHide = true
+            
+            self.loadLocation()
+//            self.navigationController?.pushViewController(ChChCityViewController(), animated: true)
+        }else{
+            
+            myCity = UserDefaults.standard.string(forKey: myCity_key)!
+            
+            cityBtn.setTitle(myCity, for: UIControlState())
+        }
+
     }
     
     // MARK: 加载数据
@@ -102,9 +96,11 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         // 城市按钮
         cityBtn.frame = CGRect(x: 0, y: 0, width: 100, height: 44)
         cityBtn.contentHorizontalAlignment = .left
+        cityBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         cityBtn.setTitle(myCity, for: UIControlState())
         cityBtn.setImage(UIImage(named: "城市下拉箭头"), for: UIControlState())
         exchangeBtnImageAndTitle(cityBtn, margin: 5)
+//        adjustBtnsTitleLabelAndImgaeView(cityBtn)
         cityBtn.addTarget(self, action: #selector(cityBtnClick), for: .touchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cityBtn)
         
@@ -132,6 +128,9 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     // MARK: 城市按钮点击事件
     func cityBtnClick() {
         self.navigationController?.pushViewController(ChChCityViewController(), animated: true)
+
+//        self.navigationController?.pushViewController(SingleLocationAloneViewController(), animated: true)
+
     }
     
     // MARK: 检索按钮点击事件
@@ -450,3 +449,77 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     */
 
 }
+
+extension ChChHomeViewController: AMapLocationManagerDelegate {
+    func loadLocation() {
+        
+        self.locationManager.delegate = self
+        
+        locationManager.pausesLocationUpdatesAutomatically = false
+        
+        locationManager.allowsBackgroundLocationUpdates = true
+
+        
+        // 如果需要持续定位返回逆地理编码信息，（自 V2.2.0版本起支持）需要做如下设置：
+        self.locationManager.locatingWithReGeocode = true
+        self.locationManager.startUpdatingLocation()
+        
+    }
+    
+    func amapLocationManager(_ manager: AMapLocationManager!, didUpdate location: CLLocation!, reGeocode: AMapLocationReGeocode!) {
+        
+        print("location:", location)
+        
+        hud.hide(true)
+        
+        if let location = location {
+            
+            if let regeocode = reGeocode {
+                
+                self.locationManager.stopUpdatingLocation()
+                
+                UserDefaults.standard.set(changeCityName(cityName: regeocode.city ?? regeocode.province), forKey: positioningCity_key)
+                UserDefaults.standard.set(changeCityName(cityName: regeocode.city ?? regeocode.province), forKey: myCity_key)
+                positioningCity = UserDefaults.standard.string(forKey: positioningCity_key)!
+                myCity = positioningCity
+                self.cityBtn.setTitle(myCity, for: UIControlState())
+                adjustBtnsTitleLabelAndImgaeView(self.cityBtn)
+                
+                UserDefaults.standard.set(changeCityName(cityName: regeocode.city ?? regeocode.province), forKey: positioningCity_key)
+                positioningCity = UserDefaults.standard.string(forKey: positioningCity_key)!
+                
+                if UserDefaults.standard.string(forKey: myCity_key) == nil {
+                    
+                    UserDefaults.standard.set(changeCityName(cityName: regeocode.city ?? regeocode.province), forKey: myCity_key)
+                    
+                    myCity = UserDefaults.standard.string(forKey: myCity_key)!
+                }
+                
+            }
+            else {
+                print("lat:\(location.coordinate.latitude); lon:\(location.coordinate.longitude); accuracy:\(location.horizontalAccuracy)m")
+
+            }
+        }
+    }
+    
+    func amapLocationManager(_ manager: AMapLocationManager!, didFailWithError error: Error!) {
+        
+        self.locationManager.stopUpdatingLocation()
+        
+        hud.mode = .text
+        hud.labelText = "定位失败"
+        hud.hide(true, afterDelay: 1)
+        
+        let time: TimeInterval = 1.0
+        let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        
+        DispatchQueue.main.asyncAfter(deadline: delay) {
+            
+            self.navigationController?.pushViewController(ChChCityViewController(), animated: true)
+            
+        }
+        
+    }
+}
+

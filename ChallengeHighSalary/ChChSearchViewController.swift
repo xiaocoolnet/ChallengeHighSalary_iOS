@@ -13,6 +13,15 @@ class ChChSearchViewController: UIViewController, UITableViewDataSource, UITable
     var searhHistoryArray = Array<String>()
     let myTableView = UITableView()
     
+    let cityBtn = UIButton()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        cityBtn.setTitle(myCity, for: UIControlState())
+
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,11 +35,11 @@ class ChChSearchViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: 设置 NavigationBar
     func setNavigationBar() {
         
-        let cityBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 65, height: 44))
+        cityBtn.frame = CGRect(x: 0, y: 0, width: 65, height: 44)
         cityBtn.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 10)
         cityBtn.contentHorizontalAlignment = .center
         cityBtn.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-        cityBtn.setTitle("烟台", for: UIControlState())
+        cityBtn.setTitle(myCity, for: UIControlState())
         cityBtn.titleLabel!.lineBreakMode =  .byTruncatingTail
         cityBtn.addTarget(self, action: #selector(cityBtnClick), for: .touchUpInside)
         cityBtn.setImage(UIImage(named: "城市下拉箭头"), for: UIControlState())

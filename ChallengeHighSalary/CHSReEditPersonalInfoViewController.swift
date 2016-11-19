@@ -128,7 +128,8 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
             let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
             
             DispatchQueue.main.asyncAfter(deadline: delay) {
-                self.present(CHRoHomeViewController(), animated: true, completion: nil)
+                _ = self.navigationController?.popViewController(animated: true)
+//                self.present(CHRoHomeViewController(), animated: true, completion: nil)
             }
             
             return
@@ -193,7 +194,9 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
                                 let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
                                 
                                 DispatchQueue.main.asyncAfter(deadline: delay) {
-                                    self.present(CHRoHomeViewController(), animated: true, completion: nil)
+                                    _ = self.navigationController?.popViewController(animated: true)
+
+//                                    self.present(CHRoHomeViewController(), animated: true, completion: nil)
                                 }
                             }else{
                                 

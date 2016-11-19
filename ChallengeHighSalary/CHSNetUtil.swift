@@ -320,4 +320,66 @@ class CHSNetUtil: NSObject {
             }
         }
     }
+    
+    // MARK: 获取聊天列表
+    // uid
+    func GetChatListData(
+        _ uid:String,
+        handle:@escaping ResponseClosures) {
+        
+        let url = kPortPrefix+"xcGetChatListData"
+        let param = [
+            "uid":uid
+        ];
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+            
+            if(error != nil){
+                handle(false, error.debugDescription as AnyObject?)
+            }else{
+                
+                let status = JSONDeserializer<errorModel>.deserializeFrom(dict: json as! NSDictionary?)!
+
+                if status.status == "success" {
+                    let chatList = JSONDeserializer<GetChatList>.deserializeFrom(dict: json as! NSDictionary?)!
+                    
+                    handle(true, chatList.data as AnyObject?)
+                }else{
+                    
+                    handle(false, status.data as AnyObject?)
+                }
+            }
+        }
+    }
+    
+    // MARK: 获取聊天信息（两个人之间的）
+    // send_uid,receive_uid
+    func GetChatData(
+        _ send_uid:String,
+        receive_uid:String,
+        handle:@escaping ResponseClosures) {
+        
+        let url = kPortPrefix+"xcGetChatData"
+        let param = [
+            "send_uid":send_uid,
+            "receive_uid":receive_uid
+        ]
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+            
+            if(error != nil){
+                handle(false, error.debugDescription as AnyObject?)
+            }else{
+                
+                let status = JSONDeserializer<errorModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                
+                if status.status == "success" {
+                    let chatList = JSONDeserializer<GetChatModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                    
+                    handle(true, chatList.data as AnyObject?)
+                }else{
+                    
+                    handle(false, status.data as AnyObject?)
+                }
+            }
+        }
+    }
 }
