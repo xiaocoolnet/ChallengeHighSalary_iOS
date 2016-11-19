@@ -13,14 +13,40 @@ class CHSMeChatTableViewCell: UITableViewCell {
     // TODO: 模型不对
     var chatListData: ChatData? {
         didSet {
-            let url = NSURL(string: kImagePrefix+(chatListData?.receive_face ?? "")!)
-            headerImg.sd_setImage(with: url as URL!, placeholderImage: nil)
             
-            let contentHeight = calculateHeight((chatListData?.content ?? "")!, size: 16, width: screenSize.width-8-50-8-8-50-8)
-            
-            chatContentLab.frame.size.height = contentHeight+8+8
-            
-            chatContentLab.text = chatListData?.content
+            if chatListData?.send_uid == CHSUserInfo.currentUserInfo.userid {
+                
+                let url = NSURL(string: kImagePrefix+(chatListData?.send_face ?? "")!)
+                headerImg.sd_setImage(with: url as URL!, placeholderImage: nil)
+                
+                headerImg.frame.origin.x = screenSize.width-8-headerImg.frame.size.width
+                
+                let contentHeight = calculateHeight((chatListData?.content ?? "")!, size: 16, width: screenSize.width-8-40-8-8-40-8)
+                let contentWidth = calculateWidth((chatListData?.content ?? "")!, size: 16, height: contentHeight)
+                chatContentLab.frame.origin.x = headerImg.frame.minX-8-(contentWidth+8+8)
+                chatContentLab.frame.size = CGSize(width: contentWidth+8+8, height: contentHeight+8+8)
+                
+                chatContentLab.text = chatListData?.content
+                chatContentLab.layer.cornerRadius = 8
+                chatContentLab.layer.backgroundColor = UIColor.white.cgColor
+
+            }else{
+                
+                let url = NSURL(string: kImagePrefix+(chatListData?.receive_face ?? "")!)
+                headerImg.sd_setImage(with: url as URL!, placeholderImage: nil)
+                headerImg.frame.origin.x = 8
+
+                
+                let contentHeight = calculateHeight((chatListData?.content ?? "")!, size: 16, width: screenSize.width-8-40-8-8-40-8)
+                let contentWidth = calculateWidth((chatListData?.content ?? "")!, size: 16, height: contentHeight)
+                chatContentLab.frame.origin.x = headerImg.frame.maxX + 8
+                chatContentLab.frame.size = CGSize(width: contentWidth+8+8, height: contentHeight+8+8)
+                
+                chatContentLab.text = chatListData?.content
+                chatContentLab.layer.cornerRadius = 8
+                chatContentLab.layer.backgroundColor = baseColor.cgColor
+
+            }
         }
     }
     fileprivate let headerImg = UIImageView()
@@ -29,14 +55,15 @@ class CHSMeChatTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        headerImg.frame = CGRect(x: 8, y: 8, width: 50, height: 50)
-        headerImg.layer.cornerRadius = 25
+        headerImg.frame = CGRect(x: 8, y: 8, width: 40, height: 40)
+        headerImg.layer.cornerRadius = 20
         headerImg.clipsToBounds = true
         self.contentView.addSubview(headerImg)
         
-        chatContentLab.frame = CGRect(x: headerImg.frame.maxX + 8, y: 8, width: screenSize.width-8-50-8-8-50-8, height: 0)
+        chatContentLab.frame = CGRect(x: headerImg.frame.maxX + 8, y: 10, width: screenSize.width-8-40-8-8-40-8, height: 0)
         chatContentLab.numberOfLines = 0
         chatContentLab.font = UIFont.systemFont(ofSize: 16)
+        chatContentLab.textAlignment = .center
         self.contentView.addSubview(chatContentLab)
         
     }

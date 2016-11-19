@@ -47,6 +47,8 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         ]
     ]
     
+    var chatListArray = [GetChatListData]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,88 +64,17 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = false
         
-        
-        self.dataArray.removeSubrange(Range(4 ..< self.dataArray.count))
-        
         CHSNetUtil().GetChatListData(CHSUserInfo.currentUserInfo.userid) { (success, response) in
             
             if success {
                 
-                let chatList = response as? [GetChatListData]
-                for chatData in chatList! {
-                    
-                    let dic = [
-                        "title":(chatData.other_nickname ?? "title")!,
-                        "description":(chatData.last_content ?? "")!,
-                        "time":(chatData.create_time ?? "time")!,
-                        "image":(chatData.other_face ?? "image")!,
-                        "type":"5"
-                    ] as [String : String]
-                    
-                    self.dataArray.append(dic)
-                }
+                self.chatListArray = (response as? [GetChatListData])!
                 
                 self.rootTableView.reloadData()
             }else {
                 
             }
         }
-//        for conversation in [] {
-////            [
-////                "title":"王小妞",
-////                "description":"",
-////                "time":"07月20日",
-////                "type":"5"
-////            ],
-//            
-//            if conversation.conversationId == "admin" {
-//                var description = ""
-//                switch conversation.latestMessage.body.type {
-//                case EMMessageBodyTypeText:
-//                    description = (conversation.latestMessage.body as! EMTextMessageBody).text
-//                default:
-//                    description = "[其他]"
-//                }
-//                
-//                let dic:[String:String] = [
-//                    "conversationId":conversation.conversationId,
-//                    "title":"系统消息",
-//                    "description":description,
-//                    "time":self.timeStampToString(String(conversation.latestMessage.timestamp/1000)),
-//                    "image":"ic_message_home_系统",
-//                    "type":"5"]
-//                
-//                self.dataArray.append(dic)
-//                self.rootTableView.reloadData()
-//            }else{
-//                
-//                FTNetUtil().getMyCompany_info(conversation.conversationId, handle: { (success, response) in
-//                    if success {
-//                        let company_infoData = response as! Company_infoDataModel
-//                        
-//                        var description = ""
-//                        switch conversation.latestMessage.body.type {
-//                        case EMMessageBodyTypeText:
-//                            description = (conversation.latestMessage.body as! EMTextMessageBody).text
-//                        default:
-//                            description = "[其他]"
-//                        }
-//                        
-//                        let dic:[String:String] = [
-//                            "conversationId":conversation.conversationId,
-//                            "title":company_infoData.company_name,
-//                            "description":description,
-//                            "time":self.timeStampToString(String(conversation.latestMessage.timestamp/1000)),
-//                            "image":kImagePrefix+company_infoData.logo,
-//                            "type":"5"]
-//                        
-//                        self.dataArray.append(dic)
-//                        self.rootTableView.reloadData()
-//                    }
-//                })
-//            }
-//            
-//        }
     }
     
     // MARK: 设置 NavigationBar
@@ -170,7 +101,7 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // MARK: UITableView DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataArray.count
+        return self.dataArray.count+self.chatListArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -178,17 +109,19 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "CHSMeHomeCell") as! CHSMeHomeTableViewCell
         cell.selectionStyle = .none
         
-        switch self.dataArray[(indexPath as NSIndexPath).row]["type"]! {
-        case "5":
-            let url = URL(string: (self.dataArray[(indexPath as NSIndexPath).row]["image"] ?? "")!)
-            cell.iconImg.sd_setImage(with: url, placeholderImage: nil)
-        default:
+        if indexPath.row < 4 {
             cell.iconImg.image = UIImage(named: self.dataArray[(indexPath as NSIndexPath).row]["image"]!)
+            cell.titleLab.text = self.dataArray[(indexPath as NSIndexPath).row]["title"]!
+            cell.descriptionLab.text = self.dataArray[(indexPath as NSIndexPath).row]["description"]!
+            cell.timeLab.text = self.dataArray[(indexPath as NSIndexPath).row]["time"]!
+        }else{
+            let url = URL(string: kImagePrefix + (self.chatListArray[indexPath.row-4].other_face ?? "")!)
+            cell.iconImg.sd_setImage(with: url, placeholderImage: nil)
+            
+            cell.titleLab.text = self.chatListArray[indexPath.row-4].other_nickname
+            cell.descriptionLab.text = self.chatListArray[indexPath.row-4].last_content
+            cell.timeLab.text = self.chatListArray[indexPath.row-4].create_time
         }
-        
-        cell.titleLab.text = self.dataArray[(indexPath as NSIndexPath).row]["title"]!
-        cell.descriptionLab.text = self.dataArray[(indexPath as NSIndexPath).row]["description"]!
-        cell.timeLab.text = self.dataArray[(indexPath as NSIndexPath).row]["time"]!
         
         return cell
     }
@@ -196,41 +129,31 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: UITableView Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        switch self.dataArray[(indexPath as NSIndexPath).row]["type"]! {
-        case "1":
-            self.navigationController?.pushViewController(CHSMeSysMessageViewController(), animated: true)
-        case "2":
-            self.navigationController?.pushViewController(CHSMeInvitedViewController(), animated: true)
-        case "3":
-            self.navigationController?.pushViewController(CHSMeCollectionMeViewController(), animated: true)
-        case "4":
-            self.navigationController?.pushViewController(CHSMeLookMeViewController(), animated: true)
+        if indexPath.row < 4 {
             
-        case "5":
-//            let chatController = CHSMeChatViewController(conversationChatter: self.conversations[indexPath.row-4].conversationId, conversationType: EMConversationTypeChat)
+            switch self.dataArray[(indexPath as NSIndexPath).row]["type"]! {
+            case "1":
+                self.navigationController?.pushViewController(CHSMeSysMessageViewController(), animated: true)
+            case "2":
+                self.navigationController?.pushViewController(CHSMeInvitedViewController(), animated: true)
+            case "3":
+                self.navigationController?.pushViewController(CHSMeCollectionMeViewController(), animated: true)
+            case "4":
+                self.navigationController?.pushViewController(CHSMeLookMeViewController(), animated: true)
+                
+            default:
+                break
+            }
+        }else{
+            
             let chatController = CHSMeChatViewController()
-
+            
             chatController.hidesBottomBarWhenPushed = true
             
-            chatController.selfTitle = self.dataArray[(indexPath as NSIndexPath).row]["title"]!
-//            chatController.conversationId = self.conversations[indexPath.row-4].conversationId
-            
-            
-            self.navigationController?.pushViewController(chatController, animated: true)
-
-        default:
-//            let chatController = CHSMeChatViewController(conversationChatter: self.conversations[indexPath.row-4].conversationId, conversationType: EMConversationTypeChat)
-            let chatController = CHSMeChatViewController()
-
-            chatController.hidesBottomBarWhenPushed = true
-            
-            chatController.selfTitle = self.dataArray[(indexPath as NSIndexPath).row]["title"]!
-//            chatController.conversationId = self.conversations[indexPath.row-4].conversationId
-            
-            
+            chatController.selfTitle = (self.chatListArray[indexPath.row-4].other_nickname ?? "")!
+            chatController.otherId = (self.chatListArray[indexPath.row-4].chat_uid ?? "")!
             self.navigationController?.pushViewController(chatController, animated: true)
         }
-        //        self.navigationController?.pushViewController(CHSChPersonalInfoViewController(), animated: true)
     }
     
     // Linux时间戳转标准时间

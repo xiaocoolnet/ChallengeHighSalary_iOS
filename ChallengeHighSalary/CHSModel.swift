@@ -356,6 +356,16 @@ class GetChatModel: HandyJSON {
     
 }
 
+class SendChatModel: HandyJSON {
+    
+    var status: String?
+    
+    var data: ChatData?
+    
+    required init() {}
+    
+}
+
 class ChatData: HandyJSON {
     
     var id: String?

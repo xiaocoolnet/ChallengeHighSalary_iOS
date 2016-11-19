@@ -382,4 +382,38 @@ class CHSNetUtil: NSObject {
             }
         }
     }
+
+    // MARK: 发送聊天信息
+    // send_uid,receive_uid,content
+    func SendChatData(
+        _ send_uid:String,
+        receive_uid:String,
+        content:String,
+        handle:@escaping ResponseClosures) {
+        
+        let url = kPortPrefix+"SendChatData"
+        let param = [
+            "send_uid":send_uid,
+            "receive_uid":receive_uid,
+            "content":content
+        ]
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+            
+            if(error != nil){
+                handle(false, error.debugDescription as AnyObject?)
+            }else{
+                
+                let status = JSONDeserializer<errorModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                
+                if status.status == "success" {
+                    let chatList = JSONDeserializer<SendChatModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                    
+                    handle(true, chatList.data as AnyObject?)
+                }else{
+                    
+                    handle(false, status.data as AnyObject?)
+                }
+            }
+        }
+    }
 }
