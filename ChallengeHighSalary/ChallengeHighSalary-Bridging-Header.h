@@ -17,6 +17,7 @@
 #import "TPKeyboardAvoidingScrollView.h"
 #import "TPKeyboardAvoidingTableView.h"
 //#import <PgySDK/PgyManager.h>
+#import <Bugtags/Bugtags.h>
 
 #import <BmobSDK/Bmob.h>
 

@@ -66,6 +66,7 @@ class CHSMiCheckPasswordViewController: UIViewController, UITextFieldDelegate {
         originalPwdTF.placeholder = "请输入原密码"
         originalPwdTF.keyboardType = .default
         originalPwdTF.returnKeyType = .done
+        originalPwdTF.isSecureTextEntry = true
         originalPwdTF.delegate = self
         originalPwdBgView.addSubview(originalPwdTF)
         

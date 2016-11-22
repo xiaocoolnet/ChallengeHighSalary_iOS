@@ -10,6 +10,12 @@ import UIKit
 
 class CHSMiMyBlacklistTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var companyNameLab: UILabel!
+    
+    @IBOutlet weak var industryLab: UILabel!
+    
+    @IBOutlet weak var addressLab: UILabel!
+    
     @IBOutlet weak var cancelBlacklistBtn: UIButton!
     
     override func awakeFromNib() {

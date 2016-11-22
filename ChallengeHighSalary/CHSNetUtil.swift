@@ -416,4 +416,64 @@ class CHSNetUtil: NSObject {
             }
         }
     }
+    
+    // MARK: 获取我的投递记录
+    // userid
+    func getMyApplyJob(
+        _ userid:String,
+        handle:@escaping ResponseClosures) {
+        
+        let url = kPortPrefix+"getMyApplyJob"
+        let param = [
+            "userid":userid
+        ];
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+            
+            if(error != nil){
+                handle(false, error.debugDescription as AnyObject?)
+            }else{
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                
+                if checkCode.status == "success" {
+                    let jobInfoModel = JSONDeserializer<MyApplyJob>.deserializeFrom(dict: json as! NSDictionary?)!
+                    
+                    handle(true, jobInfoModel.data as AnyObject?)
+                }else{
+                    
+                    handle(false, nil)
+                }
+            }
+        }
+    }
+    
+    // MARK: 获取我的黑名单
+    // userid,type=1个人获取被拉黑的企业列表，type=2企业获取被拉黑的个人列表
+    func getBlackList(
+        _ userid:String,
+        type:String,
+        handle:@escaping ResponseClosures) {
+        
+        let url = kPortPrefix+"getBlackList"
+        let param = [
+            "userid":userid,
+            "type":type
+        ];
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+            
+            if(error != nil){
+                handle(false, error.debugDescription as AnyObject?)
+            }else{
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                
+                if checkCode.status == "success" {
+                    let jobInfoModel = JSONDeserializer<BlackList>.deserializeFrom(dict: json as! NSDictionary?)!
+                    
+                    handle(true, jobInfoModel.data as AnyObject?)
+                }else{
+                    
+                    handle(false, nil)
+                }
+            }
+        }
+    }
 }

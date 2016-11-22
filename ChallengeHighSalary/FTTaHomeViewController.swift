@@ -38,12 +38,13 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     
     // MARK: 加载数据
     func loadData() {
-        FTNetUtil().getResumeList(CHSUserInfo.currentUserInfo.userid) { (success, response) in
+        FTNetUtil().getResumeList("") { (success, response) in
             if success {
                 self.resumeModel = response as! [MyResumeData]
                 self.myTableView.reloadData()
             }else{
-                
+                self.hasPosition = false
+                self.myTableView.reloadData()
             }
         }
     }
@@ -114,6 +115,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         myTableView.dataSource = self
         myTableView.delegate = self
         self.view.addSubview(myTableView)
+        
     }
     
     // MARK:自定义下拉列表样式
@@ -165,7 +167,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             let cell = tableView.dequeueReusableCell(withIdentifier: "FTTalentCell") as! FTTalentTableViewCell
             cell.selectionStyle = .none
             
-            cell.resumeData = self.resumeModel[(indexPath as NSIndexPath).row]
+            cell.resumeData = self.resumeModel[(indexPath as NSIndexPath).section]
             return cell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "FTTaNoPositionTableViewCell") as! FTTaNoPositionTableViewCell

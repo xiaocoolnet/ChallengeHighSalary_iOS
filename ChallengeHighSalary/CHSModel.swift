@@ -237,7 +237,7 @@ class MyApplyJobData: HandyJSON {
 
     var jr_jobid: String?
 
-    var applys: MyApplyJobApplys?
+    var applys: JobInfoDataModel?
 
     var jr_companyid: String?
 
@@ -245,67 +245,67 @@ class MyApplyJobData: HandyJSON {
 
 }
 
-class MyApplyJobApplys: HandyJSON {
-
-    var education: String?
-
-    var userid: String?
-
-    var title: String?
-
-    var description_job: String?
-
-    var company_web: String?
-
-    var create_time: String?
-
-    var company_name: String?
-
-    var authentication: String?
-
-    var company_score: String?
-
-    var jobid: String?
-
-    var count: String?
-
-    var industry: String?
-
-    var salary: String?
-
-    var city: String?
-
-    var realname: String?
-
-    var work_property: String?
-
-    var myjob: String?
-
-    var welfare: String?
-
-    var produte_info: String?
-
-    var companyid: String?
-
-    var distance: String?
-
-    var financing: String?
-
-    var com_introduce: String?
-
-    var skill: String?
-
-    var logo: String?
-
-    var experience: String?
-
-    var jobtype: String?
-
-    var address: String?
-
-    required init() {}
-
-}
+//class MyApplyJobApplys: HandyJSON {
+//
+//    var education: String?
+//
+//    var userid: String?
+//
+//    var title: String?
+//
+//    var description_job: String?
+//
+//    var company_web: String?
+//
+//    var create_time: String?
+//
+//    var company_name: String?
+//
+//    var authentication: String?
+//
+//    var company_score: String?
+//
+//    var jobid: String?
+//
+//    var count: String?
+//
+//    var industry: String?
+//
+//    var salary: String?
+//
+//    var city: String?
+//
+//    var realname: String?
+//
+//    var work_property: String?
+//
+//    var myjob: String?
+//
+//    var welfare: String?
+//
+//    var produte_info: String?
+//
+//    var companyid: String?
+//
+//    var distance: String?
+//
+//    var financing: String?
+//
+//    var com_introduce: String?
+//
+//    var skill: String?
+//
+//    var logo: String?
+//
+//    var experience: String?
+//
+//    var jobtype: String?
+//
+//    var address: String?
+//
+//    required init() {}
+//
+//}
 
 
 class GetChatList: HandyJSON {
@@ -390,4 +390,67 @@ class ChatData: HandyJSON {
     
     required init() {}
     
+}
+
+class BlackList: HandyJSON {
+    
+    var status: String?
+    
+    var data: [BlackListData]?
+    
+    required init() {}
+}
+
+class BlackListData: HandyJSON {
+    
+    var id: String?
+    
+    var userid: String?
+    
+    var blackid: String?
+    
+    var create_time: String?
+    
+    var status: String?
+    
+    var reason: String?
+    
+    var type: String?
+
+    var blacks: [BlackListDataBlacks]?
+    
+    required init() {}
+}
+
+class BlackListDataBlacks: HandyJSON {
+    
+    var userid: String?
+    
+    var logo: String?
+    
+    var companyid: String?
+    
+    var company_name: String?
+    
+    var company_web: String?
+    
+    var industry: String?
+    
+    var count: String?
+    
+    var financing: String?
+    
+    var creat_time: String?
+    
+    var authentication: String?
+    
+    var company_score: String?
+    
+    var distance: String?
+    
+    var produte_info: String?
+    
+    var com_introduce: String?
+    
+    required init() {}
 }

@@ -60,6 +60,7 @@ class CHSMiSetPasswordViewController: UIViewController, UITextFieldDelegate {
         newPwdTF.placeholder = "请设置登录密码"
         newPwdTF.keyboardType = .default
         newPwdTF.returnKeyType = .next
+        newPwdTF.isSecureTextEntry = true
         newPwdTF.delegate = self
         newPwdBgView.addSubview(newPwdTF)
         
@@ -89,6 +90,7 @@ class CHSMiSetPasswordViewController: UIViewController, UITextFieldDelegate {
         sureNewPwdTF.placeholder = "再次输入密码"
         sureNewPwdTF.keyboardType = .default
         sureNewPwdTF.returnKeyType = .next
+        sureNewPwdTF.isSecureTextEntry = true
         sureNewPwdTF.delegate = self
         surePwdBgView.addSubview(sureNewPwdTF)
         

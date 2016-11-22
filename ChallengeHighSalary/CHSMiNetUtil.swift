@@ -65,7 +65,7 @@ class CHSMiNetUtil: NSObject {
     // MARK: 修改密码
     func changePassword(_ password:String, handle:@escaping ResponseClosures) {
         
-        let url = kPortPrefix+"changePassword"
+        let url = kPortPrefix+"Modify_password"
         let param = [
             "phone":CHSUserInfo.currentUserInfo.phoneNumber,
             "password":password
@@ -81,7 +81,16 @@ class CHSMiNetUtil: NSObject {
                 if status.status == "success" {
                     handle(true, "" as AnyObject?)
                 }else{
-                    handle(false, "密码修改失败" as AnyObject?)
+                    
+                    let error = JSONDeserializer<errorModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                    if error.data == "password repeat" {
+                        handle(false, "新密码与旧密码相同" as AnyObject?)
+
+                    }else{
+                        
+                        handle(false, "密码修改失败" as AnyObject?)
+                    }
+                    
                 }
             }
         }

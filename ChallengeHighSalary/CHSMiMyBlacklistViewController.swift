@@ -12,6 +12,8 @@ class CHSMiMyBlacklistViewController: UIViewController, UITableViewDataSource, U
     
     let rootTableView = UITableView()
     
+    var blackListDataArray = [BlackListData]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,6 +27,20 @@ class CHSMiMyBlacklistViewController: UIViewController, UITableViewDataSource, U
         
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = true
+        
+        self.loadData()
+    }
+    
+    // MARK: - 加载数据
+    func loadData() {
+        
+        CHSNetUtil().getBlackList(CHSUserInfo.currentUserInfo.userid, type: "1") { (success, response) in
+            if success {
+                self.blackListDataArray = response as! [BlackListData]
+                self.rootTableView.reloadData()
+            }
+        }
+        
     }
     
     // MARK: popViewcontroller
@@ -54,13 +70,19 @@ class CHSMiMyBlacklistViewController: UIViewController, UITableViewDataSource, U
     
     // MARK: UITableView DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.blackListDataArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let blacks = self.blackListDataArray[indexPath.row].blacks?.first
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "CHSMiMyBlacklistCell") as! CHSMiMyBlacklistTableViewCell
         cell.selectionStyle = .none
+        
+        cell.companyNameLab.text = blacks?.company_name
+        cell.industryLab.text = ""
+        cell.addressLab.text = blacks?.industry
         
         return cell
     }

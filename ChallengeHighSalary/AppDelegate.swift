@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         AMapServices.shared().apiKey = "f5bd61f0a61bde209f87e5d42e2ad8a3"
         
+        Bugtags.start(withAppKey: "66c9f2b441c760820f6a7fab8add27da", invocationEvent: BTGInvocationEventBubble)
+        
         UITabBar.appearance().tintColor = baseColor
         UITabBar.appearance().backgroundColor = UIColor(red: 248/255.0, green: 248/255.0, blue: 248/255.0, alpha: 1)
         

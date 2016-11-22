@@ -10,6 +10,7 @@ import UIKit
 
 class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
     
+    let rootScrollView = TPKeyboardAvoidingScrollView()
     // 电话号码输入框
     let telTF = UITextField()
     // 获取验证码 按钮
@@ -45,13 +46,18 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
         
         self.title = "手机绑定"
         
+        self.rootScrollView.frame = self.view.bounds
+        self.rootScrollView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
+        self.rootScrollView.isScrollEnabled = false
+        self.view.addSubview(rootScrollView)
+        
         // MARK: 当前手机号 Label
         let currentPhoneLab = UILabel(frame: CGRect(x: 0, y: kHeightScale*40+44+20, width: screenSize.width, height: kHeightScale*15))
         currentPhoneLab.textColor = UIColor(red: 156/255.0, green: 156/255.0, blue: 156/255.0, alpha: 1)
         currentPhoneLab.textAlignment = .center
         currentPhoneLab.font = UIFont.systemFont(ofSize: 14)
         currentPhoneLab.text = "当前手机号"
-        self.view.addSubview(currentPhoneLab)
+        self.rootScrollView.addSubview(currentPhoneLab)
         
         // MARK: 手机号
         let phoneLab = UILabel(frame: CGRect(x: 0, y: kHeightScale*65+44+20, width: screenSize.width, height: kHeightScale*15))
@@ -68,13 +74,13 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
         
         phoneLab.text = phoneNum.replacingCharacters(in: range, with: "****")
         
-        self.view.addSubview(phoneLab)
+        self.rootScrollView.addSubview(phoneLab)
         
         // MARK: 新手机号 背景
         let newPhoneBgView = UIView(frame: CGRect(x: kWidthScale*10, y: kHeightScale*105+44+20, width: screenSize.width-kWidthScale*20, height: kHeightScale*50))
         newPhoneBgView.layer.cornerRadius = 6
         newPhoneBgView.backgroundColor = UIColor.white
-        self.view.addSubview(newPhoneBgView)
+        self.rootScrollView.addSubview(newPhoneBgView)
         
         // 电话前缀
         let telLab = UIButton(frame: CGRect(
@@ -103,7 +109,7 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
         let checkCodeBgView = UIView(frame: CGRect(x: kWidthScale*10, y: newPhoneBgView.frame.maxY+kHeightScale*20, width: screenSize.width-kWidthScale*20, height: kHeightScale*50))
         checkCodeBgView.layer.cornerRadius = 6
         checkCodeBgView.backgroundColor = UIColor.white
-        self.view.addSubview(checkCodeBgView)
+        self.rootScrollView.addSubview(checkCodeBgView)
         
         // 验证码 前 背景视图
         let checkCodeView = UIImageView(frame: CGRect(
@@ -157,7 +163,7 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
         sureChangeBtn.setTitleColor(UIColor.white, for: UIControlState())
         sureChangeBtn.setTitle("确认更换", for: UIControlState())
         sureChangeBtn.addTarget(self, action: #selector(sureChangeBtnClick), for: .touchUpInside)
-        self.view.addSubview(sureChangeBtn)
+        self.rootScrollView.addSubview(sureChangeBtn)
         
         // 提示 Label
         let tipLab = UILabel(frame: CGRect(
@@ -169,7 +175,7 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
         tipLab.textColor = UIColor(red: 161/255.0, green: 161/255.0, blue: 161/255.0, alpha: 1)
         tipLab.text = "修改手机号后，可以使用新的手机号登录"
         tipLab.textAlignment = .center
-        self.view.addSubview(tipLab)
+        self.rootScrollView.addSubview(tipLab)
     }
     
     // MARK: UITextFieldDelegate

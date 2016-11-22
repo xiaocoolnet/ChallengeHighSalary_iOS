@@ -2,8 +2,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'ChallengeHighSalary' do
-#  pod 'Alamofire', '~> 4.0.1'
-#  pod 'D3Model', '~> 2.0.3'
+  pod 'MJRefresh'
   pod 'AFNetworking', '~> 3.1.0'
   pod 'HandyJSON', '~> 1.2.1'
   pod 'PagingMenuController', '~> 1.4.0'
@@ -12,6 +11,7 @@ target 'ChallengeHighSalary' do
 #  pod 'Pgyer', '2.8.4'
   pod 'BmobSDK'
   pod 'AMapLocation'  #定位 SDK
+  pod 'Bugtags'
   
   post_install do |installer|
       installer.pods_project.targets.each do |target|

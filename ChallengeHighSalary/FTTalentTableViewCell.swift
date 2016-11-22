@@ -47,20 +47,37 @@ class FTTalentTableViewCell: UITableViewCell {
             self.degreeLab.text = resumeData.education?.first?.degree
             self.work_propertyLab.text = resumeData.work_property
             
-            let str = "现任 \(resumeData.myjob) | \(resumeData.company)"
+            var str = ""
+            if resumeData.jobstate.contains("在职") {
+                
+                str = "现任 \(resumeData.myjob) | \(resumeData.company)"
+                let nsStr = NSString(string: str)
+                let attStr = NSMutableAttributedString(string: str)
+                
+                attStr.addAttributes([NSForegroundColorAttributeName: UIColor.black], range: NSMakeRange(0, nsStr.length))
+                attStr.addAttributes([NSForegroundColorAttributeName: baseColor], range: NSMakeRange(nsStr.range(of: "现任 ").length, nsStr.range(of: " | ").location-nsStr.range(of: "现任 ").length))
+                attStr.addAttributes([NSForegroundColorAttributeName: UIColor.lightGray], range: nsStr.range(of: " | "))
+                
+                self.noteLab.attributedText = attStr
+            }else{
+                
+                str = "曾任 \(resumeData.myjob) | \(resumeData.company)"
+                let nsStr = NSString(string: str)
+                let attStr = NSMutableAttributedString(string: str)
+                
+                attStr.addAttributes([NSForegroundColorAttributeName: UIColor.black], range: NSMakeRange(0, nsStr.length))
+                attStr.addAttributes([NSForegroundColorAttributeName: baseColor], range: NSMakeRange(nsStr.range(of: "曾任 ").length, nsStr.range(of: " | ").location-nsStr.range(of: "曾任 ").length))
+                attStr.addAttributes([NSForegroundColorAttributeName: UIColor.lightGray], range: nsStr.range(of: " | "))
+                
+                self.noteLab.attributedText = attStr
+
+            }
             
             self.drawDashed(topLine, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPoint(x: 0, y: 0), toPoint: CGPoint(x: screenSize.width, y: 0), lineWidth: 1)
             
             self.drawDashed(bottomLine, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPoint(x: 0, y: 0), toPoint: CGPoint(x: screenSize.width, y: 0), lineWidth: 1)
             
-            let nsStr = NSString(string: str)
-            let attStr = NSMutableAttributedString(string: str)
             
-            attStr.addAttributes([NSForegroundColorAttributeName: UIColor.black], range: NSMakeRange(0, nsStr.length))
-            attStr.addAttributes([NSForegroundColorAttributeName: baseColor], range: NSMakeRange(nsStr.range(of: "现任 ").length, nsStr.range(of: " | ").location-nsStr.range(of: "现任 ").length))
-            attStr.addAttributes([NSForegroundColorAttributeName: UIColor.lightGray], range: nsStr.range(of: " | "))
-            
-            self.noteLab.attributedText = attStr
             
         }
     }
@@ -69,18 +86,10 @@ class FTTalentTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-//        self.drawDashed(topLine, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(0, 0), toPoint: CGPointMake(screenSize.width, 0), lineWidth: 1)
-//        
-//        self.drawDashed(bottomLine, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPointMake(0, 0), toPoint: CGPointMake(screenSize.width, 0), lineWidth: 1)
-//
-//        let nsStr = NSString(string: str)
-//        let attStr = NSMutableAttributedString(string: str)
-//
-//        attStr.addAttributes([NSForegroundColorAttributeName: UIColor.blackColor()], range: NSMakeRange(0, nsStr.length))
-//        attStr.addAttributes([NSForegroundColorAttributeName: baseColor], range: NSMakeRange(nsStr.rangeOfString("现任 ").length, nsStr.rangeOfString(" | ").location-nsStr.rangeOfString("现任 ").length))
-//        attStr.addAttributes([NSForegroundColorAttributeName: UIColor.lightGrayColor()], range: nsStr.rangeOfString(" | "))
-//        
-//        self.noteLab.attributedText = attStr
+        self.address.adjustsFontSizeToFitWidth = true
+        self.work_lifeLab.adjustsFontSizeToFitWidth = true
+        self.degreeLab.adjustsFontSizeToFitWidth = true
+        self.work_propertyLab.adjustsFontSizeToFitWidth = true
 
     }
     

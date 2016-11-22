@@ -63,6 +63,26 @@ class ChChFindJobTableViewCell: UITableViewCell {
         }
     }
     
+//    var applyJobData:MyApplyJobData? {
+//        didSet {
+//            self.titleLab.text = applyJobData?.applys?.title
+//            self.company_nameLab.text = applyJobData?.applys?.company_name
+//            self.logoImg.sd_setImage(with: URL(string: kImagePrefix+(applyJobData?.applys?.logo)!), placeholderImage: nil)
+//            self.realnameLab.text = applyJobData?.applys?.realname
+//            self.myjobLab.text = applyJobData?.applys?.myjob
+//            self.countLab.text = "公司规模"+(applyJobData?.applys?.count ?? "0")!
+//            self.company_scoreLab.text = "综合评分"+(applyJobData?.applys?.company_score ?? "")!
+//            self.salaryLab.text = "￥ "+(applyJobData?.applys?.salary)!
+//            self.distanceLab.text = jobInfo?.distance
+//            self.cityLab.text = applyJobData?.applys?.city?.components(separatedBy: "-").last
+//            self.experienceLab.text = applyJobData?.applys?.experience
+//            self.educationLab.text = applyJobData?.applys?.education
+//            //            self.work_propertyLab.text = jobInfo?.work_property ?? "待补充"
+//            self.work_propertyLab.text = applyJobData?.applys?.work_property
+//            
+//        }
+//    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
