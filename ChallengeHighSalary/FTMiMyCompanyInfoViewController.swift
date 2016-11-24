@@ -10,6 +10,13 @@ import UIKit
 
 class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDelegate,UIPickerViewDataSource, LoReFTInfoInputViewControllerDelegate {
     
+    var company_infoDataModel = Company_infoDataModel() {
+        didSet {
+            self.detailNameArray = ["",company_infoDataModel.company_name,company_infoDataModel.company_web,company_infoDataModel.industry,company_infoDataModel.count,company_infoDataModel.financing]
+
+        }
+    }
+
     let rootTableView = UITableView()
     
     let headerImg = UIImageView()
@@ -45,7 +52,7 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
         
         // Do any additional setup after loading the view.
         
-        loadData()
+//        loadData()
         setSubviews()
         NotificationCenter.default.addObserver(self, selector: #selector(CompanyInfoChanged(_:)), name: NSNotification.Name(rawValue: "PersonalChangeCompanyInfoNotification"), object: nil)
 
@@ -60,21 +67,21 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
         }
     }
     
-    // MARK: 加载数据
-    func loadData() {
-        
-        FTNetUtil().getMyCompany_info(CHSUserInfo.currentUserInfo.userid) { (success, response) in
-            if success {
-                let companyInfoModel = response as! Company_infoDataModel
-                self.selectedImage = UIImage(data: try! Data(contentsOf: URL(string: kImagePrefix+companyInfoModel.logo)!))
-                self.orignalImage = self.selectedImage
-                self.detailNameArray = ["",companyInfoModel.company_name,companyInfoModel.company_web,companyInfoModel.industry,companyInfoModel.count,companyInfoModel.financing]
-                
-            }else{
-                
-            }
-        }
-    }
+//    // MARK: 加载数据
+//    func loadData() {
+//        
+//        FTNetUtil().getMyCompany_info(CHSUserInfo.currentUserInfo.userid) { (success, response) in
+//            if success {
+//                let companyInfoModel = response as! Company_infoDataModel
+//                self.selectedImage = UIImage(data: try! Data(contentsOf: URL(string: kImagePrefix+companyInfoModel.logo)!))
+//                self.orignalImage = self.selectedImage
+//                self.detailNameArray = ["",companyInfoModel.company_name,companyInfoModel.company_web,companyInfoModel.industry,companyInfoModel.count,companyInfoModel.financing]
+//                
+//            }else{
+//                
+//            }
+//        }
+//    }
     
     // MARK: popViewcontroller
     func popViewcontroller() {
@@ -107,53 +114,89 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
         let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMddHHmmss"
-        let dateStr = dateFormatter.string(from: Date())
-        let imageName = "avatar" + dateStr + CHSUserInfo.currentUserInfo.userid + ".png"
-        
-        checkCodeHud.labelText = "正在上传公司logo"
-        
-        LoginNetUtil().uploadImage(imageName, image: selectedImage!) { (success, response) in
-            if success {
-                
-                checkCodeHud.labelText = "正在上传公司信息"
-                
-                FTNetUtil().company_info(
-                    CHSUserInfo.currentUserInfo.userid,
-                    logo: imageName,
-                    company_name: self.detailNameArray[1],
-                    company_web: self.detailNameArray[2],
-                    industry: self.detailNameArray[3],
-                    count: self.detailNameArray[4],
-                    financing: self.detailNameArray[5]) { (success, response) in
-                        if success {
-                            
-                            checkCodeHud.mode = .text
-                            checkCodeHud.labelText = "公司信息保存成功"
-                            checkCodeHud.hide(true, afterDelay: 1)
-                            
-                            let time: TimeInterval = 1.0
-                            let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-                            
-                            DispatchQueue.main.asyncAfter(deadline: delay) {
-                                _ = self.navigationController?.popViewController(animated: true)
+        if selectedImage != nil {
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMddHHmmss"
+            let dateStr = dateFormatter.string(from: Date())
+            let imageName = "avatar" + dateStr + CHSUserInfo.currentUserInfo.userid + ".png"
+            
+            checkCodeHud.labelText = "正在上传公司logo"
+            //        selectedImage = selectedImage == nil ? UIImage(data: try! Data(contentsOf: URL(string: kImagePrefix+self.company_infoDataModel.logo)!)):selectedImage
+            LoginNetUtil().uploadImage(imageName, image: selectedImage!) { (success, response) in
+                if success {
+                    
+                    checkCodeHud.labelText = "正在上传公司信息"
+                    
+                    FTNetUtil().company_info(
+                        CHSUserInfo.currentUserInfo.userid,
+                        logo: imageName,
+                        company_name: self.detailNameArray[1],
+                        company_web: self.detailNameArray[2],
+                        industry: self.detailNameArray[3],
+                        count: self.detailNameArray[4],
+                        financing: self.detailNameArray[5]) { (success, response) in
+                            if success {
+                                
+                                checkCodeHud.mode = .text
+                                checkCodeHud.labelText = "公司信息保存成功"
+                                checkCodeHud.hide(true, afterDelay: 1)
+                                
+                                let time: TimeInterval = 1.0
+                                let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                                
+                                DispatchQueue.main.asyncAfter(deadline: delay) {
+                                    _ = self.navigationController?.popViewController(animated: true)
+                                }
+                            }else{
+                                
+                                checkCodeHud.mode = .text
+                                checkCodeHud.labelText = "公司信息保存失败"
+                                checkCodeHud.hide(true, afterDelay: 1)
                             }
-                        }else{
-                            
-                            checkCodeHud.mode = .text
-                            checkCodeHud.labelText = "公司信息保存失败"
-                            checkCodeHud.hide(true, afterDelay: 1)
-                        }
+                    }
+                    
+                }else{
+                    
+                    checkCodeHud.mode = .text
+                    checkCodeHud.labelText = "上传头像失败"
+                    checkCodeHud.hide(true, afterDelay: 1)
                 }
-
-            }else{
-                
-                checkCodeHud.mode = .text
-                checkCodeHud.labelText = "上传头像失败"
-                checkCodeHud.hide(true, afterDelay: 1)
+            }
+            
+        }else{
+            
+            checkCodeHud.labelText = "正在上传公司信息"
+            
+            FTNetUtil().company_info(
+                CHSUserInfo.currentUserInfo.userid,
+                logo: self.company_infoDataModel.logo,
+                company_name: self.detailNameArray[1],
+                company_web: self.detailNameArray[2],
+                industry: self.detailNameArray[3],
+                count: self.detailNameArray[4],
+                financing: self.detailNameArray[5]) { (success, response) in
+                    if success {
+                        
+                        checkCodeHud.mode = .text
+                        checkCodeHud.labelText = "公司信息保存成功"
+                        checkCodeHud.hide(true, afterDelay: 1)
+                        
+                        let time: TimeInterval = 1.0
+                        let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                        
+                        DispatchQueue.main.asyncAfter(deadline: delay) {
+                            _ = self.navigationController?.popViewController(animated: true)
+                        }
+                    }else{
+                        
+                        checkCodeHud.mode = .text
+                        checkCodeHud.labelText = "公司信息保存失败"
+                        checkCodeHud.hide(true, afterDelay: 1)
+                    }
             }
         }
+        
     }
     
     // MARK:- tableView dataSource
@@ -177,7 +220,10 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
         if (indexPath as NSIndexPath).row == 0 {
             headerImg.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
             headerImg.layer.cornerRadius = 20
+            headerImg.clipsToBounds = true
             headerImg.backgroundColor = UIColor.orange
+            let imageUrl = URL(string: kImagePrefix+self.company_infoDataModel.logo)
+            headerImg.sd_setImage(with: imageUrl, placeholderImage: nil)
             cell?.accessoryView = headerImg
         }else{
             cell?.accessoryView = nil

@@ -183,7 +183,10 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         
         switch ((indexPath as NSIndexPath).section,(indexPath as NSIndexPath).row) {
         case (0,1):
-            self.navigationController?.pushViewController(FTMiMyCompanyInfoViewController(), animated: true)
+            
+            let myCompanyInfoController = FTMiMyCompanyInfoViewController()
+            myCompanyInfoController.company_infoDataModel = self.company_infoDataModel
+            self.navigationController?.pushViewController(myCompanyInfoController, animated: true)
         case (1,0):
             self.navigationController?.pushViewController(FTMiMyCollectionViewController(), animated: true)
         case (1,1):
