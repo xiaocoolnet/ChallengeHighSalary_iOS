@@ -34,7 +34,7 @@
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_V" translatesAutoresizingMaskIntoConstraints="NO" id="ofr-ZH-QIM" userLabel="V">
-                        <rect key="frame" x="54" y="91" width="15" height="15"/>
+                        <rect key="frame" x="49" y="86" width="15" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="8R9-gF-NUG"/>
                             <constraint firstAttribute="width" constant="15" id="yFI-gh-ooc"/>
@@ -93,10 +93,10 @@
                     <constraint firstItem="1E4-zJ-IZl" firstAttribute="centerY" secondItem="fhw-8x-790" secondAttribute="centerY" id="Sbl-UF-Bzv"/>
                     <constraint firstItem="1E4-zJ-IZl" firstAttribute="leading" secondItem="fhw-8x-790" secondAttribute="trailing" constant="5" id="chJ-JD-LDe"/>
                     <constraint firstItem="MpX-FH-UES" firstAttribute="leading" secondItem="KDu-cV-Xbj" secondAttribute="trailing" constant="15" id="ezd-tQ-yzt"/>
-                    <constraint firstItem="ofr-ZH-QIM" firstAttribute="bottom" secondItem="KDu-cV-Xbj" secondAttribute="bottom" constant="5" id="hWl-Ma-A3w"/>
+                    <constraint firstItem="ofr-ZH-QIM" firstAttribute="bottom" secondItem="KDu-cV-Xbj" secondAttribute="bottom" id="hWl-Ma-A3w"/>
                     <constraint firstItem="hXc-dN-Lgx" firstAttribute="top" secondItem="H0u-y0-qRZ" secondAttribute="topMargin" id="pR9-QH-cpj"/>
                     <constraint firstItem="KDu-cV-Xbj" firstAttribute="leading" secondItem="H0u-y0-qRZ" secondAttribute="leadingMargin" id="t7l-On-bw7"/>
-                    <constraint firstItem="ofr-ZH-QIM" firstAttribute="trailing" secondItem="KDu-cV-Xbj" secondAttribute="trailing" constant="5" id="vQG-C6-7Kt"/>
+                    <constraint firstItem="ofr-ZH-QIM" firstAttribute="trailing" secondItem="KDu-cV-Xbj" secondAttribute="trailing" id="vQG-C6-7Kt"/>
                     <constraint firstItem="Wf8-jN-GS5" firstAttribute="leading" secondItem="S80-bE-MVS" secondAttribute="trailing" constant="5" id="xOK-8m-wdQ"/>
                     <constraint firstItem="pWA-jA-R2m" firstAttribute="leading" secondItem="H0u-y0-qRZ" secondAttribute="leadingMargin" id="zRH-GW-dBB"/>
                 </constraints>

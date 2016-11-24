@@ -120,6 +120,7 @@
 		1FCDFED51D73E6DB0067970B /* ChallengeHighSalaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFED41D73E6DB0067970B /* ChallengeHighSalaryTests.swift */; };
 		1FCDFEE01D73E6DB0067970B /* ChallengeHighSalaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEDF1D73E6DB0067970B /* ChallengeHighSalaryUITests.swift */; };
 		1FCDFF011D7411160067970B /* LoHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEFF1D7411160067970B /* LoHomeViewController.swift */; };
+		1FCFE71B1DE6D54500D5FFA9 /* FTTaCompanyWelfareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCFE71A1DE6D54500D5FFA9 /* FTTaCompanyWelfareViewController.swift */; };
 		1FD6976E1DB0B8F9008D0A14 /* CHSReProjectDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6976D1DB0B8F9008D0A14 /* CHSReProjectDescriptionViewController.swift */; };
 		1FD697731DB0CC22008D0A14 /* LoReCHSEduExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD697721DB0CC22008D0A14 /* LoReCHSEduExperienceViewController.swift */; };
 		1FD697751DB0CF63008D0A14 /* LoReCHSJobExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD697741DB0CF63008D0A14 /* LoReCHSJobExperienceViewController.swift */; };
@@ -344,6 +345,7 @@
 		1FCDFEDF1D73E6DB0067970B /* ChallengeHighSalaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeHighSalaryUITests.swift; sourceTree = "<group>"; };
 		1FCDFEE11D73E6DB0067970B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FCDFEFF1D7411160067970B /* LoHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoHomeViewController.swift; sourceTree = "<group>"; };
+		1FCFE71A1DE6D54500D5FFA9 /* FTTaCompanyWelfareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaCompanyWelfareViewController.swift; sourceTree = "<group>"; };
 		1FD6976D1DB0B8F9008D0A14 /* CHSReProjectDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReProjectDescriptionViewController.swift; sourceTree = "<group>"; };
 		1FD697721DB0CC22008D0A14 /* LoReCHSEduExperienceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReCHSEduExperienceViewController.swift; sourceTree = "<group>"; };
 		1FD697741DB0CF63008D0A14 /* LoReCHSJobExperienceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReCHSJobExperienceViewController.swift; sourceTree = "<group>"; };
@@ -932,6 +934,7 @@
 				1FF1CE161DA89E21000F0A9A /* FTTaWorkplaceViewController.swift */,
 				1FF1CE181DA8BA8E000F0A9A /* FTTaJobDescriptionsViewController.swift */,
 				1FCC2FDE1DB607C0002360E4 /* FTPersonalViewController.swift */,
+				1FCFE71A1DE6D54500D5FFA9 /* FTTaCompanyWelfareViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1530,6 +1533,7 @@
 				1F577B201DA9F1D000AB5D99 /* CHSMeSysMessageViewController.swift in Sources */,
 				1FF3C69D1D9262100069DD23 /* CHSMiAboutUsViewController.swift in Sources */,
 				1F577B191DA9E89400AB5D99 /* FTMeCollectionMeTableViewCell.swift in Sources */,
+				1FCFE71B1DE6D54500D5FFA9 /* FTTaCompanyWelfareViewController.swift in Sources */,
 				1F577B261DA9F22300AB5D99 /* CHSMeLookMeViewController.swift in Sources */,
 				1FC3CCB81D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift in Sources */,
 				1FB6D5EB1D9B5B2A00262BBD /* CHSUserInfo.swift in Sources */,

@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>7</string>
+	<string>8</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -52,9 +52,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>挑战高薪想访问您的相册以选择头像</string>
 	<key>UIBackgroundModes</key>
-	<array>
-		<string>location</string>
-	</array>
+	<array/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

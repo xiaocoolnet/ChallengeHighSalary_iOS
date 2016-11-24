@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import MJRefresh
 
 class FTMiMyBlacklistViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let rootTableView = UITableView()
+    
+    var blackListDataArray = [BlackListData_company]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +28,19 @@ class FTMiMyBlacklistViewController: UIViewController, UITableViewDataSource, UI
         
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    // MARK: - 加载数据
+    func loadData() {
+        
+        PublicNetUtil().getBlackList(CHSUserInfo.currentUserInfo.userid, type: "2") { (success, response) in
+            if success {
+                self.blackListDataArray = response as! [BlackListData_company]
+                self.rootTableView.reloadData()
+            }
+            self.rootTableView.mj_header.endRefreshing()
+        }
+        
     }
     
     // MARK: popViewcontroller
@@ -50,11 +66,14 @@ class FTMiMyBlacklistViewController: UIViewController, UITableViewDataSource, UI
         rootTableView.dataSource = self
         rootTableView.delegate = self
         self.view.addSubview(rootTableView)
+        
+        rootTableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(loadData))
+        rootTableView.mj_header.beginRefreshing()
     }
     
     // MARK: UITableView DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return self.blackListDataArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,7 +81,41 @@ class FTMiMyBlacklistViewController: UIViewController, UITableViewDataSource, UI
         let cell = tableView.dequeueReusableCell(withIdentifier: "FTMiMyBlacklistCell") as! FTMiMyBlacklistTableViewCell
         cell.selectionStyle = .none
         
+        cell.blackListResumeData = self.blackListDataArray[indexPath.row].blacks
+        cell.cancelBlacklistBtn.tag = 100+indexPath.row
+        cell.cancelBlacklistBtn.addTarget(self, action: #selector(cancelBtnClick(with:)), for: .touchUpInside)
         return cell
+    }
+    
+    // MARK: - 取消黑名单按钮 点击事件
+    func cancelBtnClick(with cancelBtn:UIButton) {
+        
+        let alertController = UIAlertController(title: "您确定要取消拉黑 \((self.blackListDataArray[cancelBtn.tag-100].blacks?.realname ?? "该用户")!) 吗？", message: nil, preferredStyle: .alert)
+        self.present(alertController, animated: true, completion: nil)
+        
+        let cancelAction = UIAlertAction(title: "点错了", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let sureAction = UIAlertAction(title: "确定", style: .default) { (action) in
+            
+            let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+            hud?.removeFromSuperViewOnHide = true
+
+            PublicNetUtil().delBlackList(CHSUserInfo.currentUserInfo.userid, type: "2", blackid: (self.blackListDataArray[cancelBtn.tag-100].blackid ?? "")!) { (success, response) in
+                if success {
+                    
+                    hud?.hide(true)
+
+                    self.blackListDataArray.remove(at: cancelBtn.tag-100)
+                    self.rootTableView.reloadData()
+                }else{
+                    hud?.mode = .text
+                    hud?.labelText = ((response as? String) ?? "取消黑名单失败，请稍后再试")!
+                    hud?.hide(true, afterDelay: 1)
+                }
+            }
+        }
+        alertController.addAction(sureAction)
     }
     
     override func didReceiveMemoryWarning() {

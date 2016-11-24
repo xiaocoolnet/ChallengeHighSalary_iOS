@@ -117,17 +117,21 @@ class FTNetUtil: NSObject {
     
     // MARK: 发布招聘岗位
     // userid,jobtype,title(职位名称),skill,salary,experience,education,city,address,description
+    // userid,jobtype职位类型,title(职位名称),skill技能要求,salary薪资范围,work_property工作性质,experience经验要求,education学历要求,city工作城市,address工作地点,description_job职位描述,welfare(福利待遇)
     func publishjob(
         _ userid:String,
         jobtype:String,
         title:String,
         skill:String,
         salary:String,
+        work_property:String,
         experience:String,
         education:String,
         city:String,
         address:String,
-        description_job:String, handle:@escaping ResponseClosures) {
+        description_job:String,
+        welfare:String,
+        handle:@escaping ResponseClosures) {
 
         let url = kPortPrefix+"publishjob"
         let param = [
@@ -136,12 +140,14 @@ class FTNetUtil: NSObject {
             "title":title,
             "skill":skill,
             "salary":salary,
+            "work_property":work_property,
             "experience":experience,
             "education":education,
             "city":city,
             "address":address,
             "description_job":description_job,
-        ];
+            "welfare":welfare
+        ]
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){

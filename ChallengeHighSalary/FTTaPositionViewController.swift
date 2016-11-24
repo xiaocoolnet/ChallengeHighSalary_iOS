@@ -11,18 +11,19 @@ import UIKit
 class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     let rootTableView = UITableView(frame: CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-64), style: .grouped)
-    let nameArray = [["公司信息"],["职位类型","职位名称","技能要求","薪资范围"],["经验要求","学历要求"],["工作城市","工作地点","职位描述"]]
-    var selectedNameArray = [["公司信息"],["职位类型","职位名称","技能要求","薪资范围"],["经验要求","学历要求"],["工作城市","工作地点","职位描述"]] {
+    let nameArray = [["公司信息"],["职位类型","职位名称","技能要求","薪资范围"],["工作性质","经验要求","学历要求"],["工作城市","工作地点","职位描述","公司福利"]]
+    var selectedNameArray = [["公司信息"],["职位类型","职位名称","技能要求","薪资范围"],["工作性质","经验要求","学历要求"],["工作城市","工作地点","职位描述","公司福利"]] {
         didSet {
             self.rootTableView.reloadData()
         }
     }
     
-    var pickSelectedRowArray = [[0,0],[0],[0],[0,0]]
+    var pickSelectedRowArray = [[0,0],[0],[0],[0],[0,0]]
     
     let pickLowArray = ["1","2","3","4","5"]
     var pickSupArray = ["1","2","3","4","5"]
     
+    let pickWorkPropertyArray = ["全职","兼职"]
     let pickExpRequiredArray = ["不限","应届生","1年以内","1-3年"]
     let pickEduRequiredArray = ["不限","大专","本科","研究生"]
     
@@ -107,8 +108,9 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
             selectedNameArray[1][1] == "职位名称" ||
             selectedNameArray[1][2] == "技能要求" ||
             selectedNameArray[1][3] == "薪资范围" ||
-            selectedNameArray[2][0] == "经验要求" ||
-            selectedNameArray[2][1] == "学历要求" ||
+            selectedNameArray[2][0] == "工作性质" ||
+            selectedNameArray[2][1] == "经验要求" ||
+            selectedNameArray[2][2] == "学历要求" ||
             selectedNameArray[3][0] == "工作城市" ||
             selectedNameArray[3][1] == "工作地点" ||
             selectedNameArray[3][2] == "职位描述"{
@@ -126,11 +128,13 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
                 title: selectedNameArray[1][1],
                 skill: selectedNameArray[1][2],
                 salary: selectedNameArray[1][3],
-                experience: selectedNameArray[2][0],
-                education: selectedNameArray[2][1],
+                work_property: selectedNameArray[2][0],
+                experience: selectedNameArray[2][1],
+                education: selectedNameArray[2][2],
                 city: selectedNameArray[3][0],
                 address: selectedNameArray[3][1],
-                description_job: selectedNameArray[3][2]) { (success, response) in
+                description_job: selectedNameArray[3][2],
+                welfare: selectedNameArray[3][3]) { (success, response) in
                     if success {
                         
                         checkCodeHud.mode = .text
@@ -181,7 +185,7 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         
         if (indexPath as NSIndexPath).section == 0 {
             
-        }else if (indexPath as NSIndexPath).section == selectedNameArray.count-1 && (indexPath as NSIndexPath).row == (selectedNameArray.last?.count)!-1 {
+        }else if indexPath.section == selectedNameArray.count-1 && indexPath.row >= (selectedNameArray.last?.count)!-2 {
             
         }else{
             
@@ -223,7 +227,9 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         case (3,2):
             
             self.navigationController?.pushViewController(FTTaJobDescriptionsViewController(), animated: true)
+        case (3,3):
             
+            self.navigationController?.pushViewController(FTTaCompanyWelfareViewController(), animated: true)
         default:
             
             let bigBgView = UIButton(frame: self.view.bounds)
@@ -278,22 +284,28 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
                 pickerView.selectRow(pickSelectedRowArray[0][1], inComponent: 2, animated: false)
             case (2,0):
                 
+                pickerLab.text = "工作性质"
+                
+                pickerView.tag = 120
+                pickerView.selectRow(pickSelectedRowArray[1][0], inComponent: 0, animated: false)
+            case (2,1):
+                
                 pickerLab.text = "经验要求"
                 
                 pickerView.tag = 102
-                pickerView.selectRow(pickSelectedRowArray[1][0], inComponent: 0, animated: false)
-            case (2,1):
+                pickerView.selectRow(pickSelectedRowArray[2][0], inComponent: 0, animated: false)
+            case (2,2):
                 pickerLab.text = "学历要求"
                 
                 pickerView.tag = 103
-                pickerView.selectRow(pickSelectedRowArray[2][0], inComponent: 0, animated: false)
+                pickerView.selectRow(pickSelectedRowArray[3][0], inComponent: 0, animated: false)
             case (3,0):
                 
                 pickerLab.text = "工作城市"
                 
                 pickerView.tag = 104
-                pickerView.selectRow(pickSelectedRowArray[3][0], inComponent: 0, animated: false)
-                pickerView.selectRow(pickSelectedRowArray[3][1], inComponent: 1, animated: false)
+                pickerView.selectRow(pickSelectedRowArray[4][0], inComponent: 0, animated: false)
+                pickerView.selectRow(pickSelectedRowArray[4][1], inComponent: 1, animated: false)
             default:
                 print("找人才-人才-发布职位-didSelectRowAtIndexPath  default")
             }
@@ -315,22 +327,27 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
             
             pickSelectedRowArray[0][0] = pickerView.selectedRow(inComponent: 0)
             pickSelectedRowArray[0][1] = pickerView.selectedRow(inComponent: 2)
-        }else if pickerView.tag == 102 {
+        }else if pickerView.tag == 120 {
             
-            selectedNameArray[2][0] = pickExpRequiredArray[pickerView.selectedRow(inComponent: 0)]
+            selectedNameArray[2][0] = pickWorkPropertyArray[pickerView.selectedRow(inComponent: 0)]
             
             pickSelectedRowArray[1][0] = pickerView.selectedRow(inComponent: 0)
-        }else if pickerView.tag == 103 {
+        }else if pickerView.tag == 102 {
             
-            selectedNameArray[2][1] = pickEduRequiredArray[pickerView.selectedRow(inComponent: 0)]
+            selectedNameArray[2][1] = pickExpRequiredArray[pickerView.selectedRow(inComponent: 0)]
             
             pickSelectedRowArray[2][0] = pickerView.selectedRow(inComponent: 0)
+        }else if pickerView.tag == 103 {
+            
+            selectedNameArray[2][2] = pickEduRequiredArray[pickerView.selectedRow(inComponent: 0)]
+            
+            pickSelectedRowArray[3][0] = pickerView.selectedRow(inComponent: 0)
         }else if pickerView.tag == 104 {
             
             selectedNameArray[3][0] = "\(provinceArray[pickerView.selectedRow(inComponent: 0)])-\(cityArray[pickerView.selectedRow(inComponent: 1)])"
 
-            pickSelectedRowArray[3][0] = pickerView.selectedRow(inComponent: 0)
-            pickSelectedRowArray[3][1] = pickerView.selectedRow(inComponent: 1)
+            pickSelectedRowArray[4][0] = pickerView.selectedRow(inComponent: 0)
+            pickSelectedRowArray[4][1] = pickerView.selectedRow(inComponent: 1)
         }
         
         UserDefaults.standard.setValue(selectedNameArray, forKey: FTPublishJobSelectedNameArray_key)
@@ -357,6 +374,8 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         
         if pickerView.tag == 101 {
             return 3
+        }else if pickerView.tag == 120 {
+            return 1
         }else if pickerView.tag == 102 {
             return 1
         }else if pickerView.tag == 103 {
@@ -379,6 +398,9 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
             }else{
                 return pickSupArray.count
             }
+        }else if pickerView.tag == 120 {
+            
+            return pickWorkPropertyArray.count
         }else if pickerView.tag == 102 {
             
             return pickExpRequiredArray.count
@@ -411,6 +433,9 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
                 pickSupArray = Array(pickLowArray[row ..< pickLowArray.count])
                 
             }
+        }else if pickerView.tag == 120 {
+            
+            
         }else if pickerView.tag == 102 {
             
             
@@ -454,6 +479,9 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
             }else{
                 view.text = pickSupArray[row]
             }
+        }else if pickerView.tag == 120 {
+            
+            view.text = pickWorkPropertyArray[row]
         }else if pickerView.tag == 102 {
             
             view.text = pickExpRequiredArray[row]

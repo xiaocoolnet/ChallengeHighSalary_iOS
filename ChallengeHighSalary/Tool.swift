@@ -67,6 +67,15 @@ class errorModel: HandyJSON {
 
 }
 
+enum MyInvitedType: Int{
+    case waitInterview = 0// 待面试
+    case completed// 已结束
+    case pending// 待确认
+    case denied// 已拒绝
+    case canceled// 已取消
+    case all// 全部
+}
+
 typealias TimerHandle = (_ timeInterVal:Int)->Void
 
 //MARK: 计时器类

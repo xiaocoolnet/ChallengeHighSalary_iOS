@@ -187,4 +187,77 @@ class PublicNetUtil: NSObject {
             }
         }
     }
+    
+    // MARK: 获取我的黑名单
+    // userid,type=1个人获取被拉黑的企业列表，type=2企业获取被拉黑的个人列表
+    func getBlackList(
+        _ userid:String,
+        type:String,
+        handle:@escaping ResponseClosures) {
+        
+        let url = kPortPrefix+"getBlackList"
+        let param = [
+            "userid":userid,
+            "type":type
+        ];
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+            
+            if(error != nil){
+                handle(false, error.debugDescription as AnyObject?)
+            }else{
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                
+                if checkCode.status == "success" {
+                    
+                    if type == "1" {
+                        
+                        let jobInfoModel = JSONDeserializer<BlackList>.deserializeFrom(dict: json as! NSDictionary?)!
+                        
+                        handle(true, jobInfoModel.data as AnyObject?)
+                    }else{
+                        
+                        let jobInfoModel = JSONDeserializer<BlackList_company>.deserializeFrom(dict: json as! NSDictionary?)!
+                        
+                        handle(true, jobInfoModel.data as AnyObject?)
+                    }
+                }else{
+                    
+                    handle(false, nil)
+                }
+            }
+        }
+    }
+    
+    // MARK: 取消拉黑
+    // userid,type(1个人拉黑企业，2企业拉黑个人),blackid(被拉黑用户id,不写则删除全部)
+    func delBlackList(
+        _ userid:String,
+        type:String,
+        blackid:String,
+        handle:@escaping ResponseClosures) {
+        
+        let url = kPortPrefix+"delBlackList"
+        let param = [
+            "userid":userid,
+            "type":type,
+            "blackid":blackid
+        ];
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+            
+            if(error != nil){
+                handle(false, error.debugDescription as AnyObject?)
+            }else{
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                
+                if checkCode.status == "success" {
+                    
+                    handle(true, nil)
+                }else{
+                    
+                    handle(false, nil)
+                }
+            }
+        }
+    }
+
 }

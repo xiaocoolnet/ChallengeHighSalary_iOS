@@ -7,12 +7,19 @@
 //
 
 import UIKit
+import MJRefresh
 
 class FTMiMyInterviewAllViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    var invitedType = MyInvitedType.all
+
     let rootTableView = UITableView(frame: CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-20-44), style: .grouped)
     
     var typeDrop = DropDown()
+    
+    var myInvitedDataArray: [MyInvitedDataModel]?
+    
+    var pager = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +27,83 @@ class FTMiMyInterviewAllViewController: UIViewController, UITableViewDataSource,
         // Do any additional setup after loading the view.
         
         setSubviews()
+    }
+    
+    // MARK: - 加载数据
+    // 下拉
+    func loadData_PullDown() {
+        
+        self.pager = 1
+        
+        var type = ""
+        switch self.invitedType {
+        case .all:
+            type = ""
+        case .waitInterview:
+            type = "0"
+        case .pending:
+            type = ""
+        case .denied:
+            type = ""
+        case .canceled:
+            type = ""
+        case .completed:
+            type = "1"
+        }
+        
+        FTNetUtil().getMyInvited(CHSUserInfo.currentUserInfo.userid, type: type, pager: String(pager)) { (success, response) in
+            
+            if success {
+                
+                self.pager += 1
+                self.myInvitedDataArray = response as? [MyInvitedDataModel]
+                self.rootTableView.reloadData()
+                
+            }
+            
+            self.rootTableView.mj_header.endRefreshing()
+        }
+        
+    }
+    // 上拉
+    func loadData_PullUp() {
+        
+        var type = ""
+        switch self.invitedType {
+        case .all:
+            type = ""
+        case .waitInterview:
+            type = "0"
+        case .pending:
+            type = ""
+        case .denied:
+            type = ""
+        case .canceled:
+            type = ""
+        case .completed:
+            type = "1"
+        }
+        
+        FTNetUtil().getMyInvited(CHSUserInfo.currentUserInfo.userid, type: type, pager: String(pager)) { (success, response) in
+            self.pager += 1
+            
+            if success {
+                
+                let myInvitedDataArray = response as? [MyInvitedDataModel]
+                
+                for myInvitedData in myInvitedDataArray! {
+                    self.myInvitedDataArray?.append(myInvitedData)
+                }
+                
+                self.rootTableView.reloadData()
+                
+                self.rootTableView.mj_footer.endRefreshing()
+                
+            }else{
+                self.rootTableView.mj_footer.endRefreshingWithNoMoreData()
+            }
+        }
+        
     }
     
     // MARK: popViewcontroller
@@ -48,6 +132,11 @@ class FTMiMyInterviewAllViewController: UIViewController, UITableViewDataSource,
         rootTableView.delegate = self
         self.view.addSubview(rootTableView)
         
+        rootTableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(loadData_PullDown))
+        rootTableView.mj_header.beginRefreshing()
+        
+        rootTableView.mj_footer = MJRefreshBackFooter(refreshingTarget: self, refreshingAction: #selector(loadData_PullUp))
+        
         setHeaderView()
     }
     
@@ -64,7 +153,7 @@ class FTMiMyInterviewAllViewController: UIViewController, UITableViewDataSource,
         tipLab.textAlignment = .left
         tipLab.textColor = UIColor.black
         tipLab.font = UIFont.systemFont(ofSize: 14)
-        tipLab.text = "你一共发出4个面试邀请"
+        tipLab.text = "你一共发出\((self.myInvitedDataArray?.count ?? 0)!)个面试邀请"
         headerView.addSubview(tipLab)
         
         let typeBtn = UIButton(frame: CGRect(
@@ -85,12 +174,31 @@ class FTMiMyInterviewAllViewController: UIViewController, UITableViewDataSource,
         typeDrop.width = screenSize.width
         typeDrop.direction = .bottom
         
-        typeDrop.dataSource = ["不限","一年","2年","3年"]
+        typeDrop.dataSource = ["全部","待面试","待确认","已拒绝","已取消","已结束"]
         
         // 下拉列表选中后的回调方法
         typeDrop.selectionAction = { (index, item) in
             
             typeBtn.setTitle(item, for: UIControlState())
+            
+            switch index {
+            case 0:
+                self.invitedType = .all
+            case 1:
+                self.invitedType = .waitInterview
+            case 2:
+                self.invitedType = .pending
+            case 3:
+                self.invitedType = .denied
+            case 4:
+                self.invitedType = .canceled
+            case 5:
+                self.invitedType = .completed
+            default:
+                break
+            }
+            
+            self.rootTableView.mj_header.beginRefreshing()
         }
         
         self.rootTableView.tableHeaderView = headerView
@@ -107,7 +215,7 @@ class FTMiMyInterviewAllViewController: UIViewController, UITableViewDataSource,
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 10
+        return (self.myInvitedDataArray?.count ?? 0)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,6 +223,8 @@ class FTMiMyInterviewAllViewController: UIViewController, UITableViewDataSource,
         let cell = tableView.dequeueReusableCell(withIdentifier: "FTMyInterviewInvitationCell") as! FTMyInterviewInvitationTableViewCell
         cell.selectionStyle = .none
         
+        cell.myInvitedData = self.myInvitedDataArray?[indexPath.section]
+
         return cell
     }
     

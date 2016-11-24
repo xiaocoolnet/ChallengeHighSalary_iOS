@@ -34,7 +34,7 @@ class CHSMiMyBlacklistViewController: UIViewController, UITableViewDataSource, U
     // MARK: - 加载数据
     func loadData() {
         
-        CHSNetUtil().getBlackList(CHSUserInfo.currentUserInfo.userid, type: "1") { (success, response) in
+        PublicNetUtil().getBlackList(CHSUserInfo.currentUserInfo.userid, type: "1") { (success, response) in
             if success {
                 self.blackListDataArray = response as! [BlackListData]
                 self.rootTableView.reloadData()

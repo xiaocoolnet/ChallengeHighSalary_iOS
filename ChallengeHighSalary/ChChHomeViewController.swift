@@ -457,7 +457,7 @@ extension ChChHomeViewController: AMapLocationManagerDelegate {
         
         locationManager.pausesLocationUpdatesAutomatically = false
         
-        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.allowsBackgroundLocationUpdates = false
 
         
         // 如果需要持续定位返回逆地理编码信息，（自 V2.2.0版本起支持）需要做如下设置：

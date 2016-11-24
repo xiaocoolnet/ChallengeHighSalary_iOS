@@ -8,16 +8,11 @@
 //
 
 import UIKit
-
-enum MyInvitedType: Int{
-    case wait = 0
-    case finish
-    case Default
-}
+import MJRefresh
 
 class FTMiMyInterviewWaitViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var invitedType = MyInvitedType.Default
+    var invitedType = MyInvitedType.all
     
     let rootTableView = UITableView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height-20-44-44), style: .grouped)
     
@@ -34,13 +29,46 @@ class FTMiMyInterviewWaitViewController: UIViewController, UITableViewDataSource
     }
     
     // MARK: - 加载数据
-    func loadData() {
+    // 下拉
+    func loadData_PullDown() {
+        
+        self.pager = 1
         
         FTNetUtil().getMyInvited(CHSUserInfo.currentUserInfo.userid, type: String(self.invitedType.rawValue), pager: String(pager)) { (success, response) in
             
-            self.myInvitedDataArray = response as? [MyInvitedDataModel]
-            self.rootTableView.reloadData()
+            if success {
+                
+                self.pager += 1
+                self.myInvitedDataArray = response as? [MyInvitedDataModel]
+                self.rootTableView.reloadData()
+                
+            }
             
+            self.rootTableView.mj_header.endRefreshing()
+        }
+        
+    }
+    // 上拉
+    func loadData_PullUp() {
+        
+        FTNetUtil().getMyInvited(CHSUserInfo.currentUserInfo.userid, type: String(self.invitedType.rawValue), pager: String(pager)) { (success, response) in
+            self.pager += 1
+            
+            if success {
+                
+                let myInvitedDataArray = response as? [MyInvitedDataModel]
+                
+                for myInvitedData in myInvitedDataArray! {
+                    self.myInvitedDataArray?.append(myInvitedData)
+                }
+                
+                self.rootTableView.reloadData()
+                
+                self.rootTableView.mj_footer.endRefreshing()
+                
+            }else{
+                self.rootTableView.mj_footer.endRefreshingWithNoMoreData()
+            }
         }
         
     }
@@ -60,7 +88,11 @@ class FTMiMyInterviewWaitViewController: UIViewController, UITableViewDataSource
         rootTableView.delegate = self
         self.view.addSubview(rootTableView)
         
+        rootTableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(loadData_PullDown))
+        rootTableView.mj_header.beginRefreshing()
         
+        rootTableView.mj_footer = MJRefreshBackFooter(refreshingTarget: self, refreshingAction: #selector(loadData_PullUp))
+
     }
     
     // MARK: UITableView DataSource
@@ -77,7 +109,7 @@ class FTMiMyInterviewWaitViewController: UIViewController, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: "FTMyInterviewInvitationCell") as! FTMyInterviewInvitationTableViewCell
         cell.selectionStyle = .none
         
-        cell.myInvitedData = self.myInvitedDataArray?[indexPath.row]
+        cell.myInvitedData = self.myInvitedDataArray?[indexPath.section]
         
         return cell
     }

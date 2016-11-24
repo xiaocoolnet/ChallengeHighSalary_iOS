@@ -10,7 +10,31 @@ import UIKit
 
 class FTMiMyBlacklistTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var nameLab: UILabel!
+    
+    @IBOutlet weak var jobtypeLab: UILabel!
+    
+    @IBOutlet weak var cityLab: UILabel!
+    
+    @IBOutlet weak var work_lifeLab: UILabel!
+    
+    @IBOutlet weak var degreeLab: UILabel!
+    
+    @IBOutlet weak var work_propertyLab: UILabel!
+    
     @IBOutlet weak var cancelBlacklistBtn: UIButton!
+    
+    var blackListResumeData:MyResumeData? {
+        didSet {
+            self.nameLab.text = blackListResumeData?.realname
+            self.jobtypeLab.text = blackListResumeData?.work?.first?.jobtype
+            self.cityLab.text = blackListResumeData?.city
+            self.work_lifeLab.text = blackListResumeData?.work_life
+            self.degreeLab.text = blackListResumeData?.education?.first?.degree
+            self.work_propertyLab.text = blackListResumeData?.work_property
+        }
+    }
+
     
     override func awakeFromNib() {
         super.awakeFromNib()

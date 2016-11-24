@@ -24,9 +24,9 @@ class FTMyInterviewInvitationTableViewCell: UITableViewCell {
     
     var myInvitedData: MyInvitedDataModel? {
         didSet {
-            self.nameLab.text = "\(myInvitedData?.realname) \(myInvitedData?.sex == "0" ? "♀":"♂")"
+            self.nameLab.text = "\((myInvitedData?.realname ?? "")!) \(myInvitedData?.sex == "0" ? "♀":"♂")"
             
-            self.headerImg.sd_setImage(with: URL(string: (myInvitedData?.photo ?? "")!), placeholderImage: nil)
+            self.headerImg.sd_setImage(with: URL(string: kImagePrefix+(myInvitedData?.photo ?? "")!), placeholderImage: nil)
             // self.vImg = myInvitedData
             self.jobTypeLab.text = myInvitedData?.jobtype
             self.timeLab.text = myInvitedData?.create_time
@@ -40,6 +40,8 @@ class FTMyInterviewInvitationTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
+        self.headerImg.layer.cornerRadius = self.headerImg.frame.width/2.0
+        self.headerImg.clipsToBounds = true
         self.drawDashed(topLine, color: UIColor(red: 230/255.0, green: 230/255.0, blue: 230/255.0, alpha: 1), fromPoint: CGPoint(x: 0, y: 0), toPoint: CGPoint(x: screenSize.width, y: 0), lineWidth: 1)
     }
     

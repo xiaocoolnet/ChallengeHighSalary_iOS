@@ -130,3 +130,32 @@ class MyInvitedDataModel: HandyJSON {
     
 }
 
+class BlackList_company: HandyJSON {
+    
+    var status: String?
+    
+    var data: [BlackListData_company]?
+    
+    required init() {}
+}
+
+class BlackListData_company: HandyJSON {
+    
+    var id: String?
+    
+    var userid: String?
+    
+    var blackid: String?
+    
+    var create_time: String?
+    
+    var status: String?
+    
+    var reason: String?
+    
+    var type: String?
+    
+    var blacks: MyResumeData?
+    
+    required init() {}
+}
