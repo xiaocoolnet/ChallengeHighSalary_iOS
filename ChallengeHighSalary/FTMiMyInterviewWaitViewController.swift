@@ -9,16 +9,40 @@
 
 import UIKit
 
+enum MyInvitedType: Int{
+    case wait = 0
+    case finish
+    case Default
+}
+
 class FTMiMyInterviewWaitViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    var invitedType = MyInvitedType.Default
     
     let rootTableView = UITableView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height-20-44-44), style: .grouped)
     
+    var myInvitedDataArray: [MyInvitedDataModel]?
+
+    var pager = 1
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         
         setSubviews()
+    }
+    
+    // MARK: - 加载数据
+    func loadData() {
+        
+        FTNetUtil().getMyInvited(CHSUserInfo.currentUserInfo.userid, type: String(self.invitedType.rawValue), pager: String(pager)) { (success, response) in
+            
+            self.myInvitedDataArray = response as? [MyInvitedDataModel]
+            self.rootTableView.reloadData()
+            
+        }
+        
     }
     
     // MARK: 设置子视图
@@ -35,6 +59,8 @@ class FTMiMyInterviewWaitViewController: UIViewController, UITableViewDataSource
         rootTableView.dataSource = self
         rootTableView.delegate = self
         self.view.addSubview(rootTableView)
+        
+        
     }
     
     // MARK: UITableView DataSource
@@ -43,13 +69,15 @@ class FTMiMyInterviewWaitViewController: UIViewController, UITableViewDataSource
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 10
+        return (self.myInvitedDataArray?.count ?? 0)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "FTMyInterviewInvitationCell") as! FTMyInterviewInvitationTableViewCell
         cell.selectionStyle = .none
+        
+        cell.myInvitedData = self.myInvitedDataArray?[indexPath.row]
         
         return cell
     }

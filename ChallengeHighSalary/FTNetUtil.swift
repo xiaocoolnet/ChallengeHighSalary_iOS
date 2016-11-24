@@ -158,4 +158,41 @@ class FTNetUtil: NSObject {
             }
         }
     }
+    
+    // MARK: 获取我的面试邀请列表
+    // userid,type(不填为全部,0待面试,1已结束),pager分页
+    func getMyInvited(
+        _ userid:String,
+        type:String,
+        pager:String,
+        handle:@escaping ResponseClosures) {
+        
+        let url = kPortPrefix+"getMyInvited"
+        let param = [
+            "userid":userid,
+            "type":type,
+            "pager":pager
+        ]
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+            
+            if(error != nil){
+                handle(false, error.debugDescription as AnyObject?)
+            }else{
+                
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                //                let checkCode:StatusModel = StatusModel.jsonToModel(json)
+                if checkCode.status == "success" {
+                    let myInvitedList = JSONDeserializer<MyInvitedListModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                    
+                    //                    let resumeListModel:ResumeListModel = ResumeListModel.jsonToModel(json)
+                    
+                    handle(true, myInvitedList.data as AnyObject?)
+                }else{
+                    
+                    handle(false, nil)
+                }
+            }
+        }
+    }
+
 }

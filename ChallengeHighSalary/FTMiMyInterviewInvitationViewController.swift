@@ -67,7 +67,10 @@ class FTMiMyInterviewInvitationViewController: UIViewController {
             var componentType: ComponentType {
                 
                 let waitView = FTMiMyInterviewWaitViewController()
-                let finishView = FTMiMyInterviewFinishViewController()
+                waitView.invitedType = .wait
+                // let finishView = FTMiMyInterviewFinishViewController()
+                let finishView = FTMiMyInterviewWaitViewController()
+                finishView.invitedType = .finish
                 
                 return .all(menuOptions: MenuOptions(), pagingControllers: [waitView, finishView])
             }

@@ -138,10 +138,10 @@ class PublicNetUtil: NSObject {
 
                     }else{
                         
-                        let myResume = JSONDeserializer<MyResumeModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                        let myResume = JSONDeserializer<ResumeListModel>.deserializeFrom(dict: json as! NSDictionary?)!
 
 
-                        handle(true, myResume.data)
+                        handle(true, myResume.data as AnyObject?)
 
                     }
                 }else{

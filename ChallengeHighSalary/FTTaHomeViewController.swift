@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, UITableViewDataSource, UITableViewDelegate  {
     
@@ -25,7 +26,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         setNavigationBar()
         setSubviews()
-        loadData()
+//        loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +47,8 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
                 self.hasPosition = false
                 self.myTableView.reloadData()
             }
+            
+            self.myTableView.mj_header.endRefreshing()
         }
     }
     
@@ -116,6 +119,8 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         myTableView.delegate = self
         self.view.addSubview(myTableView)
         
+        myTableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(loadData))
+        myTableView.mj_header.beginRefreshing()
     }
     
     // MARK:自定义下拉列表样式
@@ -202,7 +207,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let personalVC = FTPersonalViewController()
-        personalVC.resumeData = self.resumeModel[(indexPath as NSIndexPath).row]
+        personalVC.resumeData = self.resumeModel[indexPath.section]
         self.navigationController?.pushViewController(personalVC, animated: true)
     }
 

@@ -574,7 +574,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
                 width: shareBtnWidth,
                 height: shareBtnWidth))
             shareBtn_1.layer.cornerRadius = shareBtnWidth/2.0
-            shareBtn_1.backgroundColor = UIColor.blue
+//            shareBtn_1.backgroundColor = UIColor.blue
 //            shareBtn_1.setImage(UIImage(named: imageArray[i]), for: UIControlState())
             shareBtn_1.setBackgroundImage(imgArray[i], for: .normal)
             shareBtn_1.tag = 1000+i

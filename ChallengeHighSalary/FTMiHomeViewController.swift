@@ -17,6 +17,7 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     let jobStatusLab = UILabel()
     
     let nameArray = [["认证公司信息","我的公司信息"],["我的收藏","我的悬赏"],["我的招聘记录","我的面试邀请"],["我的黑名单"]]
+    let imageArray = [[#imageLiteral(resourceName: "ic_FT_Mi_认证"),#imageLiteral(resourceName: "ic_FT_Mi_信息")],[#imageLiteral(resourceName: "ic_FT_Mi_收藏"),#imageLiteral(resourceName: "ic_FT_Mi_悬赏")],[#imageLiteral(resourceName: "ic_FT_Mi_记录"),#imageLiteral(resourceName: "ic_FT_Mi_面试邀请")],[#imageLiteral(resourceName: "ic_FT_Mi_黑名单")]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,10 +32,16 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         
         self.navigationController?.navigationBar.isHidden = true
         self.tabBarController?.tabBar.isHidden = false
+        
+        self.loadData()
     }
     
     // MARK: 加载数据
     func loadData() {
+        
+        if self.company_infoDataModel.companyid != "" {
+            return
+        }
         
         let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
@@ -162,7 +169,8 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.selectionStyle = .none
         cell.accessoryType = .disclosureIndicator
         
-        cell.titLab.text = nameArray[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
+        cell.titImage.image = imageArray[indexPath.section][indexPath.row]
+        cell.titLab.text = nameArray[indexPath.section][indexPath.row]
         return cell
     }
     
@@ -181,7 +189,9 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         case (1,1):
             self.navigationController?.pushViewController(FTMiMyRewardViewController(), animated: true)
         case (2,0):
-            self.navigationController?.pushViewController(FTMiMyHiringRecordViewController(), animated: true)
+            let hiringRecordVC = FTMiMyHiringRecordViewController()
+            hiringRecordVC.jobs = self.company_infoDataModel.jobs
+            self.navigationController?.pushViewController(hiringRecordVC, animated: true)
         case (2,1):
             self.navigationController?.pushViewController(FTMiMyInterviewInvitationViewController(), animated: true)
         case (3,0):

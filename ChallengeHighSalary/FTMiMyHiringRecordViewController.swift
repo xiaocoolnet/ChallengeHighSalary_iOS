@@ -12,6 +12,8 @@ class FTMiMyHiringRecordViewController: UIViewController, UITableViewDataSource,
     
     let rootTableView = UITableView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height-20-44-49-37), style: .grouped)
     
+    var jobs: [JobInfoDataModel]?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,6 +28,7 @@ class FTMiMyHiringRecordViewController: UIViewController, UITableViewDataSource,
         
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = true
+        
     }
     
     // MARK: 设置 NavigationBar
@@ -76,13 +79,15 @@ class FTMiMyHiringRecordViewController: UIViewController, UITableViewDataSource,
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 10
+        return (self.jobs?.count ?? 0)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "FTMiMyHiringRecordCell") as! FTMiMyHiringRecordTableViewCell
         cell.selectionStyle = .none
+        
+        cell.jobInfoDataModel = self.jobs?[indexPath.section]
         
         return cell
     }

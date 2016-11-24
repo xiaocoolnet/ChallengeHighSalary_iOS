@@ -10,6 +10,30 @@ import UIKit
 
 class FTMyInterviewInvitationTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var nameLab: UILabel!
+    
+    @IBOutlet weak var headerImg: UIImageView!
+    
+    @IBOutlet weak var vImg: UIImageView!
+    
+    @IBOutlet weak var jobTypeLab: UILabel!
+    
+    @IBOutlet weak var timeLab: UILabel!
+    
+    @IBOutlet weak var addressLab: UILabel!
+    
+    var myInvitedData: MyInvitedDataModel? {
+        didSet {
+            self.nameLab.text = "\(myInvitedData?.realname) \(myInvitedData?.sex == "0" ? "♀":"♂")"
+            
+            self.headerImg.sd_setImage(with: URL(string: (myInvitedData?.photo ?? "")!), placeholderImage: nil)
+            // self.vImg = myInvitedData
+            self.jobTypeLab.text = myInvitedData?.jobtype
+            self.timeLab.text = myInvitedData?.create_time
+            self.addressLab.text = myInvitedData?.address
+        }
+    }    
+    
     @IBOutlet weak var topLine: UIImageView!
     
     override func awakeFromNib() {

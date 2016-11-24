@@ -64,6 +64,18 @@
 		1F87411D1D82C22B007B8793 /* LoRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */; };
 		1F9CE7C11D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CE7C01D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift */; };
 		1F9CE7C31D8802FC002E6632 /* CHSReJobIntensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CE7C21D8802FC002E6632 /* CHSReJobIntensionViewController.swift */; };
+		1F9E527D1DE532B800556F31 /* jpush-ios-2.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9E527B1DE532B800556F31 /* jpush-ios-2.2.0.a */; };
+		1F9E527F1DE5335900556F31 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9E527E1DE5335900556F31 /* CFNetwork.framework */; };
+		1F9E52811DE5336200556F31 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9E52801DE5336200556F31 /* CoreFoundation.framework */; };
+		1F9E52831DE5336E00556F31 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9E52821DE5336E00556F31 /* CoreTelephony.framework */; };
+		1F9E52851DE5337900556F31 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9E52841DE5337900556F31 /* SystemConfiguration.framework */; };
+		1F9E52871DE5338600556F31 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9E52861DE5338600556F31 /* CoreGraphics.framework */; };
+		1F9E52891DE5338E00556F31 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9E52881DE5338E00556F31 /* Foundation.framework */; };
+		1F9E528B1DE5339600556F31 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9E528A1DE5339600556F31 /* UIKit.framework */; };
+		1F9E528D1DE5339F00556F31 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9E528C1DE5339E00556F31 /* Security.framework */; };
+		1F9E528F1DE533AB00556F31 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9E528E1DE533AB00556F31 /* libz.tbd */; };
+		1F9E52911DE533C000556F31 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9E52901DE533C000556F31 /* UserNotifications.framework */; };
+		1F9E52931DE533CE00556F31 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9E52921DE533CE00556F31 /* libresolv.tbd */; };
 		1FA93F511D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA93F4F1D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.swift */; };
 		1FA93F521D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FA93F501D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.xib */; };
 		1FB311531D96615400217DDA /* FTTaPositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB311521D96615400217DDA /* FTTaPositionViewController.swift */; };
@@ -127,6 +139,7 @@
 		1FDB00241D8FCB4A007043B4 /* CHSMiHomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB00231D8FCB4A007043B4 /* CHSMiHomeTableViewCell.swift */; };
 		1FDB00261D8FD2A0007043B4 /* CHSMiSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB00251D8FD2A0007043B4 /* CHSMiSettingViewController.swift */; };
 		1FDCFAFA1DCB0D5C002BDA40 /* CHSChCompanyPositionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FDCFAF91DCB0D5C002BDA40 /* CHSChCompanyPositionTableViewCell.xib */; };
+		1FDF6BAF1DE436E0007C72E1 /* FTMeChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDF6BAE1DE436E0007C72E1 /* FTMeChatViewController.swift */; };
 		1FEC4A371DB8C7AE004A0FC1 /* PublicNetUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC4A361DB8C7AE004A0FC1 /* PublicNetUtil.swift */; };
 		1FEC64DA1D9120A60045038C /* CHSMiSetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC64D91D9120A60045038C /* CHSMiSetPasswordViewController.swift */; };
 		1FEC64DC1D9120C50045038C /* CHSMiPhoneBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC64DB1D9120C50045038C /* CHSMiPhoneBindingViewController.swift */; };
@@ -266,6 +279,20 @@
 		1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoRegisterViewController.swift; sourceTree = "<group>"; };
 		1F9CE7C01D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReEditPersonalInfoViewController.swift; sourceTree = "<group>"; };
 		1F9CE7C21D8802FC002E6632 /* CHSReJobIntensionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReJobIntensionViewController.swift; sourceTree = "<group>"; };
+		1F9E527B1DE532B800556F31 /* jpush-ios-2.2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.2.0.a"; sourceTree = "<group>"; };
+		1F9E527C1DE532B800556F31 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
+		1F9E527E1DE5335900556F31 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		1F9E52801DE5336200556F31 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		1F9E52821DE5336E00556F31 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		1F9E52841DE5337900556F31 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		1F9E52861DE5338600556F31 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1F9E52881DE5338E00556F31 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1F9E528A1DE5339600556F31 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1F9E528C1DE5339E00556F31 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		1F9E528E1DE533AB00556F31 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		1F9E52901DE533C000556F31 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		1F9E52921DE533CE00556F31 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		1F9E52941DE5356800556F31 /* ChallengeHighSalary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChallengeHighSalary.entitlements; sourceTree = "<group>"; };
 		1FA93F4F1D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChFindEmployerTableViewCell.swift; sourceTree = "<group>"; };
 		1FA93F501D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChChFindEmployerTableViewCell.xib; sourceTree = "<group>"; };
 		1FB311521D96615400217DDA /* FTTaPositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaPositionViewController.swift; sourceTree = "<group>"; };
@@ -340,6 +367,7 @@
 		1FDB00231D8FCB4A007043B4 /* CHSMiHomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiHomeTableViewCell.swift; sourceTree = "<group>"; };
 		1FDB00251D8FD2A0007043B4 /* CHSMiSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiSettingViewController.swift; sourceTree = "<group>"; };
 		1FDCFAF91DCB0D5C002BDA40 /* CHSChCompanyPositionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSChCompanyPositionTableViewCell.xib; sourceTree = "<group>"; };
+		1FDF6BAE1DE436E0007C72E1 /* FTMeChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeChatViewController.swift; sourceTree = "<group>"; };
 		1FEC4A361DB8C7AE004A0FC1 /* PublicNetUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicNetUtil.swift; sourceTree = "<group>"; };
 		1FEC64D91D9120A60045038C /* CHSMiSetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiSetPasswordViewController.swift; sourceTree = "<group>"; };
 		1FEC64DB1D9120C50045038C /* CHSMiPhoneBindingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMiPhoneBindingViewController.swift; sourceTree = "<group>"; };
@@ -407,6 +435,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F9E52931DE533CE00556F31 /* libresolv.tbd in Frameworks */,
+				1F9E52911DE533C000556F31 /* UserNotifications.framework in Frameworks */,
+				1F9E528F1DE533AB00556F31 /* libz.tbd in Frameworks */,
+				1F9E528D1DE5339F00556F31 /* Security.framework in Frameworks */,
+				1F9E528B1DE5339600556F31 /* UIKit.framework in Frameworks */,
+				1F9E52891DE5338E00556F31 /* Foundation.framework in Frameworks */,
+				1F9E52871DE5338600556F31 /* CoreGraphics.framework in Frameworks */,
+				1F9E52851DE5337900556F31 /* SystemConfiguration.framework in Frameworks */,
+				1F9E52831DE5336E00556F31 /* CoreTelephony.framework in Frameworks */,
+				1F9E52811DE5336200556F31 /* CoreFoundation.framework in Frameworks */,
+				1F9E527F1DE5335900556F31 /* CFNetwork.framework in Frameworks */,
+				1F9E527D1DE532B800556F31 /* jpush-ios-2.2.0.a in Frameworks */,
 				1F7B303A1D7FA36600D0BF56 /* MapKit.framework in Frameworks */,
 				C0D6672B54CEDDD299E90BD9 /* Pods_ChallengeHighSalary.framework in Frameworks */,
 			);
@@ -498,6 +538,7 @@
 		1F8741191D82A02A007B8793 /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
+				1F9E527A1DE532B800556F31 /* Lib */,
 				1FD6F98E1DBEE9A800BD7B94 /* TPKeyboardAvoiding */,
 				1F0B594C1DAB8AA100A172E3 /* UIImage+Extension.swift */,
 				1F0B59421DAB2FC700A172E3 /* UIPlaceHolderTextView */,
@@ -507,6 +548,15 @@
 				1F4FD25C1D76C01D00FF7040 /* BButton */,
 			);
 			name = 3rd;
+			sourceTree = "<group>";
+		};
+		1F9E527A1DE532B800556F31 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				1F9E527B1DE532B800556F31 /* jpush-ios-2.2.0.a */,
+				1F9E527C1DE532B800556F31 /* JPUSHService.h */,
+			);
+			path = Lib;
 			sourceTree = "<group>";
 		};
 		1FB6D5EC1D9B8CED00262BBD /* Model */ = {
@@ -610,6 +660,7 @@
 		1FCDFEBE1D73E6DB0067970B /* ChallengeHighSalary */ = {
 			isa = PBXGroup;
 			children = (
+				1F9E52941DE5356800556F31 /* ChallengeHighSalary.entitlements */,
 				1F8741191D82A02A007B8793 /* 3rd */,
 				1FD7FBD11D7955840032221D /* Welcome(欢迎页) */,
 				1FCDFEF01D740C120067970B /* ChallengeHighSalary(挑战高薪) */,
@@ -893,6 +944,7 @@
 				1F577B0D1DA9E29B00AB5D99 /* FTMeResumeNotificationViewController.swift */,
 				1F577B131DA9E7C600AB5D99 /* FTMeCollectionMeViewController.swift */,
 				1F577B151DA9E82600AB5D99 /* FTMeLookMeViewController.swift */,
+				1FDF6BAE1DE436E0007C72E1 /* FTMeChatViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1120,6 +1172,17 @@
 		7D0BA4E52437BC3903C79784 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F9E52921DE533CE00556F31 /* libresolv.tbd */,
+				1F9E52901DE533C000556F31 /* UserNotifications.framework */,
+				1F9E528E1DE533AB00556F31 /* libz.tbd */,
+				1F9E528C1DE5339E00556F31 /* Security.framework */,
+				1F9E528A1DE5339600556F31 /* UIKit.framework */,
+				1F9E52881DE5338E00556F31 /* Foundation.framework */,
+				1F9E52861DE5338600556F31 /* CoreGraphics.framework */,
+				1F9E52841DE5337900556F31 /* SystemConfiguration.framework */,
+				1F9E52821DE5336E00556F31 /* CoreTelephony.framework */,
+				1F9E52801DE5336200556F31 /* CoreFoundation.framework */,
+				1F9E527E1DE5335900556F31 /* CFNetwork.framework */,
 				1FBE97511DC71F2A00F0EB4D /* NotificationCenter.framework */,
 				1F7B30391D7FA36600D0BF56 /* MapKit.framework */,
 				19E16B208398D4D955F3015A /* Pods_ChallengeHighSalary.framework */,
@@ -1202,7 +1265,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "北京校酷网络科技公司";
 				TargetAttributes = {
 					1FCDFEBB1D73E6DB0067970B = {
@@ -1218,6 +1281,9 @@
 							};
 							com.apple.HomeKit = {
 								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
 							};
 						};
 					};
@@ -1415,6 +1481,7 @@
 				1FF3C6A61D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.swift in Sources */,
 				1F4FD2681D76C01D00FF7040 /* UIColor+BButton.m in Sources */,
 				1FF9DB161D96145D00F0C69D /* GuideViewController.swift in Sources */,
+				1FDF6BAF1DE436E0007C72E1 /* FTMeChatViewController.swift in Sources */,
 				1F0B594D1DAB8AA100A172E3 /* UIImage+Extension.swift in Sources */,
 				1FDB001F1D8FC5D7007043B4 /* CHSReProjectExperienceViewController.swift in Sources */,
 				1FEF80981D810A0400486F9C /* FTRoHomeViewController.swift in Sources */,
@@ -1658,6 +1725,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ChallengeHighSalary/ChallengeHighSalary.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = "";
@@ -1669,6 +1737,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ChallengeHighSalary/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrnb",
 					"$(PROJECT_DIR)/ChallengeHighSalary/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
+					"$(PROJECT_DIR)/ChallengeHighSalary/Lib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.ChallengeHighSalary;
 				PRODUCT_NAME = ChallengeHighSalary;
@@ -1676,6 +1745,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "XC iOS Ad Hoc: com.xiaocool.ChallengeHighSalary";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ChallengeHighSalary/ChallengeHighSalary-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Lib";
 				VERSIONING_SYSTEM = "";
 			};
 			name = Debug;
@@ -1686,6 +1756,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ChallengeHighSalary/ChallengeHighSalary.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = "";
@@ -1697,6 +1768,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ChallengeHighSalary/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrnb",
 					"$(PROJECT_DIR)/ChallengeHighSalary/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
+					"$(PROJECT_DIR)/ChallengeHighSalary/Lib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.ChallengeHighSalary;
 				PRODUCT_NAME = ChallengeHighSalary;
@@ -1704,6 +1776,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "XC iOS Ad Hoc: com.xiaocool.ChallengeHighSalary";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ChallengeHighSalary/ChallengeHighSalary-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Lib";
 				VERSIONING_SYSTEM = "";
 			};
 			name = Release;

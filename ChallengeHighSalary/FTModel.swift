@@ -100,3 +100,33 @@ class Jobs: HandyJSON {
 
 }
 
+class MyInvitedListModel: HandyJSON {
+    
+    var status = ""
+    
+    var data: [MyInvitedDataModel]?
+    
+    required init() {}
+    
+}
+
+class MyInvitedDataModel: HandyJSON {
+     
+    var userid = ""
+    
+    var realname = ""
+    
+    var sex = ""
+    
+    var photo = ""
+    
+    var jobtype = ""
+    
+    var address = ""
+
+    var create_time = ""
+
+    required init() {}
+    
+}
+

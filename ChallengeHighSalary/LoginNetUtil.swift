@@ -53,7 +53,7 @@ class LoginNetUtil: NSObject {
                 let checkCode = JSONDeserializer<CheckCodeModel>.deserializeFrom(dict: json as! NSDictionary?)!
 
                 if checkCode.status == "success" {
-                    print(checkCode.data?.code)
+                    print(checkCode.data?.code ?? "")
                     handle(true, checkCode.data)
                 }else{
                     

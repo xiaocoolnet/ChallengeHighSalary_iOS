@@ -10,15 +10,23 @@ import UIKit
 
 class FTPersonalViewController: UIViewController {
     
+    let rootScrollView = UIScrollView()
+    
+    let getContectView = UIView()
+    
     var resumeData = MyResumeData()
     
     let collectionBtn = UIButton()
+    
+    var alreadyPay = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        setSubviews()
+        
+        self.setNaviagtionBar()
+        self.setSubviews()
         self.loadData()
     }
     
@@ -36,7 +44,8 @@ class FTPersonalViewController: UIViewController {
     
     // MARK: 加载数据
     func loadData() {
-        
+        self.setSubviews_noPay()
+
         PublicNetUtil().CheckHadFavorite(
             CHSUserInfo.currentUserInfo.userid,
             object_id: self.resumeData.resumes_id,
@@ -49,10 +58,8 @@ class FTPersonalViewController: UIViewController {
         }
     }
     
-    // MARK:- 设置子视图
-    func setSubviews() {
-        self.automaticallyAdjustsScrollViewInsets = false
-        self.view.backgroundColor = UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
+    // MARK: - 设置 navigationbar
+    func setNaviagtionBar() {
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
         
@@ -73,15 +80,35 @@ class FTPersonalViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItems = [collectionItem,shareItem]
         
+    }
+    
+    // MARK:- 设置子视图
+    func setSubviews() {
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.view.backgroundColor = UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
+        
+        // MARK: 获取联系方式
+        getContectView.frame = CGRect(x: 0, y: screenSize.height-49, width: screenSize.width, height: 49)
+        getContectView.backgroundColor = UIColor.white
+        self.view.addSubview(getContectView)
+        
+        
+        
         // MARK: rootScrollView
-        let rootScrollView = UIScrollView(frame: CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-64-49))
         rootScrollView.backgroundColor = UIColor(red: 242/255.0, green: 242/255.0, blue: 242/255.0, alpha: 1)
         self.view.addSubview(rootScrollView)
         
-        // MARK: 获取联系方式
-        let getContectView = UIView(frame: CGRect(x: 0, y: screenSize.height-49, width: screenSize.width, height: 49))
-        getContectView.backgroundColor = UIColor.white
-        self.view.addSubview(getContectView)
+        self.setPersonalInfo()
+        
+    }
+    // MARK:- 设置子视图 —— 未付费
+    func setSubviews_noPay() {
+        
+        rootScrollView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-64-49)
+
+        for view in self.getContectView.subviews {
+            view.removeFromSuperview()
+        }
         
         drawLine(getContectView, color: UIColor.lightGray, fromPoint: CGPoint(x: 0, y: 0), toPoint: CGPoint(x: screenSize.width, y: 0), lineWidth: 1/UIScreen.main.scale, pattern: [10,0])
         
@@ -91,8 +118,101 @@ class FTPersonalViewController: UIViewController {
         getContectBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         getContectBtn.setTitleColor(UIColor.white, for: UIControlState())
         getContectBtn.setTitle("获取联系方式", for: UIControlState())
+        getContectBtn.addTarget(self, action: #selector(getContectBtnClick), for: .touchUpInside)
         getContectBtn.center.x = getContectView.center.x
         getContectView.addSubview(getContectBtn)
+        
+    }
+    
+    // MARK:- 设置子视图 —— 已付费
+    func setSubviews_alreadyPay() {
+        
+        // MARK: toolbar
+        for view in self.getContectView.subviews {
+            view.removeFromSuperview()
+        }
+        
+        drawLine(getContectView, color: UIColor.lightGray, fromPoint: CGPoint(x: 0, y: 0), toPoint: CGPoint(x: screenSize.width, y: 0), lineWidth: 1/UIScreen.main.scale, pattern: [10,0])
+        
+        let telBtn = UIButton(frame: CGRect(
+            x: 20,
+            y: (getContectView.frame.size.height-(49-16))/2.0,
+            width: screenSize.width/2.0-30,
+            height: 49-16))
+        telBtn.layer.cornerRadius = telBtn.frame.size.height/2.0
+        telBtn.setImage(#imageLiteral(resourceName: "ic_FT_电话沟通"), for: .normal)
+        telBtn.addTarget(self, action: #selector(telBtnClick(_:)), for: .touchUpInside)
+        getContectView.addSubview(telBtn)
+        
+        let chatBtn = UIButton(frame: CGRect(
+            x: telBtn.frame.maxX+20,
+            y: (getContectView.frame.size.height-(49-16))/2.0,
+            width: screenSize.width/2.0-30,
+            height: 49-16))
+        chatBtn.layer.cornerRadius = chatBtn.frame.size.height/2.0
+        chatBtn.setImage(#imageLiteral(resourceName: "ic_FT_和他聊聊"), for: .normal)
+        chatBtn.addTarget(self, action: #selector(getContectBtnClick), for: .touchUpInside)
+        getContectView.addSubview(chatBtn)
+        
+        // MARK: 头部视图
+        let headerBgView = UIView(frame: CGRect(x: 0, y: 64, width: screenSize.width, height: 0))
+        headerBgView.backgroundColor = UIColor.white
+        self.view.addSubview(headerBgView)
+
+        let imgArray = [#imageLiteral(resourceName: "ic_share_QQ"),#imageLiteral(resourceName: "ic_share_微信"),#imageLiteral(resourceName: "ic_share_朋友圈")]
+        let imageNameArray = ["在抢的企业","在关注的企业","他人的评价"]
+        
+        let shareBtnWidth:CGFloat = kWidthScale*40
+        let margin = (screenSize.width-CGFloat(imgArray.count)*shareBtnWidth)/CGFloat(imgArray.count+1)
+        let margin_y:CGFloat = 10
+
+        let labelHeight = shareBtnWidth/3.0
+        
+        var labelMaxY:CGFloat = 0
+        
+        for (i,_) in imgArray.enumerated() {
+            
+            let shareBtn_1 = UIButton(frame: CGRect(
+                x: margin*(CGFloat(i%imgArray.count)+1)+shareBtnWidth*CGFloat(i%imgArray.count),
+                y: margin_y,
+                width: shareBtnWidth,
+                height: shareBtnWidth))
+            shareBtn_1.layer.cornerRadius = shareBtnWidth/2.0
+            shareBtn_1.setBackgroundImage(imgArray[i], for: .normal)
+            shareBtn_1.tag = 1000+i
+            headerBgView.addSubview(shareBtn_1)
+            print("抢人才-人才-个人信息页-分享视图-按钮 \(i) frame == \(shareBtn_1.frame)")
+            
+            let shareLab_1 = UILabel(frame: CGRect(
+                x: shareBtn_1.frame.minX-margin/2.0,
+                y: shareBtn_1.frame.maxY+margin_y/2.0,
+                width: shareBtnWidth+margin,
+                height: labelHeight))
+            shareLab_1.textColor = UIColor.gray
+            shareLab_1.font = UIFont.systemFont(ofSize: 12)
+            shareLab_1.textAlignment = .center
+            shareLab_1.text = imageNameArray[i]
+            headerBgView.addSubview(shareLab_1)
+            
+            labelMaxY = shareLab_1.frame.maxY
+        }
+        
+        headerBgView.frame.size.height = labelMaxY+margin_y
+
+        drawLine(headerBgView, color: UIColor.lightGray, fromPoint: CGPoint(x: 0, y: headerBgView.frame.size.height), toPoint: CGPoint(x: screenSize.width, y: headerBgView.frame.size.height), lineWidth: 1/UIScreen.main.scale, pattern: [10,0])
+
+        
+        // MARK: rootScrollView
+        rootScrollView.frame = CGRect(
+            x: 0,
+            y: 64+headerBgView.frame.size.height,
+            width: screenSize.width,
+            height: screenSize.height-64-49-headerBgView.frame.size.height)
+        
+    }
+    
+    // MARK: - 设置个人信息
+    func setPersonalInfo() {
         
         // MARK: 概况
         let summaryView = UIView(frame: CGRect(x: 10, y: 8, width: screenSize.width-20, height: kHeightScale*174))
@@ -220,20 +340,20 @@ class FTPersonalViewController: UIViewController {
         intentionLab_2.center.y = intentionTagLab_2.center.y
         summaryView.addSubview(intentionLab_2)
         
-//        let intentionTagLab_3 = UILabel(frame: CGRectMake(8, CGRectGetMaxY(intentionTagLab_2.frame)+8, summaryView.frame.size.width, kHeightScale*15))
-//        intentionTagLab_3.textColor = baseColor
-//        intentionTagLab_3.font = UIFont.systemFontOfSize(16)
-//        intentionTagLab_3.text = "求职意向"
-//        intentionTagLab_3.sizeToFit()
-//        summaryView.addSubview(intentionTagLab_3)
-//        
-//        let intentionLab_3 = UILabel(frame: CGRectMake(CGRectGetMaxX(intentionTagLab_3.frame)+8, max(CGRectGetMaxY(addressBtn.frame)+10, CGRectGetMaxY(headerImg.frame)+10)+1+10, summaryView.frame.size.width, kHeightScale*15))
-//        intentionLab_3.textColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
-//        intentionLab_3.font = UIFont.systemFontOfSize(15)
-//        intentionLab_3.text = self.resumeData.jobstate
-//        intentionLab_3.sizeToFit()
-//        intentionLab_3.center.y = intentionTagLab_3.center.y
-//        summaryView.addSubview(intentionLab_3)
+        //        let intentionTagLab_3 = UILabel(frame: CGRectMake(8, CGRectGetMaxY(intentionTagLab_2.frame)+8, summaryView.frame.size.width, kHeightScale*15))
+        //        intentionTagLab_3.textColor = baseColor
+        //        intentionTagLab_3.font = UIFont.systemFontOfSize(16)
+        //        intentionTagLab_3.text = "求职意向"
+        //        intentionTagLab_3.sizeToFit()
+        //        summaryView.addSubview(intentionTagLab_3)
+        //
+        //        let intentionLab_3 = UILabel(frame: CGRectMake(CGRectGetMaxX(intentionTagLab_3.frame)+8, max(CGRectGetMaxY(addressBtn.frame)+10, CGRectGetMaxY(headerImg.frame)+10)+1+10, summaryView.frame.size.width, kHeightScale*15))
+        //        intentionLab_3.textColor = UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1)
+        //        intentionLab_3.font = UIFont.systemFontOfSize(15)
+        //        intentionLab_3.text = self.resumeData.jobstate
+        //        intentionLab_3.sizeToFit()
+        //        intentionLab_3.center.y = intentionTagLab_3.center.y
+        //        summaryView.addSubview(intentionLab_3)
         
         summaryView.frame.size.height = intentionTagLab_2.frame.maxY+10
         
@@ -502,9 +622,248 @@ class FTPersonalViewController: UIViewController {
         advantageView.frame.size.height = advantageDescriptionLab.frame.maxY+10
         
         rootScrollView.contentSize = CGSize(width: 0, height: advantageView.frame.maxY+10)
-        
     }
     
+    // MARK: - 获取联系方式点击事件
+    func getContectBtnClick() {
+        
+        let bgView = UIButton(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
+        bgView.backgroundColor = UIColor(white: 0.5, alpha: 0.3)
+        bgView.tag = 101
+        bgView.addTarget(self, action: #selector(shareViewHide(_:)), for: .touchUpInside)
+        UIApplication.shared.keyWindow!.addSubview(bgView)
+        
+        let alertView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width*0.65, height: 0))
+        alertView.backgroundColor = UIColor.red
+        alertView.layer.cornerRadius = 8
+        alertView.center.x = bgView.center.x
+        bgView.addSubview(alertView)
+        
+        let tipLabel = UILabel(frame: CGRect(x: 0, y: 30, width: alertView.frame.width, height: 0))
+        tipLabel.textColor = UIColor.white
+        tipLabel.numberOfLines = 0
+        tipLabel.font = UIFont.systemFont(ofSize: 20)
+        tipLabel.textAlignment = .center
+        tipLabel.text = "VIP会员获取更多牛人信息\n更多人才等你来选"
+        tipLabel.sizeToFit()
+        tipLabel.frame.origin.x = (alertView.frame.width-tipLabel.frame.width)/2.0
+        alertView.addSubview(tipLabel)
+        
+        let lookBtn = UIButton(frame: CGRect(x: 0, y: tipLabel.frame.maxY+20, width: alertView.frame.width*0.6, height: 30))
+        lookBtn.layer.cornerRadius = 15
+        lookBtn.backgroundColor = UIColor.white
+        lookBtn.setTitleColor(UIColor.orange, for: .normal)
+        lookBtn.setTitle("立即查看", for: .normal)
+        lookBtn.frame.origin.x = (alertView.frame.width-lookBtn.frame.width)/2.0
+        lookBtn.addTarget(self, action: #selector(lookBtnClick(_:)), for: .touchUpInside)
+        alertView.addSubview(lookBtn)
+        
+        alertView.frame.size.height = lookBtn.frame.maxY+20
+        alertView.center.y = bgView.center.y
+
+        let closeBtn = UIButton(frame: CGRect(x: alertView.frame.width-15, y: -15, width: 30, height: 30))
+        closeBtn.tag = 102
+        closeBtn.setBackgroundImage(#imageLiteral(resourceName: "ic_FT_alertClose"), for: .normal)
+        closeBtn.addTarget(self, action: #selector(shareViewHide(_:)), for: .touchUpInside)
+        alertView.addSubview(closeBtn)
+    }
+    
+    // MARK: - 立即查看按钮点击事件
+    func lookBtnClick(_ lookBtn:UIButton) {
+        
+        lookBtn.superview?.superview?.removeFromSuperview()
+        
+        let bgView = UIButton(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
+        bgView.backgroundColor = UIColor(white: 0.5, alpha: 0.3)
+        bgView.tag = 101
+        bgView.addTarget(self, action: #selector(shareViewHide(_:)), for: .touchUpInside)
+        UIApplication.shared.keyWindow!.addSubview(bgView)
+        
+        let alertView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width*0.65, height: 0))
+        alertView.backgroundColor = UIColor.white
+        alertView.layer.cornerRadius = 8
+        alertView.center.x = bgView.center.x
+        bgView.addSubview(alertView)
+        
+        let tipLabel = UILabel(frame: CGRect(x: 0, y: 30, width: alertView.frame.width, height: 0))
+        tipLabel.textColor = UIColor.orange
+        tipLabel.font = UIFont.systemFont(ofSize: 20)
+        tipLabel.textAlignment = .center
+        tipLabel.text = "付费会员特权"
+        tipLabel.sizeToFit()
+        tipLabel.frame.origin.x = (alertView.frame.width-tipLabel.frame.width)/2.0
+        alertView.addSubview(tipLabel)
+        
+        // 联系方式
+        let iconImg1 = UIImageView(frame: CGRect(x: 20, y: tipLabel.frame.maxY+10, width: 40, height: 40))
+        iconImg1.image = #imageLiteral(resourceName: "ic_FT_alert_联系方式")
+        alertView.addSubview(iconImg1)
+        
+        let tipLabel1 = UILabel(frame: CGRect(x: iconImg1.frame.maxX+20, y: iconImg1.frame.minY, width: alertView.frame.width - (iconImg1.frame.maxX+20), height: 40))
+        tipLabel1.textColor = UIColor.darkGray
+        tipLabel1.font = UIFont.systemFont(ofSize: 14)
+        tipLabel1.textAlignment = .left
+        tipLabel1.adjustsFontSizeToFitWidth = true
+        tipLabel1.text = "人才联系方式"
+        alertView.addSubview(tipLabel1)
+        
+        // 企业关注
+        let iconImg2 = UIImageView(frame: CGRect(x: 20, y: iconImg1.frame.maxY+20, width: 40, height: 40))
+        iconImg2.image = #imageLiteral(resourceName: "ic_FT_alert_企业关注")
+        alertView.addSubview(iconImg2)
+        
+        let tipLabel2 = UILabel(frame: CGRect(x: iconImg2.frame.maxX+20, y: iconImg2.frame.minY, width: alertView.frame.width - (iconImg2.frame.maxX+20), height: 40))
+        tipLabel2.textColor = UIColor.darkGray
+        tipLabel2.font = UIFont.systemFont(ofSize: 14)
+        tipLabel2.textAlignment = .left
+        tipLabel2.adjustsFontSizeToFitWidth = true
+        tipLabel2.text = "哪些企业在关注这个人才"
+        alertView.addSubview(tipLabel2)
+        
+        // 人才关注
+        let iconImg3 = UIImageView(frame: CGRect(x: 20, y: iconImg2.frame.maxY+20, width: 40, height: 40))
+        iconImg3.image = #imageLiteral(resourceName: "ic_FT_alert_人才关注")
+        alertView.addSubview(iconImg3)
+        
+        let tipLabel3 = UILabel(frame: CGRect(x: iconImg3.frame.maxX+20, y: iconImg3.frame.minY, width: alertView.frame.width - (iconImg3.frame.maxX+20), height: 40))
+        tipLabel3.textColor = UIColor.darkGray
+        tipLabel3.font = UIFont.systemFont(ofSize: 14)
+        tipLabel3.textAlignment = .left
+        tipLabel3.adjustsFontSizeToFitWidth = true
+        tipLabel3.text = "人才关注过的企业"
+        alertView.addSubview(tipLabel3)
+        
+        // 评价
+        let iconImg4 = UIImageView(frame: CGRect(x: 20, y: iconImg3.frame.maxY+20, width: 40, height: 40))
+        iconImg4.image = #imageLiteral(resourceName: "ic_FT_alert_评价")
+        alertView.addSubview(iconImg4)
+        
+        let tipLabel4 = UILabel(frame: CGRect(x: iconImg4.frame.maxX+20, y: iconImg4.frame.minY, width: alertView.frame.width - (iconImg4.frame.maxX+20), height: 40))
+        tipLabel4.textColor = UIColor.darkGray
+        tipLabel4.font = UIFont.systemFont(ofSize: 14)
+        tipLabel4.textAlignment = .left
+        tipLabel4.adjustsFontSizeToFitWidth = true
+        tipLabel4.text = "企业给他的评价"
+        alertView.addSubview(tipLabel4)
+
+        
+        let payBtn = UIButton(frame: CGRect(x: 0, y: iconImg4.frame.maxY+20, width: alertView.frame.width*0.6, height: 40))
+        payBtn.layer.cornerRadius = 20
+        payBtn.backgroundColor = UIColor.red
+        payBtn.setTitleColor(UIColor.white, for: .normal)
+        payBtn.setTitle("立即付费", for: .normal)
+        payBtn.frame.origin.x = (alertView.frame.width-payBtn.frame.width)/2.0
+        payBtn.addTarget(self, action: #selector(payBtnClick(_:)), for: .touchUpInside)
+        alertView.addSubview(payBtn)
+        
+        alertView.frame.size.height = payBtn.frame.maxY+20
+        alertView.center.y = bgView.center.y
+
+        let closeBtn = UIButton(frame: CGRect(x: alertView.frame.width-15, y: -15, width: 30, height: 30))
+        closeBtn.tag = 102
+        closeBtn.setBackgroundImage(#imageLiteral(resourceName: "ic_FT_alertClose"), for: .normal)
+        closeBtn.addTarget(self, action: #selector(shareViewHide(_:)), for: .touchUpInside)
+        alertView.addSubview(closeBtn)
+    }
+    
+    // MARK: - 立即付费按钮点击事件
+    func payBtnClick(_ payBtn:UIButton) {
+        
+        payBtn.superview?.superview?.removeFromSuperview()
+
+        self.setSubviews_alreadyPay()
+    }
+    
+    // MARK: - 和他聊聊按钮 点击事件
+    func chatBtnClick(_ chatBtn:UIButton) {
+        self.navigationController?.pushViewController(FTMeChatViewController(), animated: true)
+    }
+    
+    // MARK: - 电话沟通按钮 点击事件
+    func telBtnClick(_ telBtn:UIButton) {
+
+        let bgView = UIButton(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
+        bgView.backgroundColor = UIColor(white: 0.5, alpha: 0.3)
+        bgView.tag = 101
+        bgView.addTarget(self, action: #selector(shareViewHide(_:)), for: .touchUpInside)
+        UIApplication.shared.keyWindow!.addSubview(bgView)
+        
+        let alertView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width*0.6, height: 0))
+        alertView.backgroundColor = UIColor.white
+        alertView.layer.cornerRadius = 8
+        alertView.center.x = bgView.center.x
+        bgView.addSubview(alertView)
+        
+        let tipLabel = UILabel(frame: CGRect(x: 0, y: 5, width: alertView.frame.width, height: 0))
+        tipLabel.textColor = UIColor.black
+        tipLabel.font = UIFont.systemFont(ofSize: 16)
+        tipLabel.textAlignment = .center
+        tipLabel.text = "拨打电话"
+        tipLabel.sizeToFit()
+        tipLabel.frame.origin.x = (alertView.frame.width-tipLabel.frame.width)/2.0
+        alertView.addSubview(tipLabel)
+        
+        
+        // 拨打电话
+        let iconImg1 = UIImageView(frame: CGRect(x: 20, y: tipLabel.frame.maxY+15, width: 25, height: 25))
+        iconImg1.image = #imageLiteral(resourceName: "ic_FT_电话图标")
+        alertView.addSubview(iconImg1)
+        
+        let tipLabel1 = UILabel(frame: CGRect(x: iconImg1.frame.maxX+20, y: iconImg1.frame.minY, width: alertView.frame.width - (iconImg1.frame.maxX+20), height: 25))
+        tipLabel1.textColor = UIColor.darkGray
+        tipLabel1.font = UIFont.systemFont(ofSize: 14)
+        tipLabel1.textAlignment = .left
+        tipLabel1.adjustsFontSizeToFitWidth = true
+        tipLabel1.text = "拨打电话：\(self.resumeData.phone)"
+        alertView.addSubview(tipLabel1)
+        
+        let cancelBtn = UIButton(frame: CGRect(
+            x: 10,
+            y: tipLabel1.frame.maxY+10,
+            width: alertView.frame.width*0.4,
+            height: 30))
+        cancelBtn.tag = 102
+        cancelBtn.setTitleColor(UIColor.blue, for: .normal)
+        cancelBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        cancelBtn.setTitle("取消", for: .normal)
+        cancelBtn.addTarget(self, action: #selector(shareViewHide(_:)), for: .touchUpInside)
+        alertView.addSubview(cancelBtn)
+        
+        let payBtn = UIButton(frame: CGRect(
+            x: alertView.frame.width*0.6-10,
+            y: tipLabel1.frame.maxY+10,
+            width: alertView.frame.width*0.4,
+            height: 30))
+        payBtn.setTitleColor(UIColor.blue, for: .normal)
+        payBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        payBtn.setTitle("确认", for: .normal)
+        payBtn.addTarget(self, action: #selector(telSureBtnClick(_:)), for: .touchUpInside)
+        alertView.addSubview(payBtn)
+        
+        
+        alertView.frame.size.height = cancelBtn.frame.maxY
+        alertView.center.y = bgView.center.y
+        
+        let line1 = UIView(frame: CGRect(x: 10, y: tipLabel.frame.maxY+5, width: alertView.frame.width-20, height: 1/UIScreen.main.scale))
+        line1.backgroundColor = UIColor.gray
+        alertView.addSubview(line1)
+        
+        let line2 = UIView(frame: CGRect(x: 10, y: tipLabel1.frame.maxY+10, width: alertView.frame.width-20, height: 1/UIScreen.main.scale))
+        line2.backgroundColor = UIColor.gray
+        alertView.addSubview(line2)
+        
+        let line3 = UIView(frame: CGRect(x: alertView.frame.width*0.5, y: tipLabel1.frame.maxY+10, width: 1/UIScreen.main.scale, height: alertView.frame.height-(tipLabel1.frame.maxY+10)))
+        line3.backgroundColor = UIColor.gray
+        alertView.addSubview(line3)
+
+    }
+    
+    // MARK: - 拨打电话 确认按钮点击事件
+    func telSureBtnClick(_ sureBtn:UIButton) {
+        
+        sureBtn.superview?.superview?.removeFromSuperview()
+        UIApplication.shared.openURL(URL(string: "tel:\(self.resumeData.phone)")!)
+    }
     // MARK:- 收藏按钮点击事件
     func collectionBtnClick() {
         
@@ -512,10 +871,30 @@ class FTPersonalViewController: UIViewController {
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if collectionBtn.isSelected {
+            
             // MARK: 取消收藏
-            checkCodeHud.mode = .text
-            checkCodeHud.labelText = "功能未实现"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.labelText = "正在取消收藏"
+            
+            PublicNetUtil().cancelfavorite(
+                CHSUserInfo.currentUserInfo.userid,
+                object_id: self.resumeData.resumes_id,
+                type: "2") { (success, response) in
+                    if success {
+                        
+                        self.collectionBtn.isSelected = false
+                        
+                        checkCodeHud.mode = .text
+                        checkCodeHud.labelText = "取消收藏成功"
+                        checkCodeHud.hide(true, afterDelay: 1)
+                        
+                    }else{
+                        checkCodeHud.mode = .text
+                        checkCodeHud.labelText = "取消收藏失败"
+                        checkCodeHud.hide(true, afterDelay: 1)
+                        
+                    }
+            }
+
         }else{
             
             checkCodeHud.labelText = "正在加入收藏"
@@ -544,7 +923,8 @@ class FTPersonalViewController: UIViewController {
     
     // MARK:- 分享视图
     func shareBtnClick() {
-        let imageArray = ["ic_share_qq","ic_share_wechat","ic_share_friendzone"]
+        let imageArray = ["ic_share_QQ","ic_share_微信","ic_share_朋友圈"]
+        let imgArray = [#imageLiteral(resourceName: "ic_share_QQ"),#imageLiteral(resourceName: "ic_share_微信"),#imageLiteral(resourceName: "ic_share_朋友圈")]
         let imageNameArray = ["QQ","微信","朋友圈"]
         
         let bgView = UIButton(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
@@ -557,7 +937,7 @@ class FTPersonalViewController: UIViewController {
         bottomView.backgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1)
         bgView.addSubview(bottomView)
         
-        let shareBtnWidth:CGFloat = kWidthScale*70
+        let shareBtnWidth:CGFloat = kWidthScale*50
         //        let maxMargin:CGFloat = shareBtnWidth/3.0
         let shareBtnCount:Int = 3 // 每行的按钮数
         let margin = (screenSize.width-CGFloat(shareBtnCount)*shareBtnWidth)/CGFloat(shareBtnCount+1)
@@ -575,12 +955,13 @@ class FTPersonalViewController: UIViewController {
                 width: shareBtnWidth,
                 height: shareBtnWidth))
             shareBtn_1.layer.cornerRadius = shareBtnWidth/2.0
-            shareBtn_1.backgroundColor = UIColor.blue
-            shareBtn_1.setImage(UIImage(named: imageArray[i]), for: UIControlState())
+//            shareBtn_1.backgroundColor = UIColor.blue
+            //            shareBtn_1.setImage(UIImage(named: imageArray[i]), for: UIControlState())
+            shareBtn_1.setBackgroundImage(imgArray[i], for: .normal)
             shareBtn_1.tag = 1000+i
             //            shareBtn_1.addTarget(self, action: #selector(shareBtnClick(_:)), forControlEvents: .TouchUpInside)
             bottomView.addSubview(shareBtn_1)
-            print("挑战高薪-机会-个人信息页-分享视图-按钮 \(i) frame == \(shareBtn_1.frame)")
+            print("抢人才-人才-个人信息页-分享视图-按钮 \(i) frame == \(shareBtn_1.frame)")
             
             let shareLab_1 = UILabel(frame: CGRect(
                 x: shareBtn_1.frame.minX-margin/2.0,
@@ -600,7 +981,7 @@ class FTPersonalViewController: UIViewController {
         line.backgroundColor = UIColor.lightGray
         bottomView.addSubview(line)
         
-        let cancelBtnHeight = shareBtnWidth*0.8
+        let cancelBtnHeight:CGFloat = 44
         
         let cancelBtn = UIButton(frame: CGRect(x: 0, y: line.frame.maxY, width: screenSize.width, height: cancelBtnHeight))
         cancelBtn.backgroundColor = UIColor(red: 248/255.0, green: 248/255.0, blue: 248/255.0, alpha: 1)

@@ -165,7 +165,7 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // MARK: ChChCityTableViewCellDelegate
     func cityTableViewCellCityBtnClick(_ cityBtn: UIButton, indexPath: IndexPath, index:Int) {
-        print(cityBtn.currentTitle)
+        print((cityBtn.currentTitle ?? "")!)
         
         if (indexPath as NSIndexPath).section == 0 && (cityBtn.currentTitle == "未知" || self.locationError != nil) {
 
