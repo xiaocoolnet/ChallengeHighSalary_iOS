@@ -40,7 +40,8 @@ class LoRegisterViewController: UIViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "ic_clear"), for: .compact)
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "ic_clear"), for: .default)
     }
     
     // MARK: popViewcontroller
@@ -283,7 +284,7 @@ class LoRegisterViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    // MAKE: 注册按钮点击事件
+    // MARK: 注册按钮点击事件
     func registerBtnClick() {
         
         let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
@@ -329,13 +330,17 @@ class LoRegisterViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    // MAKE: 用户协议按钮点击事件
+    // MARK: 用户协议按钮点击事件
     func agreementBtnClick() {
         //        self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+        
         TimeManager.shareManager.taskDic["register"]?.FHandle = nil
         TimeManager.shareManager.taskDic["register"]?.PHandle = nil
     }

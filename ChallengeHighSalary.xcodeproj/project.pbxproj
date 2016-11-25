@@ -34,6 +34,7 @@
 		1F4FD2661D76C01D00FF7040 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4FD2601D76C01D00FF7040 /* NSString+FontAwesome.m */; };
 		1F4FD2671D76C01D00FF7040 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F4FD2621D76C01D00FF7040 /* FontAwesome.ttf */; };
 		1F4FD2681D76C01D00FF7040 /* UIColor+BButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4FD2641D76C01D00FF7040 /* UIColor+BButton.m */; };
+		1F4FDD211DE7CE9F008B17F7 /* FTMiCompanyAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4FDD201DE7CE9F008B17F7 /* FTMiCompanyAuthViewController.swift */; };
 		1F577B0E1DA9E29B00AB5D99 /* FTMeResumeNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B0D1DA9E29B00AB5D99 /* FTMeResumeNotificationViewController.swift */; };
 		1F577B111DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B0F1DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.swift */; };
 		1F577B121DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F577B101DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.xib */; };
@@ -250,6 +251,7 @@
 		1F4FD2621D76C01D00FF7040 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 		1F4FD2631D76C01D00FF7040 /* UIColor+BButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+BButton.h"; sourceTree = "<group>"; };
 		1F4FD2641D76C01D00FF7040 /* UIColor+BButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+BButton.m"; sourceTree = "<group>"; };
+		1F4FDD201DE7CE9F008B17F7 /* FTMiCompanyAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiCompanyAuthViewController.swift; sourceTree = "<group>"; };
 		1F577B0D1DA9E29B00AB5D99 /* FTMeResumeNotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeResumeNotificationViewController.swift; sourceTree = "<group>"; };
 		1F577B0F1DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeResumeNotificationTableViewCell.swift; sourceTree = "<group>"; };
 		1F577B101DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTMeResumeNotificationTableViewCell.xib; sourceTree = "<group>"; };
@@ -967,6 +969,7 @@
 				1FC3CCAF1D9CDCBD004AA4C6 /* FTMiMyBlacklistViewController.swift */,
 				1F3193591DB47C5F004B264F /* FTMiMyCompanyInfoViewController.swift */,
 				1FFECEB61DB9FB320039BFF3 /* FTMiChangeIdentityViewController.swift */,
+				1F4FDD201DE7CE9F008B17F7 /* FTMiCompanyAuthViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1564,6 +1567,7 @@
 				1F0B59491DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift in Sources */,
 				1FC3CCA81D9CAF07004AA4C6 /* FTMiMyInterviewFinishViewController.swift in Sources */,
 				1FEC4A371DB8C7AE004A0FC1 /* PublicNetUtil.swift in Sources */,
+				1F4FDD211DE7CE9F008B17F7 /* FTMiCompanyAuthViewController.swift in Sources */,
 				1FFECEB51DB9C3CB0039BFF3 /* CHSMiChangeIdentityViewController.swift in Sources */,
 				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,
 				1F4FD25B1D767CC500FF7040 /* Tool.swift in Sources */,

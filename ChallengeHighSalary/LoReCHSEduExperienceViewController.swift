@@ -126,15 +126,17 @@ class LoReCHSEduExperienceViewController: UIViewController, UITableViewDataSourc
         //            return
         //        }
         
-        if schoolNameTf.text!.isEmpty && majorNameTf.text!.isEmpty && detailArray[2] == "选择学历" && detailArray[3] == "请选择就读时间段" {
-            
-            self.navigationController?.pushViewController(LoReCHSJobExperienceViewController(), animated: true)
-            return
-        }
-        
-        
         let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
+        
+        if schoolNameTf.text!.isEmpty || majorNameTf.text!.isEmpty || detailArray[2] == "选择学历" || detailArray[3] == "请选择就读时间段" {
+            
+            checkCodeHud.mode = .text
+            checkCodeHud.labelText = "请完善教育经历"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+            
+        }
         
         checkCodeHud.labelText = "正在保存教育经历"
         

@@ -40,7 +40,8 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "ic_clear"), for: .compact)
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "ic_clear"), for: .default)
     }
     
     // MARK: popViewcontroller
@@ -381,6 +382,10 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+        
         TimeManager.shareManager.taskDic["forgetPassword"]?.FHandle = nil
         TimeManager.shareManager.taskDic["forgetPassword"]?.PHandle = nil
     }

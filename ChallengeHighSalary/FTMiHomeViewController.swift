@@ -182,6 +182,12 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         switch ((indexPath as NSIndexPath).section,(indexPath as NSIndexPath).row) {
+        case (0,0):
+            
+            let companyAuthController = FTMiCompanyAuthViewController()
+            companyAuthController.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(companyAuthController, animated: true)
+        
         case (0,1):
             
             let myCompanyInfoController = FTMiMyCompanyInfoViewController()
