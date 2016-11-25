@@ -67,10 +67,14 @@ class LoReCHSJobExperienceViewController: UIViewController, UITableViewDataSourc
         }
     }
     
+    var originalArray = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
+        self.originalArray = self.detailArray
         
         setSubviews()
         
@@ -140,57 +144,24 @@ class LoReCHSJobExperienceViewController: UIViewController, UITableViewDataSourc
         let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
         
-//        if detailArray[0] == "请输入公司名称" {
-//            
-//            checkCodeHud.mode = .Text
-//            checkCodeHud.labelText = "请输入公司名称"
-//            checkCodeHud.hide(true, afterDelay: 1)
-//            return
-//        }else if detailArray[1] == "选择行业" {
-//            
-//            checkCodeHud.mode = .Text
-//            checkCodeHud.labelText = "请选择行业"
-//            checkCodeHud.hide(true, afterDelay: 1)
-//            return
-//        }else if detailArray[2] == "选择职位类型" {
-//            
-//            checkCodeHud.mode = .Text
-//            checkCodeHud.labelText = "请选择职位类型"
-//            checkCodeHud.hide(true, afterDelay: 1)
-//            return
-//        }else if detailArray[3] == "请选择技能" {
-//            
-//            checkCodeHud.mode = .Text
-//            checkCodeHud.labelText = "请选择技能"
-//            checkCodeHud.hide(true, afterDelay: 1)
-//            return
-//        }else if detailArray[4] == "选择任职时间段" {
-//            
-//            checkCodeHud.mode = .Text
-//            checkCodeHud.labelText = "请选择任职时间段"
-//            checkCodeHud.hide(true, afterDelay: 1)
-//            return
-//        }else if jobContentTv.text!.isEmpty {
-//            
-//            checkCodeHud.mode = .Text
-//            checkCodeHud.labelText = "请输入工作内容"
-//            checkCodeHud.hide(true, afterDelay: 1)
-//            return
-//        }
-//        
-//        if CHSUserInfo.currentUserInfo.work?.first?.company_name ==  self.detailArray[0] && CHSUserInfo.currentUserInfo.work?.first?.company_industry ==  self.detailArray[1] && CHSUserInfo.currentUserInfo.work?.first?.jobtype ==  self.detailArray[2] && CHSUserInfo.currentUserInfo.work?.first?.skill ==  self.detailArray[3] && CHSUserInfo.currentUserInfo.work?.first?.work_period ==  self.detailArray[4] && CHSUserInfo.currentUserInfo.work?.first?.content == self.jobContentTv.text! {
-//            checkCodeHud.mode = .Text
-//            checkCodeHud.labelText = "信息未修改"
-//            checkCodeHud.hide(true, afterDelay: 1)
-//            
-//            let time: NSTimeInterval = 1.0
-//            let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
-//            
-//            dispatch_after(delay, dispatch_get_main_queue()) {
-//                self.navigationController?.popViewControllerAnimated(true)
-//            }
-//            return
-//        }
+        for (i,detail) in self.detailArray.enumerated() {
+            
+            if detail == originalArray[i] {
+                
+                checkCodeHud.mode = .text
+                checkCodeHud.labelText = "请完善工作经历"
+                checkCodeHud.hide(true, afterDelay: 1)
+                return
+            }
+        }
+ 
+        if jobContentTv.text!.isEmpty {
+            
+            checkCodeHud.mode = .text
+            checkCodeHud.labelText = "请输入工作内容"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }
         
         checkCodeHud.labelText = "正在保存工作经历"
         

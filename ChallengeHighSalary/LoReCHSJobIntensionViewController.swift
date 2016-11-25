@@ -17,7 +17,7 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
     let pickJobTypeRequiredArray = ["全职","兼职"]
     let pickExpSalaryLowRequiredArray = ["1k","2k","3k","4k","5k"]
     var pickExpSalarySupRequiredArray = ["1k","2k","3k","4k","5k"]
-    let pickJobStatusSupRequiredArray = ["离职","在职"]
+    let pickJobStatusRequiredArray = ["离职","在职"]
     
     var pickSelectedRowArray = [[0],[0,0],[0,0],[0]]
     
@@ -45,6 +45,15 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
+        detailArray = [
+            CHSUserInfo.currentUserInfo.work_property == "" ? pickJobTypeRequiredArray.first!:CHSUserInfo.currentUserInfo.work_property,
+            CHSUserInfo.currentUserInfo.address == "" ? "\(provinceArray[0])-\(cityArray[0])":CHSUserInfo.currentUserInfo.address,
+            CHSUserInfo.currentUserInfo.position_type == "" ? "职位类型":CHSUserInfo.currentUserInfo.position_type,
+            CHSUserInfo.currentUserInfo.categories == "" ? "行业类别":CHSUserInfo.currentUserInfo.categories,
+            CHSUserInfo.currentUserInfo.wantsalary == "" ? "\(pickExpSalaryLowRequiredArray[0])至\(pickExpSalarySupRequiredArray[0]) /月":CHSUserInfo.currentUserInfo.categories,
+            CHSUserInfo.currentUserInfo.jobstate == "" ? pickJobStatusRequiredArray[0]:CHSUserInfo.currentUserInfo.jobstate
+        ]
         
         loadData()
         setSubviews()
@@ -122,27 +131,12 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
         let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
         
-//        if
-//            CHSUserInfo.currentUserInfo.work_property ==  detailArray[0] &&
-//                CHSUserInfo.currentUserInfo.address ==  detailArray[1] &&
-//                CHSUserInfo.currentUserInfo.position_type ==  detailArray[2] &&
-//                CHSUserInfo.currentUserInfo.categories ==  detailArray[3] &&
-//                CHSUserInfo.currentUserInfo.wantsalary ==  detailArray[4] &&
-//                CHSUserInfo.currentUserInfo.jobstate ==  detailArray[5]{
-//            
-//            checkCodeHud.mode = .Text
-//            checkCodeHud.labelText = "信息未修改"
-//            checkCodeHud.hide(true, afterDelay: 1)
-//            
-//            let time: NSTimeInterval = 1.0
-//            let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
-//            
-//            dispatch_after(delay, dispatch_get_main_queue()) {
-//                self.navigationController?.popViewControllerAnimated(true)
-//            }
-//            
-//            return
-//        }
+        if detailArray[2] == "职位类型" || detailArray[3] == "行业类别" {
+            checkCodeHud.mode = .text
+            checkCodeHud.labelText = "请完善求职意向"
+            checkCodeHud.hide(true, afterDelay: 1)
+            return
+        }
         
         checkCodeHud.labelText = "正在上传求职意向"
         
@@ -172,7 +166,7 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
                     
                     DispatchQueue.main.asyncAfter(deadline: delay) {
                         _ = self.navigationController?.popViewController(animated: true)
-//                        self.present(CHRoHomeViewController(), animated: true, completion: nil)
+                        self.present(CHRoHomeViewController(), animated: true, completion: nil)
                     }
                 }else{
                     
@@ -328,7 +322,7 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
             pickSelectedRowArray[2][1] = pickerView.selectedRow(inComponent: 2)
         }else if pickerView.tag == 104 {
             
-            detailArray[5] = pickJobStatusSupRequiredArray[pickerView.selectedRow(inComponent: 0)]
+            detailArray[5] = pickJobStatusRequiredArray[pickerView.selectedRow(inComponent: 0)]
             
             pickSelectedRowArray[3][0] = pickerView.selectedRow(inComponent: 0)
         }
@@ -391,7 +385,7 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
             }
         }else if pickerView.tag == 104 {
             
-            return pickJobStatusSupRequiredArray.count
+            return pickJobStatusRequiredArray.count
         }else{
             return 0
         }
@@ -464,7 +458,7 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
             }
         }else if pickerView.tag == 104 {
             
-            view.text = pickJobStatusSupRequiredArray[row]
+            view.text = pickJobStatusRequiredArray[row]
         }else{
             
         }

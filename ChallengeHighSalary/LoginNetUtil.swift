@@ -82,6 +82,9 @@ class LoginNetUtil: NSObject {
                 let checkCode = JSONDeserializer<CheckphoneModel>.deserializeFrom(dict: json as! NSDictionary?)!
 
                 if checkCode.status == "success" {
+                    
+                    
+                    
                     CHSUserInfo.currentUserInfo.userid = checkCode.data
                     handle(true, checkCode.data as AnyObject?)
                 }else{
