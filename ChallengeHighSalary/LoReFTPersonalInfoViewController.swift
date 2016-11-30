@@ -419,7 +419,7 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
             
             let vc = LoReFTInfoInputViewController()
             vc.infoType = .position
-            vc.selfTitle = "职位选择"
+            vc.selfTitle = "我的职位"
             vc.placeHolder = "请输入职位名"
             vc.tfText = cell?.detailTextLabel?.textColor == UIColor.black ? (cell?.detailTextLabel?.text)!:""
             vc.tipText = "请填写您的现任职位，不能包含特殊符号"
@@ -435,11 +435,11 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
             
             let vc = LoReFTInfoInputViewController()
             vc.infoType = .email
-            vc.selfTitle = "职位选择"
-            vc.placeHolder = "请输入职位名"
+            vc.selfTitle = "接受简历邮箱"
+            vc.placeHolder = "请输入公司邮箱"
             vc.tfText = cell?.detailTextLabel?.textColor == UIColor.black ? (cell?.detailTextLabel?.text)!:""
-            vc.tipText = "请填写您的现任职位，不能包含特殊符号"
-            vc.hudTipText = "请输入职位名"
+            vc.tipText = "请填写您的公司邮箱"
+            vc.hudTipText = "请填写您的公司邮箱"
             vc.maxCount = 20
             
             vc.delegate = self

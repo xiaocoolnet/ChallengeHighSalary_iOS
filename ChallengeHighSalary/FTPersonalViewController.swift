@@ -237,7 +237,7 @@ class FTPersonalViewController: UIViewController {
         
         let margin:CGFloat = 5
         
-        let addressBtn = UIButton(frame: CGRect(x: 8, y: nameLab.frame.maxY+10, width: screenSize.width*0.18, height: kHeightScale*60))
+        let addressBtn = UIButton(frame: CGRect(x: 8, y: nameLab.frame.maxY+10, width: screenSize.width, height: kHeightScale*60))
         addressBtn.setImage(UIImage(named: "ic_地点"), for: UIControlState())
         addressBtn.setTitleColor(UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1), for: UIControlState())
         addressBtn.titleLabel!.font = UIFont.systemFont(ofSize: 13)
@@ -245,10 +245,10 @@ class FTPersonalViewController: UIViewController {
         addressBtn.contentHorizontalAlignment = .left
         addressBtn.setTitle(self.resumeData.city, for: UIControlState())
         addressBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
-//        addressBtn.sizeToFit()
+        addressBtn.sizeToFit()
         summaryView.addSubview(addressBtn)
         
-        let expBtn = UIButton(frame: CGRect(x: addressBtn.frame.maxX+8, y: nameLab.frame.maxY+10, width: screenSize.width*0.18, height: kHeightScale*60))
+        let expBtn = UIButton(frame: CGRect(x: addressBtn.frame.maxX+8, y: nameLab.frame.maxY+10, width: screenSize.width, height: kHeightScale*60))
         expBtn.setImage(UIImage(named: "ic_工作经验"), for: UIControlState())
         expBtn.setTitleColor(UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1), for: UIControlState())
         expBtn.titleLabel!.font = UIFont.systemFont(ofSize: 13)
@@ -256,10 +256,10 @@ class FTPersonalViewController: UIViewController {
         expBtn.contentHorizontalAlignment = .left
         expBtn.setTitle(self.resumeData.work_life, for: UIControlState())
         expBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
-//        expBtn.sizeToFit()
+        expBtn.sizeToFit()
         summaryView.addSubview(expBtn)
         
-        let eduBtn = UIButton(frame: CGRect(x: expBtn.frame.maxX+8, y: nameLab.frame.maxY+10, width: screenSize.width*0.18, height: kHeightScale*60))
+        let eduBtn = UIButton(frame: CGRect(x: expBtn.frame.maxX+8, y: nameLab.frame.maxY+10, width: screenSize.width, height: kHeightScale*60))
         eduBtn.setImage(UIImage(named: "ic_学历"), for: UIControlState())
         eduBtn.setTitleColor(UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1), for: UIControlState())
         eduBtn.titleLabel!.font = UIFont.systemFont(ofSize: 13)
@@ -267,10 +267,10 @@ class FTPersonalViewController: UIViewController {
         eduBtn.contentHorizontalAlignment = .left
         eduBtn.setTitle(self.resumeData.education?.first?.degree, for: UIControlState())
         eduBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
-//        eduBtn.sizeToFit()
+        eduBtn.sizeToFit()
         summaryView.addSubview(eduBtn)
         
-        let propertyBtn = UIButton(frame: CGRect(x: eduBtn.frame.maxX+8, y: nameLab.frame.maxY+10, width: screenSize.width*0.18, height: kHeightScale*60))
+        let propertyBtn = UIButton(frame: CGRect(x: eduBtn.frame.maxX+8, y: nameLab.frame.maxY+10, width: screenSize.width, height: kHeightScale*60))
         propertyBtn.setImage(UIImage(named: "ic_全职"), for: UIControlState())
         propertyBtn.setTitleColor(UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1), for: UIControlState())
         propertyBtn.titleLabel!.font = UIFont.systemFont(ofSize: 13)
@@ -278,7 +278,7 @@ class FTPersonalViewController: UIViewController {
         propertyBtn.contentHorizontalAlignment = .left
         propertyBtn.setTitle(self.resumeData.work_property, for: UIControlState())
         propertyBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
-//        propertyBtn.sizeToFit()
+        propertyBtn.sizeToFit()
         summaryView.addSubview(propertyBtn)
         
         let headerImg = UIImageView(frame: CGRect(x: summaryView.frame.size.width-8-kHeightScale*50, y: 10, width: kHeightScale*50, height: kHeightScale*50))

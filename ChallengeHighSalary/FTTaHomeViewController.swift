@@ -68,7 +68,10 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     // MARK: 检索按钮点击事件
     func retrievalBtnClick() {
         print("ChChHomeViewController searchBtnClick")
-        self.navigationController?.pushViewController(FTTaRetrievalViewController(), animated: true)
+        
+        let retrievalController = FTTaRetrievalViewController()
+        retrievalController.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(retrievalController, animated: true)
     }
     
     // MARK: 设置子视图

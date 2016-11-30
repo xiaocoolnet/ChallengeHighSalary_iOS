@@ -100,7 +100,7 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         postPositionBtn.layer.cornerRadius = 6
         postPositionBtn.layer.borderColor = UIColor.white.cgColor
         postPositionBtn.layer.borderWidth = 1
-        postPositionBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        postPositionBtn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         postPositionBtn.setTitle("发布职位", for: UIControlState())
         postPositionBtn.setTitleColor(UIColor.white, for: UIControlState())
         postPositionBtn.center.y = setBtn.center.y

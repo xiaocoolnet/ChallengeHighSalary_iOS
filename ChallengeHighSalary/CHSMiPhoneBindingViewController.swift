@@ -146,11 +146,12 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
             width: kWidthScale*96,
             height: kHeightScale*30)
         //        getCheckCodeBtn.backgroundColor = baseColor
-        getCheckCodeBtn.layer.cornerRadius = 15
+        getCheckCodeBtn.layer.cornerRadius = kHeightScale*15
         getCheckCodeBtn.layer.borderColor = baseColor.cgColor
         getCheckCodeBtn.layer.borderWidth = 1
-        getCheckCodeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        getCheckCodeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         getCheckCodeBtn.setTitleColor(baseColor, for: UIControlState())
+//        getCheckCodeBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         getCheckCodeBtn.setTitle("获取验证码", for: UIControlState())
         getCheckCodeBtn.addTarget(self, action: #selector(getCheckCodeBtnClick), for: .touchUpInside)
         checkCodeBgView.addSubview(getCheckCodeBtn)
