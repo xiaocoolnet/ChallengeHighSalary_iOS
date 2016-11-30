@@ -237,48 +237,48 @@ class FTPersonalViewController: UIViewController {
         
         let margin:CGFloat = 5
         
-        let addressBtn = UIButton(frame: CGRect(x: 8, y: nameLab.frame.maxY+10, width: screenSize.width, height: kHeightScale*60))
+        let addressBtn = UIButton(frame: CGRect(x: 8, y: nameLab.frame.maxY+10, width: screenSize.width*0.18, height: kHeightScale*60))
         addressBtn.setImage(UIImage(named: "ic_地点"), for: UIControlState())
         addressBtn.setTitleColor(UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1), for: UIControlState())
-        addressBtn.titleLabel!.font = UIFont.systemFont(ofSize: 14)
+        addressBtn.titleLabel!.font = UIFont.systemFont(ofSize: 13)
         addressBtn.titleLabel?.numberOfLines = 0
         addressBtn.contentHorizontalAlignment = .left
         addressBtn.setTitle(self.resumeData.city, for: UIControlState())
         addressBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
-        addressBtn.sizeToFit()
+//        addressBtn.sizeToFit()
         summaryView.addSubview(addressBtn)
         
-        let expBtn = UIButton(frame: CGRect(x: addressBtn.frame.maxX+8, y: nameLab.frame.maxY+10, width: screenSize.width, height: kHeightScale*60))
+        let expBtn = UIButton(frame: CGRect(x: addressBtn.frame.maxX+8, y: nameLab.frame.maxY+10, width: screenSize.width*0.18, height: kHeightScale*60))
         expBtn.setImage(UIImage(named: "ic_工作经验"), for: UIControlState())
         expBtn.setTitleColor(UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1), for: UIControlState())
-        expBtn.titleLabel!.font = UIFont.systemFont(ofSize: 14)
+        expBtn.titleLabel!.font = UIFont.systemFont(ofSize: 13)
         expBtn.titleLabel?.numberOfLines = 0
         expBtn.contentHorizontalAlignment = .left
         expBtn.setTitle(self.resumeData.work_life, for: UIControlState())
         expBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
-        expBtn.sizeToFit()
+//        expBtn.sizeToFit()
         summaryView.addSubview(expBtn)
         
-        let eduBtn = UIButton(frame: CGRect(x: expBtn.frame.maxX+8, y: nameLab.frame.maxY+10, width: screenSize.width, height: kHeightScale*60))
+        let eduBtn = UIButton(frame: CGRect(x: expBtn.frame.maxX+8, y: nameLab.frame.maxY+10, width: screenSize.width*0.18, height: kHeightScale*60))
         eduBtn.setImage(UIImage(named: "ic_学历"), for: UIControlState())
         eduBtn.setTitleColor(UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1), for: UIControlState())
-        eduBtn.titleLabel!.font = UIFont.systemFont(ofSize: 14)
+        eduBtn.titleLabel!.font = UIFont.systemFont(ofSize: 13)
         eduBtn.titleLabel?.numberOfLines = 0
         eduBtn.contentHorizontalAlignment = .left
         eduBtn.setTitle(self.resumeData.education?.first?.degree, for: UIControlState())
         eduBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
-        eduBtn.sizeToFit()
+//        eduBtn.sizeToFit()
         summaryView.addSubview(eduBtn)
         
-        let propertyBtn = UIButton(frame: CGRect(x: eduBtn.frame.maxX+8, y: nameLab.frame.maxY+10, width: screenSize.width, height: kHeightScale*60))
+        let propertyBtn = UIButton(frame: CGRect(x: eduBtn.frame.maxX+8, y: nameLab.frame.maxY+10, width: screenSize.width*0.18, height: kHeightScale*60))
         propertyBtn.setImage(UIImage(named: "ic_全职"), for: UIControlState())
         propertyBtn.setTitleColor(UIColor(red: 102/255.0, green: 102/255.0, blue: 102/255.0, alpha: 1), for: UIControlState())
-        propertyBtn.titleLabel!.font = UIFont.systemFont(ofSize: 14)
+        propertyBtn.titleLabel!.font = UIFont.systemFont(ofSize: 13)
         propertyBtn.titleLabel?.numberOfLines = 0
         propertyBtn.contentHorizontalAlignment = .left
         propertyBtn.setTitle(self.resumeData.work_property, for: UIControlState())
         propertyBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
-        propertyBtn.sizeToFit()
+//        propertyBtn.sizeToFit()
         summaryView.addSubview(propertyBtn)
         
         let headerImg = UIImageView(frame: CGRect(x: summaryView.frame.size.width-8-kHeightScale*50, y: 10, width: kHeightScale*50, height: kHeightScale*50))
@@ -510,35 +510,38 @@ class FTPersonalViewController: UIViewController {
         var cityBtnWidth:CGFloat = 0
         let cityBtnHeight:CGFloat = skillTagLab.frame.size.height
         
-        for (i,city) in ((self.resumeData.work?.first?.skill.components(separatedBy: "-"))!).enumerated() {
-            cityBtnWidth = calculateWidth(city, size: 15, height: cityBtnHeight)+cityBtnMargin
+        if self.resumeData.work?.first?.skill != nil {
             
-            let skillLab = UILabel(frame: CGRect(x: cityBtnX, y: cityBtnY, width: cityBtnWidth, height: cityBtnHeight))
-            skillLab.layer.cornerRadius = 6
-            skillLab.layer.borderWidth = 1
-            skillLab.layer.borderColor = baseColor.cgColor
-            skillLab.textColor = baseColor
-            skillLab.textAlignment = .center
-            skillLab.font = UIFont.systemFont(ofSize: 15)
-            skillLab.text = city
-            //            skillLab.sizeToFit()
-            //            skillLab.center.y = skillTagLab.center.y
-            //            skillLab.frame.origin.x = jobView.frame.size.width-8-skillLab.frame.size.width
-            jobView.addSubview(skillLab)
-            
-            if i+1 < ((self.resumeData.work?.first?.skill.components(separatedBy: "-"))!).count {
+            for (i,city) in ((self.resumeData.work?.first?.skill.components(separatedBy: "-"))!).enumerated() {
+                cityBtnWidth = calculateWidth(city, size: 15, height: cityBtnHeight)+cityBtnMargin
                 
-                let nextBtnWidth = calculateWidth(((self.resumeData.work?.first?.skill.components(separatedBy: "-"))!)[i+1], size: 15, height: cityBtnHeight)+cityBtnMargin
+                let skillLab = UILabel(frame: CGRect(x: cityBtnX, y: cityBtnY, width: cityBtnWidth, height: cityBtnHeight))
+                skillLab.layer.cornerRadius = 6
+                skillLab.layer.borderWidth = 1
+                skillLab.layer.borderColor = baseColor.cgColor
+                skillLab.textColor = baseColor
+                skillLab.textAlignment = .center
+                skillLab.font = UIFont.systemFont(ofSize: 15)
+                skillLab.text = city
+                //            skillLab.sizeToFit()
+                //            skillLab.center.y = skillTagLab.center.y
+                //            skillLab.frame.origin.x = jobView.frame.size.width-8-skillLab.frame.size.width
+                jobView.addSubview(skillLab)
                 
-                if cityBtnWidth + cityBtnX + cityBtnMargin + nextBtnWidth >= screenSize.width - 20 {
-                    cityBtnX = cityBtnMargin
-                    cityBtnY = cityBtnHeight + cityBtnY + cityBtnMargin
-                }else{
+                if i+1 < ((self.resumeData.work?.first?.skill.components(separatedBy: "-"))!).count {
                     
-                    cityBtnX = cityBtnWidth + cityBtnX + cityBtnMargin
+                    let nextBtnWidth = calculateWidth(((self.resumeData.work?.first?.skill.components(separatedBy: "-"))!)[i+1], size: 15, height: cityBtnHeight)+cityBtnMargin
+                    
+                    if cityBtnWidth + cityBtnX + cityBtnMargin + nextBtnWidth >= screenSize.width - 20 {
+                        cityBtnX = cityBtnMargin
+                        cityBtnY = cityBtnHeight + cityBtnY + cityBtnMargin
+                    }else{
+                        
+                        cityBtnX = cityBtnWidth + cityBtnX + cityBtnMargin
+                    }
                 }
+                
             }
-            
         }
         
         jobView.frame.size.height = cityBtnY+cityBtnHeight+cityBtnMargin+10
@@ -630,38 +633,47 @@ class FTPersonalViewController: UIViewController {
         let bgView = UIButton(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
         bgView.backgroundColor = UIColor(white: 0.5, alpha: 0.3)
         bgView.tag = 101
-        bgView.addTarget(self, action: #selector(shareViewHide(_:)), for: .touchUpInside)
+//        bgView.addTarget(self, action: #selector(shareViewHide(_:)), for: .touchUpInside)
         UIApplication.shared.keyWindow!.addSubview(bgView)
         
         let alertView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width*0.65, height: 0))
-        alertView.backgroundColor = UIColor.red
+//        alertView.backgroundColor = UIColor.red
         alertView.layer.cornerRadius = 8
         alertView.center.x = bgView.center.x
         bgView.addSubview(alertView)
         
-        let tipLabel = UILabel(frame: CGRect(x: 0, y: 30, width: alertView.frame.width, height: 0))
-        tipLabel.textColor = UIColor.white
-        tipLabel.numberOfLines = 0
-        tipLabel.font = UIFont.systemFont(ofSize: 20)
-        tipLabel.textAlignment = .center
-        tipLabel.text = "VIP会员获取更多牛人信息\n更多人才等你来选"
-        tipLabel.sizeToFit()
-        tipLabel.frame.origin.x = (alertView.frame.width-tipLabel.frame.width)/2.0
-        alertView.addSubview(tipLabel)
+        let alertImg = UIButton(frame: CGRect(x: 0, y: 0, width: screenSize.width*0.65, height: screenSize.height*0.5))
+        alertImg.imageView?.contentMode = .scaleAspectFit
+        alertImg.imageView?.clipsToBounds = true
+        alertImg.setImage(#imageLiteral(resourceName: "ic_抢人才_alert_点击查看"), for: .normal)
+        alertImg.addTarget(self, action: #selector(lookBtnClick(_:)), for: .touchUpInside)
+        alertView.addSubview(alertImg)
         
-        let lookBtn = UIButton(frame: CGRect(x: 0, y: tipLabel.frame.maxY+20, width: alertView.frame.width*0.6, height: 30))
-        lookBtn.layer.cornerRadius = 15
-        lookBtn.backgroundColor = UIColor.white
-        lookBtn.setTitleColor(UIColor.orange, for: .normal)
-        lookBtn.setTitle("立即查看", for: .normal)
-        lookBtn.frame.origin.x = (alertView.frame.width-lookBtn.frame.width)/2.0
-        lookBtn.addTarget(self, action: #selector(lookBtnClick(_:)), for: .touchUpInside)
-        alertView.addSubview(lookBtn)
+//        let tipLabel = UILabel(frame: CGRect(x: 0, y: 30, width: alertView.frame.width, height: 0))
+//        tipLabel.textColor = UIColor.white
+//        tipLabel.numberOfLines = 0
+//        tipLabel.font = UIFont.systemFont(ofSize: 20)
+//        tipLabel.textAlignment = .center
+//        tipLabel.text = "VIP会员获取更多牛人信息\n更多人才等你来选"
+//        tipLabel.sizeToFit()
+//        tipLabel.frame.origin.x = (alertView.frame.width-tipLabel.frame.width)/2.0
+//        alertView.addSubview(tipLabel)
+//        
+//        let lookBtn = UIButton(frame: CGRect(x: 0, y: tipLabel.frame.maxY+20, width: alertView.frame.width*0.6, height: 30))
+//        lookBtn.layer.cornerRadius = 15
+//        lookBtn.backgroundColor = UIColor.white
+//        lookBtn.setTitleColor(UIColor.orange, for: .normal)
+//        lookBtn.setTitle("立即查看", for: .normal)
+//        lookBtn.frame.origin.x = (alertView.frame.width-lookBtn.frame.width)/2.0
+//        lookBtn.addTarget(self, action: #selector(lookBtnClick(_:)), for: .touchUpInside)
+//        alertView.addSubview(lookBtn)
         
-        alertView.frame.size.height = lookBtn.frame.maxY+20
+        alertView.frame.size.height = alertImg.frame.maxY
         alertView.center.y = bgView.center.y
 
-        let closeBtn = UIButton(frame: CGRect(x: alertView.frame.width-15, y: -15, width: 30, height: 30))
+        let closeBtnY = alertView.frame.height>#imageLiteral(resourceName: "ic_抢人才_alert_点击查看").size.height ? (alertView.frame.height-#imageLiteral(resourceName: "ic_抢人才_alert_点击查看").size.height)/2.0:0
+
+        let closeBtn = UIButton(frame: CGRect(x: alertView.frame.width/2.0+#imageLiteral(resourceName: "ic_抢人才_alert_点击查看").size.width/2.0-15, y: closeBtnY-15, width: 30, height: 30))
         closeBtn.tag = 102
         closeBtn.setBackgroundImage(#imageLiteral(resourceName: "ic_FT_alertClose"), for: .normal)
         closeBtn.addTarget(self, action: #selector(shareViewHide(_:)), for: .touchUpInside)
@@ -685,21 +697,34 @@ class FTPersonalViewController: UIViewController {
         alertView.center.x = bgView.center.x
         bgView.addSubview(alertView)
         
-        let tipLabel = UILabel(frame: CGRect(x: 0, y: 30, width: alertView.frame.width, height: 0))
-        tipLabel.textColor = UIColor.orange
-        tipLabel.font = UIFont.systemFont(ofSize: 20)
-        tipLabel.textAlignment = .center
-        tipLabel.text = "付费会员特权"
-        tipLabel.sizeToFit()
-        tipLabel.frame.origin.x = (alertView.frame.width-tipLabel.frame.width)/2.0
+//        let tipLabel = UILabel(frame: CGRect(x: 0, y: 30, width: alertView.frame.width, height: 0))
+//        tipLabel.textColor = UIColor.orange
+//        tipLabel.font = UIFont.systemFont(ofSize: 20)
+//        tipLabel.textAlignment = .center
+//        tipLabel.text = "付费会员特权"
+//        tipLabel.sizeToFit()
+//        tipLabel.frame.origin.x = (alertView.frame.width-tipLabel.frame.width)/2.0
+//        alertView.addSubview(tipLabel)
+        let tipLabel = UIImageView(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: alertView.frame.width,
+            height: (#imageLiteral(resourceName: "ic_抢人才_alert_付费会员特权").size.height/#imageLiteral(resourceName: "ic_抢人才_alert_付费会员特权").size.width)*alertView.frame.width))
+        tipLabel.image = #imageLiteral(resourceName: "ic_抢人才_alert_付费会员特权")
+//        tipLabel.textColor = UIColor.orange
+//        tipLabel.font = UIFont.systemFont(ofSize: 20)
+//        tipLabel.textAlignment = .center
+//        tipLabel.text = "付费会员特权"
+//        tipLabel.sizeToFit()
+//        tipLabel.frame.origin.x = (alertView.frame.width-tipLabel.frame.width)/2.0
         alertView.addSubview(tipLabel)
         
         // 联系方式
-        let iconImg1 = UIImageView(frame: CGRect(x: 20, y: tipLabel.frame.maxY+10, width: 40, height: 40))
+        let iconImg1 = UIImageView(frame: CGRect(x: 20, y: tipLabel.frame.maxY+10, width: 30, height: 30))
         iconImg1.image = #imageLiteral(resourceName: "ic_FT_alert_联系方式")
         alertView.addSubview(iconImg1)
         
-        let tipLabel1 = UILabel(frame: CGRect(x: iconImg1.frame.maxX+20, y: iconImg1.frame.minY, width: alertView.frame.width - (iconImg1.frame.maxX+20), height: 40))
+        let tipLabel1 = UILabel(frame: CGRect(x: iconImg1.frame.maxX+20, y: iconImg1.frame.minY, width: alertView.frame.width - (iconImg1.frame.maxX+20), height: 30))
         tipLabel1.textColor = UIColor.darkGray
         tipLabel1.font = UIFont.systemFont(ofSize: 14)
         tipLabel1.textAlignment = .left
@@ -708,11 +733,11 @@ class FTPersonalViewController: UIViewController {
         alertView.addSubview(tipLabel1)
         
         // 企业关注
-        let iconImg2 = UIImageView(frame: CGRect(x: 20, y: iconImg1.frame.maxY+20, width: 40, height: 40))
+        let iconImg2 = UIImageView(frame: CGRect(x: 20, y: iconImg1.frame.maxY+20, width: 30, height: 30))
         iconImg2.image = #imageLiteral(resourceName: "ic_FT_alert_企业关注")
         alertView.addSubview(iconImg2)
         
-        let tipLabel2 = UILabel(frame: CGRect(x: iconImg2.frame.maxX+20, y: iconImg2.frame.minY, width: alertView.frame.width - (iconImg2.frame.maxX+20), height: 40))
+        let tipLabel2 = UILabel(frame: CGRect(x: iconImg2.frame.maxX+20, y: iconImg2.frame.minY, width: alertView.frame.width - (iconImg2.frame.maxX+20), height: 30))
         tipLabel2.textColor = UIColor.darkGray
         tipLabel2.font = UIFont.systemFont(ofSize: 14)
         tipLabel2.textAlignment = .left
@@ -721,11 +746,11 @@ class FTPersonalViewController: UIViewController {
         alertView.addSubview(tipLabel2)
         
         // 人才关注
-        let iconImg3 = UIImageView(frame: CGRect(x: 20, y: iconImg2.frame.maxY+20, width: 40, height: 40))
+        let iconImg3 = UIImageView(frame: CGRect(x: 20, y: iconImg2.frame.maxY+20, width: 30, height: 30))
         iconImg3.image = #imageLiteral(resourceName: "ic_FT_alert_人才关注")
         alertView.addSubview(iconImg3)
         
-        let tipLabel3 = UILabel(frame: CGRect(x: iconImg3.frame.maxX+20, y: iconImg3.frame.minY, width: alertView.frame.width - (iconImg3.frame.maxX+20), height: 40))
+        let tipLabel3 = UILabel(frame: CGRect(x: iconImg3.frame.maxX+20, y: iconImg3.frame.minY, width: alertView.frame.width - (iconImg3.frame.maxX+20), height: 30))
         tipLabel3.textColor = UIColor.darkGray
         tipLabel3.font = UIFont.systemFont(ofSize: 14)
         tipLabel3.textAlignment = .left
@@ -734,11 +759,11 @@ class FTPersonalViewController: UIViewController {
         alertView.addSubview(tipLabel3)
         
         // 评价
-        let iconImg4 = UIImageView(frame: CGRect(x: 20, y: iconImg3.frame.maxY+20, width: 40, height: 40))
+        let iconImg4 = UIImageView(frame: CGRect(x: 20, y: iconImg3.frame.maxY+20, width: 30, height: 30))
         iconImg4.image = #imageLiteral(resourceName: "ic_FT_alert_评价")
         alertView.addSubview(iconImg4)
         
-        let tipLabel4 = UILabel(frame: CGRect(x: iconImg4.frame.maxX+20, y: iconImg4.frame.minY, width: alertView.frame.width - (iconImg4.frame.maxX+20), height: 40))
+        let tipLabel4 = UILabel(frame: CGRect(x: iconImg4.frame.maxX+20, y: iconImg4.frame.minY, width: alertView.frame.width - (iconImg4.frame.maxX+20), height: 30))
         tipLabel4.textColor = UIColor.darkGray
         tipLabel4.font = UIFont.systemFont(ofSize: 14)
         tipLabel4.textAlignment = .left
@@ -747,8 +772,8 @@ class FTPersonalViewController: UIViewController {
         alertView.addSubview(tipLabel4)
 
         
-        let payBtn = UIButton(frame: CGRect(x: 0, y: iconImg4.frame.maxY+20, width: alertView.frame.width*0.6, height: 40))
-        payBtn.layer.cornerRadius = 20
+        let payBtn = UIButton(frame: CGRect(x: 0, y: iconImg4.frame.maxY+20, width: alertView.frame.width*0.6, height: 30))
+        payBtn.layer.cornerRadius = 15
         payBtn.backgroundColor = UIColor.red
         payBtn.setTitleColor(UIColor.white, for: .normal)
         payBtn.setTitle("立即付费", for: .normal)

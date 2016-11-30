@@ -113,7 +113,8 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
             selectedNameArray[2][2] == "学历要求" ||
             selectedNameArray[3][0] == "工作城市" ||
             selectedNameArray[3][1] == "工作地点" ||
-            selectedNameArray[3][2] == "职位描述"{
+            selectedNameArray[3][2] == "职位描述" ||
+            selectedNameArray[3][3] == "公司福利"{
             
             checkCodeHud.mode = .text
             checkCodeHud.labelText = "请完善职位信息"
@@ -183,15 +184,20 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         cell?.textLabel?.textColor = UIColor.black
         cell?.backgroundColor = UIColor.white
         
+        cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 14)
+        cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
+        cell?.detailTextLabel?.textAlignment = .right
+        
         if (indexPath as NSIndexPath).section == 0 {
+            cell?.detailTextLabel?.text = ""
+        }else if indexPath.section == selectedNameArray.count-1 && indexPath.row == 2 {
+            cell?.detailTextLabel?.text = selectedNameArray[3][2] == "职位描述" ? "未填写":"已填写"
             
-        }else if indexPath.section == selectedNameArray.count-1 && indexPath.row >= (selectedNameArray.last?.count)!-2 {
+        }else if indexPath.section == selectedNameArray.count-1 && indexPath.row == 3 {
+            cell?.detailTextLabel?.text = selectedNameArray[3][3] == "公司福利" ? "未填写":"已填写"
             
         }else{
             
-            cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 14)
-            cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
-            cell?.detailTextLabel?.textAlignment = .right
             cell?.detailTextLabel?.text = selectedNameArray[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
         }
 //        if indexPath.section != 0 && (indexPath.section == selectedNameArray.count-1 && indexPath.row != (selectedNameArray.last?.count)!-1)  {

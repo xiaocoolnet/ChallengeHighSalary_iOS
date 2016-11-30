@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FTTaCompanyInfoViewController: UIViewController, UITableViewDataSource {
+class FTTaCompanyInfoViewController: UIViewController, UITableViewDataSource,UITableViewDelegate {
     
     let rootTableView = UITableView()
     
@@ -42,12 +42,13 @@ class FTTaCompanyInfoViewController: UIViewController, UITableViewDataSource {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
 
         self.title = "公司信息"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .done, target: self, action: #selector(clickSaveBtn))
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .done, target: self, action: #selector(clickSaveBtn))
         
         rootTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         rootTableView.rowHeight = 50
         rootTableView.dataSource = self
+        rootTableView.delegate = self
         self.view.addSubview(rootTableView)
         
         rootTableView.tableFooterView = UIView(frame: CGRect.zero)
@@ -91,6 +92,17 @@ class FTTaCompanyInfoViewController: UIViewController, UITableViewDataSource {
         
         return cell!
     }
+    
+    // MARK: - UITableViewDelegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        hud?.removeFromSuperViewOnHide = true
+        hud?.mode = .text
+        hud?.margin = 10
+        hud?.labelText = "若需修改,请到『我的公司信息』页面"
+        hud?.hide(true, afterDelay: 1)
+    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

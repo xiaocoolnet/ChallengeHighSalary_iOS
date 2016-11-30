@@ -16,8 +16,8 @@ class FTRoHomeViewController: UITabBarController {
         // Do any additional setup after loading the view.
         
         let talentNVC = UINavigationController(rootViewController: FTTaHomeViewController())
-        talentNVC.tabBarItem = UITabBarItem(title: "人才", image: nil, selectedImage: nil)
-        
+        talentNVC.tabBarItem = UITabBarItem(title: "人才", image: UIImage(named: "tabbar_人才"), selectedImage: UIImage(named: "tabbar_人才_sel"))
+
         let messageNVC = UINavigationController(rootViewController: FTMeHomeViewController())
         messageNVC.tabBarItem = UITabBarItem(title: "消息", image: UIImage(named: "tabbar_消息"), selectedImage: UIImage(named: "tabbar_消息_sel"))
         

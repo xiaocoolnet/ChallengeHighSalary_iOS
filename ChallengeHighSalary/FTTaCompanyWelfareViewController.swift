@@ -70,7 +70,7 @@ class FTTaCompanyWelfareViewController: UIViewController, UITableViewDataSource,
             checkCodeHud.hide(true, afterDelay: 1)
         }else{
             var FTPublishJobSelectedNameArray = UserDefaults.standard.array(forKey: FTPublishJobSelectedNameArray_key) as! [Array<String>]
-            FTPublishJobSelectedNameArray[3][2] = self.jobDescriptionTv.text!
+            FTPublishJobSelectedNameArray[3][3] = self.jobDescriptionTv.text!
             UserDefaults.standard.setValue(FTPublishJobSelectedNameArray, forKey: FTPublishJobSelectedNameArray_key)
             
             _ = self.navigationController?.popViewController(animated: true)
