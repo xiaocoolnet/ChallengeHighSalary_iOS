@@ -95,9 +95,9 @@ class CHSMiMyCollectionViewController: UIViewController, UITableViewDataSource, 
             var jobidStr = ""
             for (i,jobInfo) in self.deleteJobInfoData.enumerated() {
                 if i == self.deleteJobInfoData.count-1 {
-                    jobidStr += "\((jobInfo.jobid)!)"
+                    jobidStr += "\((jobInfo.jobid ?? "")!)"
                 }else{
-                    jobidStr += "\((jobInfo.jobid)!),"
+                    jobidStr += "\((jobInfo.jobid ?? "")!),"
                 }
             }
             
@@ -217,7 +217,7 @@ class CHSMiMyCollectionViewController: UIViewController, UITableViewDataSource, 
         }else{
             
             let personalInfoVC = CHSChPersonalInfoViewController()
-            personalInfoVC.jobInfo = self.jobInfoData![(indexPath as NSIndexPath).section]
+            personalInfoVC.jobInfo = self.jobInfoData![indexPath.section]
             
             self.navigationController?.pushViewController(personalInfoVC, animated: true)
         }

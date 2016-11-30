@@ -70,7 +70,14 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
                 }
                 
                 self.rootTableView.reloadData()
-                self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+                
+                if self.rootTableView.contentSize.height-self.rootTableView.frame.size.height >= 0 {
+                    self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+
+                }else{
+                    self.rootTableView.contentOffset = CGPoint(x: 0, y: 0)
+
+                }
 
             }
         }
@@ -134,7 +141,7 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
     }
-    
+    var keyboardheight:CGFloat = 0
     // MARK: - 点击发送按钮
     func sendBtnClick() {
         if self.inputTF.text!.isEmpty {
@@ -163,9 +170,57 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
             }
             self.rootTableView.reloadData()
             
-            self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+//            abs(self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+//            if abs(self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)+self.keyboardheight >= 0 {
+//                
+//                if self.rootTableView.contentSize.height-self.rootTableView.frame.size.height >= 0 {
+//                    self.rootTableView.frame.origin.y = 64-self.keyboardheight
+//                }else{
+//                    self.rootTableView.frame.origin.y = 64-(self.rootTableView.contentSize.height-(self.rootTableView.frame.size.height-self.keyboardheight))
+//                }
+//                
+//            }else{
+//                self.rootTableView.frame.origin.y = 64
+//                
+//            }
+//            
+//            if self.rootTableView.contentSize.height-self.rootTableView.frame.size.height+keyboardheight >= 0 {
+//                self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+//                
+//            }else{
+//                self.rootTableView.contentOffset = CGPoint(x: 0, y: 0)
+//                
+//            }
+//            if self.rootTableView.contentSize.height < self.rootTableView.frame.size.height {
+//                
+//                if self.rootTableView.contentSize.height < self.rootTableView.frame.size.height-keyboardheight {
+//                    
+//                }else{
+//                    self.rootTableView.frame.origin.y = 64-self.keyboardheight
+//                    self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+//                }
+//            }
+            if self.rootTableView.contentSize.height >= self.rootTableView.frame.size.height-keyboardheight {
+                self.rootTableView.frame.origin.y = 64-self.keyboardheight
+                self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+            }
+//            if self.rootTableView.contentSize.height < self.rootTableView.frame.size.height {
+//                
+//                if self.rootTableView.contentSize.height < self.rootTableView.frame.size.height-keyboardheight {
+//                    
+//                }else{
+//                    self.rootTableView.frame.origin.y = 64-self.keyboardheight
+//                    self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+//                }
+//            }else{
+//                self.rootTableView.frame.origin.y = 64-self.keyboardheight
+//                self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+//            }
+//            self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
             
             inputTF.text = nil
+            
+            self.inputTFEditChanged(textField: inputTF)
             
             CHSNetUtil().SendChatData(CHSUserInfo.currentUserInfo.userid, receive_uid: (self.jobInfo?.userid ?? "")!, content: chatData.content!, handle: { (success, response) in
                 
@@ -223,12 +278,23 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
     func keyboardWillAppear(notification: Notification) {
         
         // 获取键盘信息
-        let keyboardheight = notification.keyboard_frameEnd.size.height
+        keyboardheight = notification.keyboard_frameEnd.size.height
         
         UIView.animate(withDuration: 0.3) {
-            self.inputBgView.frame.origin.y = screenSize.height-44-keyboardheight
-            self.rootTableView.frame.origin.y = 64-keyboardheight
+            self.inputBgView.frame.origin.y = screenSize.height-44-self.keyboardheight
 
+            if self.rootTableView.contentSize.height-(self.rootTableView.frame.size.height-self.keyboardheight) >= 0 {
+                
+                if self.rootTableView.contentSize.height-self.rootTableView.frame.size.height >= 0 {
+                    self.rootTableView.frame.origin.y = 64-self.keyboardheight
+                }else{
+                    self.rootTableView.frame.origin.y = 64-(self.rootTableView.contentSize.height-(self.rootTableView.frame.size.height-self.keyboardheight))
+                }
+                
+            }else{
+                self.rootTableView.frame.origin.y = 64
+                
+            }
         }
         
     }
@@ -238,6 +304,7 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func keyboardWillDisappear(notification:Notification){
+        keyboardheight = 0
         UIView.animate(withDuration: 0.3) {
             self.inputBgView.frame.origin.y = screenSize.height-44
             self.rootTableView.frame.origin.y = 64

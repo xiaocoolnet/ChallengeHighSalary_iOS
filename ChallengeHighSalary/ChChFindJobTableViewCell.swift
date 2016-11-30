@@ -47,12 +47,12 @@ class ChChFindJobTableViewCell: UITableViewCell {
         didSet {
             self.titleLab.text = jobInfo?.title
             self.company_nameLab.text = jobInfo?.company_name
-            self.logoImg.sd_setImage(with: URL(string: kImagePrefix+(jobInfo?.logo)!), placeholderImage: nil)
+            self.logoImg.sd_setImage(with: URL(string: kImagePrefix+(jobInfo?.logo ?? "")!), placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
             self.realnameLab.text = jobInfo?.realname
             self.myjobLab.text = jobInfo?.myjob
-            self.countLab.text = "公司规模"+(jobInfo?.count)!
-            self.company_scoreLab.text = "综合评分"+(jobInfo?.company_score)!
-            self.salaryLab.text = "￥ "+(jobInfo?.salary)!
+            self.countLab.text = "公司规模"+(jobInfo?.count ?? "")!
+            self.company_scoreLab.text = "综合评分"+(jobInfo?.company_score ?? "")!
+            self.salaryLab.text = "￥ "+(jobInfo?.salary ?? "")!
             self.distanceLab.text = jobInfo?.distance
             self.cityLab.text = jobInfo?.city?.components(separatedBy: "-").last
             self.experienceLab.text = jobInfo?.experience

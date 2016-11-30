@@ -144,81 +144,89 @@ class LoReCHSJobExperienceViewController: UIViewController, UITableViewDataSourc
         let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
         
+        var flag = false
         for (i,detail) in self.detailArray.enumerated() {
             
-            if detail == originalArray[i] {
+            if detail != originalArray[i] {
                 
-                checkCodeHud.mode = .text
-                checkCodeHud.labelText = "请完善工作经历"
-                checkCodeHud.hide(true, afterDelay: 1)
-                return
+                flag = true
+                //checkCodeHud.mode = .text
+                //checkCodeHud.labelText = "请完善工作经历"
+                //checkCodeHud.hide(true, afterDelay: 1)
+                //return
             }
         }
  
-        if jobContentTv.text!.isEmpty {
+        if !jobContentTv.text!.isEmpty {
             
-            checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入工作内容"
-            checkCodeHud.hide(true, afterDelay: 1)
-            return
+            flag = true
+            //checkCodeHud.mode = .text
+            //checkCodeHud.labelText = "请输入工作内容"
+            //checkCodeHud.hide(true, afterDelay: 1)
+            //return
         }
         
-        checkCodeHud.labelText = "正在保存工作经历"
-        
-        CHSNetUtil().PublishWork(
-            CHSUserInfo.currentUserInfo.userid,
-            company_name: detailArray[0],
-            company_industry: detailArray[1],
-            jobtype: detailArray[2],
-            skill: detailArray[3],
-            work_period: detailArray[4],
-            content: jobContentTv.text!) { (success, response) in
-                if success {
-                    
-                    let workModel = WorkModel()
-                    
-                    workModel.company_name =  self.detailArray[0]
-                    workModel.company_industry =  self.detailArray[1]
-                    workModel.jobtype =  self.detailArray[2]
-                    workModel.skill =  self.detailArray[3]
-                    workModel.work_period =  self.detailArray[4]
-                    workModel.content = self.jobContentTv.text!
-                    
-                    if CHSUserInfo.currentUserInfo.work?.count > 0 {
-                        CHSUserInfo.currentUserInfo.work?[0] = workModel
+        if flag {
+            checkCodeHud.labelText = "正在保存工作经历"
+            
+            CHSNetUtil().PublishWork(
+                CHSUserInfo.currentUserInfo.userid,
+                company_name: detailArray[0],
+                company_industry: detailArray[1],
+                jobtype: detailArray[2],
+                skill: detailArray[3],
+                work_period: detailArray[4],
+                content: jobContentTv.text!) { (success, response) in
+                    if success {
+                        
+                        let workModel = WorkModel()
+                        
+                        workModel.company_name =  self.detailArray[0]
+                        workModel.company_industry =  self.detailArray[1]
+                        workModel.jobtype =  self.detailArray[2]
+                        workModel.skill =  self.detailArray[3]
+                        workModel.work_period =  self.detailArray[4]
+                        workModel.content = self.jobContentTv.text!
+                        
+                        if CHSUserInfo.currentUserInfo.work?.count > 0 {
+                            CHSUserInfo.currentUserInfo.work?[0] = workModel
+                        }else{
+                            
+                            CHSUserInfo.currentUserInfo.work = [WorkModel]()
+                            
+                            CHSUserInfo.currentUserInfo.work?.append(workModel)
+                        }
+                        
+                        self.detailArray = [
+                            (CHSUserInfo.currentUserInfo.work?.first?.company_name)! == "" ? "请输入公司名称":(CHSUserInfo.currentUserInfo.work?.first?.company_name)!,
+                            (CHSUserInfo.currentUserInfo.work?.first?.company_industry)! == "" ? "选择行业":(CHSUserInfo.currentUserInfo.work?.first?.company_industry)!,
+                            (CHSUserInfo.currentUserInfo.work?.first?.jobtype)! == "" ? "选择职位类型":(CHSUserInfo.currentUserInfo.work?.first?.jobtype)!,
+                            (CHSUserInfo.currentUserInfo.work?.first?.skill)! == "" ? "请选择技能":(CHSUserInfo.currentUserInfo.work?.first?.skill)!,
+                            (CHSUserInfo.currentUserInfo.work?.first?.work_period)! == "" ? "请选择任职时间段":(CHSUserInfo.currentUserInfo.work?.first?.work_period)!
+                        ]
+                        
+                        checkCodeHud.mode = .text
+                        checkCodeHud.labelText = "保存工作经历成功"
+                        checkCodeHud.hide(true, afterDelay: 1)
+                        
+                        let time: TimeInterval = 1.0
+                        let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                        
+                        DispatchQueue.main.asyncAfter(deadline: delay) {
+                            self.navigationController?.pushViewController(LoReCHSMyAdvantagesViewController(), animated: true)
+                        }
                     }else{
                         
-                        CHSUserInfo.currentUserInfo.work = [WorkModel]()
-
-                        CHSUserInfo.currentUserInfo.work?.append(workModel)
+                        checkCodeHud.mode = .text
+                        checkCodeHud.labelText = "保存工作经历失败"
+                        checkCodeHud.hide(true, afterDelay: 1)
                     }
                     
-                    self.detailArray = [
-                        (CHSUserInfo.currentUserInfo.work?.first?.company_name)! == "" ? "请输入公司名称":(CHSUserInfo.currentUserInfo.work?.first?.company_name)!,
-                        (CHSUserInfo.currentUserInfo.work?.first?.company_industry)! == "" ? "选择行业":(CHSUserInfo.currentUserInfo.work?.first?.company_industry)!,
-                        (CHSUserInfo.currentUserInfo.work?.first?.jobtype)! == "" ? "选择职位类型":(CHSUserInfo.currentUserInfo.work?.first?.jobtype)!,
-                        (CHSUserInfo.currentUserInfo.work?.first?.skill)! == "" ? "请选择技能":(CHSUserInfo.currentUserInfo.work?.first?.skill)!,
-                        (CHSUserInfo.currentUserInfo.work?.first?.work_period)! == "" ? "请选择任职时间段":(CHSUserInfo.currentUserInfo.work?.first?.work_period)!
-                    ]
-                    
-                    checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "保存工作经历成功"
-                    checkCodeHud.hide(true, afterDelay: 1)
-                    
-                    let time: TimeInterval = 1.0
-                    let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-                    
-                    DispatchQueue.main.asyncAfter(deadline: delay) {
-                        self.navigationController?.pushViewController(LoReCHSMyAdvantagesViewController(), animated: true)
-                    }
-                }else{
-                    
-                    checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "保存工作经历失败"
-                    checkCodeHud.hide(true, afterDelay: 1)
-                }
-                
+            }
+        }else{
+            self.navigationController?.pushViewController(LoReCHSMyAdvantagesViewController(), animated: true)
         }
+        
     }
     
     // MARK: LoReFTInfoInputViewControllerDelegate

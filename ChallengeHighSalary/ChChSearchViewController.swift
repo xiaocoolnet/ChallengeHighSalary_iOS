@@ -13,6 +13,7 @@ class ChChSearchViewController: UIViewController, UITableViewDataSource, UITable
     var searhHistoryArray = Array<String>()
     let myTableView = UITableView()
     
+    let searchBar = UISearchBar()
     let cityBtn = UIButton()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,7 +48,7 @@ class ChChSearchViewController: UIViewController, UITableViewDataSource, UITable
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cityBtn)
         
         //        let seg = UISegmentedControl(frame: CGRectMake(0, 0, 160, 44))
-        let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: screenSize.width*2/3.0, height: 24))
+        searchBar.frame = CGRect(x: 0, y: 0, width: screenSize.width*2/3.0, height: 24)
         searchBar.placeholder = "职位/公司/技能/姓名"
         searchBar.returnKeyType = .search
         searchBar.delegate = self
@@ -160,6 +161,8 @@ class ChChSearchViewController: UIViewController, UITableViewDataSource, UITable
             self.searhHistoryArray.removeAll()
             self.myTableView.reloadData()
             
+        }else{
+            self.searchBar.text = self.searhHistoryArray[indexPath.row]
         }
     }
     

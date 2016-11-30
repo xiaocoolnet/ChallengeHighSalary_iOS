@@ -242,7 +242,7 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
                 headerImg.layer.cornerRadius = 25
                 headerImg.clipsToBounds = true
                 
-                headerImg.sd_setImage(with: URL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!, placeholderImage: UIImage(named: "temp_default_headerImg"))
+                headerImg.sd_setImage(with: URL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!, placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
 
 //                headerImg.image = selectedImage == nil ? UIImage(named: "temp_default_headerImg"):selectedImage
                 cell?.accessoryView = headerImg

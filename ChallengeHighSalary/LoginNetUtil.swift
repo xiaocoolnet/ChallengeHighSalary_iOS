@@ -83,7 +83,7 @@ class LoginNetUtil: NSObject {
 
                 if checkCode.status == "success" {
                     
-                    
+                    CHSUserInfo.initUserInfo()
                     
                     CHSUserInfo.currentUserInfo.userid = checkCode.data
                     handle(true, checkCode.data as AnyObject?)
@@ -211,6 +211,16 @@ class LoginNetUtil: NSObject {
                 let status = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
 
                 if status.status == "success" {
+                    
+                    CHSUserInfo.currentUserInfo.avatar = avatar
+                    CHSUserInfo.currentUserInfo.realName = realname
+                    CHSUserInfo.currentUserInfo.sex = sex
+                    CHSUserInfo.currentUserInfo.city = city
+                    CHSUserInfo.currentUserInfo.work_life = work_life
+                    CHSUserInfo.currentUserInfo.qqNumber = qq
+                    CHSUserInfo.currentUserInfo.weixinNumber = weixin
+                    CHSUserInfo.currentUserInfo.weiboNumber = weibo
+                    
                     handle(true, "" as AnyObject?)
                 }else{
                     

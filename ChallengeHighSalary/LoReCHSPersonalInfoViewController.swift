@@ -336,7 +336,7 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch ((indexPath as NSIndexPath).section,(indexPath as NSIndexPath).row) {
         case (0,0):
-            
+            self.textFieldResignFirstResponder()
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
             let cameraAction = UIAlertAction(title: "拍照", style: .default, handler: { (action) in
@@ -369,9 +369,10 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
             self.present(alert, animated: true, completion: nil)
             
         case (0,3):
-            
+            self.textFieldResignFirstResponder()
             self.present(UINavigationController(rootViewController: LoReCHSChooseCityViewController()), animated: true, completion: nil)
         case (0,4):
+            self.textFieldResignFirstResponder()
             let bigBgView = UIButton(frame: self.view.bounds)
             bigBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)
             bigBgView.tag = 1000
@@ -423,6 +424,14 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
         default:
             break
         }
+    }
+    
+    // MARK: - 放弃键盘第一响应
+    func textFieldResignFirstResponder() {
+        nameTf.resignFirstResponder()
+        QQTf.resignFirstResponder()
+        wechatTf.resignFirstResponder()
+        weiboTf.resignFirstResponder()
     }
     
     // MARK: UIImagePickerControllerDelegate

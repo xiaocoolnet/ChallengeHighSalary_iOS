@@ -109,7 +109,7 @@ class CHSRePreviewViewController: UIViewController {
         let headerImg = UIImageView(frame: CGRect(x: summaryView.frame.size.width-8-kHeightScale*50, y: 10, width: kHeightScale*50, height: kHeightScale*50))
         headerImg.layer.cornerRadius = kHeightScale*25
         headerImg.clipsToBounds = true
-        headerImg.sd_setImage(with: URL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar), placeholderImage: nil)
+        headerImg.sd_setImage(with: URL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar), placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
         summaryView.addSubview(headerImg)
         
         let sexImg = UIImageView(frame: CGRect(x: summaryView.frame.size.width-8-kHeightScale*15, y: headerImg.frame.maxY-kHeightScale*10, width: kHeightScale*15, height: kHeightScale*15))

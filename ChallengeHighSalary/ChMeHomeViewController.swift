@@ -116,7 +116,7 @@ class ChMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             cell.timeLab.text = self.dataArray[(indexPath as NSIndexPath).row]["time"]!
         }else{
             let url = URL(string: kImagePrefix + (self.chatListArray[indexPath.row-4].other_face ?? "")!)
-            cell.iconImg.sd_setImage(with: url, placeholderImage: nil)
+            cell.iconImg.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
             
             cell.titleLab.text = self.chatListArray[indexPath.row-4].other_nickname
             cell.descriptionLab.text = self.chatListArray[indexPath.row-4].last_content

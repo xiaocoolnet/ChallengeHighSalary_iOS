@@ -37,7 +37,7 @@ class CHSChCompanyPositionTableViewCell: UITableViewCell {
             self.educationLab.text = company_infoJob!.education
             self.work_propertyLab.text = company_infoJob?.work_property
 //            self.LineView.frame.size.width = 
-            self.logoImg.sd_setImage(with: URL(string: kImagePrefix+(company_infoJob?.photo ?? "")!), placeholderImage: nil)
+            self.logoImg.sd_setImage(with: URL(string: kImagePrefix+(company_infoJob?.photo ?? "")!), placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
             self.realNameAndPositionLab.text = (company_infoJob?.realname)!+" "+(company_infoJob?.myjob)!
         }
     }

@@ -68,6 +68,50 @@ class CHSUserInfo {
     fileprivate init() {
         
     }
+    
+    class func initUserInfo() {
+        CHSUserInfo.currentUserInfo.userid = ""
+        CHSUserInfo.currentUserInfo.usertype = ""
+        CHSUserInfo.currentUserInfo.phoneNumber = ""
+        CHSUserInfo.currentUserInfo.realName = ""
+        CHSUserInfo.currentUserInfo.sex = ""
+        CHSUserInfo.currentUserInfo.email = ""
+        CHSUserInfo.currentUserInfo.qqNumber = ""
+        CHSUserInfo.currentUserInfo.weixinNumber = ""
+        CHSUserInfo.currentUserInfo.avatar = ""
+        CHSUserInfo.currentUserInfo.devicestate = ""
+        CHSUserInfo.currentUserInfo.city = ""
+        CHSUserInfo.currentUserInfo.weiboNumber = ""
+        CHSUserInfo.currentUserInfo.work_life = ""
+        CHSUserInfo.currentUserInfo.company = ""
+        CHSUserInfo.currentUserInfo.myjob = ""
+        CHSUserInfo.currentUserInfo.advantage = ""
+        CHSUserInfo.currentUserInfo.work_property = ""//工作性质
+        CHSUserInfo.currentUserInfo.address = ""//工作地点
+        CHSUserInfo.currentUserInfo.position_type = ""//职位类型
+        CHSUserInfo.currentUserInfo.categories = ""//行业类别
+        CHSUserInfo.currentUserInfo.wantsalary = ""//期望薪资
+        CHSUserInfo.currentUserInfo.jobstate = ""//工作状态
+       
+        CHSUserInfo.currentUserInfo.work = [WorkModel]()
+        
+        CHSUserInfo.currentUserInfo.education = [EducationModel]()
+        
+        CHSUserInfo.currentUserInfo.project = [ProjectModel]()
+        
+        CHSUserInfo.currentUserInfo.userName = ""
+        CHSUserInfo.currentUserInfo.time = ""
+        CHSUserInfo.currentUserInfo.level = ""
+        CHSUserInfo.currentUserInfo.attentionCount = ""
+        CHSUserInfo.currentUserInfo.fansCount = ""
+        CHSUserInfo.currentUserInfo.money = ""
+        CHSUserInfo.currentUserInfo.birthday = ""
+        CHSUserInfo.currentUserInfo.school = ""
+        CHSUserInfo.currentUserInfo.major = ""
+        CHSUserInfo.currentUserInfo.score = ""
+        CHSUserInfo.currentUserInfo.all_information = ""
+    }
+    
 }
 
 class UserInfoWork {

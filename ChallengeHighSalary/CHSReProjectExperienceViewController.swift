@@ -53,7 +53,7 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
         (CHSUserInfo.currentUserInfo.project?.first?.start_time)! == "" ? "请选择开始时间":(CHSUserInfo.currentUserInfo.project?.first?.start_time)!,
         (CHSUserInfo.currentUserInfo.project?.first?.end_time)! == "" ? "请选择结束时间":(CHSUserInfo.currentUserInfo.project?.first?.end_time)!,
         (CHSUserInfo.currentUserInfo.project?.first?.description_project)! == "" ? "请填写项目描述":"已填写"
-        ]:["输入项目名称","请选择开始时间","请选择结束时间","请填写项目描述"] {
+        ]:["","请选择开始时间","请选择结束时间","请填写项目描述"] {
         didSet {
             self.rootTableView.reloadData()
         }
@@ -79,6 +79,34 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
         
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = true
+        
+        if ((CHSUserInfo.currentUserInfo.project?.first?.start_time) != nil) {
+            
+            for (i,year_low) in pickYearLowRequiredArray.enumerated() {
+                if year_low == (CHSUserInfo.currentUserInfo.project?.first?.start_time)!.components(separatedBy: ".").first {
+                    pickSelectedRowArray[0][0] = i
+                }
+            }
+            for (i,month_low) in pickMonthLowRequiredArray.enumerated() {
+                if month_low == (CHSUserInfo.currentUserInfo.project?.first?.start_time)!.components(separatedBy: ".").last {
+                    pickSelectedRowArray[0][1] = i
+                }
+            }
+        }
+        
+        if ((CHSUserInfo.currentUserInfo.project?.first?.end_time) != nil) {
+            for (i,year_sup) in pickYearSupRequiredArray.enumerated() {
+                if year_sup == (CHSUserInfo.currentUserInfo.project?.first?.end_time)!.components(separatedBy: ".").first {
+                    pickSelectedRowArray[1][0] = i
+                }
+            }
+            for (i,month_sup) in pickMonthSupRequiredArray.enumerated() {
+                if month_sup == (CHSUserInfo.currentUserInfo.project?.first?.end_time)!.components(separatedBy: ".").last {
+                    pickSelectedRowArray[1][1] = i
+                }
+            }
+        }
+        
     }
     
     // MARK: popViewcontroller

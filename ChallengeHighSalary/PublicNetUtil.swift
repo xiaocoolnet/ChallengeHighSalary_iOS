@@ -260,4 +260,44 @@ class PublicNetUtil: NSObject {
         }
     }
 
+    // MARK: 获取字典列表
+    // type
+    func getDictionaryList(
+        type:String,
+        handle:@escaping ResponseClosures) {
+        
+        let url = kPortPrefix+"getDictionaryList"
+        let param = [
+            "type":type
+        ];
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+            
+            if(error != nil){
+                handle(false, error.debugDescription as AnyObject?)
+            }else{
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                
+                if checkCode.status == "success" {
+                    if type == "1" {
+                        
+                        let jobInfoModel = JSONDeserializer<JobInfoModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                        
+                        
+                        handle(true, jobInfoModel.data as AnyObject?)
+                        
+                    }else{
+                        
+                        let myResume = JSONDeserializer<ResumeListModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                        
+                        
+                        handle(true, myResume.data as AnyObject?)
+                        
+                    }
+                }else{
+                    
+                    handle(false, nil)
+                }
+            }
+        }
+    }
 }

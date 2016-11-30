@@ -17,7 +17,7 @@ class CHSMeChatTableViewCell: UITableViewCell {
             if chatListData?.send_uid == CHSUserInfo.currentUserInfo.userid {
                 
                 let url = NSURL(string: kImagePrefix+(chatListData?.send_face ?? "")!)
-                headerImg.sd_setImage(with: url as URL!, placeholderImage: nil)
+                headerImg.sd_setImage(with: url as URL!, placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
                 
                 headerImg.frame.origin.x = screenSize.width-8-headerImg.frame.size.width
                 
@@ -33,7 +33,7 @@ class CHSMeChatTableViewCell: UITableViewCell {
             }else{
                 
                 let url = NSURL(string: kImagePrefix+(chatListData?.receive_face ?? "")!)
-                headerImg.sd_setImage(with: url as URL!, placeholderImage: nil)
+                headerImg.sd_setImage(with: url as URL!, placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
                 headerImg.frame.origin.x = 8
 
                 

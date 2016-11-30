@@ -104,14 +104,13 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
         headerView.backgroundColor = UIColor.white
         
         let headerBgImgView = UIImageView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: kHeightScale*180))
-        headerBgImgView.backgroundColor = UIColor.orange
         headerView.addSubview(headerBgImgView)
         
         let headerImgView = UIImageView(frame: CGRect(x: 0, y: kHeightScale*155, width: kHeightScale*60, height: kHeightScale*60))
         headerImgView.layer.cornerRadius = headerImgView.frame.size.width/2.0
         headerImgView.clipsToBounds = true
-        headerImgView.backgroundColor = UIColor.gray
-        headerImgView.sd_setImage(with: URL(string: kImagePrefix+self.company_infoData.logo), placeholderImage: nil)
+//        headerImgView.backgroundColor = UIColor.gray
+        headerImgView.sd_setImage(with: URL(string: kImagePrefix+self.company_infoData.logo), placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
         headerImgView.center.x = self.view.center.x
         headerView.addSubview(headerImgView)
         

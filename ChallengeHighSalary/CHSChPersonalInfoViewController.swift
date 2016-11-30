@@ -229,6 +229,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
                 width: screenSize.width/CGFloat(overviewNameArray.count),
                 height: kHeightScale*35))
             overviewBtn.setImage(UIImage(named: overviewImgNameArray[i]), for: UIControlState())
+            overviewBtn.titleLabel?.adjustsFontSizeToFitWidth = true
             overviewBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             overviewBtn.setTitleColor(UIColor(red: 95/255.0, green: 95/255.0, blue: 95/255.0, alpha: 1), for: UIControlState())
             overviewBtn.setTitle(overviewName, for: UIControlState())
@@ -288,10 +289,10 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
             headerBtn.frame = CGRect(x: 8, y: 8, width: kHeightScale*50, height: kHeightScale*50)
         }
         
-        headerBtn.backgroundColor = baseColor
         headerBtn.layer.cornerRadius = kHeightScale*25
         headerBtn.clipsToBounds = true
         headerBtn.sd_setImage(with: URL(string: kImagePrefix+(self.jobInfo?.logo ?? "")!), for: UIControlState())
+        headerBtn.sd_setImage(with: URL(string: kImagePrefix+(self.jobInfo?.logo ?? "")!), for: UIControlState(), placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
         companyView.addSubview(headerBtn)
         
         let nameBtn = UIButton(frame: CGRect(
@@ -340,7 +341,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         
         let margin:CGFloat = 8
 
-        let countBtn = UIButton(frame: CGRect(x: 8, y: headerBtn.frame.maxY+1+8+8, width: screenSize.width-16, height: kHeightScale*60))
+        let countBtn = UIButton(frame: CGRect(x: 10, y: headerBtn.frame.maxY+1+8+8, width: screenSize.width-16, height: kHeightScale*60))
         countBtn.setImage(UIImage(named: "ic_职位详情页_人数"), for: UIControlState())
         countBtn.setTitleColor(UIColor.black, for: UIControlState())
         countBtn.titleLabel!.font = UIFont.systemFont(ofSize: 14)
@@ -349,7 +350,6 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         countBtn.setTitle("\((self.jobInfo?.count ?? "0")!)", for: UIControlState())
         countBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
         companyView.addSubview(countBtn)
-        
         countBtn.sizeToFit()
         
         let company_webBtn = UIButton(frame: CGRect(x: 8, y: countBtn.frame.maxY+8, width: screenSize.width-16, height: kHeightScale*60))
@@ -361,7 +361,6 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         company_webBtn.setTitle((self.jobInfo?.company_web ?? "")!, for: UIControlState())
         company_webBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, -margin)
         companyView.addSubview(company_webBtn)
-        
         company_webBtn.sizeToFit()
         
         let company_nameBtn = UIButton(frame: CGRect(x: 8, y: company_webBtn.frame.maxY+8, width: screenSize.width-16, height: kHeightScale*60))

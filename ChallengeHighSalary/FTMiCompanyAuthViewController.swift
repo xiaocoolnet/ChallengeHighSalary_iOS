@@ -29,6 +29,8 @@ class FTMiCompanyAuthViewController: UIViewController, UIScrollViewDelegate, UII
     
     
     let tagLabel = UILabel()
+    
+    var selectedImg = UIImage()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -269,6 +271,61 @@ class FTMiCompanyAuthViewController: UIViewController, UIScrollViewDelegate, UII
         rightDotImg.isSelected = true
     }
     
+    // MARK: - 认真须知按钮 点击事件
+    func instructionBtnClick(_ instructionBtn:UIButton) {
+        
+        let bgView = UIButton(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
+        bgView.backgroundColor = UIColor(white: 0.5, alpha: 0.3)
+        bgView.tag = 101
+        bgView.addTarget(self, action: #selector(alertViewHide(_:)), for: .touchUpInside)
+        UIApplication.shared.keyWindow!.addSubview(bgView)
+        
+        let alertView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width*0.6, height: 0))
+        alertView.backgroundColor = UIColor.white
+        alertView.layer.cornerRadius = 8
+        alertView.center.x = bgView.center.x
+        bgView.addSubview(alertView)
+        
+        // 图片
+        let iconImg1 = UIImageView(frame: CGRect(x: 8, y: 8, width: alertView.frame.width-16, height: screenSize.height*0.6))
+        iconImg1.image = authImgArray[0]
+        alertView.addSubview(iconImg1)
+        
+        let tipLabel1 = UILabel(frame: CGRect(x: 8, y: iconImg1.frame.maxY+8, width: alertView.frame.width - 16, height: 25))
+        tipLabel1.textColor = UIColor.darkGray
+        tipLabel1.font = UIFont.systemFont(ofSize: 14)
+        tipLabel1.textAlignment = .left
+        tipLabel1.adjustsFontSizeToFitWidth = true
+        tipLabel1.text = "1.上传工牌正面，保证Boss姓名、职务、头像与个人信息一致\n2.确保公章的公司全称，与您个人信息的公司全称一致\n3.确保所有信息清晰可辨认"
+        alertView.addSubview(tipLabel1)
+        
+        let cancelBtn = UIButton(frame: CGRect(
+            x: 10,
+            y: tipLabel1.frame.maxY+10,
+            width: alertView.frame.width*0.4,
+            height: 30))
+        cancelBtn.tag = 102
+        cancelBtn.setTitleColor(UIColor.blue, for: .normal)
+        cancelBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        cancelBtn.setTitle("取消", for: .normal)
+        cancelBtn.addTarget(self, action: #selector(alertViewHide(_:)), for: .touchUpInside)
+        alertView.addSubview(cancelBtn)
+        
+        
+        alertView.frame.size.height = cancelBtn.frame.maxY
+        alertView.center.y = bgView.center.y
+        
+    }
+    
+    // MARK: - 分享视图取消事件
+    func alertViewHide(_ alertView:UIButton) {
+        if alertView.tag == 102 {
+            alertView.superview!.superview!.removeFromSuperview()
+        }else{
+            alertView.removeFromSuperview()
+        }
+    }
+    
     // MARK: - 点击 点
     func dotBtnClick(_ dotBtn:UIButton) {
         
@@ -353,7 +410,7 @@ class FTMiCompanyAuthViewController: UIViewController, UIScrollViewDelegate, UII
         }
         
         //裁剪后图片
-        //selectedImage = (info[UIImagePickerControllerEditedImage] as! UIImage)
+        selectedImg = (info[UIImagePickerControllerEditedImage] as! UIImage)
         
         //headerImg.image = selectedImage
         

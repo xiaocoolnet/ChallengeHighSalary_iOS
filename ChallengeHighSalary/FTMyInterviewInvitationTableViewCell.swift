@@ -26,7 +26,7 @@ class FTMyInterviewInvitationTableViewCell: UITableViewCell {
         didSet {
             self.nameLab.text = "\((myInvitedData?.realname ?? "")!) \(myInvitedData?.sex == "0" ? "♀":"♂")"
             
-            self.headerImg.sd_setImage(with: URL(string: kImagePrefix+(myInvitedData?.photo ?? "")!), placeholderImage: nil)
+            self.headerImg.sd_setImage(with: URL(string: kImagePrefix+(myInvitedData?.photo ?? "")!), placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
             // self.vImg = myInvitedData
             self.jobTypeLab.text = myInvitedData?.jobtype
             self.timeLab.text = myInvitedData?.create_time

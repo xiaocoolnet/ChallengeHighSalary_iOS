@@ -65,6 +65,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             myCity = UserDefaults.standard.string(forKey: myCity_key)!
             
             cityBtn.setTitle(myCity, for: UIControlState())
+            adjustBtnsTitleLabelAndImgaeView(cityBtn)
         }
 
     }
@@ -88,6 +89,8 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
                 
             }
         }
+        
+        
     }
     
     // MARK: 设置 NavigationBar
@@ -100,16 +103,9 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         cityBtn.setTitle(myCity, for: UIControlState())
         cityBtn.setImage(UIImage(named: "城市下拉箭头"), for: UIControlState())
         exchangeBtnImageAndTitle(cityBtn, margin: 5)
-//        adjustBtnsTitleLabelAndImgaeView(cityBtn)
+        adjustBtnsTitleLabelAndImgaeView(cityBtn)
         cityBtn.addTarget(self, action: #selector(cityBtnClick), for: .touchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cityBtn)
-        
-        // UISegmentedControl
-        let seg = UISegmentedControl(items: ["找工作","找雇主"])
-        seg.frame = CGRect(x: 0, y: 0, width: 120, height: 24)
-        seg.addTarget(self, action: #selector(segValueChanged(_:)), for: .valueChanged)
-        seg.selectedSegmentIndex = 0
-        self.navigationItem.titleView = seg
         
         // rightBarButtonItems
         let retrievalBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
@@ -123,6 +119,52 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         let searchItem = UIBarButtonItem(customView: searchBtn)
 
         self.navigationItem.rightBarButtonItems = [searchItem,retrievalItem]
+        
+        
+        // Init views with rects with height and y pos
+        
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 44))
+        
+        // Use autoresizing to restrict the bounds to the area that the titleview allows
+        titleView.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue|UIViewAutoresizing.flexibleLeftMargin.rawValue|UIViewAutoresizing.flexibleRightMargin.rawValue)
+        
+        titleView.autoresizesSubviews = true
+        
+        
+        let seg = UISegmentedControl(items: ["找工作","找雇主"])
+        seg.frame = CGRect(x: 0, y: 10, width: 120, height: 24)
+        seg.addTarget(self, action: #selector(self.segValueChanged(_:)), for: .valueChanged)
+        seg.selectedSegmentIndex = 0
+        
+        seg.autoresizingMask = titleView.autoresizingMask
+        
+        
+        
+        let leftViewbounds = self.navigationItem.leftBarButtonItem?.customView?.bounds
+        
+        let rightViewbounds = self.navigationItem.rightBarButtonItem?.customView?.bounds
+        
+        var maxWidth = (leftViewbounds?.size.width)! > (rightViewbounds?.size.width)! ? (leftViewbounds?.size.width)! : (rightViewbounds?.size.width)!
+        
+        maxWidth += 15//leftview 左右都有间隙，左边是5像素，右边是8像素，加2个像素的阀值 5 ＋ 8 ＋ 2
+        
+        var frame = seg.frame
+        
+        frame.size.width = min(screenSize.width - maxWidth * 2, seg.frame.width)
+        
+        seg.frame = frame
+        
+        frame = titleView.frame
+        
+        frame.size.width = min(screenSize.width - maxWidth * 2, seg.frame.width)
+        
+        titleView.frame = frame
+        
+        // Add as the nav bar's titleview
+        
+        titleView.addSubview(seg)
+        
+        self.navigationItem.titleView = titleView
     }
     
     // MARK: 城市按钮点击事件
@@ -214,7 +256,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         redEnvelopeDrop.width = screenSize.width
         redEnvelopeDrop.direction = .bottom
         
-        redEnvelopeDrop.dataSource = ["测试用","大红包","小红包","不大不小的红包"]
+        redEnvelopeDrop.dataSource = ["全部","职位红包","面试红包","就职红包"]
         
         // 下拉列表选中后的回调方法
         redEnvelopeDrop.selectionAction = { (index, item) in

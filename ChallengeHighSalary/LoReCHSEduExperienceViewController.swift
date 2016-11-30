@@ -104,28 +104,6 @@ class LoReCHSEduExperienceViewController: UIViewController, UITableViewDataSourc
     // MARK: 点击保存按钮
     func clickSaveBtn() {
         
-        //        if
-        //            CHSUserInfo.currentUserInfo.work_property ==  detailArray[0] &&
-        //                CHSUserInfo.currentUserInfo.address ==  detailArray[1] &&
-        //                CHSUserInfo.currentUserInfo.position_type ==  detailArray[2] &&
-        //                CHSUserInfo.currentUserInfo.categories ==  detailArray[3] &&
-        //                CHSUserInfo.currentUserInfo.wantsalary ==  detailArray[4] &&
-        //                CHSUserInfo.currentUserInfo.jobstate ==  detailArray[5]{
-        //
-        //            checkCodeHud.mode = .Text
-        //            checkCodeHud.labelText = "信息未修改"
-        //            checkCodeHud.hide(true, afterDelay: 1)
-        //
-        //            let time: NSTimeInterval = 1.0
-        //            let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(time * Double(NSEC_PER_SEC)))
-        //
-        //            dispatch_after(delay, dispatch_get_main_queue()) {
-        //                self.navigationController?.popViewControllerAnimated(true)
-        //            }
-        //
-        //            return
-        //        }
-        
         let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
         checkCodeHud.removeFromSuperViewOnHide = true
         
@@ -175,6 +153,13 @@ class LoReCHSEduExperienceViewController: UIViewController, UITableViewDataSourc
                 }
                 
         }
+    }
+    
+    // MARK: - 放弃键盘第一响应
+    func textFieldResignFirstResponder() {
+        schoolNameTf.resignFirstResponder()
+        majorNameTf.resignFirstResponder()
+        schoolExpTv.resignFirstResponder()
     }
     
     // MARK:- tableView dataSource
@@ -314,9 +299,11 @@ class LoReCHSEduExperienceViewController: UIViewController, UITableViewDataSourc
         switch ((indexPath as NSIndexPath).section,(indexPath as NSIndexPath).row) {
         case (0,1):
             break
-            self.navigationController?.pushViewController(CHSReChoosePositionTypeViewController(), animated: true)
-            
+            //self.navigationController?.pushViewController(CHSReChoosePositionTypeViewController(), animated: true)
+        case (0,0):
+            break
         default:
+            self.textFieldResignFirstResponder()
             
             let bigBgView = UIButton(frame: self.view.bounds)
             bigBgView.backgroundColor = UIColor(white: 0.8, alpha: 0.5)

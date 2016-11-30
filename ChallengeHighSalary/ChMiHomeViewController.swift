@@ -88,8 +88,8 @@ class ChMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         let headerImgView = UIImageView(frame: CGRect(x: kWidthScale*30, y: kHeightScale*90, width: kHeightScale*50, height: kHeightScale*50))
         headerImgView.layer.cornerRadius = headerImgView.frame.size.width/2.0
         headerImgView.clipsToBounds = true
-        headerImgView.backgroundColor = UIColor.gray
-        headerImgView.sd_setImage(with: URL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar), placeholderImage: nil)
+//        headerImgView.backgroundColor = UIColor.gray
+        headerImgView.sd_setImage(with: URL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar), placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
         headerView.addSubview(headerImgView)
         
         let nameLab = UILabel(frame: CGRect(

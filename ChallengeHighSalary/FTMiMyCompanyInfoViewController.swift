@@ -223,7 +223,7 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
             headerImg.clipsToBounds = true
             headerImg.backgroundColor = UIColor.orange
             let imageUrl = URL(string: kImagePrefix+self.company_infoDataModel.logo)
-            headerImg.sd_setImage(with: imageUrl, placeholderImage: nil)
+            headerImg.sd_setImage(with: imageUrl, placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
             cell?.accessoryView = headerImg
         }else{
             cell?.accessoryView = nil

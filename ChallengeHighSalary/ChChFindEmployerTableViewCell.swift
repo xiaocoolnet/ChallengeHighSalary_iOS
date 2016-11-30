@@ -20,7 +20,7 @@ class ChChFindEmployerTableViewCell: UITableViewCell {
     
     var companyInfo:Company_infoDataModel? {
         didSet {
-            self.logoImg.sd_setImage(with: URL(string: kImagePrefix+(companyInfo?.logo)!), placeholderImage: nil)
+            self.logoImg.sd_setImage(with: URL(string: kImagePrefix+(companyInfo?.logo)!), placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
             self.company_nameLab.text = companyInfo?.company_name
             self.jobsCountBtn.setTitle("\((companyInfo?.jobs?.count ?? 0)!)", for: UIControlState())
             self.industry_financing_countLab.text = "\((companyInfo?.industry ?? "")!) | \((companyInfo?.financing ?? "")!) | \((companyInfo?.count ?? "")!)"

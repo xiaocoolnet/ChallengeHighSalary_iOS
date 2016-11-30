@@ -46,15 +46,6 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
         
         // Do any additional setup after loading the view.
         
-        detailArray = [
-            CHSUserInfo.currentUserInfo.work_property == "" ? pickJobTypeRequiredArray.first!:CHSUserInfo.currentUserInfo.work_property,
-            CHSUserInfo.currentUserInfo.address == "" ? "\(provinceArray[0])-\(cityArray[0])":CHSUserInfo.currentUserInfo.address,
-            CHSUserInfo.currentUserInfo.position_type == "" ? "职位类型":CHSUserInfo.currentUserInfo.position_type,
-            CHSUserInfo.currentUserInfo.categories == "" ? "行业类别":CHSUserInfo.currentUserInfo.categories,
-            CHSUserInfo.currentUserInfo.wantsalary == "" ? "\(pickExpSalaryLowRequiredArray[0])至\(pickExpSalarySupRequiredArray[0]) /月":CHSUserInfo.currentUserInfo.categories,
-            CHSUserInfo.currentUserInfo.jobstate == "" ? pickJobStatusRequiredArray[0]:CHSUserInfo.currentUserInfo.jobstate
-        ]
-        
         loadData()
         setSubviews()
         
@@ -91,6 +82,15 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
         })
         
         cityArray = Array(areaDic[provinceArray.first!]!.keys)
+        
+        detailArray = [
+            CHSUserInfo.currentUserInfo.work_property == "" ? pickJobTypeRequiredArray.first!:CHSUserInfo.currentUserInfo.work_property,
+            CHSUserInfo.currentUserInfo.address == "" ? "\(provinceArray[0])-\(cityArray[0])":CHSUserInfo.currentUserInfo.address,
+            CHSUserInfo.currentUserInfo.position_type == "" ? "职位类型":CHSUserInfo.currentUserInfo.position_type,
+            CHSUserInfo.currentUserInfo.categories == "" ? "行业类别":CHSUserInfo.currentUserInfo.categories,
+            CHSUserInfo.currentUserInfo.wantsalary == "" ? "\(pickExpSalaryLowRequiredArray[0])至\(pickExpSalarySupRequiredArray[0]) /月":CHSUserInfo.currentUserInfo.categories,
+            CHSUserInfo.currentUserInfo.jobstate == "" ? pickJobStatusRequiredArray[0]:CHSUserInfo.currentUserInfo.jobstate
+        ]
     }
     
     // MARK: popViewcontroller

@@ -284,7 +284,7 @@ class FTPersonalViewController: UIViewController {
         let headerImg = UIImageView(frame: CGRect(x: summaryView.frame.size.width-8-kHeightScale*50, y: 10, width: kHeightScale*50, height: kHeightScale*50))
         headerImg.layer.cornerRadius = kHeightScale*25
         headerImg.clipsToBounds = true
-        headerImg.sd_setImage(with: URL(string: kImagePrefix+self.resumeData.photo), placeholderImage: nil)
+        headerImg.sd_setImage(with: URL(string: kImagePrefix+self.resumeData.photo), placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
         summaryView.addSubview(headerImg)
         
         let sexImg = UIImageView(frame: CGRect(x: summaryView.frame.size.width-8-kHeightScale*15, y: headerImg.frame.maxY-kHeightScale*10, width: kHeightScale*15, height: kHeightScale*15))
@@ -998,7 +998,7 @@ class FTPersonalViewController: UIViewController {
         }) 
     }
     
-    // 分享视图取消事件
+    // MARK: - 分享视图取消事件
     func shareViewHide(_ shareView:UIButton) {
         if shareView.tag == 102 {
             shareView.superview!.superview!.removeFromSuperview()

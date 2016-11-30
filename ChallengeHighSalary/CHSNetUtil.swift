@@ -274,10 +274,21 @@ class CHSNetUtil: NSObject {
 
                 if checkCode.status == "success" {
                     
-                    CHSUserInfo.currentUserInfo.project?.first?.project_name =  project_name
-                    CHSUserInfo.currentUserInfo.project?.first?.start_time =  start_time
-                    CHSUserInfo.currentUserInfo.project?.first?.end_time =  end_time
-                    CHSUserInfo.currentUserInfo.project?.first?.description_project =  description_project
+                    if CHSUserInfo.currentUserInfo.project?.first == nil {
+                        let project = ProjectModel()
+                        project.project_name = project_name
+                        project.start_time = start_time
+                        project.end_time = end_time
+                        project.description_project = description_project
+                        
+                        CHSUserInfo.currentUserInfo.project?.append(project)
+                    }else{
+                        
+                        CHSUserInfo.currentUserInfo.project?.first?.project_name =  project_name
+                        CHSUserInfo.currentUserInfo.project?.first?.start_time =  start_time
+                        CHSUserInfo.currentUserInfo.project?.first?.end_time =  end_time
+                        CHSUserInfo.currentUserInfo.project?.first?.description_project =  description_project
+                    }
                     
                     handle(true, nil)
                 }else{

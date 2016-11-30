@@ -81,6 +81,8 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         }else{
             self.resumeItemStatusArray[4] = "待完善"
         }
+        
+        self.refreshData()
     }
     
     // MARK: 加载数据
@@ -119,7 +121,7 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                 }else{
                     self.resumeItemStatusArray[4] = "待完善"
                 }
-                
+                self.refreshData()
                 checkCodeHud.mode = .text
                 checkCodeHud.labelText = "获取简历信息成功"
                 checkCodeHud.hide(true, afterDelay: 1)
@@ -133,6 +135,35 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    let headerImageView = UIImageView()// 头像
+    let nameLab = UILabel()// 姓名
+    let overviewLab = UILabel()// 简介
+    // 编辑 按钮
+    let editBtn = UIButton()
+    
+    // MARK: 刷新数据
+    func refreshData() {
+        
+        self.myTableView.reloadData()
+        headerImageView.sd_setImage(with: URL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!, placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
+        
+        nameLab.text = CHSUserInfo.currentUserInfo.realName
+        nameLab.sizeToFit()
+        nameLab.center.x = self.view.center.x
+        nameLab.frame.origin.y = headerImageView.frame.maxY+10
+        
+        let sexStr = CHSUserInfo.currentUserInfo.sex == "0" ? "女":"男"
+        let jobExpStr = CHSUserInfo.currentUserInfo.work_life
+        let cityStr = CHSUserInfo.currentUserInfo.city
+        
+        overviewLab.text = "\(sexStr) | \(jobExpStr)工作经验 | \(cityStr)"
+        overviewLab.sizeToFit()
+        overviewLab.center.x = self.view.center.x
+        overviewLab.frame.origin.y = nameLab.frame.maxY+10
+        
+        editBtn.frame.origin.x = overviewLab.frame.maxX+5
+        editBtn.center.y = overviewLab.center.y
+    }
     // MARK: 设置子视图
     func setSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
@@ -158,40 +189,26 @@ class ChReHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         self.view.addSubview(topBgImageView)
         
         // header imageview
-        let headerImageView = UIImageView(frame: CGRect(x: (screenSize.width-screenSize.width*0.16)/2.0, y: screenSize.height*0.087, width: screenSize.width*0.16, height: screenSize.width*0.16))
+        headerImageView.frame = CGRect(x: (screenSize.width-screenSize.width*0.16)/2.0, y: screenSize.height*0.087, width: screenSize.width*0.16, height: screenSize.width*0.16)
         headerImageView.layer.cornerRadius = screenSize.width*0.08
         headerImageView.clipsToBounds = true
-
-        headerImageView.sd_setImage(with: URL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!, placeholderImage: UIImage(named: "temp_default_headerImg"))
 
         topBgImageView.addSubview(headerImageView)
         
         // name Label
         let nameLab = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 25))
         nameLab.textColor = baseColor
-        nameLab.text = CHSUserInfo.currentUserInfo.realName
         nameLab.font = UIFont.boldSystemFont(ofSize: 16)
-        nameLab.sizeToFit()
-        nameLab.center.x = self.view.center.x
-        nameLab.frame.origin.y = headerImageView.frame.maxY+10
         topBgImageView.addSubview(nameLab)
         
         // Overview Label
-        let overviewLab = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 25))
+        overviewLab.frame = CGRect(x: 0, y: 0, width: 30, height: 25)
         overviewLab.textColor = UIColor(red: 159/255.0, green: 159/255.0, blue: 159/255.0, alpha: 1)
-        let sexStr = CHSUserInfo.currentUserInfo.sex == "0" ? "女":"男"
-        let jobExpStr = CHSUserInfo.currentUserInfo.work_life
-        let cityStr = CHSUserInfo.currentUserInfo.city
-        
-        overviewLab.text = "\(sexStr) | \(jobExpStr)工作经验 | \(cityStr)"
         overviewLab.font = UIFont.systemFont(ofSize: 14)
-        overviewLab.sizeToFit()
-        overviewLab.center.x = self.view.center.x
-        overviewLab.frame.origin.y = nameLab.frame.maxY+10
         topBgImageView.addSubview(overviewLab)
         
         // 编辑 按钮
-        let editBtn = UIButton(frame: CGRect(x: overviewLab.frame.maxX+5, y: 0, width: 15.5, height: 20))
+        editBtn.frame = CGRect(x: overviewLab.frame.maxX+5, y: 0, width: 15.5, height: 20)
         editBtn.setImage(UIImage(named: "ic_编辑"), for: UIControlState())
         editBtn.center.y = overviewLab.center.y
         editBtn.addTarget(self, action: #selector(clickEditBtn), for: .touchUpInside)
