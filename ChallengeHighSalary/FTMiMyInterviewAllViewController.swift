@@ -156,14 +156,18 @@ class FTMiMyInterviewAllViewController: UIViewController, UITableViewDataSource,
         tipLab.text = "你一共发出\((self.myInvitedDataArray?.count ?? 0)!)个面试邀请"
         headerView.addSubview(tipLab)
         
-        let typeBtn = UIButton(frame: CGRect(
-            x: screenSize.width-100-8, y: 0, width: 100, height: 44))
-        typeBtn.contentHorizontalAlignment = .right
-        typeBtn.setTitleColor(baseColor, for: UIControlState())
-        typeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        typeBtn.setTitle("全部", for: UIControlState())
-        typeBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
-        exchangeBtnImageAndTitle(typeBtn, margin: 5)
+        let typeBtn = ImageBtn(frame: CGRect(
+            x: screenSize.width-100-8, y: 0, width: 100, height: 44))!
+//        let typeBtn = UIButton(frame: CGRect(
+//            x: screenSize.width-100-8, y: 0, width: 100, height: 44))
+        typeBtn.resetdataRight("全部", #imageLiteral(resourceName: "ic_下拉"))
+        typeBtn.lb_titleColor = baseColor
+//        typeBtn.contentHorizontalAlignment = .right
+//        typeBtn.setTitleColor(baseColor, for: UIControlState())
+//        typeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+//        typeBtn.setTitle("全部", for: UIControlState())
+//        typeBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
+//        exchangeBtnImageAndTitle(typeBtn, margin: 5)
         typeBtn.addTarget(self, action: #selector(interviewTypeBtnClick), for: .touchUpInside)
         headerView.addSubview(typeBtn)
         
@@ -179,7 +183,9 @@ class FTMiMyInterviewAllViewController: UIViewController, UITableViewDataSource,
         // 下拉列表选中后的回调方法
         typeDrop.selectionAction = { (index, item) in
             
-            typeBtn.setTitle(item, for: UIControlState())
+            typeBtn.resetdataRight(item, #imageLiteral(resourceName: "ic_下拉"))
+
+//            typeBtn.setTitle(item, for: UIControlState())
             
             switch index {
             case 0:

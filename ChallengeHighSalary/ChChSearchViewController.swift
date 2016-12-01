@@ -14,12 +14,14 @@ class ChChSearchViewController: UIViewController, UITableViewDataSource, UITable
     let myTableView = UITableView()
     
     let searchBar = UISearchBar()
-    let cityBtn = UIButton()
+    let cityBtn = ImageBtn()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        cityBtn.setTitle(myCity, for: UIControlState())
+        cityBtn.resetdata(myCity, #imageLiteral(resourceName: "城市下拉箭头"))
+
+//        cityBtn.setTitle(myCity, for: UIControlState())
 
     }
     
@@ -36,28 +38,74 @@ class ChChSearchViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: 设置 NavigationBar
     func setNavigationBar() {
         
-        cityBtn.frame = CGRect(x: 0, y: 0, width: 65, height: 44)
-        cityBtn.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 10)
-        cityBtn.contentHorizontalAlignment = .center
-        cityBtn.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-        cityBtn.setTitle(myCity, for: UIControlState())
-        cityBtn.titleLabel!.lineBreakMode =  .byTruncatingTail
+        cityBtn.frame = CGRect(x: 0, y: 0, width: 70, height: 44)
+        cityBtn.resetdata(myCity, #imageLiteral(resourceName: "城市下拉箭头"))
+        cityBtn.lb_titleColor = UIColor.white
+//        cityBtn.frame = CGRect(x: 0, y: 0, width: 65, height: 44)
+//        cityBtn.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 10)
+//        cityBtn.contentHorizontalAlignment = .center
+//        cityBtn.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+//        cityBtn.setTitle(myCity, for: UIControlState())
+//        cityBtn.titleLabel!.lineBreakMode =  .byTruncatingTail
         cityBtn.addTarget(self, action: #selector(cityBtnClick), for: .touchUpInside)
-        cityBtn.setImage(UIImage(named: "城市下拉箭头"), for: UIControlState())
-        exchangeBtnImageAndTitle(cityBtn, margin: 5)
+//        cityBtn.setImage(UIImage(named: "城市下拉箭头"), for: UIControlState())
+//        exchangeBtnImageAndTitle(cityBtn, margin: 5)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cityBtn)
-        
-        //        let seg = UISegmentedControl(frame: CGRectMake(0, 0, 160, 44))
-        searchBar.frame = CGRect(x: 0, y: 0, width: screenSize.width*2/3.0, height: 24)
-        searchBar.placeholder = "职位/公司/技能/姓名"
-        searchBar.returnKeyType = .search
-        searchBar.delegate = self
-        self.navigationItem.titleView = searchBar
         
         let cancelBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 44))
         cancelBtn.setTitle("取消", for: UIControlState())
         cancelBtn.addTarget(self, action: #selector(cancelBtnClick), for: .touchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cancelBtn)
+        
+        // Init views with rects with height and y pos
+
+        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 44))
+        
+        // Use autoresizing to restrict the bounds to the area that the titleview allows
+        titleView.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue|UIViewAutoresizing.flexibleLeftMargin.rawValue|UIViewAutoresizing.flexibleRightMargin.rawValue)
+        
+        titleView.autoresizesSubviews = true
+        
+        //        let seg = UISegmentedControl(frame: CGRectMake(0, 0, 160, 44))
+        searchBar.frame = CGRect(x: 0, y: 10, width: screenSize.width*2/3.0, height: 24)
+        searchBar.placeholder = "职位/公司/技能/姓名"
+        searchBar.returnKeyType = .search
+        searchBar.delegate = self
+//        self.navigationItem.titleView = searchBar
+        
+//        let searchBar = UISegmentedControl(items: ["找工作","找雇主"])
+//        searchBar.frame = CGRect(x: 0, y: 10, width: 120, height: 24)
+//        searchBar.selectedSegmentIndex = 0
+        
+        searchBar.autoresizingMask = titleView.autoresizingMask
+        
+        
+        
+        let leftViewbounds = self.navigationItem.leftBarButtonItem?.customView?.bounds
+        
+        let rightViewbounds = self.navigationItem.rightBarButtonItem?.customView?.bounds
+        
+//        var maxWidth = (leftViewbounds?.size.width)! > (rightViewbounds?.size.width)! ? (leftViewbounds?.size.width)! : (rightViewbounds?.size.width)!
+        
+//        maxWidth += 15//leftview 左右都有间隙，左边是5像素，右边是8像素，加2个像素的阀值 5 ＋ 8 ＋ 2
+        
+        var frame = searchBar.frame
+        
+        frame.size.width = min(screenSize.width - (rightViewbounds?.size.width)! - (leftViewbounds?.size.width)!-30, searchBar.frame.width)
+        
+        searchBar.frame = frame
+        
+        frame = titleView.frame
+        
+        frame.size.width = min(screenSize.width - (rightViewbounds?.size.width)! - (leftViewbounds?.size.width)!-30, searchBar.frame.width)
+        
+        titleView.frame = frame
+        
+        // Add as the nav bar's titleview
+        
+        titleView.addSubview(searchBar)
+        
+        self.navigationItem.titleView = titleView
     }
     
     // MARK: 城市按钮点击事件

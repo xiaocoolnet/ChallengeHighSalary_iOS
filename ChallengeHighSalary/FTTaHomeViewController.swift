@@ -82,10 +82,12 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
         // 在线状态
-        let onlineStateBtn = UIButton()
-        onlineStateBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        onlineStateBtn.setTitle("经验", for: UIControlState())
-        onlineStateBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
+        let onlineStateBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: screenSize.width/6, height: 37))!
+        onlineStateBtn.resetdata("经验", #imageLiteral(resourceName: "ic_下拉"))
+//        let onlineStateBtn = UIButton()
+//        onlineStateBtn.titleLabel?.adjustsFontSizeToFitWidth = true
+//        onlineStateBtn.setTitle("经验", for: UIControlState())
+//        onlineStateBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
         exchangeBtnImageAndTitle(onlineStateBtn, margin: 5)
         
         // 经验 下拉
@@ -99,8 +101,9 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         // 下拉列表选中后的回调方法
         onlineStateDrop.selectionAction = { (index, item) in
-            
-            onlineStateBtn.setTitle(item, for: UIControlState())
+            onlineStateBtn.resetdata(item, #imageLiteral(resourceName: "ic_下拉"))
+
+//            onlineStateBtn.setTitle(item, for: UIControlState())
         }
         
         // 选择菜单

@@ -132,6 +132,7 @@
 		1FD6F9991DBEE9A800BD7B94 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F9941DBEE9A800BD7B94 /* TPKeyboardAvoidingTableView.m */; };
 		1FD6F99A1DBEE9A800BD7B94 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F9961DBEE9A800BD7B94 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		1FD7FBD61D795BA70032221D /* WeHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD7FBD51D795BA70032221D /* WeHomeViewController.swift */; };
+		1FDA4CD91DEFBE0D00BFB060 /* ImageBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA4CD81DEFBE0D00BFB060 /* ImageBtn.m */; };
 		1FDB00131D8F7490007043B4 /* CHSChCompanyHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB00121D8F7490007043B4 /* CHSChCompanyHomeViewController.swift */; };
 		1FDB00181D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB00161D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift */; };
 		1FDB001B1D8FB0EE007043B4 /* CHSChCompanyPositionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB001A1D8FB0EE007043B4 /* CHSChCompanyPositionListViewController.swift */; };
@@ -362,6 +363,8 @@
 		1FD6F9951DBEE9A800BD7B94 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
 		1FD6F9961DBEE9A800BD7B94 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
 		1FD7FBD51D795BA70032221D /* WeHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeHomeViewController.swift; sourceTree = "<group>"; };
+		1FDA4CD71DEFBE0D00BFB060 /* ImageBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBtn.h; sourceTree = "<group>"; };
+		1FDA4CD81DEFBE0D00BFB060 /* ImageBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageBtn.m; sourceTree = "<group>"; };
 		1FDB00121D8F7490007043B4 /* CHSChCompanyHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChCompanyHomeViewController.swift; sourceTree = "<group>"; };
 		1FDB00161D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChCompanyPositionTableViewCell.swift; sourceTree = "<group>"; };
 		1FDB001A1D8FB0EE007043B4 /* CHSChCompanyPositionListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChCompanyPositionListViewController.swift; sourceTree = "<group>"; };
@@ -542,6 +545,7 @@
 		1F8741191D82A02A007B8793 /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
+				1FDA4CD61DEFBE0D00BFB060 /* ImageBtn */,
 				1F9E527A1DE532B800556F31 /* Lib */,
 				1FD6F98E1DBEE9A800BD7B94 /* TPKeyboardAvoiding */,
 				1F0B594C1DAB8AA100A172E3 /* UIImage+Extension.swift */,
@@ -892,6 +896,15 @@
 				1FD7FBD51D795BA70032221D /* WeHomeViewController.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		1FDA4CD61DEFBE0D00BFB060 /* ImageBtn */ = {
+			isa = PBXGroup;
+			children = (
+				1FDA4CD71DEFBE0D00BFB060 /* ImageBtn.h */,
+				1FDA4CD81DEFBE0D00BFB060 /* ImageBtn.m */,
+			);
+			path = ImageBtn;
 			sourceTree = "<group>";
 		};
 		1FDB00221D8FCB1D007043B4 /* View */ = {
@@ -1564,6 +1577,7 @@
 				1F577B3C1DA9F37000AB5D99 /* CHSMeLookMeTableViewCell.swift in Sources */,
 				1FEF80A11D810A7600486F9C /* FTMiHomeViewController.swift in Sources */,
 				1FF9DB211D9624DB00F0C69D /* FTTalentTableViewCell.swift in Sources */,
+				1FDA4CD91DEFBE0D00BFB060 /* ImageBtn.m in Sources */,
 				1F180F701D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift in Sources */,
 				1F0B59491DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift in Sources */,
 				1FC3CCA81D9CAF07004AA4C6 /* FTMiMyInterviewFinishViewController.swift in Sources */,

@@ -83,15 +83,22 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
         self.rootScrollView.addSubview(newPhoneBgView)
         
         // 电话前缀
-        let telLab = UIButton(frame: CGRect(
+//        let telLab = UIButton(frame: CGRect(
+//            x: 0,
+//            y: 0,
+//            width: kWidthScale*58,
+//            height: newPhoneBgView.frame.size.height))
+        let telLab = ImageBtn(frame: CGRect(
             x: 0,
             y: 0,
             width: kWidthScale*58,
-            height: newPhoneBgView.frame.size.height))
-        telLab.setTitleColor(baseColor, for: UIControlState())
-        telLab.setTitle("+86", for: UIControlState())
-        telLab.setImage(UIImage(named: "ic_下拉箭头"), for: UIControlState())
-        exchangeBtnImageAndTitle(telLab, margin: 2)
+            height: newPhoneBgView.frame.size.height))!
+        telLab.resetdata("+86", #imageLiteral(resourceName: "ic_xialajiantou"))
+        telLab.lb_titleColor = baseColor
+//        telLab.setTitleColor(baseColor, for: UIControlState())
+//        telLab.setTitle("+86", for: UIControlState())
+//        telLab.setImage(UIImage(named: "ic_下拉箭头"), for: UIControlState())
+//        exchangeBtnImageAndTitle(telLab, margin: 2)
         newPhoneBgView.addSubview(telLab)
         
         // 电话前缀右边虚线

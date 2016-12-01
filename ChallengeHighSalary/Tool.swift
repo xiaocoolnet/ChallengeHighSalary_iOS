@@ -276,20 +276,20 @@ func exchangeBtnImageAndTitle(_ button: UIButton, margin: CGFloat) {
 //    }
 }
 
-func adjustBtnsTitleLabelAndImgaeView(_ button:UIButton, adjustWidth: Bool=false ) {
-    if (button.titleLabel != nil) && (button.imageView != nil) && (button.currentImage != nil) {
-        
-        let margin:CGFloat = 5
-        button.titleLabel?.sizeThatFits(CGSize(width: button.frame.width-(button.currentImage?.size.width)!-margin, height: button.frame.height))
-//        button.image(for: UIControlState())
-        button.imageView?.frame.origin.x = (button.titleLabel?.frame)!.maxX+margin
-        
-        if adjustWidth {
-            
-            button.frame.size.width = (button.imageView?.frame)!.maxX+margin
-        }
-    }
-}
+//func adjustBtnsTitleLabelAndImgaeView(_ button:UIButton, adjustWidth: Bool=false ) {
+//    if (button.titleLabel != nil) && (button.imageView != nil) && (button.currentImage != nil) {
+//        
+//        let margin:CGFloat = 5
+//        button.titleLabel?.sizeThatFits(CGSize(width: button.frame.width-(button.currentImage?.size.width)!-margin, height: button.frame.height))
+////        button.image(for: UIControlState())
+//        button.imageView?.frame.origin.x = (button.titleLabel?.frame)!.maxX+margin
+//        
+//        if adjustWidth {
+//            
+//            button.frame.size.width = (button.imageView?.frame)!.maxX+margin
+//        }
+//    }
+//}
 
 func changeCityName(cityName:String) -> String {
     

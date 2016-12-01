@@ -10,7 +10,7 @@ import UIKit
 
 class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, UITableViewDataSource, UITableViewDelegate {
     
-    let cityBtn = UIButton()
+    let cityBtn = ImageBtn()
     
     let rootScrollView = UIScrollView()
     
@@ -64,8 +64,10 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             
             myCity = UserDefaults.standard.string(forKey: myCity_key)!
             
-            cityBtn.setTitle(myCity, for: UIControlState())
-            adjustBtnsTitleLabelAndImgaeView(cityBtn)
+            cityBtn.resetdata(myCity, #imageLiteral(resourceName: "城市下拉箭头"))
+
+//            cityBtn.setTitle(myCity, for: UIControlState())
+//            adjustBtnsTitleLabelAndImgaeView(cityBtn)
         }
 
     }
@@ -98,12 +100,14 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         // 城市按钮
         cityBtn.frame = CGRect(x: 0, y: 0, width: 100, height: 44)
-        cityBtn.contentHorizontalAlignment = .left
-        cityBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        cityBtn.setTitle(myCity, for: UIControlState())
-        cityBtn.setImage(UIImage(named: "城市下拉箭头"), for: UIControlState())
-        exchangeBtnImageAndTitle(cityBtn, margin: 5)
-        adjustBtnsTitleLabelAndImgaeView(cityBtn)
+        cityBtn.resetdata(myCity, #imageLiteral(resourceName: "城市下拉箭头"))
+        cityBtn.lb_titleColor = UIColor.white
+//        cityBtn.contentHorizontalAlignment = .left
+//        cityBtn.titleLabel?.adjustsFontSizeToFitWidth = true
+//        cityBtn.setTitle(myCity, for: UIControlState())
+//        cityBtn.setImage(UIImage(named: "城市下拉箭头"), for: UIControlState())
+//        exchangeBtnImageAndTitle(cityBtn, margin: 5)
+//        adjustBtnsTitleLabelAndImgaeView(cityBtn)
         cityBtn.addTarget(self, action: #selector(cityBtnClick), for: .touchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cityBtn)
         
@@ -217,12 +221,15 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     // MARK: 设置子视图_找工作
     func setSubviews_findJob() {
         
+        
         // 薪资
-        let salaryBtn = UIButton()
-        salaryBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        salaryBtn.setTitle("薪资", for: UIControlState())
-        salaryBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
-        exchangeBtnImageAndTitle(salaryBtn, margin: 5)
+        let salaryBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: (screenSize.width)/6, height: 37))
+        salaryBtn?.resetdata("薪资", #imageLiteral(resourceName: "ic_下拉"))
+//        let salaryBtn = UIButton()
+//        salaryBtn.titleLabel?.adjustsFontSizeToFitWidth = true
+//        salaryBtn.setTitle("薪资", for: UIControlState())
+//        salaryBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
+//        exchangeBtnImageAndTitle(salaryBtn, margin: 5)
         
         // 薪资 下拉
         salaryDrop.anchorView = salaryBtn
@@ -235,19 +242,22 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         // 下拉列表选中后的回调方法
         salaryDrop.selectionAction = { (index, item) in
-            
-            salaryBtn.setTitle(item, for: UIControlState())
-            
-            adjustBtnsTitleLabelAndImgaeView(salaryBtn)
+            salaryBtn?.resetdata(item, #imageLiteral(resourceName: "ic_下拉"))
+
+//            salaryBtn.setTitle(item, for: UIControlState())
+//            
+//            adjustBtnsTitleLabelAndImgaeView(salaryBtn)
             
         }
         
         // 红包
-        let redEnvelopeBtn = UIButton()
-        redEnvelopeBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        redEnvelopeBtn.setTitle("红包", for: UIControlState())
-        redEnvelopeBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
-        exchangeBtnImageAndTitle(redEnvelopeBtn, margin: 5)
+        let redEnvelopeBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: (screenSize.width)/6, height: 37))
+        redEnvelopeBtn?.resetdata("红包", #imageLiteral(resourceName: "ic_下拉"))
+//        let redEnvelopeBtn = UIButton()
+//        redEnvelopeBtn.titleLabel?.adjustsFontSizeToFitWidth = true
+//        redEnvelopeBtn.setTitle("红包", for: UIControlState())
+//        redEnvelopeBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
+//        exchangeBtnImageAndTitle(redEnvelopeBtn, margin: 5)
         
         // 红包 下拉
         redEnvelopeDrop.anchorView = redEnvelopeBtn
@@ -261,14 +271,16 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         // 下拉列表选中后的回调方法
         redEnvelopeDrop.selectionAction = { (index, item) in
             
-            redEnvelopeBtn.setTitle(item, for: UIControlState())
-            
-            adjustBtnsTitleLabelAndImgaeView(redEnvelopeBtn)
+            redEnvelopeBtn?.resetdata(item, #imageLiteral(resourceName: "ic_下拉"))
+
+//            redEnvelopeBtn.setTitle(item, for: UIControlState())
+//            
+//            adjustBtnsTitleLabelAndImgaeView(redEnvelopeBtn)
 
         }
         
         // 选择菜单
-        let segChoose = LFLUISegmentedControl.segment(withFrame: CGRect(x: 0, y: 0,width: screenSize.width ,height: 37), titleArray: ["最新","最热","最近","评价",salaryBtn,redEnvelopeBtn], defaultSelect: 0)!
+        let segChoose = LFLUISegmentedControl.segment(withFrame: CGRect(x: 0, y: 0,width: screenSize.width ,height: 37), titleArray: ["最新","最热","最近","评价",salaryBtn as Any,redEnvelopeBtn as Any], defaultSelect: 0)!
         segChoose.tag = 101
         segChoose.lineColor(baseColor)
         segChoose.titleColor(UIColor.black, selectTitleColor: baseColor, backGroundColor: UIColor.white, titleFontSize: 14)
@@ -290,11 +302,13 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     func setSubviews_findEmployer() {
         
         // 规模
-        let scaleBtn = UIButton()
-        scaleBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        scaleBtn.setTitle("规模", for: UIControlState())
-        scaleBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
-        exchangeBtnImageAndTitle(scaleBtn, margin: 5)
+        let scaleBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: (screenSize.width)/3, height: 37))
+        scaleBtn?.resetdata("规模", #imageLiteral(resourceName: "ic_下拉"))
+//        let scaleBtn = UIButton()
+//        scaleBtn.titleLabel?.adjustsFontSizeToFitWidth = true
+//        scaleBtn.setTitle("规模", for: UIControlState())
+//        scaleBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
+//        exchangeBtnImageAndTitle(scaleBtn, margin: 5)
         
         // 规模 下拉
         scaleDrop.anchorView = scaleBtn
@@ -308,18 +322,23 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         // 下拉列表选中后的回调方法
         scaleDrop.selectionAction = { (index, item) in
             
-            scaleBtn.setTitle(item, for: UIControlState())
-            
-            adjustBtnsTitleLabelAndImgaeView(scaleBtn)
+            scaleBtn?.resetdata(item, #imageLiteral(resourceName: "ic_下拉"))
+
+//            scaleBtn.setTitle(item, for: UIControlState())
+//            
+//            adjustBtnsTitleLabelAndImgaeView(scaleBtn)
 
         }
         
         // 附近
-        let nearbyBtn = UIButton()
-        nearbyBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        nearbyBtn.setTitle("附近", for: UIControlState())
-        nearbyBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
-        exchangeBtnImageAndTitle(nearbyBtn, margin: 5)
+        let nearbyBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: (screenSize.width)/3, height: 37))
+        scaleBtn?.resetdata("附近", #imageLiteral(resourceName: "ic_下拉"))
+
+//        let nearbyBtn = UIButton()
+//        nearbyBtn.titleLabel?.adjustsFontSizeToFitWidth = true
+//        nearbyBtn.setTitle("附近", for: UIControlState())
+//        nearbyBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
+//        exchangeBtnImageAndTitle(nearbyBtn, margin: 5)
         
         // 附近 下拉
         nearbyDrop.anchorView = nearbyBtn
@@ -333,14 +352,16 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         // 下拉列表选中后的回调方法
         nearbyDrop.selectionAction = { (index, item) in
             
-            nearbyBtn.setTitle(item, for: UIControlState())
-            
-            adjustBtnsTitleLabelAndImgaeView(nearbyBtn)
+            nearbyBtn?.resetdata(item, #imageLiteral(resourceName: "ic_下拉"))
+
+//            nearbyBtn.setTitle(item, for: UIControlState())
+//            
+//            adjustBtnsTitleLabelAndImgaeView(nearbyBtn)
 
         }
         
         // 选择菜单
-        let segChoose = LFLUISegmentedControl.segment(withFrame: CGRect(x: screenSize.width, y: 0,width: screenSize.width ,height: 37), titleArray: ["最新",scaleBtn,nearbyBtn], defaultSelect: 0)!
+        let segChoose = LFLUISegmentedControl.segment(withFrame: CGRect(x: screenSize.width, y: 0,width: screenSize.width ,height: 37), titleArray: ["最新",scaleBtn as Any,nearbyBtn as Any], defaultSelect: 0)!
         segChoose.tag = 102
         segChoose.lineColor(baseColor)
         segChoose.titleColor(UIColor.black, selectTitleColor: baseColor, backGroundColor: UIColor.white, titleFontSize: 14)
@@ -524,8 +545,10 @@ extension ChChHomeViewController: AMapLocationManagerDelegate {
                 UserDefaults.standard.set(changeCityName(cityName: regeocode.city ?? regeocode.province), forKey: myCity_key)
                 positioningCity = UserDefaults.standard.string(forKey: positioningCity_key)!
                 myCity = positioningCity
-                self.cityBtn.setTitle(myCity, for: UIControlState())
-                adjustBtnsTitleLabelAndImgaeView(self.cityBtn)
+                cityBtn.resetdata(myCity, #imageLiteral(resourceName: "城市下拉箭头"))
+
+//                self.cityBtn.setTitle(myCity, for: UIControlState())
+//                adjustBtnsTitleLabelAndImgaeView(self.cityBtn)
                 
                 UserDefaults.standard.set(changeCityName(cityName: regeocode.city ?? regeocode.province), forKey: positioningCity_key)
                 positioningCity = UserDefaults.standard.string(forKey: positioningCity_key)!
