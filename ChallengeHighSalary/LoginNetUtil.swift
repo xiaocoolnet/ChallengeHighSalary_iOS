@@ -117,6 +117,12 @@ class LoginNetUtil: NSObject {
 //                let status:StatusModel = StatusModel.jsonToModel(json)
                 if status.status == "success" {
                     let login = JSONDeserializer<LoginModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                    
+                    JPUSHService.setAlias(login.data?.userid, callbackSelector: nil, object: nil)
+//                    JPUSHService.setTags(<#T##tags: Set<AnyHashable>!##Set<AnyHashable>!#>, alias: <#T##String!#>, fetchCompletionHandle: { (<#Int32#>, <#Set<AnyHashable>?#>, <#String?#>) in
+//                        <#code#>
+//                    })
+
 
 //                    let login:LoginModel = LoginModel.jsonToModel(json)
                     

@@ -67,6 +67,28 @@ class errorModel: HandyJSON {
 
 }
 
+class DicModel: HandyJSON {
+    
+    var status: String?
+    
+    var data: [DicDataModel]?
+    
+    required init() {}
+    
+}
+
+class DicDataModel: HandyJSON {
+    
+    var term_id: String?
+
+    var name: String?
+
+    var description: String?
+
+    required init() {}
+
+}
+
 enum MyInvitedType: Int{
     case waitInterview = 0// 待面试
     case completed// 已结束

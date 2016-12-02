@@ -166,6 +166,8 @@ extension AppDelegate {
         // Required
         let userInfo = notification.request.content.userInfo
 
+        self.newMessageRecived(userInfo: userInfo)
+        
         if (notification.request.trigger?.isKind(of: UNPushNotificationTrigger.self))! {
             JPUSHService.handleRemoteNotification(userInfo)
         }
@@ -180,6 +182,8 @@ extension AppDelegate {
         // Required
         let userInfo = response.notification.request.content.userInfo
         
+        self.newMessageRecived(userInfo: userInfo)
+
         if (response.notification.request.trigger?.isKind(of: UNPushNotificationTrigger.self))! {
             JPUSHService.handleRemoteNotification(userInfo)
         }
@@ -189,14 +193,25 @@ extension AppDelegate {
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
+        self.newMessageRecived(userInfo: userInfo)
+
         // Required, iOS 7 Support
         JPUSHService.handleRemoteNotification(userInfo)
         completionHandler(UIBackgroundFetchResult(rawValue: UIBackgroundFetchResult.newData.rawValue)!)
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        
+        self.newMessageRecived(userInfo: userInfo)
+
         // Required,For systems with less than or equal to iOS6
         JPUSHService.handleRemoteNotification(userInfo)
+    }
+    
+    func newMessageRecived(userInfo:[AnyHashable : Any]?) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NewMessageRecivedNotification"), object: nil, userInfo: userInfo)
+        
+        
     }
     
 }

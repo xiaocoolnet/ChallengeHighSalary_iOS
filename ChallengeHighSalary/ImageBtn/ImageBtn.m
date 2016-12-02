@@ -91,6 +91,22 @@
     lb_title.frame = CGRectMake(self.frame.size.width-imgWidth-margin-size.width, 0, size.width, self.frame.size.height);
     image.frame = CGRectMake(self.frame.size.width-imgWidth, (self.frame.size.height-imgHeight)/2, imgWidth, imgHeight);
 }
+-(void)resetdataCenter:(NSString *)title :(UIImage *)Image
+{
+    lb_title.text = title;
+    CGSize size = [lb_title.text sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:17.f]}];
+    //假设lb_title与图片、按钮边缘间隔都是10,图片大小50*50
+    CGFloat margin = 5;
+    CGFloat imgWidth = Image.size.width;
+    CGFloat imgHeight = Image.size.height;
+    
+    if (size.width>self.frame.size.width-margin-imgWidth-10) {
+        size.width =self.frame.size.width-margin-imgWidth-10;
+    }
+    image.image = Image;
+    lb_title.frame = CGRectMake((self.frame.size.width-size.width-imgWidth)/2.0, 0, size.width, self.frame.size.height);
+    image.frame = CGRectMake(CGRectGetMaxX(lb_title.frame), (self.frame.size.height-imgHeight)/2, imgWidth, imgHeight);
+}
 
 - (void)setLb_titleColor:(UIColor *)lb_titleColor {
     _lb_titleColor = lb_titleColor;

@@ -17,5 +17,6 @@
 - (id)initWithFrame:(CGRect)frame;
 -(void)resetdata:(NSString *)title :(UIImage *)Image;
 -(void)resetdataRight:(NSString *)title :(UIImage *)Image;
+-(void)resetdataCenter:(NSString *)title :(UIImage *)Image;
 
 @end

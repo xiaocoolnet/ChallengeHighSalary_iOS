@@ -83,14 +83,14 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         // 在线状态
         let onlineStateBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: screenSize.width/6, height: 37))!
-        onlineStateBtn.resetdata("经验", #imageLiteral(resourceName: "ic_下拉"))
+        onlineStateBtn.resetdataCenter("在线", #imageLiteral(resourceName: "ic_下拉"))
 //        let onlineStateBtn = UIButton()
 //        onlineStateBtn.titleLabel?.adjustsFontSizeToFitWidth = true
 //        onlineStateBtn.setTitle("经验", for: UIControlState())
 //        onlineStateBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
-        exchangeBtnImageAndTitle(onlineStateBtn, margin: 5)
+//        exchangeBtnImageAndTitle(onlineStateBtn, margin: 5)
         
-        // 经验 下拉
+        // 在线状态 下拉
         onlineStateDrop.anchorView = onlineStateBtn
         
         onlineStateDrop.bottomOffset = CGPoint(x: 0, y: 38)
@@ -101,7 +101,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         // 下拉列表选中后的回调方法
         onlineStateDrop.selectionAction = { (index, item) in
-            onlineStateBtn.resetdata(item, #imageLiteral(resourceName: "ic_下拉"))
+            onlineStateBtn.resetdataCenter(item, #imageLiteral(resourceName: "ic_下拉"))
 
 //            onlineStateBtn.setTitle(item, for: UIControlState())
         }

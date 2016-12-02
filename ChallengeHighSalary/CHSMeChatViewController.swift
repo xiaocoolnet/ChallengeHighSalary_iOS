@@ -43,6 +43,22 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
         // Do any additional setup after loading the view.
         
         self.setSubView()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(newMessageRecived(noti:)), name: NSNotification.Name(rawValue: "NewMessageRecivedNotification"), object: nil)
+    }
+    
+    func newMessageRecived(noti:Notification) {
+        let userInfo = noti.userInfo
+        
+        
+        
+        let chatData = ChatData()
+        
+//        chatData.send_uid = userInfo?["extras"] ["v"] as! String
+//        chatData.content = userInfo?["alert"] as! String
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

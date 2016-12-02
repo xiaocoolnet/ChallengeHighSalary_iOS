@@ -261,14 +261,14 @@ class PublicNetUtil: NSObject {
     }
 
     // MARK: 获取字典列表
-    // type
+    // parentid
     func getDictionaryList(
-        type:String,
+        parentid:String,
         handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"getDictionaryList"
         let param = [
-            "type":type
+            "parentid":parentid
         ];
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
@@ -278,21 +278,12 @@ class PublicNetUtil: NSObject {
                 let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
                 
                 if checkCode.status == "success" {
-                    if type == "1" {
-                        
-                        let jobInfoModel = JSONDeserializer<JobInfoModel>.deserializeFrom(dict: json as! NSDictionary?)!
-                        
-                        
-                        handle(true, jobInfoModel.data as AnyObject?)
-                        
-                    }else{
-                        
-                        let myResume = JSONDeserializer<ResumeListModel>.deserializeFrom(dict: json as! NSDictionary?)!
-                        
-                        
-                        handle(true, myResume.data as AnyObject?)
-                        
-                    }
+                    
+                    let jobInfoModel = JSONDeserializer<DicModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                    
+                    
+                    handle(true, jobInfoModel.data as AnyObject?)
+                    
                 }else{
                     
                     handle(false, nil)

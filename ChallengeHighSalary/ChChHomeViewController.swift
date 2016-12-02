@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, UITableViewDataSource, UITableViewDelegate {
+class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, UITableViewDataSource, UITableViewDelegate, AMapLocationManagerDelegate {
     
     let cityBtn = ImageBtn()
     
@@ -31,6 +31,9 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // TODO:
+        UserDefaults.standard.removeObject(forKey: myCity_key)
+
         // Do any additional setup after loading the view.
         
         self.view.backgroundColor = UIColor.white
@@ -42,6 +45,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     }
     
     var hud = MBProgressHUD()
+    var hudShowFlag = true
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -53,6 +57,11 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         customizeDropDown()
         
         if UserDefaults.standard.string(forKey: myCity_key) == nil {
+            
+//            if hudShowFlag {
+//
+//            }
+            hud.hide(false)
             
             hud = MBProgressHUD.showAdded(to: self.view, animated: true)
             hud.labelText = "正在获取当前位置"
@@ -92,6 +101,13 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             }
         }
         
+//        PublicNetUtil().getDictionaryList(parentid: "5") { (success, reponse) in
+//            <#code#>
+//        }
+//        
+//        PublicNetUtil().getDictionaryList(parentid: "5") { (success, reponse) in
+//            <#code#>
+//        }
         
     }
     
@@ -224,7 +240,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         // 薪资
         let salaryBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: (screenSize.width)/6, height: 37))
-        salaryBtn?.resetdata("薪资", #imageLiteral(resourceName: "ic_下拉"))
+        salaryBtn?.resetdataCenter("薪资", #imageLiteral(resourceName: "ic_下拉"))
 //        let salaryBtn = UIButton()
 //        salaryBtn.titleLabel?.adjustsFontSizeToFitWidth = true
 //        salaryBtn.setTitle("薪资", for: UIControlState())
@@ -242,7 +258,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         // 下拉列表选中后的回调方法
         salaryDrop.selectionAction = { (index, item) in
-            salaryBtn?.resetdata(item, #imageLiteral(resourceName: "ic_下拉"))
+            salaryBtn?.resetdataCenter(item, #imageLiteral(resourceName: "ic_下拉"))
 
 //            salaryBtn.setTitle(item, for: UIControlState())
 //            
@@ -252,7 +268,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         // 红包
         let redEnvelopeBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: (screenSize.width)/6, height: 37))
-        redEnvelopeBtn?.resetdata("红包", #imageLiteral(resourceName: "ic_下拉"))
+        redEnvelopeBtn?.resetdataCenter("红包", #imageLiteral(resourceName: "ic_下拉"))
 //        let redEnvelopeBtn = UIButton()
 //        redEnvelopeBtn.titleLabel?.adjustsFontSizeToFitWidth = true
 //        redEnvelopeBtn.setTitle("红包", for: UIControlState())
@@ -271,7 +287,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         // 下拉列表选中后的回调方法
         redEnvelopeDrop.selectionAction = { (index, item) in
             
-            redEnvelopeBtn?.resetdata(item, #imageLiteral(resourceName: "ic_下拉"))
+            redEnvelopeBtn?.resetdataCenter(item, #imageLiteral(resourceName: "ic_下拉"))
 
 //            redEnvelopeBtn.setTitle(item, for: UIControlState())
 //            
@@ -303,7 +319,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         // 规模
         let scaleBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: (screenSize.width)/3, height: 37))
-        scaleBtn?.resetdata("规模", #imageLiteral(resourceName: "ic_下拉"))
+        scaleBtn?.resetdataCenter("规模", #imageLiteral(resourceName: "ic_下拉"))
 //        let scaleBtn = UIButton()
 //        scaleBtn.titleLabel?.adjustsFontSizeToFitWidth = true
 //        scaleBtn.setTitle("规模", for: UIControlState())
@@ -322,7 +338,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         // 下拉列表选中后的回调方法
         scaleDrop.selectionAction = { (index, item) in
             
-            scaleBtn?.resetdata(item, #imageLiteral(resourceName: "ic_下拉"))
+            scaleBtn?.resetdataCenter(item, #imageLiteral(resourceName: "ic_下拉"))
 
 //            scaleBtn.setTitle(item, for: UIControlState())
 //            
@@ -332,7 +348,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         // 附近
         let nearbyBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: (screenSize.width)/3, height: 37))
-        scaleBtn?.resetdata("附近", #imageLiteral(resourceName: "ic_下拉"))
+        nearbyBtn?.resetdataCenter("附近", #imageLiteral(resourceName: "ic_下拉"))
 
 //        let nearbyBtn = UIButton()
 //        nearbyBtn.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -352,7 +368,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         // 下拉列表选中后的回调方法
         nearbyDrop.selectionAction = { (index, item) in
             
-            nearbyBtn?.resetdata(item, #imageLiteral(resourceName: "ic_下拉"))
+            nearbyBtn?.resetdataCenter(item, #imageLiteral(resourceName: "ic_下拉"))
 
 //            nearbyBtn.setTitle(item, for: UIControlState())
 //            
@@ -494,26 +510,9 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         companyPositionListVC.company_infoJobs = self.companyList[jobsCountBtn.tag].jobs!
         self.navigationController?.pushViewController(companyPositionListVC, animated: true)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
-
-extension ChChHomeViewController: AMapLocationManagerDelegate {
+    
+    // MARK: - 定位
     func loadLocation() {
         
         self.locationManager.delegate = self
@@ -521,7 +520,7 @@ extension ChChHomeViewController: AMapLocationManagerDelegate {
         locationManager.pausesLocationUpdatesAutomatically = false
         
         locationManager.allowsBackgroundLocationUpdates = false
-
+        
         
         // 如果需要持续定位返回逆地理编码信息，（自 V2.2.0版本起支持）需要做如下设置：
         self.locationManager.locatingWithReGeocode = true
@@ -533,11 +532,29 @@ extension ChChHomeViewController: AMapLocationManagerDelegate {
         
         print("location:", location)
         
-        hud.hide(true)
         
         if let location = location {
             
             if let regeocode = reGeocode {
+                
+                if  !AMapLocationDataAvailableForCoordinate(location.coordinate) {
+                    
+                    self.locationManager.stopUpdatingLocation()
+                    
+                    hud.mode = .text
+                    hud.labelText = "不支持的位置"
+                    hud.detailsLabelText = "该软件仅支持中国,请手动选择一个城市"
+                    hud.hide(true, afterDelay: 1)
+                    
+                    let time: TimeInterval = 1.0
+                    let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                    
+                    DispatchQueue.main.asyncAfter(deadline: delay) {
+                        
+                        self.navigationController?.pushViewController(ChChCityViewController(), animated: true)
+                        
+                    }
+                }
                 
                 self.locationManager.stopUpdatingLocation()
                 
@@ -546,9 +563,9 @@ extension ChChHomeViewController: AMapLocationManagerDelegate {
                 positioningCity = UserDefaults.standard.string(forKey: positioningCity_key)!
                 myCity = positioningCity
                 cityBtn.resetdata(myCity, #imageLiteral(resourceName: "城市下拉箭头"))
-
-//                self.cityBtn.setTitle(myCity, for: UIControlState())
-//                adjustBtnsTitleLabelAndImgaeView(self.cityBtn)
+                
+                //                self.cityBtn.setTitle(myCity, for: UIControlState())
+                //                adjustBtnsTitleLabelAndImgaeView(self.cityBtn)
                 
                 UserDefaults.standard.set(changeCityName(cityName: regeocode.city ?? regeocode.province), forKey: positioningCity_key)
                 positioningCity = UserDefaults.standard.string(forKey: positioningCity_key)!
@@ -560,10 +577,14 @@ extension ChChHomeViewController: AMapLocationManagerDelegate {
                     myCity = UserDefaults.standard.string(forKey: myCity_key)!
                 }
                 
+                cityBtn.resetdata(myCity, #imageLiteral(resourceName: "城市下拉箭头"))
+                hud.hide(true)
+
+                
             }
             else {
                 print("lat:\(location.coordinate.latitude); lon:\(location.coordinate.longitude); accuracy:\(location.horizontalAccuracy)m")
-
+                
             }
         }
     }
@@ -586,5 +607,23 @@ extension ChChHomeViewController: AMapLocationManagerDelegate {
         }
         
     }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
 }
+
 
