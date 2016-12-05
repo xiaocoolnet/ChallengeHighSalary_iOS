@@ -21,6 +21,8 @@
 		1F14AF431D93CD0A00456A80 /* FTTaRetrievalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F14AF421D93CD0A00456A80 /* FTTaRetrievalViewController.swift */; };
 		1F180F6C1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F180F6B1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift */; };
 		1F180F701D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F180F6F1D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift */; };
+		1F2E7ADF1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E7ADE1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift */; };
+		1F2E7AE11DF55A2100477D83 /* FTMiCompanyAuthInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E7AE01DF55A2100477D83 /* FTMiCompanyAuthInfoViewController.swift */; };
 		1F31935A1DB47C5F004B264F /* FTMiMyCompanyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3193591DB47C5F004B264F /* FTMiMyCompanyInfoViewController.swift */; };
 		1F35F0AF1DC9EA02009858A9 /* CHSMeHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F35F0AE1DC9EA02009858A9 /* CHSMeHomeTableViewCell.xib */; };
 		1F482B891D7FBD630079A62B /* ChChCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F482B881D7FBD630079A62B /* ChChCityViewController.swift */; };
@@ -235,6 +237,8 @@
 		1F14AF421D93CD0A00456A80 /* FTTaRetrievalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaRetrievalViewController.swift; sourceTree = "<group>"; };
 		1F180F6B1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChRetrievalViewController.swift; sourceTree = "<group>"; };
 		1F180F6F1D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChPersonalInfoViewController.swift; sourceTree = "<group>"; };
+		1F2E7ADE1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiCompanyAuthSureViewController.swift; sourceTree = "<group>"; };
+		1F2E7AE01DF55A2100477D83 /* FTMiCompanyAuthInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiCompanyAuthInfoViewController.swift; sourceTree = "<group>"; };
 		1F3193591DB47C5F004B264F /* FTMiMyCompanyInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiMyCompanyInfoViewController.swift; sourceTree = "<group>"; };
 		1F33D77A1D7587370028444A /* ChallengeHighSalary-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChallengeHighSalary-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F35F0AE1DC9EA02009858A9 /* CHSMeHomeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSMeHomeTableViewCell.xib; sourceTree = "<group>"; };
@@ -983,6 +987,8 @@
 				1F3193591DB47C5F004B264F /* FTMiMyCompanyInfoViewController.swift */,
 				1FFECEB61DB9FB320039BFF3 /* FTMiChangeIdentityViewController.swift */,
 				1F4FDD201DE7CE9F008B17F7 /* FTMiCompanyAuthViewController.swift */,
+				1F2E7ADE1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift */,
+				1F2E7AE01DF55A2100477D83 /* FTMiCompanyAuthInfoViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1482,6 +1488,7 @@
 				1FEF80A41D810E5700486F9C /* FTTaNoPositionTableViewCell.swift in Sources */,
 				1FEF809F1D810A5B00486F9C /* FTMeHomeViewController.swift in Sources */,
 				1FF06CD31D7D609A0032943B /* DPDKeyboardListener.swift in Sources */,
+				1F2E7AE11DF55A2100477D83 /* FTMiCompanyAuthInfoViewController.swift in Sources */,
 				1FEC64DA1D9120A60045038C /* CHSMiSetPasswordViewController.swift in Sources */,
 				1FF06CD21D7D609A0032943B /* DPDConstants.swift in Sources */,
 				1FF06CC41D7D50E20032943B /* LFLUISegmentedControl.m in Sources */,
@@ -1586,6 +1593,7 @@
 				1FFECEB51DB9C3CB0039BFF3 /* CHSMiChangeIdentityViewController.swift in Sources */,
 				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,
 				1F4FD25B1D767CC500FF7040 /* Tool.swift in Sources */,
+				1F2E7ADF1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift in Sources */,
 				1FCC2FDF1DB607C0002360E4 /* FTPersonalViewController.swift in Sources */,
 				1F577B281DA9F25100AB5D99 /* CHSMeInvitedViewController.swift in Sources */,
 				1F31935A1DB47C5F004B264F /* FTMiMyCompanyInfoViewController.swift in Sources */,

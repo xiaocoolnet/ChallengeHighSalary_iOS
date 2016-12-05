@@ -414,6 +414,12 @@ class FTMiCompanyAuthViewController: UIViewController, UIScrollViewDelegate, UII
         
         //headerImg.image = selectedImage
         
+        let sureController = FTMiCompanyAuthSureViewController()
+        sureController.authImage = selectedImg
+        sureController.authType = companyAuthType(rawValue: Int(round(rootScrollview.contentOffset.x/rootScrollview.frame.width)))!
+
+        self.navigationController?.pushViewController(sureController, animated: true)
+        
         picker.dismiss(animated: true, completion: nil)
     }
 

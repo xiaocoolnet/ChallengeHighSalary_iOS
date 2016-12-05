@@ -58,9 +58,6 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         if UserDefaults.standard.string(forKey: myCity_key) == nil {
             
-//            if hudShowFlag {
-//
-//            }
             hud.hide(false)
             
             hud = MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -68,7 +65,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             hud.removeFromSuperViewOnHide = true
             
             self.loadLocation()
-//            self.navigationController?.pushViewController(ChChCityViewController(), animated: true)
+
         }else{
             
             myCity = UserDefaults.standard.string(forKey: myCity_key)!
@@ -101,13 +98,35 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             }
         }
         
-//        PublicNetUtil().getDictionaryList(parentid: "5") { (success, reponse) in
-//            <#code#>
-//        }
-//        
-//        PublicNetUtil().getDictionaryList(parentid: "5") { (success, reponse) in
-//            <#code#>
-//        }
+        PublicNetUtil().getDictionaryList(parentid: "5") { (success, response) in
+            if success {
+                self.salaryDrop.dataSource = []
+                let dicData = response as! [DicDataModel]
+                for dic in dicData {
+                    self.salaryDrop.dataSource.append(dic.name!)
+                }
+            }
+        }
+        
+        PublicNetUtil().getDictionaryList(parentid: "13") { (success, response) in
+            if success {
+                self.redEnvelopeDrop.dataSource = []
+                let dicData = response as! [DicDataModel]
+                for dic in dicData {
+                    self.redEnvelopeDrop.dataSource.append(dic.name!)
+                }
+            }
+        }
+        
+        PublicNetUtil().getDictionaryList(parentid: "18") { (success, response) in
+            if success {
+                self.scaleDrop.dataSource = []
+                let dicData = response as! [DicDataModel]
+                for dic in dicData {
+                    self.scaleDrop.dataSource.append(dic.name!)
+                }
+            }
+        }
         
     }
     
@@ -118,12 +137,6 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         cityBtn.frame = CGRect(x: 0, y: 0, width: 100, height: 44)
         cityBtn.resetdata(myCity, #imageLiteral(resourceName: "城市下拉箭头"))
         cityBtn.lb_titleColor = UIColor.white
-//        cityBtn.contentHorizontalAlignment = .left
-//        cityBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-//        cityBtn.setTitle(myCity, for: UIControlState())
-//        cityBtn.setImage(UIImage(named: "城市下拉箭头"), for: UIControlState())
-//        exchangeBtnImageAndTitle(cityBtn, margin: 5)
-//        adjustBtnsTitleLabelAndImgaeView(cityBtn)
         cityBtn.addTarget(self, action: #selector(cityBtnClick), for: .touchUpInside)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cityBtn)
         
@@ -190,9 +203,6 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     // MARK: 城市按钮点击事件
     func cityBtnClick() {
         self.navigationController?.pushViewController(ChChCityViewController(), animated: true)
-
-//        self.navigationController?.pushViewController(SingleLocationAloneViewController(), animated: true)
-
     }
     
     // MARK: 检索按钮点击事件
@@ -241,12 +251,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         // 薪资
         let salaryBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: (screenSize.width)/6, height: 37))
         salaryBtn?.resetdataCenter("薪资", #imageLiteral(resourceName: "ic_下拉"))
-//        let salaryBtn = UIButton()
-//        salaryBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-//        salaryBtn.setTitle("薪资", for: UIControlState())
-//        salaryBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
-//        exchangeBtnImageAndTitle(salaryBtn, margin: 5)
-        
+
         // 薪资 下拉
         salaryDrop.anchorView = salaryBtn
         
@@ -254,26 +259,16 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         salaryDrop.width = screenSize.width
         salaryDrop.direction = .bottom
         
-        salaryDrop.dataSource = ["不限","1万以下","1~2万","2~3万","3~4万","4~5万","5万以上"]
+//        salaryDrop.dataSource = ["不限","1万以下","1~2万","2~3万","3~4万","4~5万","5万以上"]
         
         // 下拉列表选中后的回调方法
         salaryDrop.selectionAction = { (index, item) in
             salaryBtn?.resetdataCenter(item, #imageLiteral(resourceName: "ic_下拉"))
-
-//            salaryBtn.setTitle(item, for: UIControlState())
-//            
-//            adjustBtnsTitleLabelAndImgaeView(salaryBtn)
-            
         }
         
         // 红包
         let redEnvelopeBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: (screenSize.width)/6, height: 37))
         redEnvelopeBtn?.resetdataCenter("红包", #imageLiteral(resourceName: "ic_下拉"))
-//        let redEnvelopeBtn = UIButton()
-//        redEnvelopeBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-//        redEnvelopeBtn.setTitle("红包", for: UIControlState())
-//        redEnvelopeBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
-//        exchangeBtnImageAndTitle(redEnvelopeBtn, margin: 5)
         
         // 红包 下拉
         redEnvelopeDrop.anchorView = redEnvelopeBtn
@@ -282,16 +277,12 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         redEnvelopeDrop.width = screenSize.width
         redEnvelopeDrop.direction = .bottom
         
-        redEnvelopeDrop.dataSource = ["全部","职位红包","面试红包","就职红包"]
+//        redEnvelopeDrop.dataSource = ["全部","职位红包","面试红包","就职红包"]
         
         // 下拉列表选中后的回调方法
         redEnvelopeDrop.selectionAction = { (index, item) in
             
             redEnvelopeBtn?.resetdataCenter(item, #imageLiteral(resourceName: "ic_下拉"))
-
-//            redEnvelopeBtn.setTitle(item, for: UIControlState())
-//            
-//            adjustBtnsTitleLabelAndImgaeView(redEnvelopeBtn)
 
         }
         
@@ -320,11 +311,6 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         // 规模
         let scaleBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: (screenSize.width)/3, height: 37))
         scaleBtn?.resetdataCenter("规模", #imageLiteral(resourceName: "ic_下拉"))
-//        let scaleBtn = UIButton()
-//        scaleBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-//        scaleBtn.setTitle("规模", for: UIControlState())
-//        scaleBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
-//        exchangeBtnImageAndTitle(scaleBtn, margin: 5)
         
         // 规模 下拉
         scaleDrop.anchorView = scaleBtn
@@ -333,37 +319,28 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         scaleDrop.width = screenSize.width
         scaleDrop.direction = .bottom
         
-        scaleDrop.dataSource = ["不限","一人","2人","3人"]
+//        scaleDrop.dataSource = ["不限","一人","2人","3人"]
         
         // 下拉列表选中后的回调方法
         scaleDrop.selectionAction = { (index, item) in
             
             scaleBtn?.resetdataCenter(item, #imageLiteral(resourceName: "ic_下拉"))
-
-//            scaleBtn.setTitle(item, for: UIControlState())
-//            
-//            adjustBtnsTitleLabelAndImgaeView(scaleBtn)
-
+            
         }
         
         // 附近
         let nearbyBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: (screenSize.width)/3, height: 37))
         nearbyBtn?.resetdataCenter("附近", #imageLiteral(resourceName: "ic_下拉"))
-
-//        let nearbyBtn = UIButton()
-//        nearbyBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-//        nearbyBtn.setTitle("附近", for: UIControlState())
-//        nearbyBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
-//        exchangeBtnImageAndTitle(nearbyBtn, margin: 5)
         
         // 附近 下拉
         nearbyDrop.anchorView = nearbyBtn
         
         nearbyDrop.bottomOffset = CGPoint(x: 0, y: 37)
         nearbyDrop.width = screenSize.width
+//        nearbyDrop.maxHeight = screenSize.height*0.3
         nearbyDrop.direction = .bottom
         
-        nearbyDrop.dataSource = ["测试用","一米","两米","三米"]
+//        nearbyDrop.dataSource = ["测试用","一米","两米","三米"]
         
         // 下拉列表选中后的回调方法
         nearbyDrop.selectionAction = { (index, item) in
@@ -428,6 +405,31 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             if selection == 1 {
                 _ = scaleDrop.show()
             }else if selection == 2 {
+                
+                let areaDic = NSDictionary.init(contentsOfFile: Bundle.main.path(forAuxiliaryExecutable: "area.plist")!)!  as! [String:[String:Array<String>]]
+                var provinceArray = Array(areaDic.keys)
+                provinceArray = provinceArray.sorted(by: { (str1, str2) -> Bool in
+                    str1 < str2
+                })
+                
+                var qu = [String]()
+                for (i,province) in provinceArray.enumerated() {
+                    let cityArray = Array(areaDic[province]!.keys)
+
+                    for (j,city) in cityArray.enumerated() {
+                        
+                        if changeCityName(cityName: city) == myCity {
+                            qu = areaDic[province]![city]!
+                            break
+                        }
+                    }
+                    
+                    if qu != [] {
+                        break
+                    }
+                }
+                
+                nearbyDrop.dataSource = qu
                 _ = nearbyDrop.show()
             }
         }
