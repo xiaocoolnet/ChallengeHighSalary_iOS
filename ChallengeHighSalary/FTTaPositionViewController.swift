@@ -20,12 +20,12 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
     
     var pickSelectedRowArray = [[0,0],[0],[0],[0],[0,0]]
     
-    let pickLowArray = ["1","2","3","4","5"]
-    var pickSupArray = ["1","2","3","4","5"]
+    let pickLowArray = ["1","2","3","4","5","6","7","8","9","10","15","20"]
+    var pickSupArray = ["1","2","3","4","5","6","7","8","9","10","15","20"]
     
     let pickWorkPropertyArray = ["全职","兼职"]
-    let pickExpRequiredArray = ["不限","应届生","1年以内","1-3年"]
-    let pickEduRequiredArray = ["不限","大专","本科","研究生"]
+    var pickExpRequiredArray = [String]()
+    var pickEduRequiredArray = [String]()
     
     var pickerView = UIPickerView()
     
@@ -34,8 +34,8 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         
         // Do any additional setup after loading the view.
         
-        self.loadData()
         self.setSubviews()
+        self.loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +64,61 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         })
         
         cityArray = Array(areaDic[provinceArray.first!]!.keys)
+        
+        loadNetData()
+    }
+    
+    // MARK: - 获取数据
+    func loadNetData() {
+        
+        var flag = 0
+        
+        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        hud?.removeFromSuperViewOnHide = true
+        hud?.margin = 10
+        
+        PublicNetUtil().getDictionaryList(parentid: "52") { (success, response) in
+            if success {
+                
+                let dicData = response as! [DicDataModel]
+                
+                for dic in dicData {
+                    self.pickExpRequiredArray.append((dic.name ?? "")!)
+                }
+                
+                flag += 1
+                if flag >= 2 {
+                    hud?.hide(true)
+                }
+                
+            }else{
+                
+                self.loadNetData()
+               
+            }
+        }
+        
+        PublicNetUtil().getDictionaryList(parentid: "60") { (success, response) in
+            if success {
+                hud?.hide(true)
+                let dicData = response as! [DicDataModel]
+                
+                for dic in dicData {
+                    self.pickEduRequiredArray.append((dic.name ?? "")!)
+                }
+                
+                flag += 1
+                if flag >= 2 {
+                    hud?.hide(true)
+                }
+                
+            }else{
+                
+                self.loadNetData()
+
+            }
+        }
+        
     }
     
     // MARK: popViewcontroller
@@ -190,6 +245,17 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         
         if (indexPath as NSIndexPath).section == 0 {
             cell?.detailTextLabel?.text = ""
+        }else if indexPath.section == 1 && indexPath.row == 2 {
+            
+            var str = ""
+            if selectedNameArray[1][2] == "技能要求" || selectedNameArray[1][2] == "" {
+                str = "技能要求"
+            }else{
+                str = "\(selectedNameArray[1][2].components(separatedBy: "-").count)个技能"
+            }
+            
+            cell?.detailTextLabel?.text = str
+            
         }else if indexPath.section == selectedNameArray.count-1 && indexPath.row == 2 {
             cell?.detailTextLabel?.text = selectedNameArray[3][2] == "职位描述" ? "未填写":"已填写"
             
