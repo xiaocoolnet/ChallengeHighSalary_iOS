@@ -13,7 +13,7 @@ class FTTaCompanyInfoViewController: UIViewController, UITableViewDataSource,UIT
     let rootTableView = UITableView()
     
     let nameArray = ["公司logo","公司全称","公司官网","所属行业","人员规模","融资阶段"]
-    let detailNameArray = ["","北京互联科技有限公司","http://www.hulian.net","移动互联网","20-99人","未融资"]
+    let detailNameArray = [CHSCompanyInfo.currentCompanyInfo.logo,CHSCompanyInfo.currentCompanyInfo.company_name,CHSCompanyInfo.currentCompanyInfo.company_web,CHSCompanyInfo.currentCompanyInfo.industry,CHSCompanyInfo.currentCompanyInfo.count,CHSCompanyInfo.currentCompanyInfo.financing]
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -80,14 +80,16 @@ class FTTaCompanyInfoViewController: UIViewController, UITableViewDataSource,UIT
         if (indexPath as NSIndexPath).row == 0 {
             let logoImg = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
             logoImg.layer.cornerRadius = 20
-            logoImg.backgroundColor = UIColor.orange
+            logoImg.clipsToBounds = true
+            
+            logoImg.sd_setImage(with: URL(string: kImagePrefix+detailNameArray[indexPath.row]), placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
             cell?.accessoryView = logoImg
         }else{
             cell?.accessoryView = nil
             cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 14)
             cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
             cell?.detailTextLabel?.textAlignment = .right
-            cell?.detailTextLabel?.text = detailNameArray[(indexPath as NSIndexPath).row]
+            cell?.detailTextLabel?.text = detailNameArray[indexPath.row]
         }
         
         return cell!

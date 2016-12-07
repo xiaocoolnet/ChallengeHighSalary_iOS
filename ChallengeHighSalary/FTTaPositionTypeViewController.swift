@@ -12,6 +12,8 @@ class FTTaPositionTypeViewController: UIViewController, UITableViewDataSource, U
     
     let rootTableView = UITableView()
     
+    var positionTypeArray = [DicDataModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,6 +27,40 @@ class FTTaPositionTypeViewController: UIViewController, UITableViewDataSource, U
         
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = true
+        
+        if positionTypeArray.count <= 0 {
+            loadData()
+        }
+    }
+    
+    // MARK: - 获取数据
+    func loadData() {
+        
+        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        hud?.removeFromSuperViewOnHide = true
+        hud?.margin = 10
+        hud?.labelText = "正在获取职位类型"
+        
+        PublicNetUtil().getDictionaryList(parentid: "1") { (success, response) in
+            if success {
+                hud?.hide(true)
+                self.positionTypeArray = response as! [DicDataModel]
+                self.rootTableView.reloadData()
+            }else{
+                hud?.mode = .text
+                hud?.labelText = "职位类型获取失败"
+                hud?.hide(true, afterDelay: 1)
+                
+                let time: TimeInterval = 1.0
+                let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                
+                DispatchQueue.main.asyncAfter(deadline: delay) {
+                    
+                    _ = self.navigationController?.popViewController(animated: true)
+                    
+                }
+            }
+        }
     }
     
     // MARK: popViewcontroller
@@ -53,7 +89,7 @@ class FTTaPositionTypeViewController: UIViewController, UITableViewDataSource, U
     
     // MARK: UITableView DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return positionTypeArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -70,13 +106,13 @@ class FTTaPositionTypeViewController: UIViewController, UITableViewDataSource, U
         cell?.textLabel?.textAlignment = .left
         cell?.textLabel?.textColor = UIColor.black
         
-        cell?.textLabel!.text = "网络|通信|电子"
+        cell?.textLabel!.text = positionTypeArray[indexPath.row].name
         
         cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 13)
         cell?.detailTextLabel?.textAlignment = .left
         cell?.detailTextLabel?.textColor = UIColor.lightGray
         
-        cell?.detailTextLabel?.text = "计算机/互联网/通信 | 电子/电气 | 机械/仪器仪表"
+        cell?.detailTextLabel?.text = positionTypeArray[indexPath.row].description
         
         cell?.backgroundColor = UIColor.white
         
@@ -85,7 +121,10 @@ class FTTaPositionTypeViewController: UIViewController, UITableViewDataSource, U
     
     // MARK: UITableView Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(FTTaChoosePositionViewController(), animated: true)
+        
+        let choosePositionController = FTTaChoosePositionViewController()
+        choosePositionController.positionTypeID = (self.positionTypeArray[indexPath.row].term_id ?? "")!
+        self.navigationController?.pushViewController(choosePositionController, animated: true)
     }
     
     override func didReceiveMemoryWarning() {
