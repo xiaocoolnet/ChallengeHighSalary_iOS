@@ -413,10 +413,10 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
                 })
                 
                 var qu = [String]()
-                for (i,province) in provinceArray.enumerated() {
+                for province in provinceArray {
                     let cityArray = Array(areaDic[province]!.keys)
 
-                    for (j,city) in cityArray.enumerated() {
+                    for city in cityArray {
                         
                         if changeCityName(cityName: city) == myCity {
                             qu = areaDic[province]![city]!

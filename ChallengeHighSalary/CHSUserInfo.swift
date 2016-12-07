@@ -114,6 +114,16 @@ class CHSUserInfo {
     
 }
 
+class CHSCompanyInfo {
+    
+    
+    static let currentCompanyInfo = Company_infoDataModel()
+    fileprivate init() {
+        
+    }
+    
+}
+
 class UserInfoWork {
 
     var userid = ""

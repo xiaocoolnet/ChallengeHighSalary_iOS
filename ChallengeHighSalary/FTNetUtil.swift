@@ -65,6 +65,35 @@ class FTNetUtil: NSObject {
                     
                     let company_infoModel = JSONDeserializer<Company_infoModel>.deserializeFrom(dict: json as! NSDictionary?)!
 
+                    CHSCompanyInfo.currentCompanyInfo.company_name = (company_infoModel.data?.company_name ?? "")!
+                    
+                    CHSCompanyInfo.currentCompanyInfo.financing = (company_infoModel.data?.financing ?? "")!
+                    
+                    CHSCompanyInfo.currentCompanyInfo.jobs = company_infoModel.data?.jobs
+                    
+                    CHSCompanyInfo.currentCompanyInfo.count = (company_infoModel.data?.count ?? "")!
+                    
+                    CHSCompanyInfo.currentCompanyInfo.companyid = (company_infoModel.data?.companyid)!
+                    
+                    CHSCompanyInfo.currentCompanyInfo.industry = (company_infoModel.data?.industry ?? "")!
+                    
+                    CHSCompanyInfo.currentCompanyInfo.logo = (company_infoModel.data?.logo ?? "")!
+                    
+                    CHSCompanyInfo.currentCompanyInfo.company_web = (company_infoModel.data?.company_web ?? "")!
+                    
+                    
+                    CHSCompanyInfo.currentCompanyInfo.company_score = (company_infoModel.data?.company_score ?? "")!
+                    
+                    CHSCompanyInfo.currentCompanyInfo.authentication = (company_infoModel.data?.authentication ?? "")!
+                    
+                    CHSCompanyInfo.currentCompanyInfo.distance = (company_infoModel.data?.distance ?? "")!
+                    
+                    CHSCompanyInfo.currentCompanyInfo.creat_time = (company_infoModel.data?.creat_time ?? "")!
+                    
+                    CHSCompanyInfo.currentCompanyInfo.com_introduce = (company_infoModel.data?.com_introduce ?? "")!
+                    
+                    CHSCompanyInfo.currentCompanyInfo.produte_info = (company_infoModel.data?.produte_info ?? "")!
+                    
                     handle(true, company_infoModel.data)
                 }else{
                     

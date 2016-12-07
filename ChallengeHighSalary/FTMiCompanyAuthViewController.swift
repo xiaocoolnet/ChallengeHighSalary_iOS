@@ -12,7 +12,7 @@ class FTMiCompanyAuthViewController: UIViewController, UIScrollViewDelegate, UII
 
     let authImgArray = [#imageLiteral(resourceName: "ic_comAuth_工牌"),#imageLiteral(resourceName: "ic_comAuth_营业执照")]
     let authImgTagArray = ["工牌","营业执照"]
-    
+        
     let rootScrollview = UIScrollView()
     
     let leftBtn = UIButton()
@@ -47,6 +47,8 @@ class FTMiCompanyAuthViewController: UIViewController, UIScrollViewDelegate, UII
         self.navigationController?.navigationBar.isTranslucent = true
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "ic_clear"), for: .default)
+        
+        dotBtnClick(leftDotImg)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -139,6 +141,7 @@ class FTMiCompanyAuthViewController: UIViewController, UIScrollViewDelegate, UII
         advantageBtn.layer.borderWidth = 1
         advantageBtn.setTitleColor(baseColor, for: .normal)
         advantageBtn.setTitle("认证有啥好处？", for: .normal)
+        advantageBtn.addTarget(self, action: #selector(advantageBtnClick), for: .touchUpInside)
         self.view.addSubview(advantageBtn)
         
         let timerShaftImg = UIView(frame: CGRect(x: 35, y: advantageBtn.frame.minY-35, width: screenSize.width-70, height: 1))
@@ -181,6 +184,7 @@ class FTMiCompanyAuthViewController: UIViewController, UIScrollViewDelegate, UII
         instructionBtn.backgroundColor = baseColor
         instructionBtn.setTitleColor(UIColor.white, for: .normal)
         instructionBtn.setTitle("认证须知", for: .normal)
+        instructionBtn.addTarget(self, action: #selector(instructionBtnClick(_:)), for: .touchUpInside)
         instructionBgImg.addSubview(instructionBtn)
         
         // 二 说明背景
@@ -272,6 +276,10 @@ class FTMiCompanyAuthViewController: UIViewController, UIScrollViewDelegate, UII
     }
     
     // MARK: - 认真须知按钮 点击事件
+    let tipTextArray = [
+        "1.上传工牌正面，保证Boss姓名、职务、头像与个人信息一致\n2.确保公章的公司全称，与您个人信息的公司全称一致\n3.确保所有信息清晰可辨认",
+        "1.上传营业执照正面，确保所有信息清晰可见\n2.确保营业执照上的公司全称，与您个人信息中的公司全称一致"
+    ]
     func instructionBtnClick(_ instructionBtn:UIButton) {
         
         let bgView = UIButton(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
@@ -280,36 +288,51 @@ class FTMiCompanyAuthViewController: UIViewController, UIScrollViewDelegate, UII
         bgView.addTarget(self, action: #selector(alertViewHide(_:)), for: .touchUpInside)
         UIApplication.shared.keyWindow!.addSubview(bgView)
         
-        let alertView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width*0.6, height: 0))
-        alertView.backgroundColor = UIColor.white
+        let alertView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width*0.7, height: 0))
+        alertView.backgroundColor = UIColor(red: 222/255.0, green: 246/255.0, blue: 231/255.0, alpha: 1)
         alertView.layer.cornerRadius = 8
         alertView.center.x = bgView.center.x
         bgView.addSubview(alertView)
         
         // 图片
-        let iconImg1 = UIImageView(frame: CGRect(x: 8, y: 8, width: alertView.frame.width-16, height: screenSize.height*0.6))
-        iconImg1.image = authImgArray[0]
+        let iconImg1 = UIImageView(frame: CGRect(x: 8, y: 8, width: alertView.frame.width-16, height: screenSize.height*0.3))
+        iconImg1.contentMode = .scaleAspectFit
+        iconImg1.clipsToBounds = true
+        iconImg1.image = authImgArray[Int(round(rootScrollview.contentOffset.x/rootScrollview.frame.width))]
+//        iconImg1.backgroundColor = UIColor(red: 222/255.0, green: 246/255.0, blue: 231/255.0, alpha: 1)
         alertView.addSubview(iconImg1)
         
-        let tipLabel1 = UILabel(frame: CGRect(x: 8, y: iconImg1.frame.maxY+8, width: alertView.frame.width - 16, height: 25))
+        let tipLabel1 = UILabel(frame: CGRect(x: 10, y: iconImg1.frame.maxY+8+8, width: alertView.frame.width - 20, height: calculateHeight(tipTextArray[Int(round(rootScrollview.contentOffset.x/rootScrollview.frame.width))], size: 14, width: alertView.frame.width - 16)))
+        tipLabel1.numberOfLines = 0
         tipLabel1.textColor = UIColor.darkGray
         tipLabel1.font = UIFont.systemFont(ofSize: 14)
         tipLabel1.textAlignment = .left
         tipLabel1.adjustsFontSizeToFitWidth = true
-        tipLabel1.text = "1.上传工牌正面，保证Boss姓名、职务、头像与个人信息一致\n2.确保公章的公司全称，与您个人信息的公司全称一致\n3.确保所有信息清晰可辨认"
+        tipLabel1.text = tipTextArray[Int(round(rootScrollview.contentOffset.x/rootScrollview.frame.width))]
         alertView.addSubview(tipLabel1)
         
-        let cancelBtn = UIButton(frame: CGRect(
-            x: 10,
+        let cancelBtn = UILabel(frame: CGRect(
+            x: 0,
             y: tipLabel1.frame.maxY+10,
-            width: alertView.frame.width*0.4,
+            width: alertView.frame.width,
             height: 30))
-        cancelBtn.tag = 102
-        cancelBtn.setTitleColor(UIColor.blue, for: .normal)
-        cancelBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        cancelBtn.setTitle("取消", for: .normal)
-        cancelBtn.addTarget(self, action: #selector(alertViewHide(_:)), for: .touchUpInside)
+        cancelBtn.textAlignment = .center
+        cancelBtn.layer.backgroundColor = baseColor.cgColor
+        cancelBtn.textColor = UIColor.white
+        cancelBtn.font = UIFont.systemFont(ofSize: 16)
+        cancelBtn.text = "工牌"
         alertView.addSubview(cancelBtn)
+//        let cancelBtn = UIButton(frame: CGRect(
+//            x: 10,
+//            y: tipLabel1.frame.maxY+10,
+//            width: alertView.frame.width*0.4,
+//            height: 30))
+//        cancelBtn.tag = 102
+//        cancelBtn.setTitleColor(UIColor.blue, for: .normal)
+//        cancelBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+//        cancelBtn.setTitle("取消", for: .normal)
+//        cancelBtn.addTarget(self, action: #selector(alertViewHide(_:)), for: .touchUpInside)
+//        alertView.addSubview(cancelBtn)
         
         
         alertView.frame.size.height = cancelBtn.frame.maxY
@@ -384,6 +407,43 @@ class FTMiCompanyAuthViewController: UIViewController, UIScrollViewDelegate, UII
         picker.allowsEditing = true
         self.present(picker, animated: true, completion: nil)
     }
+    
+    // MARK: - 认证有啥好处 点击事件
+    func advantageBtnClick() {
+        
+        let bgView = UIButton(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
+        bgView.backgroundColor = UIColor(white: 0.5, alpha: 0.3)
+        bgView.tag = 101
+        bgView.addTarget(self, action: #selector(alertViewHide(_:)), for: .touchUpInside)
+        UIApplication.shared.keyWindow!.addSubview(bgView)
+        
+//        let alertImg = UIButton(frame: CGRect(x: 0, y: screenSize.height*0.15, width: screenSize.width, height: screenSize.height*0.7))
+//        alertImg.setImage(#imageLiteral(resourceName: "ic_企业认证_认证好处"), for: .normal)
+//        alertImg.imageView?.contentMode = UIViewContentMode(rawValue: UIViewContentMode.scaleAspectFit.rawValue|UIViewContentMode.scaleAspectFill.rawValue)!
+//        alertImg.imageView?.clipsToBounds = true
+//        bgView.addSubview(alertImg)
+        
+        let alertImg = UIImageView(frame: CGRect(x: 0, y: screenSize.height*0.15, width: screenSize.width, height: screenSize.height*0.7))
+        alertImg.isUserInteractionEnabled = true
+        alertImg.image = #imageLiteral(resourceName: "ic_企业认证_认证好处")
+//        alertImg.contentMode = UIViewContentMode(rawValue: UIViewContentMode.scaleAspectFit.rawValue|UIViewContentMode.scaleAspectFill.rawValue)!
+        alertImg.contentMode = UIViewContentMode.scaleAspectFit
+        alertImg.clipsToBounds = true
+        bgView.addSubview(alertImg)
+        
+        let lookBtn = UIButton(frame: CGRect(x: 0, y: alertImg.frame.size.height*0.9, width: calculateWidth("我知道了", size: 15, height: 30)+30, height: alertImg.frame.size.height*0.05))
+        lookBtn.tag = 102
+        lookBtn.layer.cornerRadius = alertImg.frame.size.height*0.025
+        lookBtn.backgroundColor = baseColor
+        lookBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        lookBtn.setTitleColor(UIColor.white, for: .normal)
+        lookBtn.setTitle("我知道了", for: .normal)
+        lookBtn.frame.origin.x = (alertImg.frame.width-lookBtn.frame.width)/2.0
+        lookBtn.addTarget(self, action: #selector(alertViewHide(_:)), for: .touchUpInside)
+        alertImg.addSubview(lookBtn)
+        
+    }
+
     
     // MARK: - UIScrollViewDelegate
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

@@ -17,6 +17,7 @@ enum companyAuthType: Int {
 class FTMiCompanyAuthSureViewController: UIViewController {
 
     var authImage = UIImage()
+    
     var tipAttrStr = NSMutableAttributedString()
     var tip2AttrStr = NSMutableAttributedString()
 
@@ -112,7 +113,8 @@ class FTMiCompanyAuthSureViewController: UIViewController {
         
         let editBtn = UIButton(frame: CGRect(x: personalBgView.frame.width-35-15, y: personalBgView.frame.height/2.0-17.5, width: 35, height: 35))
         editBtn.layer.cornerRadius = 17.5
-        editBtn.backgroundColor = baseColor
+//        editBtn.backgroundColor = baseColor
+        editBtn.setImage(#imageLiteral(resourceName: "ic_企业认证_编辑"), for: .normal)
         editBtn.addTarget(self, action: #selector(editBtnClick), for: .touchUpInside)
         personalBgView.addSubview(editBtn)
         
@@ -138,6 +140,7 @@ class FTMiCompanyAuthSureViewController: UIViewController {
         reBtn.backgroundColor = baseColor
         reBtn.layer.cornerRadius = 8
         reBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        reBtn.addTarget(self, action: #selector(reBtnClick), for: .touchUpInside)
         reBtn.setTitle("重新上传", for: .normal)
         
         var subHeight:CGFloat = 0
@@ -178,6 +181,11 @@ class FTMiCompanyAuthSureViewController: UIViewController {
     // MARK: - 编辑按钮点击事件
     func editBtnClick() {
         self.navigationController?.pushViewController(FTMiCompanyAuthInfoViewController(), animated: true)
+    }
+    
+    // MARK: - 重新上传按钮 点击事件
+    func reBtnClick() {
+        _ = self.navigationController?.popViewController(animated: true)
     }
 
     override func didReceiveMemoryWarning() {

@@ -14,7 +14,7 @@ class FTMiCompanyAuthInfoViewController: UIViewController, UITableViewDataSource
     
     let nameArray = ["公司全称","所属行业","人员规模","融资阶段"]
     // TODO:
-    let detailNameArray = [CHSUserInfo.currentUserInfo.company,CHSUserInfo.currentUserInfo.categories,"20-99人","未融资"]
+    let detailNameArray = [CHSCompanyInfo.currentCompanyInfo.company_name,CHSCompanyInfo.currentCompanyInfo.industry,CHSCompanyInfo.currentCompanyInfo.count,CHSCompanyInfo.currentCompanyInfo.financing]
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -72,16 +72,17 @@ class FTMiCompanyAuthInfoViewController: UIViewController, UITableViewDataSource
         
         let noteLab2 = UILabel(frame: CGRect(x: headerImg.frame.maxX+10, y: noteLab1.frame.maxY, width: personalBgView.frame.width-35-15-(headerImg.frame.maxX)-20, height: 25))
         noteLab2.font = UIFont.systemFont(ofSize: 15)
-        noteLab2.textColor = UIColor.gray
-        noteLab2.text = "企业邮箱:\(CHSUserInfo.currentUserInfo.email)"
+        noteLab2.textColor = UIColor.black
+        noteLab2.text = "企业邮箱:\(CHSUserInfo.currentUserInfo.email == "" ? "暂无":CHSUserInfo.currentUserInfo.email)"
         personalBgView.addSubview(noteLab2)
         rootTableView.tableHeaderView = personalBgView
         
-        let footLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 25))
+        let footLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: calculateHeight("若要修改个人信息,请在【我的】页面点击【头像】\n若要修改公司信息,请到【我的-我的公司信息】页面", size: 14, width: screenSize.width)))
+        footLab.numberOfLines = 0
         footLab.textColor = UIColor.darkGray
         footLab.font = UIFont.systemFont(ofSize: 14)
         footLab.textAlignment = .center
-        footLab.text = "若要修改公司信息,请到【我的-我的公司信息】页面"
+        footLab.text = "若要修改个人信息,请在【我的】页面点击【头像】\n若要修改公司信息,请到【我的-我的公司信息】页面"
         rootTableView.tableFooterView = footLab
     }
     
@@ -144,6 +145,10 @@ class FTMiCompanyAuthInfoViewController: UIViewController, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return kHeightScale*35
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 5
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

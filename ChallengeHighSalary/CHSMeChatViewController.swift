@@ -48,11 +48,11 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func newMessageRecived(noti:Notification) {
-        let userInfo = noti.userInfo
+//        let userInfo = noti.userInfo
         
         
         
-        let chatData = ChatData()
+//        let chatData = ChatData()
         
 //        chatData.send_uid = userInfo?["extras"] ["v"] as! String
 //        chatData.content = userInfo?["alert"] as! String
