@@ -124,6 +124,7 @@
 		1FCDFEE01D73E6DB0067970B /* ChallengeHighSalaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEDF1D73E6DB0067970B /* ChallengeHighSalaryUITests.swift */; };
 		1FCDFF011D7411160067970B /* LoHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEFF1D7411160067970B /* LoHomeViewController.swift */; };
 		1FCFE71B1DE6D54500D5FFA9 /* FTTaCompanyWelfareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCFE71A1DE6D54500D5FFA9 /* FTTaCompanyWelfareViewController.swift */; };
+		1FD0AACC1DF80BE90021A366 /* FTMiInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD0AACB1DF80BE90021A366 /* FTMiInfoViewController.swift */; };
 		1FD6976E1DB0B8F9008D0A14 /* CHSReProjectDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6976D1DB0B8F9008D0A14 /* CHSReProjectDescriptionViewController.swift */; };
 		1FD697731DB0CC22008D0A14 /* LoReCHSEduExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD697721DB0CC22008D0A14 /* LoReCHSEduExperienceViewController.swift */; };
 		1FD697751DB0CF63008D0A14 /* LoReCHSJobExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD697741DB0CF63008D0A14 /* LoReCHSJobExperienceViewController.swift */; };
@@ -353,6 +354,7 @@
 		1FCDFEE11D73E6DB0067970B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FCDFEFF1D7411160067970B /* LoHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoHomeViewController.swift; sourceTree = "<group>"; };
 		1FCFE71A1DE6D54500D5FFA9 /* FTTaCompanyWelfareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaCompanyWelfareViewController.swift; sourceTree = "<group>"; };
+		1FD0AACB1DF80BE90021A366 /* FTMiInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiInfoViewController.swift; sourceTree = "<group>"; };
 		1FD6976D1DB0B8F9008D0A14 /* CHSReProjectDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReProjectDescriptionViewController.swift; sourceTree = "<group>"; };
 		1FD697721DB0CC22008D0A14 /* LoReCHSEduExperienceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReCHSEduExperienceViewController.swift; sourceTree = "<group>"; };
 		1FD697741DB0CF63008D0A14 /* LoReCHSJobExperienceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReCHSJobExperienceViewController.swift; sourceTree = "<group>"; };
@@ -989,6 +991,7 @@
 				1F4FDD201DE7CE9F008B17F7 /* FTMiCompanyAuthViewController.swift */,
 				1F2E7ADE1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift */,
 				1F2E7AE01DF55A2100477D83 /* FTMiCompanyAuthInfoViewController.swift */,
+				1FD0AACB1DF80BE90021A366 /* FTMiInfoViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1467,6 +1470,7 @@
 				1F1224DB1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift in Sources */,
 				1F87411B1D82AF47007B8793 /* LoForgetPasswordViewController.swift in Sources */,
 				1FCCC5991DAE002C0065A799 /* CHSReChooseIndustryCategoriesViewController.swift in Sources */,
+				1FD0AACC1DF80BE90021A366 /* FTMiInfoViewController.swift in Sources */,
 				1FDB00211D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift in Sources */,
 				1FB6D5FF1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.swift in Sources */,
 				1FBE97501DC7193700F0EB4D /* CHSMeChatViewController.swift in Sources */,

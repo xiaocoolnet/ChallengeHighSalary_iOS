@@ -122,7 +122,18 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         nameLab.textColor = UIColor.white
         nameLab.font = UIFont.systemFont(ofSize: 14)
         nameLab.text = CHSUserInfo.currentUserInfo.realName
+        nameLab.sizeToFit()
         headerView.addSubview(nameLab)
+        
+        let editBtn = UIButton(frame: CGRect(
+            x: nameLab.frame.maxX+8,
+            y: 0,
+            width: nameLab.frame.height*0.75,
+            height: nameLab.frame.height))
+        editBtn.setImage(#imageLiteral(resourceName: "ic_FT_Mi_修改"), for: .normal)
+        editBtn.center.y = nameLab.center.y
+        editBtn.addTarget(self, action: #selector(editBtnClick), for: .touchUpInside)
+        headerView.addSubview(editBtn)
         
         jobStatusLab.frame = CGRect(
             x: headerImgView.frame.maxX+kWidthScale*15,
@@ -152,6 +163,11 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK:- 发布职位按钮点击事件
     func postPositionBtnClick() {
         self.navigationController?.pushViewController(FTTaPositionViewController(), animated: true)
+    }
+    
+    // MARK:- 编辑个人信息按钮点击事件
+    func editBtnClick() {
+        self.navigationController?.pushViewController(FTMiInfoViewController(), animated: true)
     }
     
     // MARK:- tableview datasource
