@@ -135,6 +135,14 @@ class FTNetUtil: NSObject {
 
 //                let checkCode:StatusModel = StatusModel.jsonToModel(json)
                 if checkCode.status == "success" {
+                    
+                    CHSCompanyInfo.currentCompanyInfo.logo = logo
+                    CHSCompanyInfo.currentCompanyInfo.company_name = company_name
+                    CHSCompanyInfo.currentCompanyInfo.company_web = company_web
+                    CHSCompanyInfo.currentCompanyInfo.industry = industry
+                    CHSCompanyInfo.currentCompanyInfo.count = count
+                    CHSCompanyInfo.currentCompanyInfo.financing = financing
+                    
                     handle(true, nil)
                 }else{
                     

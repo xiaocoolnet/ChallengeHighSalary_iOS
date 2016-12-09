@@ -272,6 +272,16 @@ class LoginNetUtil: NSObject {
                 let status = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
 
                 if status.status == "success" {
+                    
+                    CHSUserInfo.currentUserInfo.avatar = avatar
+                    CHSUserInfo.currentUserInfo.realName = realname
+                    CHSUserInfo.currentUserInfo.myjob = myjob
+                    CHSUserInfo.currentUserInfo.email = email
+                    CHSUserInfo.currentUserInfo.company = company
+                    CHSUserInfo.currentUserInfo.qqNumber = qq
+                    CHSUserInfo.currentUserInfo.weixinNumber = weixin
+                    CHSUserInfo.currentUserInfo.weiboNumber = weibo
+                    
                     handle(true, "" as AnyObject?)
                 }else{
                     
@@ -297,7 +307,7 @@ class LoginNetUtil: NSObject {
         NetUtil.net.uploadWithPOST(url, data: data!, name: "upfile", fileName: imageName, mimeType: "image/png") { (resultType) in
             switch resultType {
             case .success:
-                
+                CHSCompanyInfo.currentCompanyInfo.logo = imageName
                 handle(true, UIImage(data: data!))
                 
             case .failure:

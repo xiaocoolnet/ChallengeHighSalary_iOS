@@ -17,11 +17,14 @@ enum FromVCType {
 
 class CHSReChooseIndustryCategoriesViewController: UIViewController {
     
-    let industryNameArray = ["数据分析","移动产品","电子商务","智能硬件","电子商务","电子商务","智能硬件","智能硬件","项目管理","产品经理","交互设计","APP","用户研究","产品助理","交互设计","游戏策划","产品总监","产品助理","产品助理","在线教育","网页设计","游戏策划","产品总监","游戏策划","产品总监","无线产品","在线教育","网页设计","在线教育","网页设计","无线产品","无线产品","数据分析","移动产品","电子商务","智能硬件","电子商务","电子商务","智能硬件","智能硬件","项目管理","产品经理","交互设计","APP","用户研究","产品助理","交互设计","游戏策划","产品总监","产品助理","产品助理","在线教育","网页设计","游戏策划","产品总监","游戏策划","产品总监","无线产品","在线教育","网页设计","在线教育","网页设计","无线产品","无线产品"]
+    var industryNameArray = [String]()
     
     var navTitle = ""
     
     var vcType:FromVCType = .default
+    
+    var industryStr = CHSCompanyInfo.currentCompanyInfo.industry
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +32,8 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         setSubviews()
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,6 +41,51 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
         
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = true
+        
+        if industryNameArray.count == 0 {
+            loadData()
+        }
+    }
+    
+    // MARK: 加载数据
+    func loadData() {
+                
+        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        hud?.removeFromSuperViewOnHide = true
+        hud?.margin = 10
+        hud?.labelText = "正在获取公司行业"
+        
+        PublicNetUtil().getDictionaryList(parentid: "18") { (success, response) in
+            if success {
+                
+                hud?.hide(true)
+                
+                self.industryNameArray = []
+                let dicData = response as! [DicDataModel]
+                for dic in dicData {
+                    self.industryNameArray.append(dic.name!)
+                }
+                if !self.industryNameArray.contains(self.industryStr) {
+                    self.industryNameArray.append(self.industryStr)
+                }
+                self.setIndustry()
+                
+            }else{
+                hud?.mode = .text
+                hud?.labelText = "公司行业获取失败"
+                hud?.hide(true, afterDelay: 1)
+                
+                let time: TimeInterval = 1.0
+                let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                
+                DispatchQueue.main.asyncAfter(deadline: delay) {
+                    
+                    _ = self.navigationController?.popViewController(animated: true)
+                    
+                }
+            }
+        }
+        
     }
     
     // MARK: popViewcontroller
@@ -54,9 +104,49 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
         
         self.title = navTitle
         
+        let noMyIndustryBtn = UIButton(frame: CGRect(x: 0, y: screenSize.height-44, width: screenSize.width, height: 44))
+        noMyIndustryBtn.backgroundColor = UIColor.white
+        noMyIndustryBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        noMyIndustryBtn.setTitleColor(baseColor, for: UIControlState())
+        noMyIndustryBtn.setTitle("我找不到符合的行业", for: UIControlState())
+        noMyIndustryBtn.addTarget(self, action: #selector(noMyIndustryBtnClick), for: .touchUpInside)
+        self.view.addSubview(noMyIndustryBtn)
+        
+    }
+    
+    // MARK: - 找不到符合行业点击事件
+    func noMyIndustryBtnClick() {
+        let alert = UIAlertController(title: nil, message: "输入标签不超过10个字", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        let sureAction = UIAlertAction(title: "确定", style: .default, handler: { (sureAction) in
+            if (alert.textFields?.first?.text)! == "" {
+                return
+            }
+            self.industryNameArray.append((alert.textFields?.first?.text)!)
+            self.setIndustry(isAdd: true)
+        })
+        alert.addAction(sureAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: - 设置行业
+    func setIndustry(isAdd:Bool = false) {
+        
+        self.view.viewWithTag(12345)?.removeFromSuperview()
+        
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-64-44))
+        scrollView.tag = 12345
         
         self.view.addSubview(scrollView)
+        
+//        var noIndustry = true
         
         // 设置标签 button
         let industryBtnMargin_x:CGFloat = 10
@@ -82,6 +172,12 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
             industryBtn.addTarget(self, action: #selector(industryBtnClick(_:)), for: .touchUpInside)
             scrollView.addSubview(industryBtn)
             
+            if industryName == self.industryStr {
+                industryBtn.backgroundColor = baseColor
+                industryBtn.isSelected = true
+//                noIndustry = false
+            }
+            
             if i+1 < industryNameArray.count {
                 
                 let nextBtnWidth = calculateWidth(industryNameArray[i+1], size: 14, height: industryBtnHeight)+industryBtnMargin_x*4
@@ -98,14 +194,9 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
         
         scrollView.contentSize = CGSize(width: 0, height: industryBtnHeight + industryBtnY + industryBtnMargin_y)
         
-        let noMyIndustryBtn = UIButton(frame: CGRect(x: 0, y: screenSize.height-44, width: screenSize.width, height: 44))
-        noMyIndustryBtn.backgroundColor = UIColor.white
-        noMyIndustryBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        noMyIndustryBtn.setTitleColor(baseColor, for: UIControlState())
-        noMyIndustryBtn.setTitle("我找不到符合的行业", for: UIControlState())
-//        noMyIndustryBtn(self, action: #selector(noMyIndustryBtnClick), forControlEvents: .TouchUpInside)
-        self.view.addSubview(noMyIndustryBtn)
-        
+        if isAdd {
+            self.industryBtnClick(scrollView.viewWithTag(100+industryNameArray.count-1) as! UIButton)
+        }
     }
     
     // MARK: 点击 行业
@@ -114,6 +205,14 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
     func industryBtnClick(_ industryBtn: UIButton) {
         
         if flag {return}
+        
+        let scrollView = self.view.viewWithTag(12345)
+        for subView in (scrollView?.subviews)! {
+            if subView.tag >= 100 && subView.tag < industryNameArray.count+100 {
+                (subView as! UIButton).isSelected = false
+                subView.backgroundColor = UIColor.clear
+            }
+        }
         
         industryBtn.isSelected = !industryBtn.isSelected
         if industryBtn.isSelected {

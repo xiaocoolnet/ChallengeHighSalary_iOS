@@ -33,6 +33,8 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationController?.navigationBar.isHidden = true
         self.tabBarController?.tabBar.isHidden = false
         
+//        self.rootTableView.reloadData()
+        self.setHeaderView()
         self.loadData()
     }
     
@@ -207,7 +209,6 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         case (0,1):
             
             let myCompanyInfoController = FTMiMyCompanyInfoViewController()
-            myCompanyInfoController.company_infoDataModel = self.company_infoDataModel
             self.navigationController?.pushViewController(myCompanyInfoController, animated: true)
         case (1,0):
             self.navigationController?.pushViewController(FTMiMyCollectionViewController(), animated: true)

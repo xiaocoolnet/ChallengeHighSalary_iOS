@@ -10,7 +10,7 @@ import UIKit
 
 class FTTaSkillRequiredViewController: UIViewController {
 
-    var skillModelArray = [DicDataModel]()
+    var skillModelArray = [String]()
 //    let skillNameArray = ["数据分析","移动产品","电子商务","智能硬件","电子商务","电子商务","智能硬件","智能硬件","项目管理","产品经理","交互设计","APP","用户研究","产品助理","交互设计","游戏策划","产品总监","产品助理","产品助理","在线教育","网页设计","游戏策划","产品总监","游戏策划","产品总监","无线产品","在线教育","网页设计","在线教育","网页设计","无线产品","无线产品"]
     var selectSkillArray = Array<String>()
     
@@ -44,7 +44,30 @@ class FTTaSkillRequiredViewController: UIViewController {
         PublicNetUtil().getDictionaryList(parentid: "36") { (success, response) in
             if success {
                 hud?.hide(true)
-                self.skillModelArray = response as! [DicDataModel]
+                
+                self.skillModelArray = []
+                
+                let dicDataArray = response as! [DicDataModel]
+                
+                for dicData in dicDataArray {
+                    self.skillModelArray.append((dicData.name ?? "")!)
+                }
+                
+                var FTPublishJobSelectedNameArray = UserDefaults.standard.array(forKey: FTPublishJobSelectedNameArray_key) as! [Array<String>]
+                
+                let skillArray = FTPublishJobSelectedNameArray[1][2].components(separatedBy: "-")
+                if skillArray.count == 1 && skillArray.first == "技能要求" {
+                    
+                }else{
+                    
+                    for skillStr in FTPublishJobSelectedNameArray[1][2].components(separatedBy: "-") {
+                        
+                        if !self.skillModelArray.contains(skillStr) {
+                            self.skillModelArray.append(skillStr)
+                        }
+                        
+                    }
+                }
                 
                 for _ in self.skillModelArray {
                     self.selectSkillArray.append("")
@@ -88,11 +111,6 @@ class FTTaSkillRequiredViewController: UIViewController {
         
         self.title = "技能标签"
         
-    }
-    
-    // MARK: - 设置标签
-    func setSkillBtn() {
-        
         // 提示 Label
         let tipLab = UILabel(frame: CGRect(x: 0, y: 64+10, width: screenSize.width, height: 40))
         tipLab.textColor = UIColor(red: 170/255.0, green: 170/255.0, blue: 170/255.0, alpha: 1)
@@ -101,17 +119,29 @@ class FTTaSkillRequiredViewController: UIViewController {
         tipLab.font = UIFont.systemFont(ofSize: 16)
         self.view.addSubview(tipLab)
         
+    }
+    
+    // MARK: - 设置标签
+    func setSkillBtn() {
+        
+        self.view.viewWithTag(12345)?.removeFromSuperview()
+        
+        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 114, width: screenSize.width, height: screenSize.height-64-44))
+        scrollView.tag = 12345
+        
+        self.view.addSubview(scrollView)
+        
         // 设置标签 button
         let skillBtnMargin_x:CGFloat = 10
         let skillBtnMargin_y:CGFloat = 10
         var skillBtnX:CGFloat = skillBtnMargin_x
-        var skillBtnY:CGFloat = tipLab.frame.maxY+skillBtnMargin_y
+        var skillBtnY:CGFloat = skillBtnMargin_y
         var skillBtnWidth:CGFloat = 0
         let skillBtnHeight:CGFloat = 30
         
         for (i,skillModel) in skillModelArray.enumerated() {
             
-            skillBtnWidth = calculateWidth((skillModel.name ?? "")!, size: 15, height: skillBtnHeight)+skillBtnMargin_x*2
+            skillBtnWidth = calculateWidth(skillModel, size: 15, height: skillBtnHeight)+skillBtnMargin_x*2
             let skillBtn = UIButton(frame: CGRect(x: skillBtnX, y: skillBtnY, width: skillBtnWidth, height: skillBtnHeight))
             skillBtn.tag = 100+i
             skillBtn.layer.cornerRadius = 6
@@ -119,25 +149,25 @@ class FTTaSkillRequiredViewController: UIViewController {
             skillBtn.layer.borderColor = UIColor(red: 187/255.0, green: 187/255.0, blue: 187/255.0, alpha: 1).cgColor
             skillBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
             skillBtn.setTitleColor(UIColor(red: 187/255.0, green: 187/255.0, blue: 187/255.0, alpha: 1), for: UIControlState())
-            skillBtn.setTitle((skillModel.name ?? "")!, for: UIControlState())
+            skillBtn.setTitle(skillModel, for: UIControlState())
             skillBtn.setTitleColor(UIColor.white, for: .selected)
             skillBtn.backgroundColor = UIColor.clear
             skillBtn.addTarget(self, action: #selector(skillBtnClick(_:)), for: .touchUpInside)
-            self.view.addSubview(skillBtn)
+            scrollView.addSubview(skillBtn)
             
             var FTPublishJobSelectedNameArray = UserDefaults.standard.array(forKey: FTPublishJobSelectedNameArray_key) as! [Array<String>]
             
             for skillStr in FTPublishJobSelectedNameArray[1][2].components(separatedBy: "-") {
-                if skillModel.name == skillStr {
+                if skillModel == skillStr {
                     skillBtn.isSelected = true
                     skillBtn.backgroundColor = baseColor
-                    selectSkillArray[i] = (skillModelArray[i].name ?? "")!
+                    selectSkillArray[i] = skillModelArray[i]
                 }
             }
             
             if i+1 < skillModelArray.count {
                 
-                let nextBtnWidth = calculateWidth((skillModelArray[i+1].name ?? "")!, size: 14, height: skillBtnHeight)+skillBtnMargin_x*4
+                let nextBtnWidth = calculateWidth(skillModelArray[i+1], size: 14, height: skillBtnHeight)+skillBtnMargin_x*4
                 
                 if skillBtnWidth + skillBtnX + skillBtnMargin_x + nextBtnWidth >= screenSize.width - skillBtnMargin_x*2 {
                     skillBtnX = skillBtnMargin_x
@@ -171,7 +201,9 @@ class FTTaSkillRequiredViewController: UIViewController {
         addBtn.setTitle("+", for: UIControlState())
         addBtn.backgroundColor = UIColor.clear
         addBtn.addTarget(self, action: #selector(addBtnClick), for: .touchUpInside)
-        self.view.addSubview(addBtn)
+        scrollView.addSubview(addBtn)
+        
+        scrollView.contentSize = CGSize(width: 0, height: addBtn.frame.maxY+skillBtnMargin_y)
         
         let borderLayer = CAShapeLayer()
         borderLayer.strokeColor = baseColor.cgColor
@@ -212,7 +244,7 @@ class FTTaSkillRequiredViewController: UIViewController {
         skillBtn.isSelected = !skillBtn.isSelected
         if skillBtn.isSelected {
             skillBtn.backgroundColor = baseColor
-            selectSkillArray[skillBtn.tag-100] = (skillModelArray[skillBtn.tag-100].name ?? "")!
+            selectSkillArray[skillBtn.tag-100] = skillModelArray[skillBtn.tag-100]
         }else{
             skillBtn.backgroundColor = UIColor.clear
             selectSkillArray[skillBtn.tag-100] = ""
@@ -230,6 +262,31 @@ class FTTaSkillRequiredViewController: UIViewController {
     func addBtnClick() {
         
         print("抢人才-发布职位-技能要求- 点击添加按钮 ")
+        
+        let alert = UIAlertController(title: nil, message: "输入标签不超过10个字", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        let sureAction = UIAlertAction(title: "确定", style: .default, handler: { (sureAction) in
+            
+            if (alert.textFields?.first?.text)! == "" {
+                return
+            }
+            
+            self.skillModelArray.append((alert.textFields?.first?.text)!)
+            self.selectSkillArray.append("")
+            
+            self.setSkillBtn()
+//            self.industryNameArray.append((alert.textFields?.first?.text)!)
+//            self.setIndustry(isAdd: true)
+        })
+        alert.addAction(sureAction)
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     // MARK: 点击保存按钮

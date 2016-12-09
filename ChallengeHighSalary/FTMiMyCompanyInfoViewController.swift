@@ -10,12 +10,12 @@ import UIKit
 
 class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDelegate,UIPickerViewDataSource, LoReFTInfoInputViewControllerDelegate {
     
-    var company_infoDataModel = Company_infoDataModel() {
-        didSet {
-            self.detailNameArray = ["",company_infoDataModel.company_name,company_infoDataModel.company_web,company_infoDataModel.industry,company_infoDataModel.count,company_infoDataModel.financing]
-
-        }
-    }
+//    var company_infoDataModel = Company_infoDataModel() {
+//        didSet {
+//            self.detailNameArray = ["",CHSCompanyInfo.currentCompanyInfo.company_name,CHSCompanyInfo.currentCompanyInfo.company_web,CHSCompanyInfo.currentCompanyInfo.industry,CHSCompanyInfo.currentCompanyInfo.count,CHSCompanyInfo.currentCompanyInfo.financing]
+//
+//        }
+//    }
 
     let rootTableView = UITableView()
     
@@ -27,14 +27,12 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
     
     var pickSelectedRow = [[0],[0]]
     
-    let pickPersonalCountArray = ["不限","1人","2人","3人"]
+    var pickPersonalCountArray = [String]()
     
-    let pickFinancingArray = ["未融资","A阶段","B阶段"]
-
-    var jobTime = "请选择工作年限"
+    var pickFinancingArray = [String]()
     
     let nameArray = ["公司logo","公司全称","公司官网","所属行业","人员规模","融资阶段"]
-    var detailNameArray = ["","","","","",""] {
+    var detailNameArray = ["",CHSCompanyInfo.currentCompanyInfo.company_name,CHSCompanyInfo.currentCompanyInfo.company_web,CHSCompanyInfo.currentCompanyInfo.industry,CHSCompanyInfo.currentCompanyInfo.count,CHSCompanyInfo.currentCompanyInfo.financing] {
         didSet {
             self.rootTableView.reloadData()
         }
@@ -55,6 +53,8 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
 //        loadData()
         setSubviews()
         NotificationCenter.default.addObserver(self, selector: #selector(CompanyInfoChanged(_:)), name: NSNotification.Name(rawValue: "PersonalChangeCompanyInfoNotification"), object: nil)
+        
+        loadData()
 
     }
     
@@ -67,21 +67,51 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
         }
     }
     
-//    // MARK: 加载数据
-//    func loadData() {
-//        
-//        FTNetUtil().getMyCompany_info(CHSUserInfo.currentUserInfo.userid) { (success, response) in
-//            if success {
-//                let companyInfoModel = response as! Company_infoDataModel
-//                self.selectedImage = UIImage(data: try! Data(contentsOf: URL(string: kImagePrefix+companyInfoModel.logo)!))
-//                self.orignalImage = self.selectedImage
-//                self.detailNameArray = ["",companyInfoModel.company_name,companyInfoModel.company_web,companyInfoModel.industry,companyInfoModel.count,companyInfoModel.financing]
-//                
-//            }else{
-//                
-//            }
-//        }
-//    }
+    // MARK: 加载数据
+    func loadData() {
+        
+        var flag = 0
+        
+        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        hud?.removeFromSuperViewOnHide = true
+        hud?.margin = 10
+        
+        PublicNetUtil().getDictionaryList(parentid: "18") { (success, response) in
+            if success {
+                self.pickPersonalCountArray = []
+                let dicData = response as! [DicDataModel]
+                for dic in dicData {
+                    self.pickPersonalCountArray.append(dic.name!)
+                }
+                
+                flag += 1
+                if flag >= 2 {
+                    hud?.hide(true)
+                }
+
+            }else{
+                self.loadData()
+            }
+        }
+        
+        PublicNetUtil().getDictionaryList(parentid: "74") { (success, response) in
+            if success {
+                self.pickFinancingArray = []
+                let dicData = response as! [DicDataModel]
+                for dic in dicData {
+                    self.pickFinancingArray.append(dic.name!)
+                }
+                
+                flag += 1
+                if flag >= 2 {
+                    hud?.hide(true)
+                }
+            }else{
+                self.loadData()
+            }
+        }
+
+    }
     
     // MARK: popViewcontroller
     func popViewcontroller() {
@@ -170,7 +200,7 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
             
             FTNetUtil().company_info(
                 CHSUserInfo.currentUserInfo.userid,
-                logo: self.company_infoDataModel.logo,
+                logo: CHSCompanyInfo.currentCompanyInfo.logo,
                 company_name: self.detailNameArray[1],
                 company_web: self.detailNameArray[2],
                 industry: self.detailNameArray[3],
@@ -222,7 +252,7 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
             headerImg.layer.cornerRadius = 20
             headerImg.clipsToBounds = true
             headerImg.backgroundColor = UIColor.orange
-            let imageUrl = URL(string: kImagePrefix+self.company_infoDataModel.logo)
+            let imageUrl = URL(string: kImagePrefix+CHSCompanyInfo.currentCompanyInfo.logo)
             headerImg.sd_setImage(with: imageUrl, placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
             cell?.accessoryView = headerImg
         }else{
@@ -276,7 +306,7 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
             infoInputVC.infoType = .companyName
             infoInputVC.selfTitle = "公司全称"
             infoInputVC.placeHolder = "请输入公司全称"
-            infoInputVC.tfText = ""
+            infoInputVC.tfText = detailNameArray[1]
             infoInputVC.tipText = "公司全称是您所在公司的营业执照或劳动合同上的公司名称，请确保您填写完全匹配"
             infoInputVC.hudTipText = "请输入公司全称"
             infoInputVC.maxCount = 20
@@ -288,7 +318,7 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
             infoInputVC.infoType = .companyNetUrl
             infoInputVC.selfTitle = "公司官网"
             infoInputVC.placeHolder = "请输入公司官网网址"
-            infoInputVC.tfText = ""
+            infoInputVC.tfText = detailNameArray[2]
             infoInputVC.tipText = "请正确输入你所在公司的官网！"
             infoInputVC.hudTipText = "请输入公司官网网址"
             infoInputVC.maxCount = 50
@@ -300,6 +330,7 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
             let industryCategoriesVC = CHSReChooseIndustryCategoriesViewController()
             industryCategoriesVC.navTitle = "公司行业选择"
             industryCategoriesVC.vcType = .companyInfo
+            industryCategoriesVC.industryStr = detailNameArray[3]
             
             self.navigationController?.pushViewController(industryCategoriesVC, animated: true)
         default:
@@ -404,7 +435,7 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
             pickSelectedRow[0][0] = pickerView.selectedRow(inComponent: 0)
         }else if pickerView.tag == 102 {
             
-            detailNameArray[5] = pickPersonalCountArray[pickerView.selectedRow(inComponent: 0)]
+            detailNameArray[5] = pickFinancingArray[pickerView.selectedRow(inComponent: 0)]
             
             pickSelectedRow[1][0] = pickerView.selectedRow(inComponent: 0)
         }
