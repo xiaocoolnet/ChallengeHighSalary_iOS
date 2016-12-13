@@ -19,20 +19,25 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
     let sendBtn = UIButton()
     
     var keyboardShowState = false
-    
-    var resumeData:MyResumeData? {
+        
+    var resumeData = MyResumeData() {
         didSet {
-            self.selfTitle = (self.resumeData?.realname)!
-            self.conversationId = (self.resumeData?.userid)!
+            self.title = self.resumeData.realname
+            self.conversationId = self.resumeData.userid
             
             self.setTableViewHeaderView()
+            
+            loadChatData()
         }
     }
     
     var chatListDataArray = [ChatData]()
     
-    var selfTitle = ""
-    var otherId = ""
+    var otherId = "" {
+        didSet {
+            loadData()
+        }
+    }
     var conversationId = ""
     
     var timeArray = [Float]()
@@ -43,12 +48,35 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
         // Do any additional setup after loading the view.
         
         self.setSubView()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(newMessageRecived(noti:)), name: NSNotification.Name(rawValue: "NewMessageRecivedNotification"), object: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    // MARK: - 加载数据
+    func loadData() {
         
-        CHSNetUtil().GetChatData(CHSUserInfo.currentUserInfo.userid, receive_uid: (self.resumeData?.userid ?? otherId)!) { (success, response) in
+        CHSNetUtil().getMyResume(otherId) { (success, response) in
+            if success {
+                
+                self.resumeData = response as! MyResumeData
+//                checkCodeHud.mode = .text
+//                checkCodeHud.labelText = "获取个人信息成功"
+//                checkCodeHud.hide(true, afterDelay: 1)
+//                print("获取个人信息成功")
+                
+//                self.setHeaderView()
+            }else{
+//                checkCodeHud.mode = .text
+//                checkCodeHud.labelText = "获取个人信息失败"
+//                checkCodeHud.hide(true, afterDelay: 1)
+//                print("获取个人信息失败")
+            }
+
+        }
+    }
+    
+    func loadChatData() {
+        CHSNetUtil().GetChatData(CHSUserInfo.currentUserInfo.userid, receive_uid: self.resumeData.userid) { (success, response) in
             
             if success {
                 self.chatListDataArray = response as! [ChatData]
@@ -70,10 +98,62 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
                 
                 self.rootTableView.reloadData()
-                self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+                
+                if self.rootTableView.contentSize.height-self.rootTableView.frame.size.height >= 0 {
+                    self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+                    
+                }else{
+                    self.rootTableView.contentOffset = CGPoint(x: 0, y: 0)
+                    
+                }
                 
             }
         }
+    }
+    
+    func newMessageRecived(noti:Notification) {
+        let userInfo = noti.userInfo
+        
+        let dic = userInfo?["aps"] as! NSDictionary
+        
+//        let chatData = ChatData()
+//
+//        chatData.send_uid = (userInfo?["v"] as! NSString) as String
+//        chatData.content = (dic["alert"] as! NSString) as String
+        
+        let chatData = ChatData()
+        chatData.content = (dic["alert"] as! NSString) as String
+        chatData.create_time = String(NSDate().timeIntervalSince1970)
+        chatData.receive_uid = CHSUserInfo.currentUserInfo.userid
+        chatData.receive_face = CHSUserInfo.currentUserInfo.avatar
+        chatData.receive_nickname = CHSUserInfo.currentUserInfo.realName
+        chatData.send_uid = (userInfo?["v"] as! NSString) as String
+        chatData.send_face = self.resumeData.photo
+        chatData.send_nickname = self.resumeData.realname
+        
+        print(chatData)
+        print(userInfo?["v"] as! String,dic["alert"] as! String)
+        chatListDataArray.append(chatData)
+        
+        let nowTime:Float = NSString(string: (chatData.create_time ?? "")!).floatValue
+        
+        if nowTime-(self.timeArray.last ?? 0)! > 60*5 {
+            
+            self.timeArray.append(nowTime)
+            
+        }else{
+            self.timeArray.append(self.timeArray.last!)
+        }
+        
+        self.rootTableView.reloadData()
+        print(chatData)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+       
     }
     
     // MARK: popViewcontroller
@@ -84,8 +164,6 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // MARK:- 设置子视图
     func setSubView() {
-        
-        self.title = self.selfTitle
         
         self.automaticallyAdjustsScrollViewInsets = false
         
@@ -104,7 +182,8 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
         self.view.addSubview(rootTableView)
         
         rootTableView.register(CHSMeChatTableViewCell.self, forCellReuseIdentifier: "CHSMeChatCell")
-        rootTableView.register(UINib(nibName: "CHSChCompanyPositionTableViewCell", bundle: nil), forCellReuseIdentifier: "CHSMeChatCompanyPositionCell")
+        
+        rootTableView.register(UINib(nibName: "FTTalentTableViewCell", bundle: nil), forCellReuseIdentifier: "talentCell")
         
         inputBgView.frame = CGRect(x: 0, y: screenSize.height-44, width: screenSize.width, height: 44)
         inputBgView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1)
@@ -134,7 +213,7 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
     }
-    
+    var keyboardheight:CGFloat = 0
     // MARK: - 点击发送按钮
     func sendBtnClick() {
         if self.inputTF.text!.isEmpty {
@@ -144,9 +223,9 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
             let chatData = ChatData()
             chatData.content = self.inputTF.text
             chatData.create_time = String(NSDate().timeIntervalSince1970)
-            chatData.receive_uid = self.resumeData?.userid
-            chatData.receive_face = self.resumeData?.photo
-            chatData.receive_nickname = self.resumeData?.realname
+            chatData.receive_uid = self.resumeData.userid
+            chatData.receive_face = self.resumeData.photo
+            chatData.receive_nickname = self.resumeData.realname
             chatData.send_uid = CHSUserInfo.currentUserInfo.userid
             chatData.send_face = CHSUserInfo.currentUserInfo.avatar
             chatData.send_nickname = CHSUserInfo.currentUserInfo.realName
@@ -163,11 +242,59 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             self.rootTableView.reloadData()
             
-            self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+            //            abs(self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+            //            if abs(self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)+self.keyboardheight >= 0 {
+            //
+            //                if self.rootTableView.contentSize.height-self.rootTableView.frame.size.height >= 0 {
+            //                    self.rootTableView.frame.origin.y = 64-self.keyboardheight
+            //                }else{
+            //                    self.rootTableView.frame.origin.y = 64-(self.rootTableView.contentSize.height-(self.rootTableView.frame.size.height-self.keyboardheight))
+            //                }
+            //
+            //            }else{
+            //                self.rootTableView.frame.origin.y = 64
+            //
+            //            }
+            //
+            //            if self.rootTableView.contentSize.height-self.rootTableView.frame.size.height+keyboardheight >= 0 {
+            //                self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+            //
+            //            }else{
+            //                self.rootTableView.contentOffset = CGPoint(x: 0, y: 0)
+            //
+            //            }
+            //            if self.rootTableView.contentSize.height < self.rootTableView.frame.size.height {
+            //
+            //                if self.rootTableView.contentSize.height < self.rootTableView.frame.size.height-keyboardheight {
+            //
+            //                }else{
+            //                    self.rootTableView.frame.origin.y = 64-self.keyboardheight
+            //                    self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+            //                }
+            //            }
+            if self.rootTableView.contentSize.height >= self.rootTableView.frame.size.height-keyboardheight {
+                self.rootTableView.frame.origin.y = 64-self.keyboardheight
+                self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+            }
+            //            if self.rootTableView.contentSize.height < self.rootTableView.frame.size.height {
+            //
+            //                if self.rootTableView.contentSize.height < self.rootTableView.frame.size.height-keyboardheight {
+            //
+            //                }else{
+            //                    self.rootTableView.frame.origin.y = 64-self.keyboardheight
+            //                    self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+            //                }
+            //            }else{
+            //                self.rootTableView.frame.origin.y = 64-self.keyboardheight
+            //                self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
+            //            }
+            //            self.rootTableView.contentOffset = CGPoint(x: 0, y: self.rootTableView.contentSize.height-self.rootTableView.frame.size.height)
             
             inputTF.text = nil
             
-            CHSNetUtil().SendChatData(CHSUserInfo.currentUserInfo.userid, receive_uid: (self.resumeData?.userid ?? "")!, content: chatData.content!, handle: { (success, response) in
+            self.inputTFEditChanged(textField: inputTF)
+            
+            CHSNetUtil().SendChatData(CHSUserInfo.currentUserInfo.userid, receive_uid: self.resumeData.userid, content: chatData.content!, handle: { (success, response) in
                 
                 if success {
                     
@@ -186,17 +313,17 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
     func setTableViewHeaderView() {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 25))
         
-        // 您正在与企业沟通 Label
+        // 人才就如下职位与您沟通 Label
         let tagLab = UILabel()
         tagLab.font = UIFont.systemFont(ofSize: 14)
-        tagLab.text = "您正在与企业沟通"
+        tagLab.text = "人才\(self.resumeData.realname)就如下职位与您沟通"
         tagLab.textAlignment = .center
         tagLab.sizeToFit()
         tagLab.center = headerView.center
         tagLab.textColor = UIColor(red: 152/255.0, green: 151/255.0, blue: 152/255.0, alpha: 1)
         headerView.addSubview(tagLab)
         
-        // 您正在与企业沟通 前 线
+        // 人才就如下职位与您沟通 前 线
         let frontOrLine = UIView(frame: CGRect(
             x: screenSize.width*0.024,
             y: 0,
@@ -206,7 +333,7 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
         frontOrLine.center.y = tagLab.center.y
         headerView.addSubview(frontOrLine)
         
-        // 您正在与企业沟通 后 线
+        // 人才就如下职位与您沟通 后 线
         let behindOrLine = UIView(frame: CGRect(
             x: tagLab.frame.maxX+screenSize.width*0.024,
             y: 0,
@@ -223,12 +350,23 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
     func keyboardWillAppear(notification: Notification) {
         
         // 获取键盘信息
-        let keyboardheight = notification.keyboard_frameEnd.size.height
+        keyboardheight = notification.keyboard_frameEnd.size.height
         
         UIView.animate(withDuration: 0.3) {
-            self.inputBgView.frame.origin.y = screenSize.height-44-keyboardheight
-            self.rootTableView.frame.origin.y = 64-keyboardheight
+            self.inputBgView.frame.origin.y = screenSize.height-44-self.keyboardheight
             
+            if self.rootTableView.contentSize.height-(self.rootTableView.frame.size.height-self.keyboardheight) >= 0 {
+                
+                if self.rootTableView.contentSize.height-self.rootTableView.frame.size.height >= 0 {
+                    self.rootTableView.frame.origin.y = 64-self.keyboardheight
+                }else{
+                    self.rootTableView.frame.origin.y = 64-(self.rootTableView.contentSize.height-(self.rootTableView.frame.size.height-self.keyboardheight))
+                }
+                
+            }else{
+                self.rootTableView.frame.origin.y = 64
+                
+            }
         }
         
     }
@@ -238,6 +376,7 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func keyboardWillDisappear(notification:Notification){
+        keyboardheight = 0
         UIView.animate(withDuration: 0.3) {
             self.inputBgView.frame.origin.y = screenSize.height-44
             self.rootTableView.frame.origin.y = 64
@@ -276,14 +415,15 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.section == 0 && self.resumeData != nil {
+        if indexPath.section == 0 && self.resumeData.userid != "" {
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CHSMeChatCompanyPositionCell") as! CHSChCompanyPositionTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "talentCell") as! FTTalentTableViewCell
             cell.selectionStyle = .none
-            cell.contentView.backgroundColor = UIColor(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1)
+//            cell.contentView.backgroundColor = UIColor(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1)
+            cell.contentView.backgroundColor = UIColor.white
             
             
-//            cell.company_infoJob = self.resumeData
+            cell.resumeData = self.resumeData
             return cell
         }else if indexPath.section > 0 {
             
@@ -399,3 +539,4 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
      */
     
 }
+
