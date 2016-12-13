@@ -92,34 +92,38 @@ class CHSNetUtil: NSObject {
                     
                     let myResume = JSONDeserializer<MyResumeModel>.deserializeFrom(dict: json as! NSDictionary?)!
                     
-                    CHSUserInfo.currentUserInfo.userid = (myResume.data?.userid)!
-                    CHSUserInfo.currentUserInfo.realName = (myResume.data?.realname)!
-                    CHSUserInfo.currentUserInfo.usertype = (myResume.data?.usertype)!
-                    CHSUserInfo.currentUserInfo.phoneNumber = (myResume.data?.phone)!
-                    CHSUserInfo.currentUserInfo.sex = (myResume.data?.sex)!
-                    CHSUserInfo.currentUserInfo.email = (myResume.data?.email)!
-                    CHSUserInfo.currentUserInfo.qqNumber = (myResume.data?.qq)!
-                    CHSUserInfo.currentUserInfo.weixinNumber = (myResume.data?.weixin)!
-                    CHSUserInfo.currentUserInfo.avatar = (myResume.data?.photo)!
-                    CHSUserInfo.currentUserInfo.devicestate = (myResume.data?.devicestate)!
-                    CHSUserInfo.currentUserInfo.city = (myResume.data?.city)!
-                    CHSUserInfo.currentUserInfo.weiboNumber = (myResume.data?.weibo)!
-                    CHSUserInfo.currentUserInfo.work_life = (myResume.data?.work_life)!
-                    CHSUserInfo.currentUserInfo.company = (myResume.data?.company)!
-                    CHSUserInfo.currentUserInfo.myjob = (myResume.data?.myjob)!
-                    CHSUserInfo.currentUserInfo.work_property = (myResume.data?.work_property)!
-                    CHSUserInfo.currentUserInfo.address = (myResume.data?.address)!
-                    CHSUserInfo.currentUserInfo.position_type = (myResume.data?.position_type)!
-                    CHSUserInfo.currentUserInfo.categories = (myResume.data?.categories)!
-                    CHSUserInfo.currentUserInfo.wantsalary = (myResume.data?.wantsalary)!
-                    CHSUserInfo.currentUserInfo.jobstate = (myResume.data?.jobstate)!
-                    CHSUserInfo.currentUserInfo.advantage = (myResume.data?.advantage)!
+                    if CHSUserInfo.currentUserInfo.userid == userid {
+                        
+                        CHSUserInfo.currentUserInfo.userid = (myResume.data?.userid)!
+                        CHSUserInfo.currentUserInfo.realName = (myResume.data?.realname)!
+                        CHSUserInfo.currentUserInfo.usertype = (myResume.data?.usertype)!
+                        CHSUserInfo.currentUserInfo.phoneNumber = (myResume.data?.phone)!
+                        CHSUserInfo.currentUserInfo.sex = (myResume.data?.sex)!
+                        CHSUserInfo.currentUserInfo.email = (myResume.data?.email)!
+                        CHSUserInfo.currentUserInfo.qqNumber = (myResume.data?.qq)!
+                        CHSUserInfo.currentUserInfo.weixinNumber = (myResume.data?.weixin)!
+                        CHSUserInfo.currentUserInfo.avatar = (myResume.data?.photo)!
+                        CHSUserInfo.currentUserInfo.devicestate = (myResume.data?.devicestate)!
+                        CHSUserInfo.currentUserInfo.city = (myResume.data?.city)!
+                        CHSUserInfo.currentUserInfo.weiboNumber = (myResume.data?.weibo)!
+                        CHSUserInfo.currentUserInfo.work_life = (myResume.data?.work_life)!
+                        CHSUserInfo.currentUserInfo.company = (myResume.data?.company)!
+                        CHSUserInfo.currentUserInfo.myjob = (myResume.data?.myjob)!
+                        CHSUserInfo.currentUserInfo.work_property = (myResume.data?.work_property)!
+                        CHSUserInfo.currentUserInfo.address = (myResume.data?.address)!
+                        CHSUserInfo.currentUserInfo.position_type = (myResume.data?.position_type)!
+                        CHSUserInfo.currentUserInfo.categories = (myResume.data?.categories)!
+                        CHSUserInfo.currentUserInfo.wantsalary = (myResume.data?.wantsalary)!
+                        CHSUserInfo.currentUserInfo.jobstate = (myResume.data?.jobstate)!
+                        CHSUserInfo.currentUserInfo.advantage = (myResume.data?.advantage)!
+                        
+                        CHSUserInfo.currentUserInfo.education = myResume.data?.education
+                        CHSUserInfo.currentUserInfo.work = myResume.data?.work
+                        CHSUserInfo.currentUserInfo.project = myResume.data?.project
+                    }
                     
-                    CHSUserInfo.currentUserInfo.education = myResume.data?.education
-                    CHSUserInfo.currentUserInfo.work = myResume.data?.work
-                    CHSUserInfo.currentUserInfo.project = myResume.data?.project
                     
-                    handle(true, nil)
+                    handle(true, myResume.data)
                 }else{
                     
                     handle(false, nil)

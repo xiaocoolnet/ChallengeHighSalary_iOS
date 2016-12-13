@@ -22,6 +22,8 @@ class FTMeHomeTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        iconImg.layer.cornerRadius = iconImg.frame.size.width/2.0
+        iconImg.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

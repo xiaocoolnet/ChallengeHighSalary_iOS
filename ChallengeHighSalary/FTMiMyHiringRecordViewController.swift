@@ -79,7 +79,8 @@ class FTMiMyHiringRecordViewController: UIViewController, UITableViewDataSource,
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return (self.jobs?.count ?? 0)!
+        
+        return (CHSCompanyInfo.currentCompanyInfo.jobs?.count ?? 0)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -87,7 +88,7 @@ class FTMiMyHiringRecordViewController: UIViewController, UITableViewDataSource,
         let cell = tableView.dequeueReusableCell(withIdentifier: "FTMiMyHiringRecordCell") as! FTMiMyHiringRecordTableViewCell
         cell.selectionStyle = .none
         
-        cell.jobInfoDataModel = self.jobs?[indexPath.section]
+        cell.jobInfoDataModel = CHSCompanyInfo.currentCompanyInfo.jobs?[indexPath.section]
         
         return cell
     }

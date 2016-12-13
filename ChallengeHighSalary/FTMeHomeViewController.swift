@@ -12,50 +12,7 @@ class FTMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     let rootTableView = UITableView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height-20-44-49), style: .plain)
     
-    let dataArray = [
-        [
-            "title":"系统消息",
-            "description":"北京时代网络公司正在招聘网页设计师噢",
-            "time":"07月20日",
-            "type":"1"
-        ],
-        [
-            "title":"简历投递通知",
-            "description":"北京时代网络公司邀请您去面试",
-            "time":"07月20日",
-            "type":"2"
-        ],
-        [
-            "title":"谁收藏我",
-            "description":"北京时代网络公司收藏了您的简历",
-            "time":"07月20日",
-            "type":"3"
-        ],
-        [
-            "title":"谁看过我",
-            "description":"北京时代网络公司查看了您的简历",
-            "time":"07月20日",
-            "type":"4"
-        ],
-        [
-            "title":"王小妞",
-            "description":"",
-            "time":"07月20日",
-            "type":"5"
-        ],
-        [
-            "title":"李大壮",
-            "description":"",
-            "time":"07月20日",
-            "type":"5"
-        ],
-        [
-            "title":"第三者",
-            "description":"",
-            "time":"07月20日",
-            "type":"5"
-        ]
-    ]
+    var chatListArray = [GetChatListData]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +28,18 @@ class FTMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = false
+        
+        CHSNetUtil().GetChatListData(CHSUserInfo.currentUserInfo.userid) { (success, response) in
+            
+            if success {
+                
+                self.chatListArray = (response as? [GetChatListData])!
+                
+                self.rootTableView.reloadData()
+            }else {
+                
+            }
+        }
     }
     
     // MARK: 设置 NavigationBar
@@ -97,7 +66,7 @@ class FTMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // MARK: UITableView DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataArray.count
+        return self.chatListArray.count+4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -105,9 +74,55 @@ class FTMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "FTMeHomeCell") as! FTMeHomeTableViewCell
         cell.selectionStyle = .none
         
-        cell.titleLab.text = self.dataArray[(indexPath as NSIndexPath).row]["title"]!
-        cell.descriptionLab.text = self.dataArray[(indexPath as NSIndexPath).row]["description"]!
-        cell.timeLab.text = self.dataArray[(indexPath as NSIndexPath).row]["time"]!
+        switch indexPath.row {
+        case 0:
+            cell.titleLab.text = "系统消息"
+            
+            cell.descriptionLab.text = "北京时代网络公司正在招聘网页设计师（假数据）"
+            
+            cell.timeLab.text = "07月20日"
+            
+            cell.iconImg.image = UIImage(named: "ic_message_home_系统")
+
+        case 1:
+            cell.titleLab.text = "简历投递通知"
+            
+            cell.descriptionLab.text = "北京时代网络公司邀请您去面试（假数据）"
+            
+            cell.timeLab.text = "07月20日"
+            
+            cell.iconImg.image = UIImage(named: "ic_message_home_面试")
+
+        case 2:
+            cell.titleLab.text = "谁收藏我"
+            
+            cell.descriptionLab.text = "北京时代网络公司收藏了您的简历（假数据）"
+            
+            cell.timeLab.text = "07月20日"
+            
+            cell.iconImg.image = UIImage(named: "ic_message_home_收藏")
+
+        case 3:
+            cell.titleLab.text = "谁看过我"
+            
+            cell.descriptionLab.text = "北京时代网络公司查看了您的简历（假数据）"
+            
+            cell.timeLab.text = "07月20日"
+            
+            cell.iconImg.image = UIImage(named: "ic_message_home_查看")
+            
+        default:
+            let chatData = self.chatListArray[indexPath.row-4]
+            
+            cell.titleLab.text = chatData.other_nickname
+            
+            cell.descriptionLab.text = chatData.last_content
+            
+            cell.timeLab.text = chatData.create_time
+            
+            cell.iconImg.sd_setImage(with: URL(string: kImagePrefix + (chatData.other_face ?? "")!), placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
+        }
+        
         
         return cell
     }
@@ -115,17 +130,30 @@ class FTMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: UITableView Delegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        switch self.dataArray[(indexPath as NSIndexPath).row]["type"]! {
-        case "1":
+        switch indexPath.row {
+        case 0:
             self.navigationController?.pushViewController(FTMeSysMessageViewController(), animated: true)
-        case "2":
+        case 1:
             self.navigationController?.pushViewController(FTMeResumeNotificationViewController(), animated: true)
-        case "3":
+        case 2:
             self.navigationController?.pushViewController(FTMeCollectionMeViewController(), animated: true)
-        case "4":
+        case 3:
             self.navigationController?.pushViewController(FTMeLookMeViewController(), animated: true)
         default:
-            break
+            
+            if self.chatListArray[indexPath.row-4].chat_uid == nil {
+                let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                hud?.margin = 10
+                hud?.removeFromSuperViewOnHide = true
+                hud?.mode = .text
+                hud?.labelText = "数据出错，请稍后再试"
+                hud?.hide(true, afterDelay: 1)
+                return
+            }
+            let chatController = FTMeChatViewController()
+            chatController.hidesBottomBarWhenPushed = true
+            chatController.otherId = self.chatListArray[indexPath.row-4].chat_uid!
+            self.navigationController?.pushViewController(chatController, animated: true)
         }
         //        self.navigationController?.pushViewController(CHSChPersonalInfoViewController(), animated: true)
     }

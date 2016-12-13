@@ -31,8 +31,8 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // TODO:
-        UserDefaults.standard.removeObject(forKey: myCity_key)
+//        // TODO:
+//        UserDefaults.standard.removeObject(forKey: myCity_key)
 
         // Do any additional setup after loading the view.
         
@@ -101,6 +101,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         PublicNetUtil().getDictionaryList(parentid: "5") { (success, response) in
             if success {
                 self.salaryDrop.dataSource = []
+                self.salaryDrop.dataSource.append("全部")
                 let dicData = response as! [DicDataModel]
                 for dic in dicData {
                     self.salaryDrop.dataSource.append(dic.name!)
@@ -111,6 +112,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         PublicNetUtil().getDictionaryList(parentid: "13") { (success, response) in
             if success {
                 self.redEnvelopeDrop.dataSource = []
+                self.redEnvelopeDrop.dataSource.append("全部")
                 let dicData = response as! [DicDataModel]
                 for dic in dicData {
                     self.redEnvelopeDrop.dataSource.append(dic.name!)
@@ -121,6 +123,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         PublicNetUtil().getDictionaryList(parentid: "18") { (success, response) in
             if success {
                 self.scaleDrop.dataSource = []
+                self.scaleDrop.dataSource.append("全部")
                 let dicData = response as! [DicDataModel]
                 for dic in dicData {
                     self.scaleDrop.dataSource.append(dic.name!)

@@ -65,6 +65,8 @@
 		1F7EDB031DDEA41D005FD660 /* CHSMeChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7EDB021DDEA41D005FD660 /* CHSMeChatTableViewCell.swift */; };
 		1F87411B1D82AF47007B8793 /* LoForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */; };
 		1F87411D1D82C22B007B8793 /* LoRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */; };
+		1F8F9E0E1DFF9D74004F1700 /* FTTaChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F9E0D1DFF9D74004F1700 /* FTTaChatViewController.swift */; };
+		1F8F9E101DFFBDE8004F1700 /* FTMeChatDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F9E0F1DFFBDE8004F1700 /* FTMeChatDetailViewController.swift */; };
 		1F9CE7C11D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CE7C01D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift */; };
 		1F9CE7C31D8802FC002E6632 /* CHSReJobIntensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CE7C21D8802FC002E6632 /* CHSReJobIntensionViewController.swift */; };
 		1F9E527D1DE532B800556F31 /* jpush-ios-2.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9E527B1DE532B800556F31 /* jpush-ios-2.2.0.a */; };
@@ -286,6 +288,8 @@
 		1F7EDB021DDEA41D005FD660 /* CHSMeChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMeChatTableViewCell.swift; sourceTree = "<group>"; };
 		1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoForgetPasswordViewController.swift; sourceTree = "<group>"; };
 		1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoRegisterViewController.swift; sourceTree = "<group>"; };
+		1F8F9E0D1DFF9D74004F1700 /* FTTaChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaChatViewController.swift; sourceTree = "<group>"; };
+		1F8F9E0F1DFFBDE8004F1700 /* FTMeChatDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeChatDetailViewController.swift; sourceTree = "<group>"; };
 		1F9CE7C01D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReEditPersonalInfoViewController.swift; sourceTree = "<group>"; };
 		1F9CE7C21D8802FC002E6632 /* CHSReJobIntensionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReJobIntensionViewController.swift; sourceTree = "<group>"; };
 		1F9E527B1DE532B800556F31 /* jpush-ios-2.2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.2.0.a"; sourceTree = "<group>"; };
@@ -956,6 +960,7 @@
 				1FF1CE181DA8BA8E000F0A9A /* FTTaJobDescriptionsViewController.swift */,
 				1FCC2FDE1DB607C0002360E4 /* FTPersonalViewController.swift */,
 				1FCFE71A1DE6D54500D5FFA9 /* FTTaCompanyWelfareViewController.swift */,
+				1F8F9E0D1DFF9D74004F1700 /* FTTaChatViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -969,6 +974,7 @@
 				1F577B131DA9E7C600AB5D99 /* FTMeCollectionMeViewController.swift */,
 				1F577B151DA9E82600AB5D99 /* FTMeLookMeViewController.swift */,
 				1FDF6BAE1DE436E0007C72E1 /* FTMeChatViewController.swift */,
+				1F8F9E0F1DFFBDE8004F1700 /* FTMeChatDetailViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1546,6 +1552,7 @@
 				1FD6976E1DB0B8F9008D0A14 /* CHSReProjectDescriptionViewController.swift in Sources */,
 				1F87411D1D82C22B007B8793 /* LoRegisterViewController.swift in Sources */,
 				1FD697791DB0D0D9008D0A14 /* LoReCHSJobIntensionViewController.swift in Sources */,
+				1F8F9E0E1DFF9D74004F1700 /* FTTaChatViewController.swift in Sources */,
 				1F577B161DA9E82600AB5D99 /* FTMeLookMeViewController.swift in Sources */,
 				1F577B0E1DA9E29B00AB5D99 /* FTMeResumeNotificationViewController.swift in Sources */,
 				1FEC64DE1D9121460045038C /* CHSMiCheckPasswordViewController.swift in Sources */,
@@ -1604,6 +1611,7 @@
 				1F1224D91D97AE5A0094C6CE /* CHSReEduExperienceViewController.swift in Sources */,
 				1F0B59471DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift in Sources */,
 				1F9CE7C31D8802FC002E6632 /* CHSReJobIntensionViewController.swift in Sources */,
+				1F8F9E101DFFBDE8004F1700 /* FTMeChatDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1776,7 +1784,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.ChallengeHighSalary;
 				PRODUCT_NAME = ChallengeHighSalary;
-				PROVISIONING_PROFILE = "dd6603a1-98f3-4add-a2b7-1519709906f1";
+				PROVISIONING_PROFILE = "1325d21a-1f2b-45db-b85e-de0d5f72d72b";
 				PROVISIONING_PROFILE_SPECIFIER = tzgxdevelopment;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ChallengeHighSalary/ChallengeHighSalary-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

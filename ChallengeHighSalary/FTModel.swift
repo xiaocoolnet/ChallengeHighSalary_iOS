@@ -159,3 +159,23 @@ class BlackListData_company: HandyJSON {
     
     required init() {}
 }
+
+class CompanyCertifyModel: HandyJSON {
+    
+    var status = ""
+    
+    var data: CompanyCertifyDataModel?
+    
+    required init() {}
+    
+}
+
+class CompanyCertifyDataModel: HandyJSON {
+    
+    var id = ""
+    
+    var status = ""
+    
+    required init() {}
+    
+}

@@ -140,7 +140,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
 }
 
 extension AppDelegate {
@@ -209,8 +208,11 @@ extension AppDelegate {
     }
     
     func newMessageRecived(userInfo:[AnyHashable : Any]?) {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NewMessageRecivedNotification"), object: nil, userInfo: userInfo)
         
+        if userInfo?["key"] as! NSString == "newMessage" {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NewMessageRecivedNotification"), object: nil, userInfo: userInfo)
+
+        }
         
     }
     

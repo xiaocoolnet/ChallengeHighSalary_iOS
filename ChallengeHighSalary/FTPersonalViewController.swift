@@ -151,7 +151,7 @@ class FTPersonalViewController: UIViewController {
             height: 49-16))
         chatBtn.layer.cornerRadius = chatBtn.frame.size.height/2.0
         chatBtn.setImage(#imageLiteral(resourceName: "ic_FT_和他聊聊"), for: .normal)
-        chatBtn.addTarget(self, action: #selector(getContectBtnClick), for: .touchUpInside)
+        chatBtn.addTarget(self, action: #selector(chatBtnClick(_:)), for: .touchUpInside)
         getContectView.addSubview(chatBtn)
         
         // MARK: 头部视图
@@ -633,47 +633,26 @@ class FTPersonalViewController: UIViewController {
         let bgView = UIButton(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
         bgView.backgroundColor = UIColor(white: 0.5, alpha: 0.3)
         bgView.tag = 101
-//        bgView.addTarget(self, action: #selector(shareViewHide(_:)), for: .touchUpInside)
+        bgView.addTarget(self, action: #selector(shareViewHide(_:)), for: .touchUpInside)
         UIApplication.shared.keyWindow!.addSubview(bgView)
         
-        let alertView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width*0.65, height: 0))
-//        alertView.backgroundColor = UIColor.red
+        let scale = #imageLiteral(resourceName: "ic_抢人才_alert_点击查看").size.width/#imageLiteral(resourceName: "ic_抢人才_alert_点击查看").size.height
+
+        let alertView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.height*0.5*scale, height: 0))
         alertView.layer.cornerRadius = 8
         alertView.center.x = bgView.center.x
         bgView.addSubview(alertView)
         
-        let alertImg = UIButton(frame: CGRect(x: 0, y: 0, width: screenSize.width*0.65, height: screenSize.height*0.5))
-        alertImg.imageView?.contentMode = .scaleAspectFit
-        alertImg.imageView?.clipsToBounds = true
-        alertImg.setImage(#imageLiteral(resourceName: "ic_抢人才_alert_点击查看"), for: .normal)
+        let alertImg = UIButton(frame: CGRect(x: 0, y: 0, width: screenSize.height*0.5*scale, height: screenSize.height*0.5))
+        alertImg.setBackgroundImage(#imageLiteral(resourceName: "ic_抢人才_alert_点击查看"), for: .normal)
         alertImg.addTarget(self, action: #selector(lookBtnClick(_:)), for: .touchUpInside)
         alertView.addSubview(alertImg)
-        
-//        let tipLabel = UILabel(frame: CGRect(x: 0, y: 30, width: alertView.frame.width, height: 0))
-//        tipLabel.textColor = UIColor.white
-//        tipLabel.numberOfLines = 0
-//        tipLabel.font = UIFont.systemFont(ofSize: 20)
-//        tipLabel.textAlignment = .center
-//        tipLabel.text = "VIP会员获取更多牛人信息\n更多人才等你来选"
-//        tipLabel.sizeToFit()
-//        tipLabel.frame.origin.x = (alertView.frame.width-tipLabel.frame.width)/2.0
-//        alertView.addSubview(tipLabel)
-//        
-//        let lookBtn = UIButton(frame: CGRect(x: 0, y: tipLabel.frame.maxY+20, width: alertView.frame.width*0.6, height: 30))
-//        lookBtn.layer.cornerRadius = 15
-//        lookBtn.backgroundColor = UIColor.white
-//        lookBtn.setTitleColor(UIColor.orange, for: .normal)
-//        lookBtn.setTitle("立即查看", for: .normal)
-//        lookBtn.frame.origin.x = (alertView.frame.width-lookBtn.frame.width)/2.0
-//        lookBtn.addTarget(self, action: #selector(lookBtnClick(_:)), for: .touchUpInside)
-//        alertView.addSubview(lookBtn)
         
         alertView.frame.size.height = alertImg.frame.maxY
         alertView.center.y = bgView.center.y
 
-        let closeBtnY = alertView.frame.height>#imageLiteral(resourceName: "ic_抢人才_alert_点击查看").size.height ? (alertView.frame.height-#imageLiteral(resourceName: "ic_抢人才_alert_点击查看").size.height)/2.0:0
+        let closeBtn = UIButton(frame: CGRect(x: alertView.frame.width-15, y: -15, width: 30, height: 30))
 
-        let closeBtn = UIButton(frame: CGRect(x: alertView.frame.width/2.0+#imageLiteral(resourceName: "ic_抢人才_alert_点击查看").size.width/2.0-15, y: closeBtnY-15, width: 30, height: 30))
         closeBtn.tag = 102
         closeBtn.setBackgroundImage(#imageLiteral(resourceName: "ic_FT_alertClose"), for: .normal)
         closeBtn.addTarget(self, action: #selector(shareViewHide(_:)), for: .touchUpInside)
@@ -696,27 +675,13 @@ class FTPersonalViewController: UIViewController {
         alertView.layer.cornerRadius = 8
         alertView.center.x = bgView.center.x
         bgView.addSubview(alertView)
-        
-//        let tipLabel = UILabel(frame: CGRect(x: 0, y: 30, width: alertView.frame.width, height: 0))
-//        tipLabel.textColor = UIColor.orange
-//        tipLabel.font = UIFont.systemFont(ofSize: 20)
-//        tipLabel.textAlignment = .center
-//        tipLabel.text = "付费会员特权"
-//        tipLabel.sizeToFit()
-//        tipLabel.frame.origin.x = (alertView.frame.width-tipLabel.frame.width)/2.0
-//        alertView.addSubview(tipLabel)
+   
         let tipLabel = UIImageView(frame: CGRect(
             x: 0,
             y: 0,
             width: alertView.frame.width,
             height: (#imageLiteral(resourceName: "ic_抢人才_alert_付费会员特权").size.height/#imageLiteral(resourceName: "ic_抢人才_alert_付费会员特权").size.width)*alertView.frame.width))
         tipLabel.image = #imageLiteral(resourceName: "ic_抢人才_alert_付费会员特权")
-//        tipLabel.textColor = UIColor.orange
-//        tipLabel.font = UIFont.systemFont(ofSize: 20)
-//        tipLabel.textAlignment = .center
-//        tipLabel.text = "付费会员特权"
-//        tipLabel.sizeToFit()
-//        tipLabel.frame.origin.x = (alertView.frame.width-tipLabel.frame.width)/2.0
         alertView.addSubview(tipLabel)
         
         // 联系方式
@@ -801,7 +766,21 @@ class FTPersonalViewController: UIViewController {
     
     // MARK: - 和他聊聊按钮 点击事件
     func chatBtnClick(_ chatBtn:UIButton) {
-        self.navigationController?.pushViewController(FTMeChatViewController(), animated: true)
+        
+        if CHSUserInfo.currentUserInfo.userid == self.resumeData.userid {
+            let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+            hud?.removeFromSuperViewOnHide = true
+            hud?.mode = .text
+            hud?.margin = 10
+            hud?.labelText = "不能和自己聊天"
+            hud?.hide(true, afterDelay: 1)
+            return
+        }
+        
+        
+        let chatViewController = FTTaChatViewController()
+        chatViewController.resumeData = self.resumeData
+        self.navigationController?.pushViewController(chatViewController, animated: true)
     }
     
     // MARK: - 电话沟通按钮 点击事件
@@ -870,15 +849,15 @@ class FTPersonalViewController: UIViewController {
         alertView.center.y = bgView.center.y
         
         let line1 = UIView(frame: CGRect(x: 10, y: tipLabel.frame.maxY+5, width: alertView.frame.width-20, height: 1/UIScreen.main.scale))
-        line1.backgroundColor = UIColor.gray
+        line1.backgroundColor = UIColor.lightGray
         alertView.addSubview(line1)
         
         let line2 = UIView(frame: CGRect(x: 10, y: tipLabel1.frame.maxY+10, width: alertView.frame.width-20, height: 1/UIScreen.main.scale))
-        line2.backgroundColor = UIColor.gray
+        line2.backgroundColor = UIColor.lightGray
         alertView.addSubview(line2)
         
         let line3 = UIView(frame: CGRect(x: alertView.frame.width*0.5, y: tipLabel1.frame.maxY+10, width: 1/UIScreen.main.scale, height: alertView.frame.height-(tipLabel1.frame.maxY+10)))
-        line3.backgroundColor = UIColor.gray
+        line3.backgroundColor = UIColor.lightGray
         alertView.addSubview(line3)
 
     }

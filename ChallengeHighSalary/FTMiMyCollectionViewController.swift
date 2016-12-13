@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 class FTMiMyCollectionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -42,6 +43,7 @@ class FTMiMyCollectionViewController: UIViewController, UITableViewDataSource, U
                 self.ResumeDataArray = response as? [MyResumeData]
                 self.rootTableView.reloadData()
             }
+            self.rootTableView.mj_header.endRefreshing()
         }
     }
     
@@ -152,6 +154,8 @@ class FTMiMyCollectionViewController: UIViewController, UITableViewDataSource, U
         self.view.addSubview(rootTableView)
         self.rootTableView.isEditing = false
         self.rootTableView.allowsMultipleSelectionDuringEditing = true
+        
+        self.rootTableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(loadData))
         
         sureDeleteBtn.frame = CGRect(
             x: 0,

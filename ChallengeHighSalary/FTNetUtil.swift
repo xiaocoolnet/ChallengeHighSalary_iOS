@@ -43,13 +43,13 @@ class FTNetUtil: NSObject {
         }
     }
     
-    // MARK: 获取我的企业信息
-    // userid,logo,company_name,company_web,industry,count,financing
-    func getMyCompany_info(
+    // MARK: 获取企业认证状态
+    // list (status：1认证成功，0未认证，-1认证失败，-2正在审核中)
+    func getCompanyCertify(
         _ userid:String,
         handle:@escaping ResponseClosures) {
         
-        let url = kPortPrefix+"getMyCompany_info"
+        let url = kPortPrefix+"getCompanyCertify"
         let param = [
             "userid":userid
             ];
@@ -61,10 +61,40 @@ class FTNetUtil: NSObject {
                 let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
 
                 if checkCode.status == "success" {
-//                    let company_infoModel:Company_infoModel = Company_infoModel.jsonToModel(json)
+                    
+                    let companyCertifyModel = JSONDeserializer<CompanyCertifyModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                    
+                    handle(true, companyCertifyModel.data)
+                }else{
+                    
+                    handle(false, nil)
+                }
+            }
+        }
+    }
+    
+    // MARK: 获取我的企业信息
+    // userid,logo,company_name,company_web,industry,count,financing
+    func getMyCompany_info(
+        _ userid:String,
+        handle:@escaping ResponseClosures) {
+        
+        let url = kPortPrefix+"getMyCompany_info"
+        let param = [
+            "userid":userid
+        ];
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+            
+            if(error != nil){
+                handle(false, error.debugDescription as AnyObject?)
+            }else{
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                
+                if checkCode.status == "success" {
+                    //                    let company_infoModel:Company_infoModel = Company_infoModel.jsonToModel(json)
                     
                     let company_infoModel = JSONDeserializer<Company_infoModel>.deserializeFrom(dict: json as! NSDictionary?)!
-
+                    
                     CHSCompanyInfo.currentCompanyInfo.company_name = (company_infoModel.data?.company_name ?? "")!
                     
                     CHSCompanyInfo.currentCompanyInfo.financing = (company_infoModel.data?.financing ?? "")!

@@ -252,6 +252,7 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
             let industryCategoriesVC = CHSReChooseIndustryCategoriesViewController()
             industryCategoriesVC.navTitle = "行业选择"
             industryCategoriesVC.vcType = .intension
+            industryCategoriesVC.industryStr = detailArray[3]
             
             self.navigationController?.pushViewController(industryCategoriesVC, animated: true)
         default:

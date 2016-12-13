@@ -10,7 +10,7 @@ import UIKit
 
 class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var company_infoDataModel = Company_infoDataModel()
+    var company_infoDataModel = CompanyCertifyDataModel()
     
     let rootTableView = UITableView()
     
@@ -41,7 +41,7 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: 加载数据
     func loadData() {
         
-        if self.company_infoDataModel.companyid != "" {
+        if self.company_infoDataModel.status != "" {
             return
         }
         
@@ -50,22 +50,25 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         checkCodeHud.labelText = "正在获取个人信息"
         
         FTNetUtil().getMyCompany_info(CHSUserInfo.currentUserInfo.userid) { (success, response) in
-            if success {
-                self.company_infoDataModel = response as! Company_infoDataModel
-                
-                self.jobStatusLab.text = self.company_infoDataModel.authentication == "1" ? "已认证":"免费认证 得积分"
-
-                checkCodeHud.mode = .text
-                checkCodeHud.labelText = "获取个人信息成功"
-                checkCodeHud.hide(true, afterDelay: 1)
-                print("获取个人信息成功")
-                
-                self.setHeaderView()
-            }else{
-                checkCodeHud.mode = .text
-                checkCodeHud.labelText = "获取个人信息失败"
-                checkCodeHud.hide(true, afterDelay: 1)
-                print("获取个人信息失败")
+            
+            FTNetUtil().getCompanyCertify(CHSUserInfo.currentUserInfo.userid) { (success, response) in
+                if success {
+                    self.company_infoDataModel = response as! CompanyCertifyDataModel
+                    
+                    self.jobStatusLab.text = self.company_infoDataModel.status == "1" ? "已认证":"免费认证 得积分"
+                    
+                    checkCodeHud.mode = .text
+                    checkCodeHud.labelText = "获取个人信息成功"
+                    checkCodeHud.hide(true, afterDelay: 1)
+                    print("获取个人信息成功")
+                    
+                    self.setHeaderView()
+                }else{
+                    checkCodeHud.mode = .text
+                    checkCodeHud.labelText = "获取个人信息失败"
+                    checkCodeHud.hide(true, afterDelay: 1)
+                    print("获取个人信息失败")
+                }
             }
         }
     }
@@ -145,7 +148,7 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         jobStatusLab.textAlignment = .left
         jobStatusLab.textColor = UIColor.white
         jobStatusLab.font = UIFont.systemFont(ofSize: 12)
-        jobStatusLab.text = self.company_infoDataModel.authentication == "1" ? "已认证":"免费认证 得积分"
+        jobStatusLab.text = self.company_infoDataModel.status == "1" ? "已认证":"免费认证 得积分"
         headerView.addSubview(jobStatusLab)
         
         let scoreBtn = UIButton(frame: CGRect(
@@ -216,7 +219,7 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             self.navigationController?.pushViewController(FTMiMyRewardViewController(), animated: true)
         case (2,0):
             let hiringRecordVC = FTMiMyHiringRecordViewController()
-            hiringRecordVC.jobs = self.company_infoDataModel.jobs
+//            hiringRecordVC.jobs = self.company_infoDataModel.jobs
             self.navigationController?.pushViewController(hiringRecordVC, animated: true)
         case (2,1):
             self.navigationController?.pushViewController(FTMiMyInterviewInvitationViewController(), animated: true)
