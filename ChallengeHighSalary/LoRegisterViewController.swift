@@ -175,6 +175,7 @@ class LoRegisterViewController: UIViewController, UITextFieldDelegate {
             y: registerBtn.frame.maxY+kHeightScale*15,
             width: kWidthScale*90,
             height: kHeightScale*42))
+        agreementBtn.setImage(#imageLiteral(resourceName: "ic_注册_用户协议"), for: .normal)
         agreementBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         agreementBtn.contentHorizontalAlignment = .right
         agreementBtn.setTitle("用户协议", for: UIControlState())
@@ -332,7 +333,7 @@ class LoRegisterViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: 用户协议按钮点击事件
     func agreementBtnClick() {
-        //        self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
+                self.navigationController?.pushViewController(LoReUserAgreementViewController(), animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

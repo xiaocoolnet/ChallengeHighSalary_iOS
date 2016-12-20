@@ -197,12 +197,13 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
             y: doneBtn.frame.maxY+kHeightScale*15,
             width: kWidthScale*90,
             height: kHeightScale*42))
+        agreementBtn.setImage(#imageLiteral(resourceName: "ic_注册_用户协议"), for: .normal)
         agreementBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         agreementBtn.contentHorizontalAlignment = .right
         agreementBtn.setTitle("用户协议", for: UIControlState())
         agreementBtn.setTitleColor(baseColor, for: UIControlState())
         agreementBtn.addTarget(self, action: #selector(agreementBtnClick), for: .touchUpInside)
-        rootScrollView.addSubview(agreementBtn)
+//        rootScrollView.addSubview(agreementBtn)
     }
     
     // MARK: UITextFieldDelegate

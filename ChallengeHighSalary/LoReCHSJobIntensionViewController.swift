@@ -165,7 +165,7 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
                     let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
                     
                     DispatchQueue.main.asyncAfter(deadline: delay) {
-                        _ = self.navigationController?.popViewController(animated: true)
+//                        _ = self.navigationController?.popViewController(animated: true)
                         self.present(CHRoHomeViewController(), animated: true, completion: nil)
                     }
                 }else{

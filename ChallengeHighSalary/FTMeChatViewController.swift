@@ -161,6 +161,10 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
         _ = self.navigationController?.popViewController(animated: true)
     }
     
+    // MARK: - 聊天设置按钮点击事件
+    func chatSettingBtnClick() {
+        self.navigationController?.pushViewController(FTMeChatSettingViewController(), animated: true)
+    }
     
     // MARK:- 设置子视图
     func setSubView() {
@@ -169,6 +173,8 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
         
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_聊天_设置"), style: .done, target: self, action: #selector(chatSettingBtnClick))
+
         self.view.backgroundColor = UIColor(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1)
         
         //        NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];

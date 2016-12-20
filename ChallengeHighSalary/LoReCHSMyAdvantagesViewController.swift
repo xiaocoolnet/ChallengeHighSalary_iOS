@@ -102,26 +102,43 @@ class LoReCHSMyAdvantagesViewController: UIViewController, UITableViewDataSource
         
         checkCodeHud.labelText = "正在保存我的优势"
         
-        CHSNetUtil().PublishAdvantage(
-            CHSUserInfo.currentUserInfo.userid,
-            advantage: self.myAdvantagesTv.text!) { (success, response) in
-                if success {
-                    
-                    checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "保存我的优势成功"
-                    checkCodeHud.hide(true, afterDelay: 1)
-                    
-                    let time: TimeInterval = 1.0
-                    let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-                    
-                    DispatchQueue.main.asyncAfter(deadline: delay) {
-                        self.navigationController?.pushViewController(LoReCHSJobIntensionViewController(), animated: true)
+        if CHSUserInfo.currentUserInfo.advantage == self.myAdvantagesTv.text! {
+            checkCodeHud.mode = .text
+            checkCodeHud.labelText = "保存我的优势成功"
+            checkCodeHud.hide(true, afterDelay: 1)
+            
+            let time: TimeInterval = 1.0
+            let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+            
+            DispatchQueue.main.asyncAfter(deadline: delay) {
+                self.navigationController?.pushViewController(LoReCHSJobIntensionViewController(), animated: true)
+            }
+
+            return
+        }else{
+            
+            
+            CHSNetUtil().PublishAdvantage(
+                CHSUserInfo.currentUserInfo.userid,
+                advantage: self.myAdvantagesTv.text!) { (success, response) in
+                    if success {
+                        
+                        checkCodeHud.mode = .text
+                        checkCodeHud.labelText = "保存我的优势成功"
+                        checkCodeHud.hide(true, afterDelay: 1)
+                        
+                        let time: TimeInterval = 1.0
+                        let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                        
+                        DispatchQueue.main.asyncAfter(deadline: delay) {
+                            self.navigationController?.pushViewController(LoReCHSJobIntensionViewController(), animated: true)
+                        }
+                    }else{
+                        checkCodeHud.mode = .text
+                        checkCodeHud.labelText = "保存我的优势失败"
+                        checkCodeHud.hide(true, afterDelay: 1)
                     }
-                }else{
-                    checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "保存我的优势失败"
-                    checkCodeHud.hide(true, afterDelay: 1)
-                }
+            }
         }
     }
     

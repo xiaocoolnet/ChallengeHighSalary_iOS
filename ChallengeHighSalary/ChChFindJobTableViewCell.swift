@@ -52,7 +52,7 @@ class ChChFindJobTableViewCell: UITableViewCell {
             self.myjobLab.text = jobInfo?.myjob
             self.countLab.text = "公司规模"+(jobInfo?.count ?? "")!
             self.company_scoreLab.text = "综合评分"+(jobInfo?.company_score ?? "")!
-            self.salaryLab.text = "￥ "+(jobInfo?.salary ?? "")!
+            self.salaryLab.text = "￥ "+(jobInfo?.salary ?? "")!+"K"
             self.distanceLab.text = jobInfo?.distance
             self.cityLab.text = jobInfo?.city?.components(separatedBy: "-").last
             self.experienceLab.text = jobInfo?.experience

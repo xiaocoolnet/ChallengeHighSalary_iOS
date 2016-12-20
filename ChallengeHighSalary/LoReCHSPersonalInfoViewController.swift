@@ -28,7 +28,7 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
     
     var pickSelectedRow = 0
     
-    let pickJobTimeRequiredArray = ["不限","应届生","1年以内","1-3年"]
+    var pickJobTimeRequiredArray = [String]()
     
     let QQTf = UITextField()
     var QQNumber:String?
@@ -67,6 +67,18 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
     
     // MARK: 加载数据
     func loadData() {
+        
+        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        
+        PublicNetUtil().getDictionaryList(parentid: "5") { (success, response) in
+            if success {
+                self.pickJobTimeRequiredArray = []
+                let dicData = response as! [DicDataModel]
+                for dic in dicData {
+                    self.pickJobTimeRequiredArray.append(dic.name!)
+                }
+            }
+        }
         
         selectedImage = CHSUserInfo.currentUserInfo.avatar == "" ? nil:UIImage(data: try! Data(contentsOf: URL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!))
         nameText = CHSUserInfo.currentUserInfo.realName == "" ? nil:CHSUserInfo.currentUserInfo.realName

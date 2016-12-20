@@ -31,6 +31,7 @@
 		1F482B901D7FE9C80079A62B /* ChChCityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F482B8E1D7FE9C80079A62B /* ChChCityTableViewCell.xib */; };
 		1F482B921D7FF7B80079A62B /* ChChSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F482B911D7FF7B80079A62B /* ChChSearchViewController.swift */; };
 		1F482B9C1D8002560079A62B /* ChChSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F482B9B1D8002560079A62B /* ChChSearchTableViewCell.swift */; };
+		1F4B84E91E08DA5400C968CA /* LoReUserAgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4B84E81E08DA5400C968CA /* LoReUserAgreementViewController.swift */; };
 		1F4FD25B1D767CC500FF7040 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4FD25A1D767CC500FF7040 /* Tool.swift */; };
 		1F4FD2651D76C01D00FF7040 /* BButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4FD25E1D76C01D00FF7040 /* BButton.m */; };
 		1F4FD2661D76C01D00FF7040 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4FD2601D76C01D00FF7040 /* NSString+FontAwesome.m */; };
@@ -66,7 +67,6 @@
 		1F87411B1D82AF47007B8793 /* LoForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */; };
 		1F87411D1D82C22B007B8793 /* LoRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */; };
 		1F8F9E0E1DFF9D74004F1700 /* FTTaChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F9E0D1DFF9D74004F1700 /* FTTaChatViewController.swift */; };
-		1F8F9E101DFFBDE8004F1700 /* FTMeChatDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8F9E0F1DFFBDE8004F1700 /* FTMeChatDetailViewController.swift */; };
 		1F9CE7C11D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CE7C01D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift */; };
 		1F9CE7C31D8802FC002E6632 /* CHSReJobIntensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9CE7C21D8802FC002E6632 /* CHSReJobIntensionViewController.swift */; };
 		1F9E527D1DE532B800556F31 /* jpush-ios-2.2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9E527B1DE532B800556F31 /* jpush-ios-2.2.0.a */; };
@@ -137,6 +137,7 @@
 		1FD6F9991DBEE9A800BD7B94 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F9941DBEE9A800BD7B94 /* TPKeyboardAvoidingTableView.m */; };
 		1FD6F99A1DBEE9A800BD7B94 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD6F9961DBEE9A800BD7B94 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		1FD7FBD61D795BA70032221D /* WeHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD7FBD51D795BA70032221D /* WeHomeViewController.swift */; };
+		1FDA44D71E02870C00DB1D99 /* FTMeChatSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA44D61E02870C00DB1D99 /* FTMeChatSettingViewController.swift */; };
 		1FDA4CD91DEFBE0D00BFB060 /* ImageBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDA4CD81DEFBE0D00BFB060 /* ImageBtn.m */; };
 		1FDB00131D8F7490007043B4 /* CHSChCompanyHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB00121D8F7490007043B4 /* CHSChCompanyHomeViewController.swift */; };
 		1FDB00181D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDB00161D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift */; };
@@ -251,6 +252,7 @@
 		1F482B8E1D7FE9C80079A62B /* ChChCityTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChChCityTableViewCell.xib; sourceTree = "<group>"; };
 		1F482B911D7FF7B80079A62B /* ChChSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChSearchViewController.swift; sourceTree = "<group>"; };
 		1F482B9B1D8002560079A62B /* ChChSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChSearchTableViewCell.swift; sourceTree = "<group>"; };
+		1F4B84E81E08DA5400C968CA /* LoReUserAgreementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReUserAgreementViewController.swift; sourceTree = "<group>"; };
 		1F4FD25A1D767CC500FF7040 /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		1F4FD25D1D76C01D00FF7040 /* BButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BButton.h; sourceTree = "<group>"; };
 		1F4FD25E1D76C01D00FF7040 /* BButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BButton.m; sourceTree = "<group>"; };
@@ -289,7 +291,6 @@
 		1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoForgetPasswordViewController.swift; sourceTree = "<group>"; };
 		1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoRegisterViewController.swift; sourceTree = "<group>"; };
 		1F8F9E0D1DFF9D74004F1700 /* FTTaChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaChatViewController.swift; sourceTree = "<group>"; };
-		1F8F9E0F1DFFBDE8004F1700 /* FTMeChatDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeChatDetailViewController.swift; sourceTree = "<group>"; };
 		1F9CE7C01D87D4DB002E6632 /* CHSReEditPersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReEditPersonalInfoViewController.swift; sourceTree = "<group>"; };
 		1F9CE7C21D8802FC002E6632 /* CHSReJobIntensionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReJobIntensionViewController.swift; sourceTree = "<group>"; };
 		1F9E527B1DE532B800556F31 /* jpush-ios-2.2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.2.0.a"; sourceTree = "<group>"; };
@@ -373,6 +374,7 @@
 		1FD6F9951DBEE9A800BD7B94 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
 		1FD6F9961DBEE9A800BD7B94 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
 		1FD7FBD51D795BA70032221D /* WeHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeHomeViewController.swift; sourceTree = "<group>"; };
+		1FDA44D61E02870C00DB1D99 /* FTMeChatSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeChatSettingViewController.swift; sourceTree = "<group>"; };
 		1FDA4CD71DEFBE0D00BFB060 /* ImageBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBtn.h; sourceTree = "<group>"; };
 		1FDA4CD81DEFBE0D00BFB060 /* ImageBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageBtn.m; sourceTree = "<group>"; };
 		1FDB00121D8F7490007043B4 /* CHSChCompanyHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChCompanyHomeViewController.swift; sourceTree = "<group>"; };
@@ -846,6 +848,7 @@
 				1F0B59461DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift */,
 				1F0B59481DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift */,
 				1F0002951DAC952E00D57CE6 /* LoReFTInfoInputViewController.swift */,
+				1F4B84E81E08DA5400C968CA /* LoReUserAgreementViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -974,7 +977,7 @@
 				1F577B131DA9E7C600AB5D99 /* FTMeCollectionMeViewController.swift */,
 				1F577B151DA9E82600AB5D99 /* FTMeLookMeViewController.swift */,
 				1FDF6BAE1DE436E0007C72E1 /* FTMeChatViewController.swift */,
-				1F8F9E0F1DFFBDE8004F1700 /* FTMeChatDetailViewController.swift */,
+				1FDA44D61E02870C00DB1D99 /* FTMeChatSettingViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1490,6 +1493,7 @@
 				1FDB00241D8FCB4A007043B4 /* CHSMiHomeTableViewCell.swift in Sources */,
 				1FB6D5FC1D9BC31400262BBD /* FTMiMyRewardViewController.swift in Sources */,
 				1FF1CE1F1DA8C5D1000F0A9A /* FTMeHomeTableViewCell.swift in Sources */,
+				1F4B84E91E08DA5400C968CA /* LoReUserAgreementViewController.swift in Sources */,
 				1FDB001D1D8FB712007043B4 /* CHSReJobExperienceViewController.swift in Sources */,
 				1F7EDB031DDEA41D005FD660 /* CHSMeChatTableViewCell.swift in Sources */,
 				1FF06CC01D7D17960032943B /* ChChHomeViewController.swift in Sources */,
@@ -1525,6 +1529,7 @@
 				1FF3C6A11D9269F70069DD23 /* CHSMiMyDeliveryRecordViewController.swift in Sources */,
 				1FF06CD91D7D609A0032943B /* DropDownCell.swift in Sources */,
 				1FDB001B1D8FB0EE007043B4 /* CHSChCompanyPositionListViewController.swift in Sources */,
+				1FDA44D71E02870C00DB1D99 /* FTMeChatSettingViewController.swift in Sources */,
 				1F14AF431D93CD0A00456A80 /* FTTaRetrievalViewController.swift in Sources */,
 				1FDB00181D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift in Sources */,
 				1F577B141DA9E7C600AB5D99 /* FTMeCollectionMeViewController.swift in Sources */,
@@ -1611,7 +1616,6 @@
 				1F1224D91D97AE5A0094C6CE /* CHSReEduExperienceViewController.swift in Sources */,
 				1F0B59471DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift in Sources */,
 				1F9CE7C31D8802FC002E6632 /* CHSReJobIntensionViewController.swift in Sources */,
-				1F8F9E101DFFBDE8004F1700 /* FTMeChatDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

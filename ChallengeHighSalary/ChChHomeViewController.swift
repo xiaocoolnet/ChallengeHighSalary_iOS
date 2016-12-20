@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, UITableViewDataSource, UITableViewDelegate, AMapLocationManagerDelegate {
     
@@ -40,7 +41,6 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         setNavigationBar()
         setSubviews()
-        loadData()
         
     }
     
@@ -78,8 +78,9 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
 
     }
     
-    // MARK: 加载数据
-    func loadData() {
+    // MARK: 加载数据 - 招聘列表
+    func loadJobListData() {
+        
         CHSNetUtil().getjoblist(CHSUserInfo.currentUserInfo.userid) { (success, response) in
             if success {
                 self.jobList = (response as! [JobInfoDataModel]?)!
@@ -87,17 +88,11 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             }else{
                 
             }
-        }
-        
-        CHSNetUtil().getCompanyList { (success, response) in
-            if success {
-                self.companyList = (response as! [Company_infoDataModel]?)!
-                self.findEmployerTableView.reloadData()
-            }else{
-                
+            
+            if self.findJobTableView.mj_header.isRefreshing() {
+                self.findJobTableView.mj_header.endRefreshing()
             }
         }
-        
         PublicNetUtil().getDictionaryList(parentid: "5") { (success, response) in
             if success {
                 self.salaryDrop.dataSource = []
@@ -120,6 +115,23 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             }
         }
         
+    }
+    
+    // MARK: 加载数据 - 公司列表
+    func loadCompanyListData() {
+        
+        CHSNetUtil().getCompanyList { (success, response) in
+            if success {
+                self.companyList = (response as! [Company_infoDataModel]?)!
+                self.findEmployerTableView.reloadData()
+            }else{
+                
+            }
+            
+            if self.findEmployerTableView.mj_header.isRefreshing() {
+                self.findEmployerTableView.mj_header.endRefreshing()
+            }
+        }
         PublicNetUtil().getDictionaryList(parentid: "18") { (success, response) in
             if success {
                 self.scaleDrop.dataSource = []
@@ -130,6 +142,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
                 }
             }
         }
+        
         
     }
     
@@ -306,6 +319,10 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         findJobTableView.dataSource = self
         findJobTableView.delegate = self
         self.rootScrollView.addSubview(findJobTableView)
+        
+        
+        findJobTableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(loadJobListData))
+        findJobTableView.mj_header.beginRefreshing()
     }
     
     // MARK: 设置子视图_找雇主
@@ -373,6 +390,9 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         findEmployerTableView.dataSource = self
         findEmployerTableView.delegate = self
         self.rootScrollView.addSubview(findEmployerTableView)
+        
+        findEmployerTableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(loadCompanyListData))
+        findEmployerTableView.mj_header.beginRefreshing()
     }
     
     // MARK:自定义下拉列表样式

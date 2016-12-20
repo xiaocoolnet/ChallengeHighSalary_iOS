@@ -131,12 +131,14 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
             y: pwdInputBgView.frame.maxY+screenSize.height*0.026,
             width: screenSize.width*0.176,
             height: screenSize.height*0.027))
+        forgetPwdBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         forgetPwdBtn.setTitle("忘记密码？", for: UIControlState())
         forgetPwdBtn.setTitleColor(baseColor, for: UIControlState())
         forgetPwdBtn.addTarget(self, action: #selector(forgetPwdBtnClick), for: .touchUpInside)
+        forgetPwdBtn.sizeToFit()
         forgetPwdBtn.center.x = self.view.center.x
         rootScrollView.addSubview(forgetPwdBtn)
-        forgetPwdBtn.titleLabel?.adjustsFontSizeToFitWidth = true
+//        forgetPwdBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         
         // 没有账号 Label
         let noAccountLab = UILabel(frame: CGRect(

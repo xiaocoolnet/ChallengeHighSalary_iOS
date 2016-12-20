@@ -21,10 +21,9 @@ PODS:
   - Bugtags (2.0.2):
     - Bugtags/Core (= 2.0.2)
   - Bugtags/Core (2.0.2)
-  - HandyJSON (1.2.1)
+  - HandyJSON (1.4.0)
   - MJRefresh (3.1.12)
   - PagingMenuController (1.4.0)
-  - PickerView (0.2.3)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
@@ -34,10 +33,9 @@ DEPENDENCIES:
   - AMapLocation
   - BmobSDK
   - Bugtags
-  - HandyJSON (~> 1.2.1)
-  - MJRefresh
+  - HandyJSON (~> 1.4.0)
+  - MJRefresh (~> 3.1.12)
   - PagingMenuController (~> 1.4.0)
-  - PickerView (~> 0.2.3)
   - SDWebImage (~> 3.8)
 
 SPEC CHECKSUMS:
@@ -46,12 +44,11 @@ SPEC CHECKSUMS:
   AMapLocation: 3f2005c6dec6a7a1107258d0cde43b9d7399d217
   BmobSDK: e188cb31d6a8417ab668aee821da227d7512b865
   Bugtags: 94646a8cc2cdcb0f2fe8818675d0f73ba9a26029
-  HandyJSON: c20190bca46cc6e7fb87073df63ecbe90770a7b0
+  HandyJSON: 8aa98b0ece8c5f7a9042bccd33b0254448704bcb
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   PagingMenuController: 79a9ce7472839d9afd0a6b879af6132822644a47
-  PickerView: 0e70263bcea25b3809634e7b7c4b1710a657de5a
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: eca9b68162429cf036ed33bcc133701c7208a6c8
+PODFILE CHECKSUM: f671c51de8f8fd4c4d7f9533f1b2edabfe59b245
 
 COCOAPODS: 1.0.1

@@ -93,7 +93,7 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
             y: 0,
             width: kWidthScale*58,
             height: newPhoneBgView.frame.size.height))!
-        telLab.resetdata("+86", #imageLiteral(resourceName: "ic_xialajiantou"))
+        telLab.resetdata("+86", #imageLiteral(resourceName: "ic_下拉箭头_绿"))
         telLab.lb_titleColor = baseColor
 //        telLab.setTitleColor(baseColor, for: UIControlState())
 //        telLab.setTitle("+86", for: UIControlState())

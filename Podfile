@@ -2,11 +2,11 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'ChallengeHighSalary' do
-  pod 'MJRefresh'
+  pod 'MJRefresh', '~> 3.1.12'
   pod 'AFNetworking', '~> 3.1.0'
-  pod 'HandyJSON', '~> 1.2.1'
+  pod 'HandyJSON', '~> 1.4.0'
   pod 'PagingMenuController', '~> 1.4.0'
-  pod 'PickerView', '~> 0.2.3'
+#  pod 'PickerView', '~> 0.2.3'
   pod 'SDWebImage', '~>3.8'
 #  pod 'Pgyer', '2.8.4'
   pod 'BmobSDK'
