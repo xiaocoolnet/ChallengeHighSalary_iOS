@@ -1302,7 +1302,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "北京校酷网络科技公司";
 				TargetAttributes = {
 					1FCDFEBB1D73E6DB0067970B = {
