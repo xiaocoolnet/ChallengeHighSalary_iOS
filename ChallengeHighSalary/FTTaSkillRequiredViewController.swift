@@ -37,13 +37,13 @@ class FTTaSkillRequiredViewController: UIViewController {
     func loadData() {
         
         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud?.removeFromSuperViewOnHide = true
-        hud?.margin = 10
-        hud?.labelText = "正在获取技能标签"
+        hud.removeFromSuperViewOnHide = true
+        hud.margin = 10
+        hud.label.text = "正在获取技能标签"
         
         PublicNetUtil().getDictionaryList(parentid: "36") { (success, response) in
             if success {
-                hud?.hide(true)
+                hud.hide(animated: true)
                 
                 self.skillModelArray = []
                 
@@ -76,9 +76,9 @@ class FTTaSkillRequiredViewController: UIViewController {
                 self.setSkillBtn()
 
             }else{
-                hud?.mode = .text
-                hud?.labelText = "技能标签获取失败"
-                hud?.hide(true, afterDelay: 1)
+                hud.mode = .text
+                hud.label.text = "技能标签获取失败"
+                hud.hide(animated: true, afterDelay: 1)
                 
                 let time: TimeInterval = 1.0
                 let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -233,11 +233,11 @@ class FTTaSkillRequiredViewController: UIViewController {
         
         if count >= 3 && !skillBtn.isSelected {
 
-            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
             checkCodeHud.removeFromSuperViewOnHide = true
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "最多选择3个标签"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "最多选择3个标签"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }
         
@@ -304,12 +304,12 @@ class FTTaSkillRequiredViewController: UIViewController {
         skillStr.remove(at: skillStr.startIndex)
         
         if skillStr == "" {
-            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
             checkCodeHud.removeFromSuperViewOnHide = true
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请选择技能标签"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请选择技能标签"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
         }else{
             
             var FTPublishJobSelectedNameArray = UserDefaults.standard.array(forKey: FTPublishJobSelectedNameArray_key) as! [Array<String>]

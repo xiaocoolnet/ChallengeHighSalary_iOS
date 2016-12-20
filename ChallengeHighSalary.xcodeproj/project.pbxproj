@@ -32,6 +32,7 @@
 		1F482B921D7FF7B80079A62B /* ChChSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F482B911D7FF7B80079A62B /* ChChSearchViewController.swift */; };
 		1F482B9C1D8002560079A62B /* ChChSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F482B9B1D8002560079A62B /* ChChSearchTableViewCell.swift */; };
 		1F4B84E91E08DA5400C968CA /* LoReUserAgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4B84E81E08DA5400C968CA /* LoReUserAgreementViewController.swift */; };
+		1F4B84EC1E09086C00C968CA /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4B84EB1E09086C00C968CA /* MBProgressHUD.m */; };
 		1F4FD25B1D767CC500FF7040 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4FD25A1D767CC500FF7040 /* Tool.swift */; };
 		1F4FD2651D76C01D00FF7040 /* BButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4FD25E1D76C01D00FF7040 /* BButton.m */; };
 		1F4FD2661D76C01D00FF7040 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4FD2601D76C01D00FF7040 /* NSString+FontAwesome.m */; };
@@ -193,7 +194,6 @@
 		1FF3C6AD1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF3C6AB1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.xib */; };
 		1FF524D11D88DBD800E1B70F /* LoginNetUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF524D01D88DBD800E1B70F /* LoginNetUtil.swift */; };
 		1FF524D51D88E8C700E1B70F /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF524D41D88E8C700E1B70F /* LoginModel.swift */; };
-		1FF524DE1D88F6EC00E1B70F /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF524DB1D88F6EC00E1B70F /* MBProgressHUD.m */; };
 		1FF9DB161D96145D00F0C69D /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF9DB151D96145D00F0C69D /* GuideViewController.swift */; };
 		1FF9DB181D96216500F0C69D /* FTMiSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF9DB171D96216500F0C69D /* FTMiSettingViewController.swift */; };
 		1FF9DB1A1D9622CA00F0C69D /* FTMiMyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF9DB191D9622CA00F0C69D /* FTMiMyCollectionViewController.swift */; };
@@ -253,6 +253,8 @@
 		1F482B911D7FF7B80079A62B /* ChChSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChSearchViewController.swift; sourceTree = "<group>"; };
 		1F482B9B1D8002560079A62B /* ChChSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChSearchTableViewCell.swift; sourceTree = "<group>"; };
 		1F4B84E81E08DA5400C968CA /* LoReUserAgreementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoReUserAgreementViewController.swift; sourceTree = "<group>"; };
+		1F4B84EA1E09086C00C968CA /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		1F4B84EB1E09086C00C968CA /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		1F4FD25A1D767CC500FF7040 /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		1F4FD25D1D76C01D00FF7040 /* BButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BButton.h; sourceTree = "<group>"; };
 		1F4FD25E1D76C01D00FF7040 /* BButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BButton.m; sourceTree = "<group>"; };
@@ -433,8 +435,6 @@
 		1FF3C6AB1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSChInterviewEvaTableViewCell.xib; sourceTree = "<group>"; };
 		1FF524D01D88DBD800E1B70F /* LoginNetUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginNetUtil.swift; sourceTree = "<group>"; };
 		1FF524D41D88E8C700E1B70F /* LoginModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
-		1FF524DA1D88F6EC00E1B70F /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		1FF524DB1D88F6EC00E1B70F /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		1FF9DB151D96145D00F0C69D /* GuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		1FF9DB171D96216500F0C69D /* FTMiSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiSettingViewController.swift; sourceTree = "<group>"; };
 		1FF9DB191D9622CA00F0C69D /* FTMiMyCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiMyCollectionViewController.swift; sourceTree = "<group>"; };
@@ -1185,8 +1185,8 @@
 		1FF524D81D88F6EC00E1B70F /* MBProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
-				1FF524DA1D88F6EC00E1B70F /* MBProgressHUD.h */,
-				1FF524DB1D88F6EC00E1B70F /* MBProgressHUD.m */,
+				1F4B84EA1E09086C00C968CA /* MBProgressHUD.h */,
+				1F4B84EB1E09086C00C968CA /* MBProgressHUD.m */,
 			);
 			path = MBProgressHUD;
 			sourceTree = "<group>";
@@ -1533,6 +1533,7 @@
 				1F14AF431D93CD0A00456A80 /* FTTaRetrievalViewController.swift in Sources */,
 				1FDB00181D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift in Sources */,
 				1F577B141DA9E7C600AB5D99 /* FTMeCollectionMeViewController.swift in Sources */,
+				1F4B84EC1E09086C00C968CA /* MBProgressHUD.m in Sources */,
 				1FF9DB281D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.swift in Sources */,
 				1FEF809D1D810A4D00486F9C /* FTTaHomeViewController.swift in Sources */,
 				1F577B111DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.swift in Sources */,
@@ -1544,7 +1545,6 @@
 				1FD697731DB0CC22008D0A14 /* LoReCHSEduExperienceViewController.swift in Sources */,
 				1FF06CD41D7D609A0032943B /* DPDUIView+Extension.swift in Sources */,
 				1FB6D5F61D9B9E1900262BBD /* CHSMiMyBlacklistViewController.swift in Sources */,
-				1FF524DE1D88F6EC00E1B70F /* MBProgressHUD.m in Sources */,
 				1F1224D71D979CA60094C6CE /* CHSRePreviewViewController.swift in Sources */,
 				1F482B891D7FBD630079A62B /* ChChCityViewController.swift in Sources */,
 				1FF06CDD1D7D6D970032943B /* ChChFindJobTableViewCell.swift in Sources */,

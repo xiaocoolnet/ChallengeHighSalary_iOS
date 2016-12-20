@@ -45,9 +45,9 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             return
         }
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
-        checkCodeHud.labelText = "正在获取个人信息"
+        checkCodeHud.label.text = "正在获取个人信息"
         
         FTNetUtil().getMyCompany_info(CHSUserInfo.currentUserInfo.userid) { (success, response) in
             
@@ -58,15 +58,15 @@ class FTMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.jobStatusLab.text = self.company_infoDataModel.status == "1" ? "已认证":"免费认证 得积分"
                     
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "获取个人信息成功"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "获取个人信息成功"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                     print("获取个人信息成功")
                     
                     self.setHeaderView()
                 }else{
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "获取个人信息失败"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "获取个人信息失败"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                     print("获取个人信息失败")
                 }
             }

@@ -128,17 +128,17 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
     // MARK: 点击保存按钮
     func clickSaveBtn() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if detailArray[2] == "职位类型" || detailArray[3] == "行业类别" {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请完善求职意向"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请完善求职意向"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }
         
-        checkCodeHud.labelText = "正在上传求职意向"
+        checkCodeHud.label.text = "正在上传求职意向"
         
         CHSNetUtil().PublishIntension(
             CHSUserInfo.currentUserInfo.userid,
@@ -158,8 +158,8 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
                     CHSUserInfo.currentUserInfo.jobstate =  self.detailArray[5]
                     
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "求职意向保存成功"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "求职意向保存成功"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                     
                     let time: TimeInterval = 1.0
                     let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -171,8 +171,8 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
                 }else{
                     
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "求职意向保存失败"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "求职意向保存失败"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                 }
         }
     }

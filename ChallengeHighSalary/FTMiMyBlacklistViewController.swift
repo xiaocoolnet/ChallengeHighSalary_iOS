@@ -99,19 +99,19 @@ class FTMiMyBlacklistViewController: UIViewController, UITableViewDataSource, UI
         let sureAction = UIAlertAction(title: "确定", style: .default) { (action) in
             
             let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            hud?.removeFromSuperViewOnHide = true
+            hud.removeFromSuperViewOnHide = true
 
             PublicNetUtil().delBlackList(CHSUserInfo.currentUserInfo.userid, type: "2", blackid: (self.blackListDataArray[cancelBtn.tag-100].blackid ?? "")!) { (success, response) in
                 if success {
                     
-                    hud?.hide(true)
+                    hud.hide(animated: true)
 
                     self.blackListDataArray.remove(at: cancelBtn.tag-100)
                     self.rootTableView.reloadData()
                 }else{
-                    hud?.mode = .text
-                    hud?.labelText = ((response as? String) ?? "取消黑名单失败，请稍后再试")!
-                    hud?.hide(true, afterDelay: 1)
+                    hud.mode = .text
+                    hud.label.text = ((response as? String) ?? "取消黑名单失败，请稍后再试")!
+                    hud.hide(animated: true, afterDelay: 1)
                 }
             }
         }

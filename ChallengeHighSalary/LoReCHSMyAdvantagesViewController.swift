@@ -89,23 +89,23 @@ class LoReCHSMyAdvantagesViewController: UIViewController, UITableViewDataSource
     // MARK: 点击保存按钮
     func clickSaveBtn() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if self.myAdvantagesTv.text!.isEmpty {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入优势描述"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入优势描述"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }
         
-        checkCodeHud.labelText = "正在保存我的优势"
+        checkCodeHud.label.text = "正在保存我的优势"
         
         if CHSUserInfo.currentUserInfo.advantage == self.myAdvantagesTv.text! {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "保存我的优势成功"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "保存我的优势成功"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             
             let time: TimeInterval = 1.0
             let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -124,8 +124,8 @@ class LoReCHSMyAdvantagesViewController: UIViewController, UITableViewDataSource
                     if success {
                         
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelText = "保存我的优势成功"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.text = "保存我的优势成功"
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                         
                         let time: TimeInterval = 1.0
                         let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -135,8 +135,8 @@ class LoReCHSMyAdvantagesViewController: UIViewController, UITableViewDataSource
                         }
                     }else{
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelText = "保存我的优势失败"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.text = "保存我的优势失败"
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                     }
             }
         }

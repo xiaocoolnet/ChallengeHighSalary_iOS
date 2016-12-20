@@ -143,11 +143,11 @@ class FTMeHomeViewController: UIViewController, UITableViewDataSource, UITableVi
             
             if self.chatListArray[indexPath.row-4].chat_uid == nil {
                 let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-                hud?.margin = 10
-                hud?.removeFromSuperViewOnHide = true
-                hud?.mode = .text
-                hud?.labelText = "数据出错，请稍后再试"
-                hud?.hide(true, afterDelay: 1)
+                hud.margin = 10
+                hud.removeFromSuperViewOnHide = true
+                hud.mode = .text
+                hud.label.text = "数据出错，请稍后再试"
+                hud.hide(animated: true, afterDelay: 1)
                 return
             }
             let chatController = FTMeChatViewController()

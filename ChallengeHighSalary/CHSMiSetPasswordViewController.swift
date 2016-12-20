@@ -120,31 +120,31 @@ class CHSMiSetPasswordViewController: UIViewController, UITextFieldDelegate {
     // MARK: 修改密码 按钮 点击事件
     func changePwdBtnClick() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if newPwdTF.text!.isEmpty {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入登录密码"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入登录密码"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if sureNewPwdTF.text!.isEmpty {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入确认密码"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入确认密码"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if newPwdTF.text! != sureNewPwdTF.text! {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "两次密码输入不一致"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "两次密码输入不一致"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }
         
         CHSMiNetUtil().changePassword(newPwdTF.text!) { (success, response) in
             if success {
                 checkCodeHud.mode = .text
-                checkCodeHud.labelText = "密码修改成功"
-                checkCodeHud.hide(true, afterDelay: 1)
+                checkCodeHud.label.text = "密码修改成功"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
                 
                 let time: TimeInterval = 1.0
                 let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -154,8 +154,8 @@ class CHSMiSetPasswordViewController: UIViewController, UITextFieldDelegate {
                 }
             }else{
                 checkCodeHud.mode = .text
-                checkCodeHud.labelText = String(describing: response!)
-                checkCodeHud.hide(true, afterDelay: 1)
+                checkCodeHud.label.text = String(describing: response!)
+                checkCodeHud.hide(animated: true, afterDelay: 1)
             }
         }
     }

@@ -90,11 +90,11 @@ class CHSReProjectDescriptionViewController: UIViewController, UITableViewDataSo
         
         if self.myAdvantagesTv.text!.isEmpty {
             
-            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
             checkCodeHud.removeFromSuperViewOnHide = true
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入项目描述"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入项目描述"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }
         

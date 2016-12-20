@@ -220,22 +220,22 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     // MARK:- 发布职位按钮点击事件
     func publishJobBtnClick() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
-        checkCodeHud.labelText = "正在获取公司信息"
+        checkCodeHud.label.text = "正在获取公司信息"
         
         FTNetUtil().getMyCompany_info(CHSUserInfo.currentUserInfo.userid) { (success, response) in
             if success {
-                checkCodeHud.hide(true)
+                checkCodeHud.hide(animated: true)
                 
                 self.navigationController?.pushViewController(FTTaPositionViewController(), animated: true)
             }else{
                 
                 
                 checkCodeHud.mode = .text
-                checkCodeHud.labelText = "尚无公司信息"
-                checkCodeHud.detailsLabelText = "请先到 我-我的公司信息 中 完善公司信息"
-                checkCodeHud.hide(true, afterDelay: 1)
+                checkCodeHud.label.text = "尚无公司信息"
+                checkCodeHud.detailsLabel.text = "请先到 我-我的公司信息 中 完善公司信息"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
             }
         }
     }

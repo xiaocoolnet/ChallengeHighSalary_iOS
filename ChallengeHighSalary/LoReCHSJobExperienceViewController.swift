@@ -141,7 +141,7 @@ class LoReCHSJobExperienceViewController: UIViewController, UITableViewDataSourc
     func clickSaveBtn() {
         //        userid,company_name,company_industry,jobtype,skill,work_period,content
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         var flag = false
@@ -151,8 +151,8 @@ class LoReCHSJobExperienceViewController: UIViewController, UITableViewDataSourc
                 
                 flag = true
                 //checkCodeHud.mode = .text
-                //checkCodeHud.labelText = "请完善工作经历"
-                //checkCodeHud.hide(true, afterDelay: 1)
+                //checkCodeHud.label.text = "请完善工作经历"
+                //checkCodeHud.hide(animated: true, afterDelay: 1)
                 //return
             }
         }
@@ -161,13 +161,13 @@ class LoReCHSJobExperienceViewController: UIViewController, UITableViewDataSourc
             
             flag = true
             //checkCodeHud.mode = .text
-            //checkCodeHud.labelText = "请输入工作内容"
-            //checkCodeHud.hide(true, afterDelay: 1)
+            //checkCodeHud.label.text = "请输入工作内容"
+            //checkCodeHud.hide(animated: true, afterDelay: 1)
             //return
         }
         
         if flag {
-            checkCodeHud.labelText = "正在保存工作经历"
+            checkCodeHud.label.text = "正在保存工作经历"
             
             CHSNetUtil().PublishWork(
                 CHSUserInfo.currentUserInfo.userid,
@@ -206,8 +206,8 @@ class LoReCHSJobExperienceViewController: UIViewController, UITableViewDataSourc
                         ]
                         
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelText = "保存工作经历成功"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.text = "保存工作经历成功"
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                         
                         let time: TimeInterval = 1.0
                         let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -218,8 +218,8 @@ class LoReCHSJobExperienceViewController: UIViewController, UITableViewDataSourc
                     }else{
                         
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelText = "保存工作经历失败"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.text = "保存工作经历失败"
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                     }
                     
             }

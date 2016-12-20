@@ -108,7 +108,7 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
     // MARK: 点击保存按钮
     func clickSaveBtn() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if self.selectedIndex == nil {
@@ -116,32 +116,32 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
             if schoolNameTf.text!.isEmpty {
                 
                 checkCodeHud.mode = .text
-                checkCodeHud.labelText = "请输入学校名称"
-                checkCodeHud.hide(true, afterDelay: 1)
+                checkCodeHud.label.text = "请输入学校名称"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
                 return
             }else if majorNameTf.text!.isEmpty {
                 
                 checkCodeHud.mode = .text
-                checkCodeHud.labelText = "请输入专业"
-                checkCodeHud.hide(true, afterDelay: 1)
+                checkCodeHud.label.text = "请输入专业"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
                 return
             }else if detailArray[2] == "选择学历" {
                 
                 checkCodeHud.mode = .text
-                checkCodeHud.labelText = "请选择学历"
-                checkCodeHud.hide(true, afterDelay: 1)
+                checkCodeHud.label.text = "请选择学历"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
                 return
             }else if detailArray[3] == "请选择就读时间段" {
                 
                 checkCodeHud.mode = .text
-                checkCodeHud.labelText = "请选择就读时间段"
-                checkCodeHud.hide(true, afterDelay: 1)
+                checkCodeHud.label.text = "请选择就读时间段"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
                 return
             }else if schoolExpTv.text!.isEmpty {
                 
                 checkCodeHud.mode = .text
-                checkCodeHud.labelText = "请输入在校经历"
-                checkCodeHud.hide(true, afterDelay: 1)
+                checkCodeHud.label.text = "请输入在校经历"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
                 return
             }
         }else if
@@ -151,8 +151,8 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
                     CHSUserInfo.currentUserInfo.education![self.selectedIndex!].time ==  detailArray[3] && CHSUserInfo.currentUserInfo.education![self.selectedIndex!].experience == schoolExpTv.text! {
                 
                 checkCodeHud.mode = .text
-                checkCodeHud.labelText = "信息未修改"
-                checkCodeHud.hide(true, afterDelay: 1)
+                checkCodeHud.label.text = "信息未修改"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
                 
                 let time: TimeInterval = 1.0
                 let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -165,7 +165,7 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
             
         }
         
-        checkCodeHud.labelText = "正在保存教育经历"
+        checkCodeHud.label.text = "正在保存教育经历"
         
         CHSNetUtil().PublishEducation(
             CHSUserInfo.currentUserInfo.userid,
@@ -194,8 +194,8 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
                     CHSUserInfo.currentUserInfo.education?.append(eduModel)
                     
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "保存教育经历成功"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "保存教育经历成功"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                     
                     let time: TimeInterval = 1.0
                     let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -206,8 +206,8 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
                 }else{
                     
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "保存教育经历失败"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "保存教育经历失败"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                 }
 
         }

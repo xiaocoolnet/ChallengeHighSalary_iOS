@@ -262,21 +262,21 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
     // MARK: 登录按钮点击事件
     func loginBtnClick() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         // 判断 手机号 密码 是否为空
         if telTF.text!.isEmpty {
 
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入手机号"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入手机号"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if pwdTF.text!.isEmpty {
 
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入密码"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入密码"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }
         
@@ -294,7 +294,7 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
             telTF.text = usernameStr
             pwdTF.text = passwordStr
             
-            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
             checkCodeHud.removeFromSuperViewOnHide = true
             
             LoginMethod(telTF.text!, password: pwdTF.text!, hud: checkCodeHud)
@@ -311,7 +311,7 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
                 
                 if success {
                     
-                    hud.hide(true)
+                    hud.hide(animated: true)
                     UserDefaults.standard.set([userName_key:phone,userPwd_key:password], forKey: logInfo_key)
                     UserDefaults.standard.setValue(phone, forKey: userName_key)
 
@@ -319,11 +319,11 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
                 }else{
                     
                     hud.mode = .text
-                    hud.labelFont = UIFont.systemFont(ofSize: 14)
-                    hud.labelText = "登录失败"
-                    hud.detailsLabelFont = UIFont.systemFont(ofSize: 16)
-                    hud.detailsLabelText = response as! String
-                    hud.hide(true, afterDelay: 1)
+                    hud.label.font = UIFont.systemFont(ofSize: 14)
+                    hud.label.text = "登录失败"
+                    hud.detailsLabel.font = UIFont.systemFont(ofSize: 16)
+                    hud.detailsLabel.text = response as? String
+                    hud.hide(animated: true, afterDelay: 1)
                 }
             })
         }

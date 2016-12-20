@@ -61,11 +61,11 @@ class ChChCityViewController: UIViewController, UITableViewDataSource, UITableVi
         
         if myCity == "城市" {
             let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            hud?.mode = .text
-            hud?.labelText = "请选择您的城市"
-            hud?.removeFromSuperViewOnHide = true
+            hud.mode = .text
+            hud.label.text = "请选择您的城市"
+            hud.removeFromSuperViewOnHide = true
             
-            hud?.hide(true, afterDelay: 1)
+            hud.hide(animated: true, afterDelay: 1)
         }else{
             
             let _ = self.navigationController?.popViewController(animated: true)

@@ -114,36 +114,36 @@ class FTMiInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: 点击保存按钮
     func clickSaveBtn() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if (selectedImage == nil) {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请先上传头像"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请先上传头像"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if nameText == nil {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入真实姓名"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入真实姓名"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if positionText == nil {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入职位名"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入职位名"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if companyText == nil {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入公司名"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入公司名"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else{
             
-            checkCodeHud.labelText = "正在上传头像"
+            checkCodeHud.label.text = "正在上传头像"
             
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyyMMddHHmmss"
@@ -153,7 +153,7 @@ class FTMiInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             LoginNetUtil().uploadImage(imageName, image: selectedImage!) { (success, response) in
                 if success {
                     
-                    checkCodeHud.labelText = "正在保存个人信息"
+                    checkCodeHud.label.text = "正在保存个人信息"
                     
                     LoginNetUtil().savecompanyinfo(
                         CHSUserInfo.currentUserInfo.userid,
@@ -170,8 +170,8 @@ class FTMiInfoViewController: UIViewController, UITableViewDataSource, UITableVi
                             if success {
                                 
                                 checkCodeHud.mode = .text
-                                checkCodeHud.labelText = "保存个人信息成功"
-                                checkCodeHud.hide(true, afterDelay: 1)
+                                checkCodeHud.label.text = "保存个人信息成功"
+                                checkCodeHud.hide(animated: true, afterDelay: 1)
                                 
                                 let time: TimeInterval = 1.0
                                 let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -182,15 +182,15 @@ class FTMiInfoViewController: UIViewController, UITableViewDataSource, UITableVi
                             }else{
                                 
                                 checkCodeHud.mode = .text
-                                checkCodeHud.labelText = "保存个人信息失败"
-                                checkCodeHud.hide(true, afterDelay: 1)
+                                checkCodeHud.label.text = "保存个人信息失败"
+                                checkCodeHud.hide(animated: true, afterDelay: 1)
                             }
                     })
                 }else{
                     
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "上传头像失败"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "上传头像失败"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                 }
             }
         }

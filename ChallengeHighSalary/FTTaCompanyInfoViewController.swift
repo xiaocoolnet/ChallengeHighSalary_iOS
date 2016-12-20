@@ -98,11 +98,11 @@ class FTTaCompanyInfoViewController: UIViewController, UITableViewDataSource,UIT
     // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud?.removeFromSuperViewOnHide = true
-        hud?.mode = .text
-        hud?.margin = 10
-        hud?.labelText = "若需修改,请到『我的公司信息』页面"
-        hud?.hide(true, afterDelay: 1)
+        hud.removeFromSuperViewOnHide = true
+        hud.mode = .text
+        hud.margin = 10
+        hud.label.text = "若需修改,请到『我的公司信息』页面"
+        hud.hide(animated: true, afterDelay: 1)
     }
 
     

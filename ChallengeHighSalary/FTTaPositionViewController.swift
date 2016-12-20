@@ -74,8 +74,8 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         var flag = 0
         
         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud?.removeFromSuperViewOnHide = true
-        hud?.margin = 10
+        hud.removeFromSuperViewOnHide = true
+        hud.margin = 10
         
         PublicNetUtil().getDictionaryList(parentid: "52") { (success, response) in
             if success {
@@ -88,7 +88,7 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
                 
                 flag += 1
                 if flag >= 2 {
-                    hud?.hide(true)
+                    hud.hide(animated: true)
                 }
                 
             }else{
@@ -100,7 +100,7 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         
         PublicNetUtil().getDictionaryList(parentid: "60") { (success, response) in
             if success {
-                hud?.hide(true)
+                hud.hide(animated: true)
                 let dicData = response as! [DicDataModel]
                 
                 for dic in dicData {
@@ -109,7 +109,7 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
                 
                 flag += 1
                 if flag >= 2 {
-                    hud?.hide(true)
+                    hud.hide(animated: true)
                 }
                 
             }else{
@@ -155,7 +155,7 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
     // MARK: 发布职位按钮 点击事件
     func postPositionBtnClick() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
 //        [["公司信息"],["职位类型","职位名称","技能要求","薪资范围"],["经验要求","学历要求"],["工作城市","工作地点","职位描述"]] 
@@ -172,11 +172,11 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
             selectedNameArray[3][3] == "公司福利"{
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请完善职位信息"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请完善职位信息"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
         }else{
             
-            checkCodeHud.labelText = "正在发布职位"
+            checkCodeHud.label.text = "正在发布职位"
             
             FTNetUtil().publishjob(
                 CHSUserInfo.currentUserInfo.userid,
@@ -194,8 +194,8 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
                     if success {
                         
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelText = "发布职位成功"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.text = "发布职位成功"
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                         
                         let time: TimeInterval = 1.0
                         let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -206,8 +206,8 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
                     }else{
                         
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelText = "发布职位失败"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.text = "发布职位失败"
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                     }
             }
         }

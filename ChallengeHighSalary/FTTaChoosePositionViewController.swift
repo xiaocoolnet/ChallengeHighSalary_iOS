@@ -44,21 +44,21 @@ class FTTaChoosePositionViewController: UIViewController, UITableViewDataSource,
     func loadData() {
         
         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud?.removeFromSuperViewOnHide = true
-        hud?.margin = 10
-        hud?.labelText = "正在获取职位类型"
+        hud.removeFromSuperViewOnHide = true
+        hud.margin = 10
+        hud.label.text = "正在获取职位类型"
         
         PublicNetUtil().getDictionaryList(parentid: positionTypeID) { (success, response) in
             if success {
-                hud?.hide(true)
+                hud.hide(animated: true)
                 self.firstPositionTypeArray = response as! [DicDataModel]
                 
                 self.loadData_2(parentid: (self.firstPositionTypeArray.first?.term_id ?? "")!)
                 self.firstTableView.reloadData()
             }else{
-                hud?.mode = .text
-                hud?.labelText = "职位类型获取失败"
-                hud?.hide(true, afterDelay: 1)
+                hud.mode = .text
+                hud.label.text = "职位类型获取失败"
+                hud.hide(animated: true, afterDelay: 1)
                 
                 let time: TimeInterval = 1.0
                 let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)

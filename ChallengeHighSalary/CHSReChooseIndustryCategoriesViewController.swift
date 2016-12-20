@@ -51,14 +51,14 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
     func loadData() {
                 
         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud?.removeFromSuperViewOnHide = true
-        hud?.margin = 10
-        hud?.labelText = "正在获取公司行业"
+        hud.removeFromSuperViewOnHide = true
+        hud.margin = 10
+        hud.label.text = "正在获取公司行业"
         
         PublicNetUtil().getDictionaryList(parentid: "67") { (success, response) in
             if success {
                 
-                hud?.hide(true)
+                hud.hide(animated: true)
                 
                 self.industryNameArray = []
                 let dicData = response as! [DicDataModel]
@@ -71,9 +71,9 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
                 self.setIndustry()
                 
             }else{
-                hud?.mode = .text
-                hud?.labelText = "公司行业获取失败"
-                hud?.hide(true, afterDelay: 1)
+                hud.mode = .text
+                hud.label.text = "公司行业获取失败"
+                hud.hide(animated: true, afterDelay: 1)
                 
                 let time: TimeInterval = 1.0
                 let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)

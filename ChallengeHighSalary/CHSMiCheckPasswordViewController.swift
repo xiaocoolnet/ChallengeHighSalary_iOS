@@ -91,24 +91,24 @@ class CHSMiCheckPasswordViewController: UIViewController, UITextFieldDelegate {
     // MARK: 下一步 按钮 点击事件
     func nextBtnClick() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if originalPwdTF.text!.isEmpty {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入原密码"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入原密码"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }
         
         CHSMiNetUtil().oldpassword(originalPwdTF.text!) { (success, response) in
             if success {
-                checkCodeHud.hide(true)
+                checkCodeHud.hide(animated: true)
                 self.navigationController?.pushViewController(CHSMiSetPasswordViewController(), animated: true)
             }else{
                 checkCodeHud.mode = .text
-                checkCodeHud.labelText = String(describing: response!)
-                checkCodeHud.hide(true, afterDelay: 1)
+                checkCodeHud.label.text = String(describing: response!)
+                checkCodeHud.hide(animated: true, afterDelay: 1)
             }
         }
     }

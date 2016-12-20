@@ -252,19 +252,19 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
     // MARK: 获取验证码按钮点击事件
     func getCheckCodeBtnClick() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         // 判断手机号是否为空
         if telTF.text!.isEmpty {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入手机号"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入手机号"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if !isPhoneNumber(telTF.text!) {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "手机号输入有误"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "手机号输入有误"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }
         
@@ -279,13 +279,13 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
                             
                             // 验证码传到手机,执行倒计时操作
                             TimeManager.shareManager.begainTimerWithKey("forgetPassword", timeInterval: 30, process: self.processHandle!, finish: self.finishHandle!)
-                            checkCodeHud.hide(true)
+                            checkCodeHud.hide(animated: true)
                             print("success")
                         }else{
                             
                             print("no success")
-                            checkCodeHud.labelText = "获取验证码失败"
-                            checkCodeHud.hide(true, afterDelay: 1)
+                            checkCodeHud.label.text = "获取验证码失败"
+                            checkCodeHud.hide(animated: true, afterDelay: 1)
                             
                             TimeManager.shareManager.taskDic["forgetPassword"]?.leftTime = 0
                             
@@ -294,8 +294,8 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
                 }
             }else{
                 checkCodeHud.mode = .text
-                checkCodeHud.labelText = "手机号尚未注册"
-                checkCodeHud.hide(true, afterDelay: 1)
+                checkCodeHud.label.text = "手机号尚未注册"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
             }
         }
         
@@ -304,39 +304,39 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
     // MAKE: 完成按钮点击事件
     func doneBtnClick() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         // 判断手机号是否为空
         if telTF.text!.isEmpty {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入手机号"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入手机号"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if !isPhoneNumber(telTF.text!) {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "手机号输入有误"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "手机号输入有误"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if checkCodeTF.text!.isEmpty {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入验证码"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入验证码"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if newPwdTF.text!.isEmpty {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入新密码"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入新密码"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if surePwdTF.text!.isEmpty {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入确认密码"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入确认密码"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if newPwdTF.text! != surePwdTF.text! {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "两次密码输入不一致"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "两次密码输入不一致"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }
         
@@ -348,8 +348,8 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
                         print("success")
                         
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelText = "密码修改成功"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.text = "密码修改成功"
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                         
                         let time: TimeInterval = 1.0
                         
@@ -361,16 +361,16 @@ class LoForgetPasswordViewController: UIViewController, UITextFieldDelegate {
                             
                         }
                         
-                        checkCodeHud.hide(true)
+                        checkCodeHud.hide(animated: true)
                     }else{
                         
                         print("no success")
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelFont = UIFont.systemFont(ofSize: 14)
-                        checkCodeHud.labelText = "修改密码失败"
-                        checkCodeHud.detailsLabelFont = UIFont.systemFont(ofSize: 16)
-                        checkCodeHud.detailsLabelText = response as! String
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.font = UIFont.systemFont(ofSize: 14)
+                        checkCodeHud.label.text = "修改密码失败"
+                        checkCodeHud.detailsLabel.font = UIFont.systemFont(ofSize: 16)
+                        checkCodeHud.detailsLabel.text = response as? String
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                     }
                 })
         })

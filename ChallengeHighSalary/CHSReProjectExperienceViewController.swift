@@ -137,49 +137,49 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
     // MARK: 点击保存按钮
     func clickSaveBtn() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if self.projectNameTf.text!.isEmpty {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入项目名称"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入项目名称"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if detailArray[1] == "请选择开始时间" {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请选择开始时间"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请选择开始时间"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if detailArray[2] == "请选择结束时间" {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请选择结束时间"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请选择结束时间"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if detailArray[3] == "请填写项目描述" {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请填写项目描述"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请填写项目描述"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else{
             
             if pickSelectedRowArray[0][0] > pickSelectedRowArray[1][0] {
                 
                 checkCodeHud.mode = .text
-                checkCodeHud.labelText = "开始时间晚于结束时间"
-                checkCodeHud.detailsLabelText = "请重新选择起止时间"
-                checkCodeHud.hide(true, afterDelay: 1)
+                checkCodeHud.label.text = "开始时间晚于结束时间"
+                checkCodeHud.detailsLabel.text = "请重新选择起止时间"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
                 return
             }else if pickSelectedRowArray[0][0] == pickSelectedRowArray[1][0]{
                 
                 if pickSelectedRowArray[0][1] > pickSelectedRowArray[1][1]{
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "开始时间晚于结束时间"
-                    checkCodeHud.detailsLabelText = "请重新选择起止时间"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "开始时间晚于结束时间"
+                    checkCodeHud.detailsLabel.text = "请重新选择起止时间"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                     return
                 }
             }
@@ -187,8 +187,8 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
         
         if CHSUserInfo.currentUserInfo.project?.first?.project_name ==  self.projectNameTf.text! && CHSUserInfo.currentUserInfo.project?.first?.start_time ==  self.detailArray[1] && CHSUserInfo.currentUserInfo.project?.first?.end_time ==  self.detailArray[2] && CHSUserInfo.currentUserInfo.project?.first?.description_project ==  self.project_description {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "信息未修改"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "信息未修改"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             
             let time: TimeInterval = 1.0
             let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -199,7 +199,7 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
             return
         }
         
-        checkCodeHud.labelText = "正在保存项目经验"
+        checkCodeHud.label.text = "正在保存项目经验"
         
         CHSNetUtil().PublishProject(
             CHSUserInfo.currentUserInfo.userid,
@@ -219,8 +219,8 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
                     self.detailArray = [self.projectNameTf.text!,self.detailArray[1],self.detailArray[2],"已填写"]
                     
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "保存项目经验成功"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "保存项目经验成功"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                     
                     let time: TimeInterval = 1.0
                     let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -231,8 +231,8 @@ class CHSReProjectExperienceViewController: UIViewController, UITableViewDataSou
                 }else{
                     
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "保存工作经历失败"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "保存工作经历失败"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                 }
 
         })

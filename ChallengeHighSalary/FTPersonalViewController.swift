@@ -769,11 +769,11 @@ class FTPersonalViewController: UIViewController {
         
         if CHSUserInfo.currentUserInfo.userid == self.resumeData.userid {
             let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            hud?.removeFromSuperViewOnHide = true
-            hud?.mode = .text
-            hud?.margin = 10
-            hud?.labelText = "不能和自己聊天"
-            hud?.hide(true, afterDelay: 1)
+            hud.removeFromSuperViewOnHide = true
+            hud.mode = .text
+            hud.margin = 10
+            hud.label.text = "不能和自己聊天"
+            hud.hide(animated: true, afterDelay: 1)
             return
         }
         
@@ -871,13 +871,13 @@ class FTPersonalViewController: UIViewController {
     // MARK:- 收藏按钮点击事件
     func collectionBtnClick() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if collectionBtn.isSelected {
             
             // MARK: 取消收藏
-            checkCodeHud.labelText = "正在取消收藏"
+            checkCodeHud.label.text = "正在取消收藏"
             
             PublicNetUtil().cancelfavorite(
                 CHSUserInfo.currentUserInfo.userid,
@@ -888,20 +888,20 @@ class FTPersonalViewController: UIViewController {
                         self.collectionBtn.isSelected = false
                         
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelText = "取消收藏成功"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.text = "取消收藏成功"
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                         
                     }else{
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelText = "取消收藏失败"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.text = "取消收藏失败"
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                         
                     }
             }
 
         }else{
             
-            checkCodeHud.labelText = "正在加入收藏"
+            checkCodeHud.label.text = "正在加入收藏"
             
             PublicNetUtil().addfavorite(
                 CHSUserInfo.currentUserInfo.userid,
@@ -914,12 +914,12 @@ class FTPersonalViewController: UIViewController {
                         self.collectionBtn.isSelected = true
                         
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelText = "已加入收藏列表"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.text = "已加入收藏列表"
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                     }else{
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelText = "加入收藏列表失败"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.text = "加入收藏列表失败"
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                     }
             }
         }

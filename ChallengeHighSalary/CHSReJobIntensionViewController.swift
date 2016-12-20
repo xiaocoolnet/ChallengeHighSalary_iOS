@@ -150,7 +150,7 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
     // MARK: 点击保存按钮
     func clickSaveBtn() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
        
         if
@@ -162,8 +162,8 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
         CHSUserInfo.currentUserInfo.jobstate ==  detailArray[5]{
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "信息未修改"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "信息未修改"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             
             let time: TimeInterval = 1.0
             let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -175,7 +175,7 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
             return
         }
         
-        checkCodeHud.labelText = "正在上传求职意向"
+        checkCodeHud.label.text = "正在上传求职意向"
         
         CHSNetUtil().PublishIntension(
             CHSUserInfo.currentUserInfo.userid,
@@ -195,8 +195,8 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
                     CHSUserInfo.currentUserInfo.jobstate =  self.detailArray[5]
                     
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "求职意向保存成功"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "求职意向保存成功"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                     
                     let time: TimeInterval = 1.0
                     let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -207,8 +207,8 @@ class CHSReJobIntensionViewController: UIViewController, UITableViewDataSource,U
                 }else{
                     
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "求职意向保存失败"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "求职意向保存失败"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                 }
         }
     }

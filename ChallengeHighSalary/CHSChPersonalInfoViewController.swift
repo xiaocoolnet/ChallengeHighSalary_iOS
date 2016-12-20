@@ -53,10 +53,10 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         
         var flag = 0
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
-        checkCodeHud.labelText = "正在获取公司信息"
+        checkCodeHud.label.text = "正在获取公司信息"
         
         // 检查收藏
         PublicNetUtil().CheckHadFavorite(
@@ -71,7 +71,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
             flag += 1
             
             if flag >= 2 {
-                checkCodeHud.hide(true)
+                checkCodeHud.hide(animated: true)
             }
 
         }
@@ -85,7 +85,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
                 flag += 1
                 
                 if flag >= 2 {
-                    checkCodeHud.hide(true)
+                    checkCodeHud.hide(animated: true)
                 }
                 
 
@@ -95,8 +95,8 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
                 
                 if flag >= 2 {
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "获取公司信息失败"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "获取公司信息失败"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                 }
             }
         }
@@ -134,12 +134,12 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
     // MARK:- 收藏按钮点击事件
     func collectionBtnClick() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if collectionBtn.isSelected {
             // MARK: 取消收藏
-            checkCodeHud.labelText = "正在取消收藏"
+            checkCodeHud.label.text = "正在取消收藏"
             
             PublicNetUtil().cancelfavorite(
                 CHSUserInfo.currentUserInfo.userid,
@@ -150,19 +150,19 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
                         self.collectionBtn.isSelected = false
                         
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelText = "取消收藏成功"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.text = "取消收藏成功"
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                         
                     }else{
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelText = "取消收藏失败"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.text = "取消收藏失败"
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                         
                     }
             }
         }else{
             
-            checkCodeHud.labelText = "正在加入收藏"
+            checkCodeHud.label.text = "正在加入收藏"
             
             PublicNetUtil().addfavorite(
                 CHSUserInfo.currentUserInfo.userid,
@@ -175,13 +175,13 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
                         self.collectionBtn.isSelected = true
                         
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelText = "已加入收藏列表"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.text = "已加入收藏列表"
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                         
                     }else{
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelText = "加入收藏列表失败"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.text = "加入收藏列表失败"
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                     
                     }
             }

@@ -68,7 +68,8 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
     // MARK: 加载数据
     func loadData() {
         
-        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        _ = MBProgressHUD.showAdded(to: self.view, animated: true)
+        
         
         PublicNetUtil().getDictionaryList(parentid: "5") { (success, response) in
             if success {
@@ -125,36 +126,36 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
     // MARK: 点击保存按钮
     func clickSaveBtn() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if (selectedImage == nil) {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请先上传头像"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请先上传头像"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if nameTf.text!.isEmpty {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入真实姓名"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入真实姓名"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if currentCity == "请选择目前所在城市" {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请选择目前所在城市"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请选择目前所在城市"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if jobTime == "请选择工作年限" {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请选择工作年限"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请选择工作年限"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else{
             
-            checkCodeHud.labelText = "正在上传头像"
+            checkCodeHud.label.text = "正在上传头像"
             
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyyMMddHHmmss"
@@ -164,7 +165,7 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
             LoginNetUtil().uploadImage(imageName, image: selectedImage!) { (success, response) in
                 if success {
                     
-                    checkCodeHud.labelText = "正在创建微简历"
+                    checkCodeHud.label.text = "正在创建微简历"
                     
                     LoginNetUtil().savepersonalinfo(
                         CHSUserInfo.currentUserInfo.userid,
@@ -179,8 +180,8 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
                             if success {
                                 
                                 checkCodeHud.mode = .text
-                                checkCodeHud.labelText = "创建微简历成功"
-                                checkCodeHud.hide(true, afterDelay: 1)
+                                checkCodeHud.label.text = "创建微简历成功"
+                                checkCodeHud.hide(animated: true, afterDelay: 1)
                                 
                                 let time: TimeInterval = 1.0
                                 let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -191,16 +192,16 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
                             }else{
                                 
                                 checkCodeHud.mode = .text
-                                checkCodeHud.labelText = "创建微简历失败"
-                                checkCodeHud.hide(true, afterDelay: 1)
+                                checkCodeHud.label.text = "创建微简历失败"
+                                checkCodeHud.hide(animated: true, afterDelay: 1)
                             }
                     })
                     
                 }else{
                     
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "上传头像失败"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "上传头像失败"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                 }
             }
         }

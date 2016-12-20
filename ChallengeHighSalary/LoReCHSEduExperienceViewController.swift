@@ -104,19 +104,19 @@ class LoReCHSEduExperienceViewController: UIViewController, UITableViewDataSourc
     // MARK: 点击保存按钮
     func clickSaveBtn() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if schoolNameTf.text!.isEmpty || majorNameTf.text!.isEmpty || detailArray[2] == "选择学历" || detailArray[3] == "请选择就读时间段" {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请完善教育经历"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请完善教育经历"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
             
         }
         
-        checkCodeHud.labelText = "正在保存教育经历"
+        checkCodeHud.label.text = "正在保存教育经历"
         
         CHSNetUtil().PublishEducation(
             CHSUserInfo.currentUserInfo.userid,
@@ -136,8 +136,8 @@ class LoReCHSEduExperienceViewController: UIViewController, UITableViewDataSourc
                     //                    CHSUserInfo.currentUserInfo.jobstate =  self.detailArray[5]
                     
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "保存教育经历成功"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "保存教育经历成功"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                     
                     let time: TimeInterval = 1.0
                     let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -148,8 +148,8 @@ class LoReCHSEduExperienceViewController: UIViewController, UITableViewDataSourc
                 }else{
                     
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "保存教育经历失败"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "保存教育经历失败"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                 }
                 
         }

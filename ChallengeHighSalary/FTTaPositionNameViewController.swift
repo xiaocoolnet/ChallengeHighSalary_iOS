@@ -98,12 +98,12 @@ class FTTaPositionNameViewController: UIViewController {
     // MARK: 点击保存按钮
     func saveBtnClick() {
         if self.positionNameTf.text!.isEmpty {
-            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
             checkCodeHud.removeFromSuperViewOnHide = true
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入职位名称"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入职位名称"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
         }else{
             var FTPublishJobSelectedNameArray = UserDefaults.standard.array(forKey: FTPublishJobSelectedNameArray_key) as! [Array<String>]
             FTPublishJobSelectedNameArray[1][1] = self.positionNameTf.text!

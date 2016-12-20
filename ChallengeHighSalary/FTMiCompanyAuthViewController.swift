@@ -354,10 +354,10 @@ class FTMiCompanyAuthViewController: UIViewController, UIScrollViewDelegate, UII
         
         if dotBtn == rightDotImg && rightDotImg.isSelected == false {
             let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            hud?.mode = .text
-            hud?.removeFromSuperViewOnHide = true
-            hud?.labelText = "请 确认 认证类型"
-            hud?.hide(true, afterDelay: 1)
+            hud.mode = .text
+            hud.removeFromSuperViewOnHide = true
+            hud.label.text = "请 确认 认证类型"
+            hud.hide(animated: true, afterDelay: 1)
             return
         }else if dotBtn == rightDotImg {
             return

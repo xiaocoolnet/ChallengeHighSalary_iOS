@@ -36,23 +36,23 @@ class ChMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: 加载数据
     func loadData() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
-        checkCodeHud.labelText = "正在获取个人信息"
+        checkCodeHud.label.text = "正在获取个人信息"
         
         CHSNetUtil().getMyResume(CHSUserInfo.currentUserInfo.userid) { (success, response) in
             if success {
                 
                 checkCodeHud.mode = .text
-                checkCodeHud.labelText = "获取个人信息成功"
-                checkCodeHud.hide(true, afterDelay: 1)
+                checkCodeHud.label.text = "获取个人信息成功"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
                 print("获取个人信息成功")
                 
                 self.setHeaderView()
             }else{
                 checkCodeHud.mode = .text
-                checkCodeHud.labelText = "获取个人信息失败"
-                checkCodeHud.hide(true, afterDelay: 1)
+                checkCodeHud.label.text = "获取个人信息失败"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
                 print("获取个人信息失败")
             }
         }

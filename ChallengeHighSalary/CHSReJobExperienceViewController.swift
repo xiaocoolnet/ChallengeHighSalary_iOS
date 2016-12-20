@@ -130,51 +130,51 @@ class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource,
     func clickSaveBtn() {
 //        userid,company_name,company_industry,jobtype,skill,work_period,content
 
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if detailArray[0] == "请输入公司名称" {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入公司名称"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入公司名称"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if detailArray[1] == "选择行业" {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请选择行业"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请选择行业"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if detailArray[2] == "选择职位类型" {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请选择职位类型"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请选择职位类型"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if detailArray[3] == "请选择技能" {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请选择技能"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请选择技能"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if detailArray[4] == "选择任职时间段" {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请选择任职时间段"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请选择任职时间段"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if jobContentTv.text!.isEmpty {
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入工作内容"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入工作内容"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }
         
         if CHSUserInfo.currentUserInfo.work?.first?.company_name ==  self.detailArray[0] && CHSUserInfo.currentUserInfo.work?.first?.company_industry ==  self.detailArray[1] && CHSUserInfo.currentUserInfo.work?.first?.jobtype ==  self.detailArray[2] && CHSUserInfo.currentUserInfo.work?.first?.skill ==  self.detailArray[3] && CHSUserInfo.currentUserInfo.work?.first?.work_period ==  self.detailArray[4] && CHSUserInfo.currentUserInfo.work?.first?.content == self.jobContentTv.text! {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "信息未修改"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "信息未修改"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             
             let time: TimeInterval = 1.0
             let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -185,7 +185,7 @@ class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource,
             return
         }
         
-        checkCodeHud.labelText = "正在保存工作经历"
+        checkCodeHud.label.text = "正在保存工作经历"
         
         CHSNetUtil().PublishWork(
             CHSUserInfo.currentUserInfo.userid,
@@ -213,8 +213,8 @@ class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource,
                     ]
                     
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "保存工作经历成功"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "保存工作经历成功"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                     
                     let time: TimeInterval = 1.0
                     let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -225,8 +225,8 @@ class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource,
                 }else{
                     
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "保存工作经历失败"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "保存工作经历失败"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                 }
 
         }

@@ -60,15 +60,15 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
                 
                 self.resumeData = response as! MyResumeData
 //                checkCodeHud.mode = .text
-//                checkCodeHud.labelText = "获取个人信息成功"
-//                checkCodeHud.hide(true, afterDelay: 1)
+//                checkCodeHud.label.text = "获取个人信息成功"
+//                checkCodeHud.hide(animated: true, afterDelay: 1)
 //                print("获取个人信息成功")
                 
 //                self.setHeaderView()
             }else{
 //                checkCodeHud.mode = .text
-//                checkCodeHud.labelText = "获取个人信息失败"
-//                checkCodeHud.hide(true, afterDelay: 1)
+//                checkCodeHud.label.text = "获取个人信息失败"
+//                checkCodeHud.hide(animated: true, afterDelay: 1)
 //                print("获取个人信息失败")
             }
 

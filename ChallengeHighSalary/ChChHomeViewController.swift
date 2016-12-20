@@ -58,10 +58,10 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
         if UserDefaults.standard.string(forKey: myCity_key) == nil {
             
-            hud.hide(false)
+            hud.hide(animated: false)
             
             hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            hud.labelText = "正在获取当前位置"
+            hud.label.text = "正在获取当前位置"
             hud.removeFromSuperViewOnHide = true
             
             self.loadLocation()
@@ -567,9 +567,9 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
                     self.locationManager.stopUpdatingLocation()
                     
                     hud.mode = .text
-                    hud.labelText = "不支持的位置"
-                    hud.detailsLabelText = "该软件仅支持中国,请手动选择一个城市"
-                    hud.hide(true, afterDelay: 1)
+                    hud.label.text = "不支持的位置"
+                    hud.detailsLabel.text = "该软件仅支持中国,请手动选择一个城市"
+                    hud.hide(animated: true, afterDelay: 1)
                     
                     let time: TimeInterval = 1.0
                     let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -603,7 +603,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
                 }
                 
                 cityBtn.resetdata(myCity, #imageLiteral(resourceName: "城市下拉箭头"))
-                hud.hide(true)
+                hud.hide(animated: true)
 
                 
             }
@@ -619,8 +619,8 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         self.locationManager.stopUpdatingLocation()
         
         hud.mode = .text
-        hud.labelText = "定位失败"
-        hud.hide(true, afterDelay: 1)
+        hud.label.text = "定位失败"
+        hud.hide(animated: true, afterDelay: 1)
         
         let time: TimeInterval = 1.0
         let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)

@@ -228,19 +228,19 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
     // MARK: 获取验证码按钮点击事件
     func getCheckCodeBtnClick() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         // 判断手机号是否为空
         if telTF.text!.isEmpty {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入手机号"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入手机号"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if !isPhoneNumber(telTF.text!) {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "手机号输入有误"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "手机号输入有误"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }
         
@@ -251,8 +251,8 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
                 DispatchQueue.main.async(execute: {
                     
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = response as! String
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = response as? String
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                     TimeManager.shareManager.taskDic["changePhone"]?.leftTime = 0
                     
                 })
@@ -267,14 +267,14 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
                             
                             // 手机号没注册,验证码传到手机,执行倒计时操作
                             TimeManager.shareManager.begainTimerWithKey("changePhone", timeInterval: 30, process: self.processHandle!, finish: self.finishHandle!)
-                            checkCodeHud.hide(true)
+                            checkCodeHud.hide(animated: true)
                             print("success")
                         }else{
                             
                             print("no success")
                             checkCodeHud.mode = .text
-                            checkCodeHud.labelText = "获取验证码失败"
-                            checkCodeHud.hide(true, afterDelay: 1)
+                            checkCodeHud.label.text = "获取验证码失败"
+                            checkCodeHud.hide(animated: true, afterDelay: 1)
                             
                             TimeManager.shareManager.taskDic["changePhone"]?.leftTime = 0
                             
@@ -287,32 +287,32 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
     
     // MARK:- 确认更换按钮点击事件
     func sureChangeBtnClick() {
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         // 判断手机号是否为空
         if telTF.text!.isEmpty {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入手机号"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入手机号"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if !isPhoneNumber(telTF.text!) {// 判断手机号格式是否正确
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "手机号输入有误"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "手机号输入有误"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else if checkCodeTF.text!.isEmpty {
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请输入验证码"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请输入验证码"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }
         
         CHSMiNetUtil().updateUserPhone(telTF.text!, code: checkCodeTF.text!) { (success, response) in
             if success {
                 checkCodeHud.mode = .text
-                checkCodeHud.labelText = "更换手机号成功"
-                checkCodeHud.hide(true, afterDelay: 1)
+                checkCodeHud.label.text = "更换手机号成功"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
                 
                 let time: TimeInterval = 1.0
                 let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -322,8 +322,8 @@ class CHSMiPhoneBindingViewController: UIViewController, UITextFieldDelegate {
                 }
             }else{
                 checkCodeHud.mode = .text
-                checkCodeHud.labelText = String(describing: response!)
-                checkCodeHud.hide(true, afterDelay: 1)
+                checkCodeHud.label.text = String(describing: response!)
+                checkCodeHud.hide(animated: true, afterDelay: 1)
             }
         }
     }

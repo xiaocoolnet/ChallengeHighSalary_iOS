@@ -73,8 +73,8 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
         var flag = 0
         
         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud?.removeFromSuperViewOnHide = true
-        hud?.margin = 10
+        hud.removeFromSuperViewOnHide = true
+        hud.margin = 10
         
         PublicNetUtil().getDictionaryList(parentid: "18") { (success, response) in
             if success {
@@ -86,7 +86,7 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
                 
                 flag += 1
                 if flag >= 2 {
-                    hud?.hide(true)
+                    hud.hide(animated: true)
                 }
 
             }else{
@@ -104,7 +104,7 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
                 
                 flag += 1
                 if flag >= 2 {
-                    hud?.hide(true)
+                    hud.hide(animated: true)
                 }
             }else{
                 self.loadData()
@@ -141,7 +141,7 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
     // MARK: 点击保存按钮
     func clickSaveBtn() {
         
-        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
         if selectedImage != nil {
@@ -151,12 +151,12 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
             let dateStr = dateFormatter.string(from: Date())
             let imageName = "avatar" + dateStr + CHSUserInfo.currentUserInfo.userid + ".png"
             
-            checkCodeHud.labelText = "正在上传公司logo"
+            checkCodeHud.label.text = "正在上传公司logo"
             //        selectedImage = selectedImage == nil ? UIImage(data: try! Data(contentsOf: URL(string: kImagePrefix+self.company_infoDataModel.logo)!)):selectedImage
             LoginNetUtil().uploadImage(imageName, image: selectedImage!) { (success, response) in
                 if success {
                     
-                    checkCodeHud.labelText = "正在上传公司信息"
+                    checkCodeHud.label.text = "正在上传公司信息"
                     
                     FTNetUtil().company_info(
                         CHSUserInfo.currentUserInfo.userid,
@@ -169,8 +169,8 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
                             if success {
                                 
                                 checkCodeHud.mode = .text
-                                checkCodeHud.labelText = "公司信息保存成功"
-                                checkCodeHud.hide(true, afterDelay: 1)
+                                checkCodeHud.label.text = "公司信息保存成功"
+                                checkCodeHud.hide(animated: true, afterDelay: 1)
                                 
                                 let time: TimeInterval = 1.0
                                 let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -181,22 +181,22 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
                             }else{
                                 
                                 checkCodeHud.mode = .text
-                                checkCodeHud.labelText = "公司信息保存失败"
-                                checkCodeHud.hide(true, afterDelay: 1)
+                                checkCodeHud.label.text = "公司信息保存失败"
+                                checkCodeHud.hide(animated: true, afterDelay: 1)
                             }
                     }
                     
                 }else{
                     
                     checkCodeHud.mode = .text
-                    checkCodeHud.labelText = "上传头像失败"
-                    checkCodeHud.hide(true, afterDelay: 1)
+                    checkCodeHud.label.text = "上传头像失败"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
                 }
             }
             
         }else{
             
-            checkCodeHud.labelText = "正在上传公司信息"
+            checkCodeHud.label.text = "正在上传公司信息"
             
             FTNetUtil().company_info(
                 CHSUserInfo.currentUserInfo.userid,
@@ -209,8 +209,8 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
                     if success {
                         
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelText = "公司信息保存成功"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.text = "公司信息保存成功"
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                         
                         let time: TimeInterval = 1.0
                         let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -221,8 +221,8 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
                     }else{
                         
                         checkCodeHud.mode = .text
-                        checkCodeHud.labelText = "公司信息保存失败"
-                        checkCodeHud.hide(true, afterDelay: 1)
+                        checkCodeHud.label.text = "公司信息保存失败"
+                        checkCodeHud.hide(animated: true, afterDelay: 1)
                     }
             }
         }

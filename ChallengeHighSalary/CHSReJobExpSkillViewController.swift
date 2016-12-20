@@ -160,11 +160,11 @@ class CHSReJobExpSkillViewController: UIViewController {
         
         if count >= 3 && !skillBtn.isSelected {
             
-            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
             checkCodeHud.removeFromSuperViewOnHide = true
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "最多选择3个标签"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "最多选择3个标签"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }
         
@@ -202,19 +202,19 @@ class CHSReJobExpSkillViewController: UIViewController {
         }
         
         if count == 0 {
-            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
             checkCodeHud.removeFromSuperViewOnHide = true
             
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "请选择技能标签"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "请选择技能标签"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
         }else if count > 3 {
             
-            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)!
+            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
             checkCodeHud.removeFromSuperViewOnHide = true
             checkCodeHud.mode = .text
-            checkCodeHud.labelText = "最多选择3个标签"
-            checkCodeHud.hide(true, afterDelay: 1)
+            checkCodeHud.label.text = "最多选择3个标签"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
             return
         }else{
             
