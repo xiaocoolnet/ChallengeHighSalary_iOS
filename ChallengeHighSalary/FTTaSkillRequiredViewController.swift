@@ -41,7 +41,7 @@ class FTTaSkillRequiredViewController: UIViewController {
         hud.margin = 10
         hud.label.text = "正在获取技能标签"
         
-        PublicNetUtil().getDictionaryList(parentid: "36") { (success, response) in
+        PublicNetUtil.getDictionaryList(parentid: "36") { (success, response) in
             if success {
                 hud.hide(animated: true)
                 

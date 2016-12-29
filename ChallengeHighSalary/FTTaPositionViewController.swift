@@ -77,7 +77,7 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         hud.removeFromSuperViewOnHide = true
         hud.margin = 10
         
-        PublicNetUtil().getDictionaryList(parentid: "52") { (success, response) in
+        PublicNetUtil.getDictionaryList(parentid: "52") { (success, response) in
             if success {
                 
                 let dicData = response as! [DicDataModel]
@@ -98,7 +98,7 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
             }
         }
         
-        PublicNetUtil().getDictionaryList(parentid: "60") { (success, response) in
+        PublicNetUtil.getDictionaryList(parentid: "60") { (success, response) in
             if success {
                 hud.hide(animated: true)
                 let dicData = response as! [DicDataModel]

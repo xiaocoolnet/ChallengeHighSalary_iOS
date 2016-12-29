@@ -9,6 +9,16 @@
 #ifndef ChallengeHighSalary_Bridging_Header_h
 #define ChallengeHighSalary_Bridging_Header_h
 
+//TencentOpenapi
+#import <TencentOpenAPI/TencentOAuth.h>
+#import <TencentOpenAPI/QQApiinterface.h>
+#import <TencentOpenAPI/QQApiInterfaceObject.h>
+#import <TencentOpenAPI/sdkdef.h>
+#import <TencentOpenAPI/TencentmessageObject.h>
+#import <TencentOpenAPI/TencentOAuthObject.h>
+//WeiXin
+#import "WXApi.h"
+
 #import "BButton.h"
 #import "LFLUISegmentedControl.h"
 #import <CoreLocation/CoreLocation.h>

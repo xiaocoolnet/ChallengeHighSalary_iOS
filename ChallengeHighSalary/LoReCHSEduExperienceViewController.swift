@@ -38,9 +38,9 @@ class LoReCHSEduExperienceViewController: UIViewController, UITableViewDataSourc
     
     var pickerView = UIPickerView()
     
-    let pickEduArray = ["大专","本科","硕士"]
-    let pickSchoolTimeLowRequiredArray = ["2010年","2011年","2012年","2013年","2014年","2015年","2016年","2017年","2018年","2019年"]
-    var pickSchoolTimeSupRequiredArray = ["2010年","2011年","2012年","2013年","2014年","2015年","2016年","2017年","2018年","2019年"]
+    var pickEduArray = ["大专","本科","硕士"]
+    let pickSchoolTimeLowRequiredArray = ["1970年","1971年","1972年","1973年","1974年","1975年","1976年","1977年","1978年","1979年","1980年","1981年","1982年","1983年","1984年","1985年","1986年","1987年","1988年","1989年","1990年","1991年","1992年","1993年","1994年","1995年","1996年","1997年","1998年","1999年","2000年","2001年","2002年","2003年","2004年","2005年","2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年","2016年","2017年"]
+    var pickSchoolTimeSupRequiredArray = ["1970年","1971年","1972年","1973年","1974年","1975年","1976年","1977年","1978年","1979年","1980年","1981年","1982年","1983年","1984年","1985年","1986年","1987年","1988年","1989年","1990年","1991年","1992年","1993年","1994年","1995年","1996年","1997年","1998年","1999年","2000年","2001年","2002年","2003年","2004年","2005年","2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年","2016年","2017年"]
     
     var pickSelectedRowArray = [[0],[0,0]]
     
@@ -59,6 +59,8 @@ class LoReCHSEduExperienceViewController: UIViewController, UITableViewDataSourc
         // Do any additional setup after loading the view.
         
         setSubviews()
+        loadData()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,6 +68,20 @@ class LoReCHSEduExperienceViewController: UIViewController, UITableViewDataSourc
         
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    // MARK: 加载数据
+    func loadData() {
+        PublicNetUtil.getDictionaryList(parentid: "60") { (success, response) in
+            if success {
+                self.pickEduArray = []
+                let dicData = response as! [DicDataModel]
+                for dic in dicData {
+                    self.pickEduArray.append(dic.name!)
+                }
+                
+            }
+        }
     }
     
     // MARK: popViewcontroller

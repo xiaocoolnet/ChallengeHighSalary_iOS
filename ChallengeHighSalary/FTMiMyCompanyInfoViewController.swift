@@ -76,7 +76,7 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
         hud.removeFromSuperViewOnHide = true
         hud.margin = 10
         
-        PublicNetUtil().getDictionaryList(parentid: "18") { (success, response) in
+        PublicNetUtil.getDictionaryList(parentid: "18") { (success, response) in
             if success {
                 self.pickPersonalCountArray = []
                 let dicData = response as! [DicDataModel]
@@ -94,7 +94,7 @@ class FTMiMyCompanyInfoViewController: UIViewController, UITableViewDataSource, 
             }
         }
         
-        PublicNetUtil().getDictionaryList(parentid: "74") { (success, response) in
+        PublicNetUtil.getDictionaryList(parentid: "74") { (success, response) in
             if success {
                 self.pickFinancingArray = []
                 let dicData = response as! [DicDataModel]

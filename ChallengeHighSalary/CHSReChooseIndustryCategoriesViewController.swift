@@ -55,7 +55,7 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
         hud.margin = 10
         hud.label.text = "正在获取公司行业"
         
-        PublicNetUtil().getDictionaryList(parentid: "67") { (success, response) in
+        PublicNetUtil.getDictionaryList(parentid: "67") { (success, response) in
             if success {
                 
                 hud.hide(animated: true)
@@ -65,7 +65,7 @@ class CHSReChooseIndustryCategoriesViewController: UIViewController {
                 for dic in dicData {
                     self.industryNameArray.append(dic.name!)
                 }
-                if !self.industryNameArray.contains(self.industryStr) {
+                if !self.industryNameArray.contains(self.industryStr) && self.industryStr != "" {
                     self.industryNameArray.append(self.industryStr)
                 }
                 self.setIndustry()

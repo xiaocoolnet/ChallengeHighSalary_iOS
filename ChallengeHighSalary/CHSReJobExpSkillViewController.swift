@@ -12,7 +12,8 @@ class CHSReJobExpSkillViewController: UIViewController {
     
     var orignalSelectSkillStr = ""
 
-    let skillNameArray = ["数据分析","移动产品","电子商务","智能硬件","项目管理","产品经理","APP","用户研究","交互设计","游戏策划","产品助理","在线教育","网页设计","产品总监","无线产品"]
+    var skillModelArray = [String]()
+    //    let skillNameArray = ["数据分析","移动产品","电子商务","智能硬件","电子商务","电子商务","智能硬件","智能硬件","项目管理","产品经理","交互设计","APP","用户研究","产品助理","交互设计","游戏策划","产品总监","产品助理","产品助理","在线教育","网页设计","游戏策划","产品总监","游戏策划","产品总监","无线产品","在线教育","网页设计","在线教育","网页设计","无线产品","无线产品"]
     var selectSkillArray = Array<String>()
     
     override func viewDidLoad() {
@@ -20,10 +21,7 @@ class CHSReJobExpSkillViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         
-        for _ in skillNameArray {
-            selectSkillArray.append("")
-        }
-        setSubviews()
+        self.setSubviews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,6 +29,73 @@ class CHSReJobExpSkillViewController: UIViewController {
         
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = true
+        
+        if skillModelArray.count <= 0 {
+            loadData()
+        }
+    }
+    
+    // MARK: - 获取数据
+    func loadData() {
+        
+        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        hud.removeFromSuperViewOnHide = true
+        hud.margin = 10
+        hud.label.text = "正在获取技能标签"
+        
+        PublicNetUtil.getDictionaryList(parentid: "36") { (success, response) in
+            if success {
+                hud.hide(animated: true)
+                
+                self.skillModelArray = []
+                
+                let dicDataArray = response as! [DicDataModel]
+                
+                for dicData in dicDataArray {
+                    self.skillModelArray.append((dicData.name ?? "")!)
+                }
+                for _ in self.skillModelArray {
+                    self.selectSkillArray.append("")
+                }
+                
+                if self.orignalSelectSkillStr != "" {
+                    
+                    let skillArray = self.orignalSelectSkillStr.components(separatedBy: "-")
+                    if skillArray.count == 1 && skillArray.first == "技能要求" {
+                        
+                    }else{
+                        
+                        for skillStr in skillArray {
+                            
+                            if self.skillModelArray.contains(skillStr) {
+                                self.selectSkillArray[self.skillModelArray.index(of: skillStr)!] = skillStr
+                            }else if !self.skillModelArray.contains(skillStr) {
+                                self.skillModelArray.append(skillStr)
+                                self.selectSkillArray.append(skillStr)
+                            }
+                            
+                        }
+                    }
+                }
+                
+                self.setSkillBtn()
+                
+            }else{
+                hud.mode = .text
+                hud.label.text = "技能标签获取失败"
+                hud.hide(animated: true, afterDelay: 1)
+                
+                let time: TimeInterval = 1.0
+                let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                
+                DispatchQueue.main.asyncAfter(deadline: delay) {
+                    
+                    _ = self.navigationController?.popViewController(animated: true)
+                    
+                }
+            }
+        }
+        
     }
     
     // MARK: popViewcontroller
@@ -59,17 +124,29 @@ class CHSReJobExpSkillViewController: UIViewController {
         tipLab.font = UIFont.systemFont(ofSize: 16)
         self.view.addSubview(tipLab)
         
+    }
+    
+    // MARK: - 设置标签
+    func setSkillBtn() {
+        
+        self.view.viewWithTag(12345)?.removeFromSuperview()
+        
+        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 114, width: screenSize.width, height: screenSize.height-64-44))
+        scrollView.tag = 12345
+        
+        self.view.addSubview(scrollView)
+        
         // 设置标签 button
         let skillBtnMargin_x:CGFloat = 10
         let skillBtnMargin_y:CGFloat = 10
         var skillBtnX:CGFloat = skillBtnMargin_x
-        var skillBtnY:CGFloat = tipLab.frame.maxY+skillBtnMargin_y
+        var skillBtnY:CGFloat = skillBtnMargin_y
         var skillBtnWidth:CGFloat = 0
         let skillBtnHeight:CGFloat = 30
         
-        for (i,skillName) in skillNameArray.enumerated() {
+        for (i,skillModel) in skillModelArray.enumerated() {
             
-            skillBtnWidth = calculateWidth(skillName, size: 15, height: skillBtnHeight)+skillBtnMargin_x*2
+            skillBtnWidth = calculateWidth(skillModel, size: 15, height: skillBtnHeight)+skillBtnMargin_x*2
             let skillBtn = UIButton(frame: CGRect(x: skillBtnX, y: skillBtnY, width: skillBtnWidth, height: skillBtnHeight))
             skillBtn.tag = 100+i
             skillBtn.layer.cornerRadius = 6
@@ -77,26 +154,30 @@ class CHSReJobExpSkillViewController: UIViewController {
             skillBtn.layer.borderColor = UIColor(red: 187/255.0, green: 187/255.0, blue: 187/255.0, alpha: 1).cgColor
             skillBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
             skillBtn.setTitleColor(UIColor(red: 187/255.0, green: 187/255.0, blue: 187/255.0, alpha: 1), for: UIControlState())
-            skillBtn.setTitle(skillName, for: UIControlState())
+            skillBtn.setTitle(skillModel, for: UIControlState())
             skillBtn.setTitleColor(UIColor.white, for: .selected)
             skillBtn.backgroundColor = UIColor.clear
             skillBtn.addTarget(self, action: #selector(skillBtnClick(_:)), for: .touchUpInside)
-            self.view.addSubview(skillBtn)
+            scrollView.addSubview(skillBtn)
             
-            for str in orignalSelectSkillStr.components(separatedBy: "-") {
-                
-                if (skillName == str) {
-
+            for skillStr in selectSkillArray {
+                if skillModel == skillStr {
                     skillBtn.isSelected = true
                     skillBtn.backgroundColor = baseColor
-                    
-                    selectSkillArray[i] = skillName
+                    selectSkillArray[i] = skillModelArray[i]
                 }
             }
+//            for skillStr in orignalSelectSkillStr.components(separatedBy: "-") {
+//                if skillModel == skillStr {
+//                    skillBtn.isSelected = true
+//                    skillBtn.backgroundColor = baseColor
+//                    selectSkillArray[i] = skillModelArray[i]
+//                }
+//            }
             
-            if i+1 < skillNameArray.count {
+            if i+1 < skillModelArray.count {
                 
-                let nextBtnWidth = calculateWidth(skillNameArray[i+1], size: 14, height: skillBtnHeight)+skillBtnMargin_x*4
+                let nextBtnWidth = calculateWidth(skillModelArray[i+1], size: 14, height: skillBtnHeight)+skillBtnMargin_x*4
                 
                 if skillBtnWidth + skillBtnX + skillBtnMargin_x + nextBtnWidth >= screenSize.width - skillBtnMargin_x*2 {
                     skillBtnX = skillBtnMargin_x
@@ -130,7 +211,9 @@ class CHSReJobExpSkillViewController: UIViewController {
         addBtn.setTitle("+", for: UIControlState())
         addBtn.backgroundColor = UIColor.clear
         addBtn.addTarget(self, action: #selector(addBtnClick), for: .touchUpInside)
-        self.view.addSubview(addBtn)
+        scrollView.addSubview(addBtn)
+        
+        scrollView.contentSize = CGSize(width: 0, height: addBtn.frame.maxY+skillBtnMargin_y)
         
         let borderLayer = CAShapeLayer()
         borderLayer.strokeColor = baseColor.cgColor
@@ -171,7 +254,7 @@ class CHSReJobExpSkillViewController: UIViewController {
         skillBtn.isSelected = !skillBtn.isSelected
         if skillBtn.isSelected {
             skillBtn.backgroundColor = baseColor
-            selectSkillArray[skillBtn.tag-100] = skillNameArray[skillBtn.tag-100]
+            selectSkillArray[skillBtn.tag-100] = skillModelArray[skillBtn.tag-100]
         }else{
             skillBtn.backgroundColor = UIColor.clear
             selectSkillArray[skillBtn.tag-100] = ""
@@ -189,10 +272,6 @@ class CHSReJobExpSkillViewController: UIViewController {
     func addBtnClick() {
         
         print("抢人才-发布职位-技能要求- 点击添加按钮 ")
-    }
-    
-    // MARK: 点击保存按钮
-    func saveBtnClick() {
         
         var count = 0
         for selectSkillName in selectSkillArray {
@@ -201,14 +280,7 @@ class CHSReJobExpSkillViewController: UIViewController {
             }
         }
         
-        if count == 0 {
-            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            checkCodeHud.removeFromSuperViewOnHide = true
-            
-            checkCodeHud.mode = .text
-            checkCodeHud.label.text = "请选择技能标签"
-            checkCodeHud.hide(animated: true, afterDelay: 1)
-        }else if count > 3 {
+        if count >= 3 {
             
             let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
             checkCodeHud.removeFromSuperViewOnHide = true
@@ -216,25 +288,79 @@ class CHSReJobExpSkillViewController: UIViewController {
             checkCodeHud.label.text = "最多选择3个标签"
             checkCodeHud.hide(animated: true, afterDelay: 1)
             return
-        }else{
+        }
+        
+        let alert = UIAlertController(title: nil, message: "输入标签不超过10个字", preferredStyle: .alert)
+        alert.addTextField { (textField) in
             
-            var str = ""
-            var flag = true
-            for selectSkillName in selectSkillArray {
-                if selectSkillName != "" {
-                    if flag {
-                        str = selectSkillName
-                        flag = false
-                    }else{
-                        str = str + "-" + selectSkillName
-                    }
-                }
+        }
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        let sureAction = UIAlertAction(title: "确定", style: .default, handler: { (sureAction) in
+            
+            if (alert.textFields?.first?.text)! == "" {
+                return
             }
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "PersonalChangeJobExperienceNotification"), object: nil, userInfo: ["type":"Skill","value":str])
-
-//            var FTPublishJobSelectedNameArray = NSUserDefaults.standardUserDefaults().arrayForKey(FTPublishJobSelectedNameArray_key) as! [Array<String>]
-//            FTPublishJobSelectedNameArray[1][2] = "\(count)个技能"
-//            NSUserDefaults.standardUserDefaults().setValue(FTPublishJobSelectedNameArray, forKey: FTPublishJobSelectedNameArray_key)
+            if self.isIncludeSpecialCharact(str: (alert.textFields?.first?.text ?? "")!) {
+                let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                hud.margin = 10
+                hud.mode = .text
+                hud.removeFromSuperViewOnHide = true
+                hud.label.text = "标签名不能包含特殊字符"
+                hud.hide(animated: true, afterDelay: 1)
+                return
+            }
+            
+            self.skillModelArray.append((alert.textFields?.first?.text)!)
+            self.selectSkillArray.append((alert.textFields?.first?.text)!)
+            
+            self.setSkillBtn()
+            //            self.industryNameArray.append((alert.textFields?.first?.text)!)
+            //            self.setIndustry(isAdd: true)
+        })
+        alert.addAction(sureAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func isIncludeSpecialCharact(str: String) -> Bool {
+        //*** 需要过滤的特殊字符：~￥#&*<>《》()[]{}【】^@/￡¤￥|§¨「」『』￠￢￣~@#￥&*（）——+|《》$_€。
+        let strArr = "-~￥#&*<>《》()[]{}【】^@/￡¤￥|§¨「」『』￠￢￣~@#￥&*（）——+|《》$_€"
+        for char in strArr.characters {
+            
+            if str.contains(String(char)) {
+                return true
+            }
+        }
+        return false
+    }
+    
+    // MARK: 点击保存按钮
+    func saveBtnClick() {
+        
+        var skillStr = ""
+        //        var count = 0
+        for selectSkillName in selectSkillArray {
+            if selectSkillName != "" {
+                skillStr = skillStr+"-"+selectSkillName
+                //                count += 1
+            }
+        }
+        
+        skillStr.remove(at: skillStr.startIndex)
+        
+        if skillStr == "" {
+            let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
+            checkCodeHud.removeFromSuperViewOnHide = true
+            
+            checkCodeHud.mode = .text
+            checkCodeHud.label.text = "请选择技能标签"
+            checkCodeHud.hide(animated: true, afterDelay: 1)
+        }else{
+          
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "PersonalChangeJobExperienceNotification"), object: nil, userInfo: ["type":"Skill","value":skillStr])
             
             _ = self.navigationController?.popViewController(animated: true)
         }

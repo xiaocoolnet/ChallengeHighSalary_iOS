@@ -114,12 +114,12 @@ class ChMiHomeViewController: UIViewController, UITableViewDataSource, UITableVi
         jobStatusLab.text = CHSUserInfo.currentUserInfo.jobstate
         headerView.addSubview(jobStatusLab)
         
-        let scoreBtn = UIButton(frame: CGRect(
-            x: screenSize.width-kWidthScale*135, y: kHeightScale*100, width: kWidthScale*120, height: kHeightScale*30))
-        scoreBtn.backgroundColor = UIColor(red: 94/255.0, green: 194/255.0, blue: 132/255.0, alpha: 1)
-        scoreBtn.layer.cornerRadius = scoreBtn.frame.size.height/2.0
-        scoreBtn.setTitle("积分数|120", for: UIControlState())
-        headerView.addSubview(scoreBtn)
+//        let scoreBtn = UIButton(frame: CGRect(
+//            x: screenSize.width-kWidthScale*135, y: kHeightScale*100, width: kWidthScale*120, height: kHeightScale*30))
+//        scoreBtn.backgroundColor = UIColor(red: 94/255.0, green: 194/255.0, blue: 132/255.0, alpha: 1)
+//        scoreBtn.layer.cornerRadius = scoreBtn.frame.size.height/2.0
+//        scoreBtn.setTitle("积分数|120", for: UIControlState())
+//        headerView.addSubview(scoreBtn)
         
         self.rootTableView.tableHeaderView = headerView
     }

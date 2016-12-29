@@ -24,7 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        
+        _ = TencentOAuth(appId: "1105667627", andDelegate: nil)
+        WXApi.registerApp("wxee897f37d6f7fabb")
+
         //Required
         if NSString(string: UIDevice.current.systemVersion).floatValue >= 10.0 {
             
@@ -114,6 +116,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate {
         }
         
         return true
+    }
+    
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        
+        let str = url.absoluteString
+
+        if str.hasPrefix("wx") {
+            return WXApi.handleOpen(url, delegate: weixinDelegate())
+        }else{
+            return TencentOAuth.handleOpen(url)
+        }
+    }
+    
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        
+        let str = url.absoluteString
+        
+        if str.hasPrefix("wx") {
+            return WXApi.handleOpen(url, delegate: weixinDelegate())
+        }else{
+            QQApiInterface.handleOpen(url, delegate: qqApiDelegate())
+            return TencentOAuth.handleOpen(url)
+        }
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

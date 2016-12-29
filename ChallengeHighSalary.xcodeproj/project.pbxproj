@@ -19,6 +19,19 @@
 		1F1224D91D97AE5A0094C6CE /* CHSReEduExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1224D81D97AE590094C6CE /* CHSReEduExperienceViewController.swift */; };
 		1F1224DB1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1224DA1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift */; };
 		1F14AF431D93CD0A00456A80 /* FTTaRetrievalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F14AF421D93CD0A00456A80 /* FTTaRetrievalViewController.swift */; };
+		1F1507F11E0B62C1009F154B /* FTWelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1507F01E0B62C1009F154B /* FTWelcomeViewController.swift */; };
+		1F1507F31E0B62D0009F154B /* CHSWelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1507F21E0B62D0009F154B /* CHSWelcomeViewController.swift */; };
+		1F1507F71E0BC23E009F154B /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1507F61E0BC23E009F154B /* TencentOpenAPI.framework */; };
+		1F1507F91E0BC280009F154B /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1507F81E0BC280009F154B /* libiconv.tbd */; };
+		1F1507FB1E0BC29E009F154B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1507FA1E0BC29D009F154B /* libsqlite3.tbd */; };
+		1F1507FD1E0BC2B3009F154B /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1507FC1E0BC2B3009F154B /* libstdc++.tbd */; };
+		1F1507FF1E0BC311009F154B /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F1507FE1E0BC311009F154B /* TencentOpenApi_IOS_Bundle.bundle */; };
+		1F1508011E0BCC69009F154B /* qqApiDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1508001E0BCC69009F154B /* qqApiDelegate.swift */; };
+		1F1508031E0BCF5D009F154B /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1508021E0BCF5D009F154B /* libsqlite3.0.tbd */; };
+		1F1508051E0BCF6F009F154B /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1508041E0BCF6F009F154B /* libc++.tbd */; };
+		1F15080C1E0BD1A3009F154B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1508071E0BD1A3009F154B /* libWeChatSDK.a */; };
+		1F15080D1E0BD1A3009F154B /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F1508081E0BD1A3009F154B /* README.txt */; };
+		1F15080F1E0BD2B7009F154B /* weixinDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F15080E1E0BD2B7009F154B /* weixinDelegate.swift */; };
 		1F180F6C1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F180F6B1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift */; };
 		1F180F701D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F180F6F1D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift */; };
 		1F2E7ADF1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E7ADE1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift */; };
@@ -239,6 +252,22 @@
 		1F1224D81D97AE590094C6CE /* CHSReEduExperienceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReEduExperienceViewController.swift; sourceTree = "<group>"; };
 		1F1224DA1D97AEA60094C6CE /* CHSReEditEduExperienceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReEditEduExperienceViewController.swift; sourceTree = "<group>"; };
 		1F14AF421D93CD0A00456A80 /* FTTaRetrievalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaRetrievalViewController.swift; sourceTree = "<group>"; };
+		1F1507F01E0B62C1009F154B /* FTWelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTWelcomeViewController.swift; sourceTree = "<group>"; };
+		1F1507F21E0B62D0009F154B /* CHSWelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSWelcomeViewController.swift; sourceTree = "<group>"; };
+		1F1507F61E0BC23E009F154B /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
+		1F1507F81E0BC280009F154B /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		1F1507FA1E0BC29D009F154B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		1F1507FC1E0BC2B3009F154B /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		1F1507FE1E0BC311009F154B /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
+		1F1508001E0BCC69009F154B /* qqApiDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = qqApiDelegate.swift; sourceTree = "<group>"; };
+		1F1508021E0BCF5D009F154B /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		1F1508041E0BCF6F009F154B /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		1F1508071E0BD1A3009F154B /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		1F1508081E0BD1A3009F154B /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		1F1508091E0BD1A3009F154B /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		1F15080A1E0BD1A3009F154B /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		1F15080B1E0BD1A3009F154B /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		1F15080E1E0BD2B7009F154B /* weixinDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = weixinDelegate.swift; sourceTree = "<group>"; };
 		1F180F6B1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChRetrievalViewController.swift; sourceTree = "<group>"; };
 		1F180F6F1D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChPersonalInfoViewController.swift; sourceTree = "<group>"; };
 		1F2E7ADE1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiCompanyAuthSureViewController.swift; sourceTree = "<group>"; };
@@ -454,16 +483,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F1508051E0BCF6F009F154B /* libc++.tbd in Frameworks */,
+				1F1508031E0BCF5D009F154B /* libsqlite3.0.tbd in Frameworks */,
+				1F9E528F1DE533AB00556F31 /* libz.tbd in Frameworks */,
+				1F1507FD1E0BC2B3009F154B /* libstdc++.tbd in Frameworks */,
+				1F9E52831DE5336E00556F31 /* CoreTelephony.framework in Frameworks */,
+				1F1507FB1E0BC29E009F154B /* libsqlite3.tbd in Frameworks */,
+				1F9E52871DE5338600556F31 /* CoreGraphics.framework in Frameworks */,
+				1F1507F91E0BC280009F154B /* libiconv.tbd in Frameworks */,
 				1F9E52931DE533CE00556F31 /* libresolv.tbd in Frameworks */,
 				1F9E52911DE533C000556F31 /* UserNotifications.framework in Frameworks */,
-				1F9E528F1DE533AB00556F31 /* libz.tbd in Frameworks */,
 				1F9E528D1DE5339F00556F31 /* Security.framework in Frameworks */,
 				1F9E528B1DE5339600556F31 /* UIKit.framework in Frameworks */,
 				1F9E52891DE5338E00556F31 /* Foundation.framework in Frameworks */,
-				1F9E52871DE5338600556F31 /* CoreGraphics.framework in Frameworks */,
 				1F9E52851DE5337900556F31 /* SystemConfiguration.framework in Frameworks */,
-				1F9E52831DE5336E00556F31 /* CoreTelephony.framework in Frameworks */,
+				1F15080C1E0BD1A3009F154B /* libWeChatSDK.a in Frameworks */,
 				1F9E52811DE5336200556F31 /* CoreFoundation.framework in Frameworks */,
+				1F1507F71E0BC23E009F154B /* TencentOpenAPI.framework in Frameworks */,
 				1F9E527F1DE5335900556F31 /* CFNetwork.framework in Frameworks */,
 				1F9E527D1DE532B800556F31 /* jpush-ios-2.2.0.a in Frameworks */,
 				1F7B303A1D7FA36600D0BF56 /* MapKit.framework in Frameworks */,
@@ -496,6 +532,39 @@
 			);
 			path = UIPlaceHolderTextView;
 			sourceTree = "<group>";
+		};
+		1F1507F41E0B781A009F154B /* 抢人才 */ = {
+			isa = PBXGroup;
+			children = (
+				1F0B59481DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift */,
+				1F0002951DAC952E00D57CE6 /* LoReFTInfoInputViewController.swift */,
+			);
+			name = "抢人才";
+			sourceTree = "<group>";
+		};
+		1F1507F51E0B7830009F154B /* 登录&注册&忘记密码 */ = {
+			isa = PBXGroup;
+			children = (
+				1FCDFEFF1D7411160067970B /* LoHomeViewController.swift */,
+				1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */,
+				1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */,
+				1F4B84E81E08DA5400C968CA /* LoReUserAgreementViewController.swift */,
+				1F0B59461DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift */,
+			);
+			name = "登录&注册&忘记密码";
+			sourceTree = "<group>";
+		};
+		1F1508061E0BD1A3009F154B /* OpenSDK1.7.5 */ = {
+			isa = PBXGroup;
+			children = (
+				1F1508071E0BD1A3009F154B /* libWeChatSDK.a */,
+				1F1508081E0BD1A3009F154B /* README.txt */,
+				1F1508091E0BD1A3009F154B /* WechatAuthSDK.h */,
+				1F15080A1E0BD1A3009F154B /* WXApi.h */,
+				1F15080B1E0BD1A3009F154B /* WXApiObject.h */,
+			);
+			path = OpenSDK1.7.5;
+			sourceTree = SOURCE_ROOT;
 		};
 		1F482B8A1D7FBE350079A62B /* Tool */ = {
 			isa = PBXGroup;
@@ -557,6 +626,7 @@
 		1F8741191D82A02A007B8793 /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
+				1F1508061E0BD1A3009F154B /* OpenSDK1.7.5 */,
 				1FDA4CD61DEFBE0D00BFB060 /* ImageBtn */,
 				1F9E527A1DE532B800556F31 /* Lib */,
 				1FD6F98E1DBEE9A800BD7B94 /* TPKeyboardAvoiding */,
@@ -658,6 +728,7 @@
 		1FCDFEB31D73E6DB0067970B = {
 			isa = PBXGroup;
 			children = (
+				1F1507FE1E0BC311009F154B /* TencentOpenApi_IOS_Bundle.bundle */,
 				1FCDFEBE1D73E6DB0067970B /* ChallengeHighSalary */,
 				1FCDFED31D73E6DB0067970B /* ChallengeHighSalaryTests */,
 				1FCDFEDE1D73E6DB0067970B /* ChallengeHighSalaryUITests */,
@@ -841,14 +912,9 @@
 		1FCDFEFA1D740D430067970B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1F1507F51E0B7830009F154B /* 登录&注册&忘记密码 */,
+				1F1507F41E0B781A009F154B /* 抢人才 */,
 				1FD697711DB0CBDF008D0A14 /* 挑战高薪 */,
-				1FCDFEFF1D7411160067970B /* LoHomeViewController.swift */,
-				1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */,
-				1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */,
-				1F0B59461DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift */,
-				1F0B59481DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift */,
-				1F0002951DAC952E00D57CE6 /* LoReFTInfoInputViewController.swift */,
-				1F4B84E81E08DA5400C968CA /* LoReUserAgreementViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -863,6 +929,8 @@
 				1FB6D5EA1D9B5B2A00262BBD /* CHSUserInfo.swift */,
 				1FEC4A361DB8C7AE004A0FC1 /* PublicNetUtil.swift */,
 				1F081C3B1DD161A90030444F /* NetUtil.swift */,
+				1F1508001E0BCC69009F154B /* qqApiDelegate.swift */,
+				1F15080E1E0BD2B7009F154B /* weixinDelegate.swift */,
 			);
 			name = "Tool(工具)";
 			sourceTree = "<group>";
@@ -907,6 +975,8 @@
 			isa = PBXGroup;
 			children = (
 				1FD7FBD51D795BA70032221D /* WeHomeViewController.swift */,
+				1F1507F01E0B62C1009F154B /* FTWelcomeViewController.swift */,
+				1F1507F21E0B62D0009F154B /* CHSWelcomeViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1209,6 +1279,12 @@
 		7D0BA4E52437BC3903C79784 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F1508041E0BCF6F009F154B /* libc++.tbd */,
+				1F1508021E0BCF5D009F154B /* libsqlite3.0.tbd */,
+				1F1507FC1E0BC2B3009F154B /* libstdc++.tbd */,
+				1F1507FA1E0BC29D009F154B /* libsqlite3.tbd */,
+				1F1507F81E0BC280009F154B /* libiconv.tbd */,
+				1F1507F61E0BC23E009F154B /* TencentOpenAPI.framework */,
 				1F9E52921DE533CE00556F31 /* libresolv.tbd */,
 				1F9E52901DE533C000556F31 /* UserNotifications.framework */,
 				1F9E528E1DE533AB00556F31 /* libz.tbd */,
@@ -1362,6 +1438,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F1507FF1E0BC311009F154B /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				1FF06CD61D7D609A0032943B /* DropDownCell.xib in Resources */,
 				1FF1CE151DA88D1B000F0A9A /* area.plist in Resources */,
 				1FB6D6001D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.xib in Resources */,
@@ -1374,6 +1451,7 @@
 				1FF06CDE1D7D6D970032943B /* ChChFindJobTableViewCell.xib in Resources */,
 				1F482B901D7FE9C80079A62B /* ChChCityTableViewCell.xib in Resources */,
 				1FF3C6A71D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.xib in Resources */,
+				1F15080D1E0BD1A3009F154B /* README.txt in Resources */,
 				1FCDFECA1D73E6DB0067970B /* LaunchScreen.storyboard in Resources */,
 				1FA93F521D7EC78300CBFE48 /* ChChFindEmployerTableViewCell.xib in Resources */,
 				1FF1CE201DA8C5D1000F0A9A /* FTMeHomeTableViewCell.xib in Resources */,
@@ -1470,6 +1548,7 @@
 				1FC3CCAE1D9CBE40004AA4C6 /* FTMiMyInterviewAllViewController.swift in Sources */,
 				1FDB00261D8FD2A0007043B4 /* CHSMiSettingViewController.swift in Sources */,
 				1F482B921D7FF7B80079A62B /* ChChSearchViewController.swift in Sources */,
+				1F1507F11E0B62C1009F154B /* FTWelcomeViewController.swift in Sources */,
 				1FD697771DB0D000008D0A14 /* LoReCHSMyAdvantagesViewController.swift in Sources */,
 				1FF524D11D88DBD800E1B70F /* LoginNetUtil.swift in Sources */,
 				1FC3CCB01D9CDCBD004AA4C6 /* FTMiMyBlacklistViewController.swift in Sources */,
@@ -1509,6 +1588,7 @@
 				1FC3CCB61D9CE453004AA4C6 /* FTTaPositionTypeViewController.swift in Sources */,
 				1FB6D5F01D9B985C00262BBD /* CHSMiMyBonusViewController.swift in Sources */,
 				1FB6D5F31D9B98BE00262BBD /* CHSMiMyBounsTableViewCell.swift in Sources */,
+				1F15080F1E0BD2B7009F154B /* weixinDelegate.swift in Sources */,
 				1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */,
 				1FD6F9981DBEE9A800BD7B94 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				1F0B59451DAB2FC700A172E3 /* UIPlaceHolderTextView.m in Sources */,
@@ -1526,6 +1606,7 @@
 				1F0B594D1DAB8AA100A172E3 /* UIImage+Extension.swift in Sources */,
 				1FDB001F1D8FC5D7007043B4 /* CHSReProjectExperienceViewController.swift in Sources */,
 				1FEF80981D810A0400486F9C /* FTRoHomeViewController.swift in Sources */,
+				1F1507F31E0B62D0009F154B /* CHSWelcomeViewController.swift in Sources */,
 				1FF3C6A11D9269F70069DD23 /* CHSMiMyDeliveryRecordViewController.swift in Sources */,
 				1FF06CD91D7D609A0032943B /* DropDownCell.swift in Sources */,
 				1FDB001B1D8FB0EE007043B4 /* CHSChCompanyPositionListViewController.swift in Sources */,
@@ -1612,6 +1693,7 @@
 				1F2E7ADF1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift in Sources */,
 				1FCC2FDF1DB607C0002360E4 /* FTPersonalViewController.swift in Sources */,
 				1F577B281DA9F25100AB5D99 /* CHSMeInvitedViewController.swift in Sources */,
+				1F1508011E0BCC69009F154B /* qqApiDelegate.swift in Sources */,
 				1F31935A1DB47C5F004B264F /* FTMiMyCompanyInfoViewController.swift in Sources */,
 				1F1224D91D97AE5A0094C6CE /* CHSReEduExperienceViewController.swift in Sources */,
 				1F0B59471DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift in Sources */,
@@ -1777,6 +1859,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = "";
 				DEVELOPMENT_TEAM = VRYQ2TBKF7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ChallengeHighSalary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1785,6 +1871,59 @@
 					"$(PROJECT_DIR)/ChallengeHighSalary/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrnb",
 					"$(PROJECT_DIR)/ChallengeHighSalary/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
 					"$(PROJECT_DIR)/ChallengeHighSalary/Lib",
+					"$(SRCROOT)/OpenSDK1.7.5",
+					"$(PROJECT_DIR)/OpenSDK1.7.5",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"icucore\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-l\"z.1.2.5\"",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"AMapFoundationKit\"",
+					"-framework",
+					"\"AMapLocationKit\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"BmobSDK\"",
+					"-framework",
+					"\"Bugtags\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"HandyJSON\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"JavaScriptCore\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"PagingMenuController\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-fobjc-arc",
+					"-Objc",
+					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.ChallengeHighSalary;
 				PRODUCT_NAME = ChallengeHighSalary;
@@ -1808,6 +1947,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = "";
 				DEVELOPMENT_TEAM = VRYQ2TBKF7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ChallengeHighSalary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1816,6 +1959,59 @@
 					"$(PROJECT_DIR)/ChallengeHighSalary/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrnb",
 					"$(PROJECT_DIR)/ChallengeHighSalary/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
 					"$(PROJECT_DIR)/ChallengeHighSalary/Lib",
+					"$(SRCROOT)/OpenSDK1.7.5",
+					"$(PROJECT_DIR)/OpenSDK1.7.5",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"icucore\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-l\"z.1.2.5\"",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"AMapFoundationKit\"",
+					"-framework",
+					"\"AMapLocationKit\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"BmobSDK\"",
+					"-framework",
+					"\"Bugtags\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"HandyJSON\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"JavaScriptCore\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"PagingMenuController\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-fobjc-arc",
+					"-Objc",
+					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.ChallengeHighSalary;
 				PRODUCT_NAME = ChallengeHighSalary;

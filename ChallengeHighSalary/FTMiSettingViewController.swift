@@ -11,7 +11,7 @@ import UIKit
 class FTMiSettingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let rootTableView = UITableView(frame: CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-64), style: .grouped)
-    let nameArray = [["手机绑定","设置密码","消息提醒"],["关于我们"],["切换身份"],["退出当前账号"]]
+    let nameArray = [["手机绑定","设置密码","消息提醒"],["关于我们"],["退出当前账号"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,9 +113,9 @@ class FTMiSettingViewController: UIViewController, UITableViewDataSource, UITabl
             self.navigationController?.pushViewController(CHSMiMessageRemindViewController(), animated: true)
         case (1,0):
             self.navigationController?.pushViewController(CHSMiAboutUsViewController(), animated: true)
+//        case (2,0):
+//            self.navigationController?.pushViewController(FTMiChangeIdentityViewController(), animated: true)
         case (2,0):
-            self.navigationController?.pushViewController(FTMiChangeIdentityViewController(), animated: true)
-        case (3,0):
             
             let signOutAlert = UIAlertController(title: "", message: "确定退出登录？", preferredStyle: .alert)
             self.present(signOutAlert, animated: true, completion: nil)

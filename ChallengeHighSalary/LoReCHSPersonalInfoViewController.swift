@@ -68,16 +68,24 @@ class LoReCHSPersonalInfoViewController: UIViewController, UITableViewDataSource
     // MARK: 加载数据
     func loadData() {
         
-        _ = MBProgressHUD.showAdded(to: self.view, animated: true)
+        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        hud.margin = 10
+        hud.removeFromSuperViewOnHide = true
         
-        
-        PublicNetUtil().getDictionaryList(parentid: "5") { (success, response) in
+        PublicNetUtil.getDictionaryList(parentid: "52") { (success, response) in
             if success {
                 self.pickJobTimeRequiredArray = []
                 let dicData = response as! [DicDataModel]
                 for dic in dicData {
                     self.pickJobTimeRequiredArray.append(dic.name!)
                 }
+                
+                hud.hide(animated: true)
+            }else{
+                
+                hud.mode = .text
+                hud.label.text = "信息获取失败，请返回重试"
+                hud.hide(animated: true, afterDelay: 1)
             }
         }
         

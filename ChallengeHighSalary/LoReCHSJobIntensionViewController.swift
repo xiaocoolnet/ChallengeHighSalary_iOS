@@ -15,9 +15,9 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
     var pickerView = UIPickerView()
     
     let pickJobTypeRequiredArray = ["全职","兼职"]
-    let pickExpSalaryLowRequiredArray = ["1k","2k","3k","4k","5k"]
-    var pickExpSalarySupRequiredArray = ["1k","2k","3k","4k","5k"]
-    let pickJobStatusRequiredArray = ["离职","在职"]
+    let pickExpSalaryLowRequiredArray = ["面议","1k","2k","3k","4k","5k","6k","7k","8k","9k","10k","11k","12k","13k","14k","15k","16k","17k","18k","19k","20k","21k","22k","23k","24k","25k","26k","27k","28k","29k","30k","31k","32k","33k","34k","35k","36k","37k","38k","39k","40k","41k","42k","43k","44k","45k","46k","47k","48k","49k","50k","60k","70k","80k","90k","100k"]
+    var pickExpSalarySupRequiredArray = ["面议"]
+    var pickJobStatusRequiredArray = [String]()
     
     var pickSelectedRowArray = [[0],[0,0],[0,0],[0]]
     
@@ -50,6 +50,7 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
         setSubviews()
         
         NotificationCenter.default.addObserver(self, selector: #selector(JobIntensionChanged(_:)), name: NSNotification.Name(rawValue: "PersonalChangeJobIntensionNotification"), object: nil)
+        
     }
     
     func JobIntensionChanged(_ noti:Notification) {
@@ -75,6 +76,19 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
         
         //        NSUserDefaults.standardUserDefaults().setValue(detailArray, forKey: FTPublishJobdetailArray_key)
         
+        PublicNetUtil.getDictionaryList(parentid: "93") { (success, response) in
+            if success {
+                self.pickJobStatusRequiredArray = []
+                let dicData = response as! [DicDataModel]
+                for dic in dicData {
+                    self.pickJobStatusRequiredArray.append(dic.name!)
+                }
+                
+                self.detailArray[5] = CHSUserInfo.currentUserInfo.jobstate == "" ? self.pickJobStatusRequiredArray[0]:CHSUserInfo.currentUserInfo.jobstate
+
+            }
+        }
+        
         areaDic = NSDictionary.init(contentsOfFile: Bundle.main.path(forAuxiliaryExecutable: "area.plist")!)!  as! [String:[String:Array<String>]]
         provinceArray = Array(areaDic.keys)
         provinceArray = provinceArray.sorted(by: { (str1, str2) -> Bool in
@@ -88,8 +102,8 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
             CHSUserInfo.currentUserInfo.address == "" ? "\(provinceArray[0])-\(cityArray[0])":CHSUserInfo.currentUserInfo.address,
             CHSUserInfo.currentUserInfo.position_type == "" ? "职位类型":CHSUserInfo.currentUserInfo.position_type,
             CHSUserInfo.currentUserInfo.categories == "" ? "行业类别":CHSUserInfo.currentUserInfo.categories,
-            CHSUserInfo.currentUserInfo.wantsalary == "" ? "\(pickExpSalaryLowRequiredArray[0])至\(pickExpSalarySupRequiredArray[0]) /月":CHSUserInfo.currentUserInfo.categories,
-            CHSUserInfo.currentUserInfo.jobstate == "" ? pickJobStatusRequiredArray[0]:CHSUserInfo.currentUserInfo.jobstate
+            CHSUserInfo.currentUserInfo.wantsalary == "" ? "面议":CHSUserInfo.currentUserInfo.categories,
+            CHSUserInfo.currentUserInfo.jobstate == "" ? "":CHSUserInfo.currentUserInfo.jobstate
         ]
     }
     
@@ -166,7 +180,7 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
                     
                     DispatchQueue.main.asyncAfter(deadline: delay) {
 //                        _ = self.navigationController?.popViewController(animated: true)
-                        self.present(CHRoHomeViewController(), animated: true, completion: nil)
+                        self.present(UINavigationController(rootViewController: CHSWelcomeViewController()), animated: true, completion: nil)
                     }
                 }else{
                     
@@ -198,7 +212,15 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
         cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 14)
         cell?.detailTextLabel?.textColor = UIColor(red: 167/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1)
         cell?.detailTextLabel?.textAlignment = .right
-        cell?.detailTextLabel?.text = detailArray[(indexPath as NSIndexPath).row]
+        if indexPath.row == 4 {
+            if detailArray[indexPath.row].contains("面议") {
+                cell?.detailTextLabel?.text = "面议"
+            }else{
+                cell?.detailTextLabel?.text = detailArray[indexPath.row]+" k/月"
+            }
+        }else{
+            cell?.detailTextLabel?.text = detailArray[(indexPath as NSIndexPath).row]
+        }
         
         return cell!
     }
@@ -216,7 +238,8 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
             let industryCategoriesVC = CHSReChooseIndustryCategoriesViewController()
             industryCategoriesVC.navTitle = "行业选择"
             industryCategoriesVC.vcType = .intension
-            
+            industryCategoriesVC.industryStr = detailArray[3] == "行业类别" ? "":detailArray[3]
+
             self.navigationController?.pushViewController(industryCategoriesVC, animated: true)
         default:
             
@@ -277,7 +300,7 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
                 pickerView.selectRow(pickSelectedRowArray[1][0], inComponent: 0, animated: false)
                 pickerView.selectRow(pickSelectedRowArray[1][1], inComponent: 1, animated: false)
             case (0,4):
-                pickerLab.text = "期望薪资"
+                pickerLab.text = "期望薪资（月薪,单位:千元）"
                 
                 pickerView.tag = 103
                 pickerView.selectRow(pickSelectedRowArray[2][0], inComponent: 0, animated: false)
@@ -316,7 +339,7 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
             pickSelectedRowArray[1][0] = pickerView.selectedRow(inComponent: 0)
         }else if pickerView.tag == 103 {
             
-            detailArray[4] = "\(pickExpSalaryLowRequiredArray[pickerView.selectedRow(inComponent: 0)])至\(pickExpSalarySupRequiredArray[pickerView.selectedRow(inComponent: 2)]) /月"
+            detailArray[4] = "\(pickExpSalaryLowRequiredArray[pickerView.selectedRow(inComponent: 0)].replacingOccurrences(of: "k", with: ""))-\(pickExpSalarySupRequiredArray[pickerView.selectedRow(inComponent: 2)].replacingOccurrences(of: "k", with: ""))"
             
             pickSelectedRowArray[2][0] = pickerView.selectedRow(inComponent: 0)
             pickSelectedRowArray[2][1] = pickerView.selectedRow(inComponent: 2)
@@ -408,9 +431,13 @@ class LoReCHSJobIntensionViewController: UIViewController, UITableViewDataSource
                 
             }
         }else if pickerView.tag == 103 {
-            
             if component == 0 {
-                pickExpSalarySupRequiredArray = Array(pickExpSalaryLowRequiredArray[row ..< pickExpSalaryLowRequiredArray.count])
+                if row == 0 {
+                    pickExpSalarySupRequiredArray = Array(pickExpSalaryLowRequiredArray[0 ..< 1])
+                }else{
+                    
+                    pickExpSalarySupRequiredArray = Array(pickExpSalaryLowRequiredArray[row ..< pickExpSalaryLowRequiredArray.count])
+                }
                 
             }
         }else if pickerView.tag == 104 {

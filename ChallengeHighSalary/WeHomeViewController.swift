@@ -92,89 +92,131 @@ class WeHomeViewController: UIViewController {
     // MARK: 找人才 按钮 点击事件
     func forTalentBtnClick() {
         
-        if CHSUserInfo.currentUserInfo.usertype == "2" || CHSUserInfo.currentUserInfo.usertype == "3" {
-            
+        self.navigationController?.pushViewController(LoReFTPersonalInfoViewController(), animated: true)
 
-            
-            // 找人才 过渡界面
-            let welLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
-            welLab.backgroundColor = baseColor
-            welLab.numberOfLines = 0
-            welLab.textColor = UIColor.white
-            welLab.font = UIFont.boldSystemFont(ofSize: 20)
-            welLab.adjustsFontSizeToFitWidth = true
-            welLab.textAlignment = .center
-            welLab.text = "机不可失失不再来，快抢人才！"
-            self.view.addSubview(welLab)
-            
-            
-            let toVC = FTRoHomeViewController()
-            toVC.view.frame.origin.x = -screenSize.width
-            toVC.viewControllers![0].view.frame.origin.x = -screenSize.width
-            self.view.addSubview(toVC.view)
-            
-            let time: TimeInterval = 1.0
-            let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-            
-            DispatchQueue.main.asyncAfter(deadline: delay) {
-                
-                UIView.animate(withDuration: 1, animations: {
-                    toVC.view.frame.origin.x = 0
-                    toVC.viewControllers![0].view.frame.origin.x = 0
-                    
-                }, completion: { (finished) in
-                    if finished {
-                        self.present(toVC, animated: false, completion: nil)
-                    }
-                }) 
-            }
-        }else{
-            self.navigationController?.pushViewController(LoReFTPersonalInfoViewController(), animated: true)
-            
-        }
+//        if CHSUserInfo.currentUserInfo.usertype == "2" || CHSUserInfo.currentUserInfo.usertype == "3" {
+//            
+//
+//            
+//            // 找人才 过渡界面
+//            let welLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
+//            welLab.backgroundColor = baseColor
+//            welLab.numberOfLines = 0
+//            welLab.textColor = UIColor.white
+//            welLab.font = UIFont.boldSystemFont(ofSize: 20)
+//            welLab.adjustsFontSizeToFitWidth = true
+//            welLab.textAlignment = .center
+//            welLab.text = "机不可失失不再来，快抢人才！"
+//            self.view.addSubview(welLab)
+//            
+//            let toVC = FTWelcomeViewController()
+//            toVC.view.frame.origin.x = -screenSize.width
+////            toVC.viewControllers![0].view.frame.origin.x = -screenSize.width
+//            self.view.addSubview(toVC.view)
+//            
+//            let time: TimeInterval = 1.0
+//            let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+//            
+//            DispatchQueue.main.asyncAfter(deadline: delay) {
+//                
+//                UIView.animate(withDuration: 1, animations: {
+//                    toVC.view.frame.origin.x = 0
+////                    toVC.viewControllers![0].view.frame.origin.x = 0
+//                    
+//                }, completion: { (finished) in
+//                    if finished {
+//                        self.present(toVC, animated: false, completion: nil)
+//                    }
+//                })
+//            }
+////            let toVC = FTRoHomeViewController()
+////            toVC.view.frame.origin.x = -screenSize.width
+////            toVC.viewControllers![0].view.frame.origin.x = -screenSize.width
+////            self.view.addSubview(toVC.view)
+////            
+////            let time: TimeInterval = 1.0
+////            let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+////            
+////            DispatchQueue.main.asyncAfter(deadline: delay) {
+////                
+////                UIView.animate(withDuration: 1, animations: {
+////                    toVC.view.frame.origin.x = 0
+////                    toVC.viewControllers![0].view.frame.origin.x = 0
+////                    
+////                }, completion: { (finished) in
+////                    if finished {
+////                        self.present(toVC, animated: false, completion: nil)
+////                    }
+////                }) 
+////            }
+//        }else{
+//            self.navigationController?.pushViewController(LoReFTPersonalInfoViewController(), animated: true)
+//            
+//        }
     }
     
     // MARK: 挑战高薪 按钮 点击事件
     func chSalaryBtnClick() {
         
-        if CHSUserInfo.currentUserInfo.usertype == "1" || CHSUserInfo.currentUserInfo.usertype == "3" {
-            
-            // 挑战高薪 过渡界面
-            let welLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
-            welLab.backgroundColor = baseColor
-            welLab.numberOfLines = 0
-            welLab.textColor = UIColor.white
-            welLab.font = UIFont.boldSystemFont(ofSize: 20)
-            welLab.adjustsFontSizeToFitWidth = true
-            welLab.textAlignment = .center
-            welLab.text = "千万不要低估了自己\n也不要高估了那些拿到高薪的人~！\n查看职位还有可能获得奖金哦！"
-            self.view.addSubview(welLab)
-            
-            
-            let toVC = CHRoHomeViewController()
-            toVC.view.frame.origin.x = -screenSize.width
-            toVC.viewControllers![0].view.frame.origin.x = -screenSize.width
-            self.view.addSubview(toVC.view)
-            
-            let time: TimeInterval = 1.0
-            let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-            
-            DispatchQueue.main.asyncAfter(deadline: delay) {
-                
-                UIView.animate(withDuration: 1, animations: {
-                    toVC.view.frame.origin.x = 0
-                    toVC.viewControllers![0].view.frame.origin.x = 0
-                    
-                }, completion: { (finished) in
-                    if finished {
-                        self.present(toVC, animated: false, completion: nil)
-                    }
-                }) 
-            }
-        }else{
-            self.navigationController?.pushViewController(LoReCHSPersonalInfoViewController(), animated: true)
+        self.navigationController?.pushViewController(LoReCHSPersonalInfoViewController(), animated: true)
 
-        }
+//        if CHSUserInfo.currentUserInfo.usertype == "1" || CHSUserInfo.currentUserInfo.usertype == "3" {
+//            
+//            // 挑战高薪 过渡界面
+//            let welLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
+//            welLab.backgroundColor = baseColor
+//            welLab.numberOfLines = 0
+//            welLab.textColor = UIColor.white
+//            welLab.font = UIFont.boldSystemFont(ofSize: 20)
+//            welLab.adjustsFontSizeToFitWidth = true
+//            welLab.textAlignment = .center
+//            welLab.text = "千万不要低估了自己\n也不要高估了那些拿到高薪的人~！\n查看职位还有可能获得奖金哦！"
+//            self.view.addSubview(welLab)
+//            
+//            let toVC = CHSWelcomeViewController()
+//            toVC.view.frame.origin.x = -screenSize.width
+////            toVC.viewControllers![0].view.frame.origin.x = -screenSize.width
+//            self.view.addSubview(toVC.view)
+//            
+//            let time: TimeInterval = 1.0
+//            let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+//            
+//            DispatchQueue.main.asyncAfter(deadline: delay) {
+//                
+//                UIView.animate(withDuration: 1, animations: {
+//                    toVC.view.frame.origin.x = 0
+////                    toVC.viewControllers![0].view.frame.origin.x = 0
+//                    
+//                }, completion: { (finished) in
+//                    if finished {
+//                        self.present(toVC, animated: false, completion: nil)
+//                    }
+//                })
+//            }
+////            let toVC = CHRoHomeViewController()
+////            toVC.view.frame.origin.x = -screenSize.width
+////            toVC.viewControllers![0].view.frame.origin.x = -screenSize.width
+////            self.view.addSubview(toVC.view)
+////            
+////            let time: TimeInterval = 1.0
+////            let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+////            
+////            DispatchQueue.main.asyncAfter(deadline: delay) {
+////                
+////                UIView.animate(withDuration: 1, animations: {
+////                    toVC.view.frame.origin.x = 0
+////                    toVC.viewControllers![0].view.frame.origin.x = 0
+////                    
+////                }, completion: { (finished) in
+////                    if finished {
+////                        self.present(toVC, animated: false, completion: nil)
+////                    }
+////                }) 
+////            }
+//        }else{
+//            self.navigationController?.pushViewController(LoReCHSPersonalInfoViewController(), animated: true)
+//
+//        }
     }
     
     // MARK: 退出 按钮 点击事件

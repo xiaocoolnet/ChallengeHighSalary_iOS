@@ -262,7 +262,7 @@ class PublicNetUtil: NSObject {
 
     // MARK: 获取字典列表
     // parentid
-    func getDictionaryList(
+    class func getDictionaryList(
         parentid:String,
         handle:@escaping ResponseClosures) {
         

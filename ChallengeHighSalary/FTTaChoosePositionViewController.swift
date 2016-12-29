@@ -48,7 +48,7 @@ class FTTaChoosePositionViewController: UIViewController, UITableViewDataSource,
         hud.margin = 10
         hud.label.text = "正在获取职位类型"
         
-        PublicNetUtil().getDictionaryList(parentid: positionTypeID) { (success, response) in
+        PublicNetUtil.getDictionaryList(parentid: positionTypeID) { (success, response) in
             if success {
                 hud.hide(animated: true)
                 self.firstPositionTypeArray = response as! [DicDataModel]
@@ -79,7 +79,7 @@ class FTTaChoosePositionViewController: UIViewController, UITableViewDataSource,
             return
         }
         
-        PublicNetUtil().getDictionaryList(parentid: parentid) { (success, response) in
+        PublicNetUtil.getDictionaryList(parentid: parentid) { (success, response) in
             if success {
 
                 self.secondPositionTypeArray = response as! [DicDataModel]

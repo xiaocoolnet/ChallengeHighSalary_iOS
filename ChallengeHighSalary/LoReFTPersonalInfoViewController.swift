@@ -177,7 +177,7 @@ class LoReFTPersonalInfoViewController: UIViewController, UITableViewDataSource,
                                 let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
                                 
                                 DispatchQueue.main.asyncAfter(deadline: delay) {
-                                    self.present(FTRoHomeViewController(), animated: true, completion: nil)
+                                    self.present(UINavigationController(rootViewController: FTWelcomeViewController()), animated: true, completion: nil)
                                 }
                             }else{
                                 

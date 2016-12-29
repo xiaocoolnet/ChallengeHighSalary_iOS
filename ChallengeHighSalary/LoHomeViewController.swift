@@ -302,9 +302,7 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
     }
     // MARK: 登录方法
     func LoginMethod(_ phone: String, password:String, hud: MBProgressHUD){
-        
-        
-        
+                
         LoginNetUtil().applogin(phone, password: password) { (success, response) in
             
             DispatchQueue.main.async(execute: {
@@ -314,8 +312,79 @@ class LoHomeViewController: UIViewController, UITextFieldDelegate {
                     hud.hide(animated: true)
                     UserDefaults.standard.set([userName_key:phone,userPwd_key:password], forKey: logInfo_key)
                     UserDefaults.standard.setValue(phone, forKey: userName_key)
-
-                    self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
+                    
+                    if CHSUserInfo.currentUserInfo.usertype == "0" {
+                        
+                        self.navigationController?.pushViewController(WeHomeViewController(), animated: true)
+                    }else if CHSUserInfo.currentUserInfo.usertype == "1" {
+                        
+                        // 挑战高薪 过渡界面
+                        let welLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
+                        welLab.backgroundColor = baseColor
+                        welLab.numberOfLines = 0
+                        welLab.textColor = UIColor.white
+                        welLab.font = UIFont.boldSystemFont(ofSize: 20)
+                        welLab.adjustsFontSizeToFitWidth = true
+                        welLab.textAlignment = .center
+                        welLab.text = "千万不要低估了自己\n也不要高估了那些拿到高薪的人~！\n查看职位还有可能获得奖金哦！"
+                        self.view.addSubview(welLab)
+                        
+                        let toVC = UINavigationController(rootViewController: CHSWelcomeViewController())
+                        toVC.view.frame.origin.x = -screenSize.width
+                        //            toVC.viewControllers![0].view.frame.origin.x = -screenSize.width
+                        self.view.addSubview(toVC.view)
+                        
+                        let time: TimeInterval = 1.0
+                        let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                        
+                        DispatchQueue.main.asyncAfter(deadline: delay) {
+                            
+                            UIView.animate(withDuration: 1, animations: {
+                                toVC.view.frame.origin.x = 0
+                                //                    toVC.viewControllers![0].view.frame.origin.x = 0
+                                
+                            }, completion: { (finished) in
+                                if finished {
+                                    self.present(toVC, animated: false, completion: nil)
+                                }
+                            })
+                        }
+//                        self.navigationController?.pushViewController(CHSWelcomeViewController(), animated: true)
+                    }else{
+                        // 找人才 过渡界面
+                        let welLab = UILabel(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
+                        welLab.backgroundColor = baseColor
+                        welLab.numberOfLines = 0
+                        welLab.textColor = UIColor.white
+                        welLab.font = UIFont.boldSystemFont(ofSize: 20)
+                        welLab.adjustsFontSizeToFitWidth = true
+                        welLab.textAlignment = .center
+                        welLab.text = "机不可失失不再来，快抢人才！"
+                        self.view.addSubview(welLab)
+                        
+                        let toVC = UINavigationController(rootViewController: FTWelcomeViewController())
+                        toVC.view.frame.origin.x = -screenSize.width
+                        //            toVC.viewControllers![0].view.frame.origin.x = -screenSize.width
+                        self.view.addSubview(toVC.view)
+                        
+                        let time: TimeInterval = 1.0
+                        let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                        
+                        DispatchQueue.main.asyncAfter(deadline: delay) {
+                            
+                            UIView.animate(withDuration: 1, animations: {
+                                toVC.view.frame.origin.x = 0
+                                //                    toVC.viewControllers![0].view.frame.origin.x = 0
+                                
+                            }, completion: { (finished) in
+                                if finished {
+                                    self.present(toVC, animated: false, completion: nil)
+                                }
+                            })
+                        }
+//                        self.navigationController?.pushViewController(FTWelcomeViewController(), animated: true)
+                    }
+//                     if CHSUserInfo.currentUserInfo.userid == "2" 
                 }else{
                     
                     hud.mode = .text

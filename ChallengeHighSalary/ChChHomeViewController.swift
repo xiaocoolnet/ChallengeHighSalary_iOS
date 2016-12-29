@@ -93,7 +93,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
                 self.findJobTableView.mj_header.endRefreshing()
             }
         }
-        PublicNetUtil().getDictionaryList(parentid: "5") { (success, response) in
+        PublicNetUtil.getDictionaryList(parentid: "5") { (success, response) in
             if success {
                 self.salaryDrop.dataSource = []
                 self.salaryDrop.dataSource.append("全部")
@@ -104,7 +104,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             }
         }
         
-        PublicNetUtil().getDictionaryList(parentid: "13") { (success, response) in
+        PublicNetUtil.getDictionaryList(parentid: "13") { (success, response) in
             if success {
                 self.redEnvelopeDrop.dataSource = []
                 self.redEnvelopeDrop.dataSource.append("全部")
@@ -132,7 +132,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
                 self.findEmployerTableView.mj_header.endRefreshing()
             }
         }
-        PublicNetUtil().getDictionaryList(parentid: "18") { (success, response) in
+        PublicNetUtil.getDictionaryList(parentid: "18") { (success, response) in
             if success {
                 self.scaleDrop.dataSource = []
                 self.scaleDrop.dataSource.append("全部")

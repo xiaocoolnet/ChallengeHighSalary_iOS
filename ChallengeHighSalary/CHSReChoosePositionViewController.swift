@@ -12,13 +12,17 @@ class CHSReChoosePositionViewController: UIViewController, UITableViewDataSource
     
     var vcType:FromVCType = .default
 
+    var positionTypeID = "" {
+        didSet {
+            self.loadData()
+        }
+    }
+    
+    var firstPositionTypeArray = [DicDataModel]()
+    var secondPositionTypeArray = [DicDataModel]()
+    
     let firstTableView = UITableView() // 左 tableview tag = 101
     let secondTableView = UITableView() // 右 tableview tag = 102
-    
-    let rootDic = ["计算机/互联网/通信":["全部","技术专员/助理","技术总监/经理","技术支持/维护","软件工程师","程序员"],"电子/电气":["硬件工程师","质量工程师","测试工程师","系统架构师","数据库管理/DBA","游戏设计/开发","网页设计/制作","语音/视频/图形网站编辑","项目经理/主管","产品经理/专员"],"机械/仪器仪表":["网站策划","网络管理员","网站运营","网络与信息安全工程师"]]
-    //    var firstArray = ["计算机/互联网/通信","电子/电气","机械/仪器仪表"]
-    var firstArray = [String]()
-    var secondArray = [String]()
     
     var firstCurrentSelectedRow = 0
     var secondCurrentSelectedRow = 0
@@ -36,6 +40,58 @@ class CHSReChoosePositionViewController: UIViewController, UITableViewDataSource
         
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    // MARK: - 获取数据
+    func loadData() {
+        
+        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        hud.removeFromSuperViewOnHide = true
+        hud.margin = 10
+        hud.label.text = "正在获取职位类型"
+        
+        PublicNetUtil.getDictionaryList(parentid: positionTypeID) { (success, response) in
+            if success {
+                hud.hide(animated: true)
+                self.firstPositionTypeArray = response as! [DicDataModel]
+                
+                self.loadData_2(parentid: (self.firstPositionTypeArray.first?.term_id ?? "")!)
+                self.firstTableView.reloadData()
+            }else{
+                hud.mode = .text
+                hud.label.text = "职位类型获取失败"
+                hud.hide(animated: true, afterDelay: 1)
+                
+                let time: TimeInterval = 1.0
+                let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                
+                DispatchQueue.main.asyncAfter(deadline: delay) {
+                    
+                    _ = self.navigationController?.popViewController(animated: true)
+                    
+                }
+            }
+        }
+        
+    }
+    
+    func loadData_2(parentid: String) {
+        
+        if parentid == "" {
+            return
+        }
+        
+        PublicNetUtil.getDictionaryList(parentid: parentid) { (success, response) in
+            if success {
+                
+                self.secondPositionTypeArray = response as! [DicDataModel]
+                self.secondTableView.reloadData()
+            }else{
+                self.secondPositionTypeArray = [DicDataModel]()
+                self.secondTableView.reloadData()
+            }
+        }
+        
     }
     
     // MARK: popViewcontroller
@@ -71,19 +127,14 @@ class CHSReChoosePositionViewController: UIViewController, UITableViewDataSource
         secondTableView.delegate = self
         self.view.addSubview(secondTableView)
         
-        firstArray = Array(rootDic.keys)
-        secondArray = rootDic[firstArray.first!]!
-        
-//        firstCurrentSelectedRow = 1
-//        secondCurrentSelectedRow = 2
     }
     
     // MARK: UITableView DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == 101 {
-            return firstArray.count
+            return firstPositionTypeArray.count
         }else{
-            return secondArray.count
+            return secondPositionTypeArray.count
         }
     }
     
@@ -106,14 +157,13 @@ class CHSReChoosePositionViewController: UIViewController, UITableViewDataSource
             
             if firstCurrentSelectedRow == (indexPath as NSIndexPath).row {
                 cell?.textLabel?.textColor = baseColor
-                cell?.backgroundColor = UIColor.white
             }else{
                 
                 cell?.textLabel?.textColor = UIColor.black
-                cell?.backgroundColor = UIColor.clear
             }
             
-            cell?.textLabel!.text = firstArray[(indexPath as NSIndexPath).row]
+            cell?.textLabel!.text = firstPositionTypeArray[indexPath.row].name
+            
         }else{
             
             if secondCurrentSelectedRow == (indexPath as NSIndexPath).row {
@@ -123,7 +173,8 @@ class CHSReChoosePositionViewController: UIViewController, UITableViewDataSource
                 cell?.textLabel?.textColor = UIColor.black
             }
             
-            cell?.textLabel!.text = secondArray[(indexPath as NSIndexPath).row]
+            cell?.textLabel!.text = secondPositionTypeArray[indexPath.row].name
+            
         }
         
         return cell!
@@ -135,18 +186,19 @@ class CHSReChoosePositionViewController: UIViewController, UITableViewDataSource
             
             firstCurrentSelectedRow = (indexPath as NSIndexPath).row
             
-            secondArray = rootDic[firstArray[(indexPath as NSIndexPath).row]]!
+            loadData_2(parentid: (firstPositionTypeArray[firstCurrentSelectedRow].term_id ?? "")!)
+            
         }else{
             
             secondCurrentSelectedRow = (indexPath as NSIndexPath).row
             
             
             if self.vcType == .intension {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "PersonalChangeJobIntensionNotification"), object: nil, userInfo: ["type":"PositionType","value":secondArray[(indexPath as NSIndexPath).row]])
                 
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "PersonalChangeJobIntensionNotification"), object: nil, userInfo: ["type":"PositionType","value":secondPositionTypeArray[indexPath.row].name ?? ""])
             }else if self.vcType == .jobExperience {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "PersonalChangeJobExperienceNotification"), object: nil, userInfo: ["type":"PositionType","value":secondArray[(indexPath as NSIndexPath).row]])
                 
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "PersonalChangeJobExperienceNotification"), object: nil, userInfo: ["type":"PositionType","value":secondPositionTypeArray[indexPath.row].name ?? ""])
             }
             
             _ = self.navigationController?.popToViewController((self.navigationController?.viewControllers[(self.navigationController?.viewControllers.endIndex)!-3])!, animated: true)
