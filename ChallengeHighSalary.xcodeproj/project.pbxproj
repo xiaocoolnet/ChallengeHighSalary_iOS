@@ -217,6 +217,10 @@
 		1FF9DB291D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF9DB271D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.xib */; };
 		1FFECEB51DB9C3CB0039BFF3 /* CHSMiChangeIdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFECEB41DB9C3CB0039BFF3 /* CHSMiChangeIdentityViewController.swift */; };
 		1FFECEB71DB9FB320039BFF3 /* FTMiChangeIdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFECEB61DB9FB320039BFF3 /* FTMiChangeIdentityViewController.swift */; };
+		647C3CAB1E1B85CA001640BC /* CHSMePositionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C3CAA1E1B85CA001640BC /* CHSMePositionTableViewCell.swift */; };
+		64C34D5A1E15FC95007E4B10 /* CHSMePositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C34D591E15FC95007E4B10 /* CHSMePositionViewController.swift */; };
+		64C34D5D1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C34D5B1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.swift */; };
+		64C34D5E1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64C34D5C1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.xib */; };
 		C0D6672B54CEDDD299E90BD9 /* Pods_ChallengeHighSalary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E16B208398D4D955F3015A /* Pods_ChallengeHighSalary.framework */; };
 /* End PBXBuildFile section */
 
@@ -476,6 +480,10 @@
 		1FFECEB61DB9FB320039BFF3 /* FTMiChangeIdentityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiChangeIdentityViewController.swift; sourceTree = "<group>"; };
 		4F2FE0939DDAB1E11CA9B594 /* Pods-ChallengeHighSalary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChallengeHighSalary.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChallengeHighSalary/Pods-ChallengeHighSalary.release.xcconfig"; sourceTree = "<group>"; };
 		573ED6BB8CB6F9F6257D7C55 /* Pods-ChallengeHighSalary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChallengeHighSalary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChallengeHighSalary/Pods-ChallengeHighSalary.debug.xcconfig"; sourceTree = "<group>"; };
+		647C3CAA1E1B85CA001640BC /* CHSMePositionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMePositionTableViewCell.swift; sourceTree = "<group>"; };
+		64C34D591E15FC95007E4B10 /* CHSMePositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMePositionViewController.swift; sourceTree = "<group>"; };
+		64C34D5B1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChEvaluateTableViewCell.swift; sourceTree = "<group>"; };
+		64C34D5C1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSChEvaluateTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -610,6 +618,7 @@
 				1F577B3E1DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.swift */,
 				1F577B3F1DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.xib */,
 				1F7EDB021DDEA41D005FD660 /* CHSMeChatTableViewCell.swift */,
+				647C3CAA1E1B85CA001640BC /* CHSMePositionTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1129,6 +1138,7 @@
 				1F577B251DA9F22300AB5D99 /* CHSMeLookMeViewController.swift */,
 				1F577B271DA9F25100AB5D99 /* CHSMeInvitedViewController.swift */,
 				1FBE974F1DC7193700F0EB4D /* CHSMeChatViewController.swift */,
+				64C34D591E15FC95007E4B10 /* CHSMePositionViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1231,6 +1241,8 @@
 				1FF3C6A51D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.xib */,
 				1FF3C6AA1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.swift */,
 				1FF3C6AB1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.xib */,
+				64C34D5B1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.swift */,
+				64C34D5C1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1448,6 +1460,7 @@
 				1FF9DB291D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.xib in Resources */,
 				1F577B3D1DA9F37000AB5D99 /* CHSMeLookMeTableViewCell.xib in Resources */,
 				1FF9DB221D9624DB00F0C69D /* FTTalentTableViewCell.xib in Resources */,
+				64C34D5E1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.xib in Resources */,
 				1FF06CDE1D7D6D970032943B /* ChChFindJobTableViewCell.xib in Resources */,
 				1F482B901D7FE9C80079A62B /* ChChCityTableViewCell.xib in Resources */,
 				1FF3C6A71D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.xib in Resources */,
@@ -1559,6 +1572,7 @@
 				1F87411B1D82AF47007B8793 /* LoForgetPasswordViewController.swift in Sources */,
 				1FCCC5991DAE002C0065A799 /* CHSReChooseIndustryCategoriesViewController.swift in Sources */,
 				1FD0AACC1DF80BE90021A366 /* FTMiInfoViewController.swift in Sources */,
+				647C3CAB1E1B85CA001640BC /* CHSMePositionTableViewCell.swift in Sources */,
 				1FDB00211D8FC70B007043B4 /* CHSReMyAdvantagesViewController.swift in Sources */,
 				1FB6D5FF1D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.swift in Sources */,
 				1FBE97501DC7193700F0EB4D /* CHSMeChatViewController.swift in Sources */,
@@ -1635,6 +1649,7 @@
 				1FF3C6AC1D927E380069DD23 /* CHSChInterviewEvaTableViewCell.swift in Sources */,
 				1FB6D5EE1D9B8D0700262BBD /* CHSMiNetUtil.swift in Sources */,
 				1F482B9C1D8002560079A62B /* ChChSearchTableViewCell.swift in Sources */,
+				64C34D5A1E15FC95007E4B10 /* CHSMePositionViewController.swift in Sources */,
 				1FD6976E1DB0B8F9008D0A14 /* CHSReProjectDescriptionViewController.swift in Sources */,
 				1F87411D1D82C22B007B8793 /* LoRegisterViewController.swift in Sources */,
 				1FD697791DB0D0D9008D0A14 /* LoReCHSJobIntensionViewController.swift in Sources */,
@@ -1691,6 +1706,7 @@
 				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,
 				1F4FD25B1D767CC500FF7040 /* Tool.swift in Sources */,
 				1F2E7ADF1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift in Sources */,
+				64C34D5D1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.swift in Sources */,
 				1FCC2FDF1DB607C0002360E4 /* FTPersonalViewController.swift in Sources */,
 				1F577B281DA9F25100AB5D99 /* CHSMeInvitedViewController.swift in Sources */,
 				1F1508011E0BCC69009F154B /* qqApiDelegate.swift in Sources */,

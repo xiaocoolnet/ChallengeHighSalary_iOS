@@ -80,12 +80,13 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
         backBtn.addTarget(self, action: #selector(backBtnClick), for: .touchUpInside)
         self.view.addSubview(backBtn)
         
-//        let interviewEvaluateBtn = UIButton(frame: CGRect(x: 0, y: screenSize.height-45, width: screenSize.width, height: 45))
-//        interviewEvaluateBtn.backgroundColor = baseColor
-//        interviewEvaluateBtn.setTitleColor(UIColor.white, for: UIControlState())
-//        interviewEvaluateBtn.setTitle("面试评价(2)", for: UIControlState())
-//        interviewEvaluateBtn.addTarget(self, action: #selector(interviewEvaluateBtnClick), for: .touchUpInside)
+        let interviewEvaluateBtn = UIButton(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 45))
+        interviewEvaluateBtn.backgroundColor = baseColor
+        interviewEvaluateBtn.setTitleColor(UIColor.white, for: UIControlState())
+        interviewEvaluateBtn.setTitle("面试评价(2)", for: UIControlState())
+        interviewEvaluateBtn.addTarget(self, action: #selector(interviewEvaluateBtnClick), for: .touchUpInside)
 //        self.view.addSubview(interviewEvaluateBtn)
+        self.rootTableView.tableFooterView = interviewEvaluateBtn
     }
     
     // MARK:- backBtn 点击事件

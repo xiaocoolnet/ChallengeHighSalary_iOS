@@ -177,7 +177,6 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         if hasPosition {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FTTalentCell") as! FTTalentTableViewCell
             cell.selectionStyle = .none
-            
             cell.resumeData = self.resumeModel[(indexPath as NSIndexPath).section]
             return cell
         }else{

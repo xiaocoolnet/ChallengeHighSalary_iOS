@@ -85,6 +85,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             if success {
                 self.jobList = (response as! [JobInfoDataModel]?)!
                 self.findJobTableView.reloadData()
+                
             }else{
                 
             }
@@ -280,6 +281,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         // 下拉列表选中后的回调方法
         salaryDrop.selectionAction = { (index, item) in
             salaryBtn?.resetdataCenter(item, #imageLiteral(resourceName: "ic_下拉"))
+            
         }
         
         // 红包

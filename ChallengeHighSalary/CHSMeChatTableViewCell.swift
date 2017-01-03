@@ -29,6 +29,8 @@ class CHSMeChatTableViewCell: UITableViewCell {
                 chatContentLab.text = chatListData?.content
                 chatContentLab.layer.cornerRadius = 8
                 chatContentLab.layer.backgroundColor = UIColor.white.cgColor
+                
+                btn.frame = chatContentLab.frame
 
             }else{
                 
@@ -45,12 +47,15 @@ class CHSMeChatTableViewCell: UITableViewCell {
                 chatContentLab.text = chatListData?.content
                 chatContentLab.layer.cornerRadius = 8
                 chatContentLab.layer.backgroundColor = baseColor.cgColor
+                
+                btn.frame = chatContentLab.frame
 
             }
         }
     }
     fileprivate let headerImg = UIImageView()
     fileprivate let chatContentLab = UILabel()
+    let btn = UIButton()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -66,7 +71,13 @@ class CHSMeChatTableViewCell: UITableViewCell {
         chatContentLab.textAlignment = .center
         self.contentView.addSubview(chatContentLab)
         
+        btn.frame = chatContentLab.frame
+        btn.backgroundColor = UIColor.clear
+        self.contentView.addSubview(btn)
+        
     }
+    
+  
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

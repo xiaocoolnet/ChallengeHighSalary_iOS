@@ -238,7 +238,7 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
             
             self.inputTFEditChanged(textField: inputTF)
             
-            CHSNetUtil().SendChatData(CHSUserInfo.currentUserInfo.userid, receive_uid: (self.jobInfo?.userid ?? "")!, content: chatData.content!, handle: { (success, response) in
+            CHSNetUtil().SendChatData(CHSUserInfo.currentUserInfo.userid, receive_uid: (self.jobInfo?.userid ?? otherId)!, content: chatData.content!, handle: { (success, response) in
                 
                 if success {
                     
@@ -365,7 +365,6 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
             cell.selectionStyle = .none
             cell.contentView.backgroundColor = UIColor(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1)
 
-            
             cell.company_infoJob = self.jobInfo
             return cell
         }else if indexPath.section > 0 {
@@ -374,7 +373,11 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
             cell.selectionStyle = .none
             cell.contentView.backgroundColor = UIColor(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1)
             
+            
             cell.chatListData = self.chatListDataArray[indexPath.section-1]
+            
+            cell.btn.addTarget(self, action: #selector(clickBtn), for: .touchUpInside)
+
             
             return cell
         }
@@ -438,6 +441,13 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
             
         }
         return timeLab
+    }
+    
+    func clickBtn(){
+        print(111)
+        
+        let vc = CHSMePositionViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
