@@ -180,6 +180,7 @@ class FTPersonalViewController: UIViewController {
             shareBtn_1.layer.cornerRadius = shareBtnWidth/2.0
             shareBtn_1.setBackgroundImage(imgArray[i], for: .normal)
             shareBtn_1.tag = 1000+i
+            shareBtn_1.addTarget(self, action: #selector(toolBtnClick(toolBtn:)), for: .touchUpInside)
             headerBgView.addSubview(shareBtn_1)
             print("抢人才-人才-个人信息页-分享视图-按钮 \(i) frame == \(shareBtn_1.frame)")
             
@@ -209,6 +210,11 @@ class FTPersonalViewController: UIViewController {
             width: screenSize.width,
             height: screenSize.height-64-49-headerBgView.frame.size.height)
         
+    }
+    
+    // MARK: - 在抢企业等按钮点击事件
+    func toolBtnClick(toolBtn:UIButton) {
+        self.navigationController?.pushViewController(FTTaEvaluateViewController(), animated: true)
     }
     
     // MARK: - 设置个人信息
