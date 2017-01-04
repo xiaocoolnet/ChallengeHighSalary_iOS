@@ -131,6 +131,11 @@
 		1FCCC59C1DAE05E70065A799 /* CHSNetUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC59B1DAE05E70065A799 /* CHSNetUtil.swift */; };
 		1FCCC59E1DAE05F40065A799 /* CHSModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC59D1DAE05F40065A799 /* CHSModel.swift */; };
 		1FCCC5A71DAE3AEF0065A799 /* CHSReJobExpSkillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC5A61DAE3AEF0065A799 /* CHSReJobExpSkillViewController.swift */; };
+		1FCDBD181E1B9946007814A1 /* FTTaEvaluateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDBD171E1B9946007814A1 /* FTTaEvaluateViewController.swift */; };
+		1FCDBD1D1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDBD1B1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.swift */; };
+		1FCDBD1E1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDBD1C1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.xib */; };
+		1FCDBD211E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDBD1F1E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.swift */; };
+		1FCDBD221E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDBD201E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.xib */; };
 		1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */; };
 		1FCDFEC21D73E6DB0067970B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC11D73E6DB0067970B /* ViewController.swift */; };
 		1FCDFEC51D73E6DB0067970B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDFEC31D73E6DB0067970B /* Main.storyboard */; };
@@ -382,6 +387,11 @@
 		1FCCC59B1DAE05E70065A799 /* CHSNetUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSNetUtil.swift; sourceTree = "<group>"; };
 		1FCCC59D1DAE05F40065A799 /* CHSModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSModel.swift; sourceTree = "<group>"; };
 		1FCCC5A61DAE3AEF0065A799 /* CHSReJobExpSkillViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReJobExpSkillViewController.swift; sourceTree = "<group>"; };
+		1FCDBD171E1B9946007814A1 /* FTTaEvaluateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaEvaluateViewController.swift; sourceTree = "<group>"; };
+		1FCDBD1B1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaInterviewEvaTableViewCell.swift; sourceTree = "<group>"; };
+		1FCDBD1C1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTaInterviewEvaTableViewCell.xib; sourceTree = "<group>"; };
+		1FCDBD1F1E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaInterviewEvaHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		1FCDBD201E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTaInterviewEvaHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		1FCDFEBC1D73E6DB0067970B /* ChallengeHighSalary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChallengeHighSalary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FCDFEC11D73E6DB0067970B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -1050,6 +1060,7 @@
 				1FCC2FDE1DB607C0002360E4 /* FTPersonalViewController.swift */,
 				1FCFE71A1DE6D54500D5FFA9 /* FTTaCompanyWelfareViewController.swift */,
 				1F8F9E0D1DFF9D74004F1700 /* FTTaChatViewController.swift */,
+				1FCDBD171E1B9946007814A1 /* FTTaEvaluateViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1097,6 +1108,10 @@
 				1FEF80A31D810E5700486F9C /* FTTaNoPositionTableViewCell.swift */,
 				1FF9DB1F1D9624DB00F0C69D /* FTTalentTableViewCell.swift */,
 				1FF9DB201D9624DB00F0C69D /* FTTalentTableViewCell.xib */,
+				1FCDBD1B1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.swift */,
+				1FCDBD1C1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.xib */,
+				1FCDBD1F1E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.swift */,
+				1FCDBD201E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1460,6 +1475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F1507FF1E0BC311009F154B /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+				1FCDBD1E1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.xib in Resources */,
 				1FF06CD61D7D609A0032943B /* DropDownCell.xib in Resources */,
 				1FF1CE151DA88D1B000F0A9A /* area.plist in Resources */,
 				1FB6D6001D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.xib in Resources */,
@@ -1482,6 +1498,7 @@
 				1FCDFEC71D73E6DB0067970B /* Assets.xcassets in Resources */,
 				1FCDFEC51D73E6DB0067970B /* Main.storyboard in Resources */,
 				1F577B391DA9F35E00AB5D99 /* CHSMeCollectionMeTableViewCell.xib in Resources */,
+				1FCDBD221E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.xib in Resources */,
 				1F577B1E1DA9E8A700AB5D99 /* FTMeLookMeTableViewCell.xib in Resources */,
 				1F577B311DA9F32D00AB5D99 /* CHSMeSysMessageTableViewCell.xib in Resources */,
 				1F577B1A1DA9E89400AB5D99 /* FTMeCollectionMeTableViewCell.xib in Resources */,
@@ -1716,6 +1733,7 @@
 				1F4FDD211DE7CE9F008B17F7 /* FTMiCompanyAuthViewController.swift in Sources */,
 				1FFECEB51DB9C3CB0039BFF3 /* CHSMiChangeIdentityViewController.swift in Sources */,
 				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,
+				1FCDBD181E1B9946007814A1 /* FTTaEvaluateViewController.swift in Sources */,
 				1F4FD25B1D767CC500FF7040 /* Tool.swift in Sources */,
 				1F2E7ADF1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift in Sources */,
 				64C34D5D1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.swift in Sources */,
@@ -1726,6 +1744,7 @@
 				1F1224D91D97AE5A0094C6CE /* CHSReEduExperienceViewController.swift in Sources */,
 				1F0B59471DAB3F3D00A172E3 /* LoReChooseIdentityViewController.swift in Sources */,
 				1F9CE7C31D8802FC002E6632 /* CHSReJobIntensionViewController.swift in Sources */,
+				1FCDBD211E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
