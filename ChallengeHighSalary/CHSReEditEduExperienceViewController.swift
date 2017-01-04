@@ -28,7 +28,7 @@ fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource,UITextViewDelegate {
+class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource,UITextViewDelegate,UITextFieldDelegate {
     
     var selectedIndex:Int? {
         didSet {
@@ -41,7 +41,7 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
         }
     }
     
-    let rootTableView = UITableView()
+    let rootTableView = TPKeyboardAvoidingTableView()
     
     let schoolNameTf = UITextField()
     
@@ -68,6 +68,10 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
+        schoolNameTf.delegate = self
+        majorNameTf.delegate = self
+        schoolExpTv.delegate = self
         
         setSubviews()
     }
@@ -628,6 +632,17 @@ class CHSReEditEduExperienceViewController: UIViewController, UITableViewDataSou
         return view
     }
     // MARK:-
+    
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        
+        self.schoolExpTv.endEditing(true)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.schoolNameTf.endEditing(true)
+        self.majorNameTf.endEditing(true)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

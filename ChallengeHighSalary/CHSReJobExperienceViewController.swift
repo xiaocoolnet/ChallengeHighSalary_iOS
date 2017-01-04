@@ -39,7 +39,7 @@ fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LoReFTInfoInputViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate {
     
-    let rootTableView = UITableView()
+    let rootTableView = TPKeyboardAvoidingTableView()
     
     var pickerView = UIPickerView()
     
@@ -196,6 +196,9 @@ class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource,
             work_period: detailArray[4],
             content: jobContentTv.text!) { (success, response) in
                 if success {
+                    
+                    let workModel = WorkModel()
+                    CHSUserInfo.currentUserInfo.work?.append(workModel)
                     
                     CHSUserInfo.currentUserInfo.work?.first?.company_name =  self.detailArray[0]
                     CHSUserInfo.currentUserInfo.work?.first?.company_industry =  self.detailArray[1]

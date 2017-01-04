@@ -26,14 +26,14 @@ class CHSMePositionTableViewCell: UITableViewCell {
         
         backView.addSubview(titLab)
         
-        conLab.frame = CGRect(x: 100, y: 0, width: screenSize.width-136, height: 49.5)
+        conLab.frame = CGRect(x: 100, y: 0, width: screenSize.width-136, height: 49)
         conLab.textAlignment = .right
         conLab.textColor = UIColor.lightGray
         conLab.font = UIFont.systemFont(ofSize: 15)
         backView.addSubview(conLab)
      
-        let line = UILabel.init(frame: CGRect(x: 0, y: 49.5, width: screenSize.width - 26, height: 0.5))
-        line.backgroundColor = UIColor.lightGray
+        let line = UILabel.init(frame: CGRect(x: 0, y: 49, width: screenSize.width - 26, height: 1))
+        line.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         backView.addSubview(line)
     }
     

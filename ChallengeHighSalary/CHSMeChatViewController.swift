@@ -18,6 +18,8 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
     
     let sendBtn = UIButton()
     
+    let btn = UIButton()
+    
     var keyboardShowState = false
     
     var jobInfo:JobInfoDataModel? {
@@ -25,7 +27,7 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
             self.selfTitle = (self.jobInfo?.realname)!
             self.conversationId = (self.jobInfo?.userid)!
             
-            self.setTableViewHeaderView()
+//            self.setTableViewHeaderView()
         }
     }
     
@@ -45,6 +47,7 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
         self.setSubView()
         
         NotificationCenter.default.addObserver(self, selector: #selector(newMessageRecived(noti:)), name: NSNotification.Name(rawValue: "NewMessageRecivedNotification"), object: nil)
+        loadData()
     }
     
     func newMessageRecived(noti:Notification) {
@@ -104,6 +107,11 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
         _ = self.navigationController?.popViewController(animated: true)
     }
     
+    func pushViewcontroller(){
+        let vc = CHSMeSetViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
     
     // MARK:- 设置子视图
     func setSubView() {
@@ -113,6 +121,8 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
         self.automaticallyAdjustsScrollViewInsets = false
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_聊天_设置"), style: .done, target: self, action: #selector(pushViewcontroller))
         
         self.view.backgroundColor = UIColor(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1)
         
@@ -128,6 +138,8 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
         
         rootTableView.register(CHSMeChatTableViewCell.self, forCellReuseIdentifier: "CHSMeChatCell")
         rootTableView.register(UINib(nibName: "CHSChCompanyPositionTableViewCell", bundle: nil), forCellReuseIdentifier: "CHSMeChatCompanyPositionCell")
+        
+        setTableViewHeaderView()
 
         inputBgView.frame = CGRect(x: 0, y: screenSize.height-44, width: screenSize.width, height: 44)
         inputBgView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1)
@@ -255,7 +267,13 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
     
     // MARK: - 设置头视图
     func setTableViewHeaderView() {
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 25))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 75))
+        
+        btn.frame = CGRect(x: 15, y: 10, width: screenSize.width - 30, height: 30)
+        btn.setTitle("投递简历", for: .normal)
+        btn.backgroundColor = baseColor
+        btn.layer.cornerRadius = 15
+        headerView.addSubview(btn)
         
         // 您正在与企业沟通 Label
         let tagLab = UILabel()
@@ -263,7 +281,8 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
         tagLab.text = "您正在与企业沟通"
         tagLab.textAlignment = .center
         tagLab.sizeToFit()
-        tagLab.center = headerView.center
+        tagLab.center.x = headerView.center.x
+        tagLab.frame.origin.y = 50
         tagLab.textColor = UIColor(red: 152/255.0, green: 151/255.0, blue: 152/255.0, alpha: 1)
         headerView.addSubview(tagLab)
         
@@ -445,9 +464,21 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
     
     func clickBtn(){
         print(111)
+//        let vc = CHSMePositionViewController()
+        let vc = CHSMeEvaluateViewController()
         
-        let vc = CHSMePositionViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        let signOutAlert = UIAlertController(title: "", message: "经过面试,您对面试公司有何评价?", preferredStyle: .alert)
+        self.present(signOutAlert, animated: true, completion: nil)
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        signOutAlert.addAction(cancelAction)
+        
+        let sureAction = UIAlertAction(title: "去评价", style: .default, handler: { (sureAction) in
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        })
+        signOutAlert.addAction(sureAction)
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -473,23 +504,34 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
         return dfmatter.string(from: date)
     }
 
-    
+    //MARK:检测是否投递简历
+    func loadData(){
+        
+        PublicNetUtil().CheckHadResume(
+            CHSUserInfo.currentUserInfo.userid,
+            companyid: "",
+            jobid: "") { (success, response) in
+                if success {
+                    if (response as! errorModel).data == "1"{
+                        
+                        self.btn.setTitle("已投递", for: .normal)
+                    }else if response as! String == "0"{
+                        self.btn.setTitle("已投递", for: .normal)
+                    }
+                    self.rootTableView.reloadData()
+                    
+                }else{
+                    
+                }
+                
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
