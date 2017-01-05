@@ -97,7 +97,7 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         onlineStateDrop.width = screenSize.width
         onlineStateDrop.direction = .bottom
         
-        onlineStateDrop.dataSource = ["在线","不在线"]
+        onlineStateDrop.dataSource = ["不限","在线"]
         
         // 下拉列表选中后的回调方法
         onlineStateDrop.selectionAction = { (index, item) in

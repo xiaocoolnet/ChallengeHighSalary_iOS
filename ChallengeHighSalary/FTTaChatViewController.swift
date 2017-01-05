@@ -473,6 +473,23 @@ class FTTaChatViewController: UIViewController, UITableViewDataSource, UITableVi
         return timeLab
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = FTMeEvaluateViewController()
+        
+        let signOutAlert = UIAlertController(title: "", message: "经过面试,您对面试者有何评价?", preferredStyle: .alert)
+        self.present(signOutAlert, animated: true, completion: nil)
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        signOutAlert.addAction(cancelAction)
+        
+        let sureAction = UIAlertAction(title: "去评价", style: .default, handler: { (sureAction) in
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        })
+        signOutAlert.addAction(sureAction)
+    }
+    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if keyboardShowState == true {
             

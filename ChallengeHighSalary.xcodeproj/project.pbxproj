@@ -34,6 +34,7 @@
 		1F15080F1E0BD2B7009F154B /* weixinDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F15080E1E0BD2B7009F154B /* weixinDelegate.swift */; };
 		1F1787E51E1DD08C005E73CD /* FTTaInterEvaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1787E31E1DD08C005E73CD /* FTTaInterEvaTableViewCell.swift */; };
 		1F1787E61E1DD08C005E73CD /* FTTaInterEvaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F1787E41E1DD08C005E73CD /* FTTaInterEvaTableViewCell.xib */; };
+		1F1787E81E1DF107005E73CD /* FTMeEvaluateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1787E71E1DF107005E73CD /* FTMeEvaluateViewController.swift */; };
 		1F180F6C1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F180F6B1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift */; };
 		1F180F701D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F180F6F1D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift */; };
 		1F2E7ADF1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E7ADE1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift */; };
@@ -282,6 +283,7 @@
 		1F15080E1E0BD2B7009F154B /* weixinDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = weixinDelegate.swift; sourceTree = "<group>"; };
 		1F1787E31E1DD08C005E73CD /* FTTaInterEvaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaInterEvaTableViewCell.swift; sourceTree = "<group>"; };
 		1F1787E41E1DD08C005E73CD /* FTTaInterEvaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTaInterEvaTableViewCell.xib; sourceTree = "<group>"; };
+		1F1787E71E1DF107005E73CD /* FTMeEvaluateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeEvaluateViewController.swift; sourceTree = "<group>"; };
 		1F180F6B1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChRetrievalViewController.swift; sourceTree = "<group>"; };
 		1F180F6F1D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChPersonalInfoViewController.swift; sourceTree = "<group>"; };
 		1F2E7ADE1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiCompanyAuthSureViewController.swift; sourceTree = "<group>"; };
@@ -1075,6 +1077,7 @@
 				1F577B151DA9E82600AB5D99 /* FTMeLookMeViewController.swift */,
 				1FDF6BAE1DE436E0007C72E1 /* FTMeChatViewController.swift */,
 				1FDA44D61E02870C00DB1D99 /* FTMeChatSettingViewController.swift */,
+				1F1787E71E1DF107005E73CD /* FTMeEvaluateViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1697,6 +1700,7 @@
 				1FF3C69D1D9262100069DD23 /* CHSMiAboutUsViewController.swift in Sources */,
 				1F577B191DA9E89400AB5D99 /* FTMeCollectionMeTableViewCell.swift in Sources */,
 				1FCFE71B1DE6D54500D5FFA9 /* FTTaCompanyWelfareViewController.swift in Sources */,
+				1F1787E81E1DF107005E73CD /* FTMeEvaluateViewController.swift in Sources */,
 				1F577B261DA9F22300AB5D99 /* CHSMeLookMeViewController.swift in Sources */,
 				1FC3CCB81D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift in Sources */,
 				1FB6D5EB1D9B5B2A00262BBD /* CHSUserInfo.swift in Sources */,

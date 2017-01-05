@@ -12,7 +12,8 @@ class FTMeChatSettingViewController: UIViewController, UITableViewDataSource, UI
     
     let rootTableView = UITableView()
     
-    let nameArray = [["聊天置顶","将对方加入黑名单","标记为不合适"],["查看历史聊天记录","举报对方"]]
+//    let nameArray = [["聊天置顶","将对方加入黑名单","标记为不合适"],["查看历史聊天记录","举报对方"]]
+    let nameArray = [["将对方加入黑名单","查看历史聊天记录"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -161,7 +162,7 @@ class FTMeChatSettingViewController: UIViewController, UITableViewDataSource, UI
         cell?.textLabel?.textAlignment = .left
         cell?.textLabel?.textColor = UIColor.black
         
-        switch indexPath.section {
+        switch indexPath.row {
         case 0:
             cell?.accessoryType = .none
             
