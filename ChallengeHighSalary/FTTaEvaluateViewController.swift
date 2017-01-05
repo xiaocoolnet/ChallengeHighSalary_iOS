@@ -42,12 +42,12 @@ class FTTaEvaluateViewController: UIViewController, UITableViewDataSource, UITab
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor.white
         
-        self.title = "面试评价"
+        self.title = "人才评价"
         
         // tableView
         rootTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-20-44)
         rootTableView.register(UINib.init(nibName: "FTTaInterviewEvaHeaderTableViewCell", bundle: nil), forCellReuseIdentifier: "FTTaInterviewHeaderCell")
-        rootTableView.register(UINib.init(nibName: "FTTaInterviewEvaTableViewCell", bundle: nil), forCellReuseIdentifier: "FTTaInterviewCell")
+        rootTableView.register(UINib.init(nibName: "FTTaInterEvaTableViewCell", bundle: nil), forCellReuseIdentifier: "FTTaInterviewCell")
         rootTableView.rowHeight = 140
         rootTableView.dataSource = self
         rootTableView.delegate = self
@@ -69,21 +69,20 @@ class FTTaEvaluateViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if (indexPath as NSIndexPath).section == 0 {
-            
+        if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FTTaInterviewHeaderCell") as! FTTaInterviewEvaHeaderTableViewCell
             cell.selectionStyle = .none
             rootTableView.rowHeight = 61
             
             return cell
         }else{
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "FTTaInterviewCell") as! FTTaInterviewEvaTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FTTaInterviewCell") as! FTTaInterEvaTableViewCell
             cell.selectionStyle = .none
-            rootTableView.rowHeight = cell.usefulBtn.frame.maxY + 10
+            rootTableView.rowHeight = cell.usefulBtn.frame.maxY+10
             
             return cell
         }
+        
     }
     
     // MARK: UITableView Delegate

@@ -159,7 +159,7 @@ class FTPersonalViewController: UIViewController {
         headerBgView.backgroundColor = UIColor.white
         self.view.addSubview(headerBgView)
 
-        let imgArray = [#imageLiteral(resourceName: "ic_share_QQ"),#imageLiteral(resourceName: "ic_share_微信"),#imageLiteral(resourceName: "ic_share_朋友圈")]
+        let imgArray = [#imageLiteral(resourceName: "ic_FT_在抢的企业"),#imageLiteral(resourceName: "ic_FT_关注的企业"),#imageLiteral(resourceName: "ic_FT_他人的评价")]
         let imageNameArray = ["在抢的企业","在关注的企业","他人的评价"]
         
         let shareBtnWidth:CGFloat = kWidthScale*40
