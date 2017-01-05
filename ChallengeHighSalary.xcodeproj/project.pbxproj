@@ -223,6 +223,9 @@
 		1FFECEB51DB9C3CB0039BFF3 /* CHSMiChangeIdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFECEB41DB9C3CB0039BFF3 /* CHSMiChangeIdentityViewController.swift */; };
 		1FFECEB71DB9FB320039BFF3 /* FTMiChangeIdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFECEB61DB9FB320039BFF3 /* FTMiChangeIdentityViewController.swift */; };
 		647C3CAB1E1B85CA001640BC /* CHSMePositionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C3CAA1E1B85CA001640BC /* CHSMePositionTableViewCell.swift */; };
+		647C3CAD1E1BA58F001640BC /* CHSMeSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C3CAC1E1BA58F001640BC /* CHSMeSetViewController.swift */; };
+		649524611E1C87D20052AC0A /* CHSMeEvaluateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649524601E1C87D20052AC0A /* CHSMeEvaluateViewController.swift */; };
+		649524651E1C979A0052AC0A /* EvaluateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649524641E1C979A0052AC0A /* EvaluateView.swift */; };
 		64C34D5A1E15FC95007E4B10 /* CHSMePositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C34D591E15FC95007E4B10 /* CHSMePositionViewController.swift */; };
 		64C34D5D1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C34D5B1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.swift */; };
 		64C34D5E1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64C34D5C1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.xib */; };
@@ -491,6 +494,9 @@
 		4F2FE0939DDAB1E11CA9B594 /* Pods-ChallengeHighSalary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChallengeHighSalary.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChallengeHighSalary/Pods-ChallengeHighSalary.release.xcconfig"; sourceTree = "<group>"; };
 		573ED6BB8CB6F9F6257D7C55 /* Pods-ChallengeHighSalary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChallengeHighSalary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChallengeHighSalary/Pods-ChallengeHighSalary.debug.xcconfig"; sourceTree = "<group>"; };
 		647C3CAA1E1B85CA001640BC /* CHSMePositionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMePositionTableViewCell.swift; sourceTree = "<group>"; };
+		647C3CAC1E1BA58F001640BC /* CHSMeSetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMeSetViewController.swift; sourceTree = "<group>"; };
+		649524601E1C87D20052AC0A /* CHSMeEvaluateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMeEvaluateViewController.swift; sourceTree = "<group>"; };
+		649524641E1C979A0052AC0A /* EvaluateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EvaluateView.swift; sourceTree = "<group>"; };
 		64C34D591E15FC95007E4B10 /* CHSMePositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMePositionViewController.swift; sourceTree = "<group>"; };
 		64C34D5B1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChEvaluateTableViewCell.swift; sourceTree = "<group>"; };
 		64C34D5C1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSChEvaluateTableViewCell.xib; sourceTree = "<group>"; };
@@ -629,6 +635,7 @@
 				1F577B3F1DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.xib */,
 				1F7EDB021DDEA41D005FD660 /* CHSMeChatTableViewCell.swift */,
 				647C3CAA1E1B85CA001640BC /* CHSMePositionTableViewCell.swift */,
+				649524641E1C979A0052AC0A /* EvaluateView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1154,6 +1161,8 @@
 				1F577B271DA9F25100AB5D99 /* CHSMeInvitedViewController.swift */,
 				1FBE974F1DC7193700F0EB4D /* CHSMeChatViewController.swift */,
 				64C34D591E15FC95007E4B10 /* CHSMePositionViewController.swift */,
+				649524601E1C87D20052AC0A /* CHSMeEvaluateViewController.swift */,
+				647C3CAC1E1BA58F001640BC /* CHSMeSetViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1628,6 +1637,7 @@
 				1FD6F9991DBEE9A800BD7B94 /* TPKeyboardAvoidingTableView.m in Sources */,
 				1FD7FBD61D795BA70032221D /* WeHomeViewController.swift in Sources */,
 				1FC3CCBA1D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift in Sources */,
+				647C3CAD1E1BA58F001640BC /* CHSMeSetViewController.swift in Sources */,
 				1FF06CD71D7D609A0032943B /* DropDown+Appearance.swift in Sources */,
 				1FC3CCAB1D9CB5CE004AA4C6 /* FTMyInterviewInvitationTableViewCell.swift in Sources */,
 				1FF3C6A61D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.swift in Sources */,
@@ -1706,6 +1716,7 @@
 				1FEC64DC1D9120C50045038C /* CHSMiPhoneBindingViewController.swift in Sources */,
 				1FCCC59E1DAE05F40065A799 /* CHSModel.swift in Sources */,
 				1FCDFF011D7411160067970B /* LoHomeViewController.swift in Sources */,
+				649524611E1C87D20052AC0A /* CHSMeEvaluateViewController.swift in Sources */,
 				1FF9DB241D96298300F0C69D /* FTMiMyHiringRecordViewController.swift in Sources */,
 				1FF1CE171DA89E21000F0A9A /* FTTaWorkplaceViewController.swift in Sources */,
 				1FCCC59C1DAE05E70065A799 /* CHSNetUtil.swift in Sources */,
@@ -1718,7 +1729,7 @@
 				1F0B59491DAB434B00A172E3 /* LoReFTPersonalInfoViewController.swift in Sources */,
 				1FC3CCA81D9CAF07004AA4C6 /* FTMiMyInterviewFinishViewController.swift in Sources */,
 				1FEC4A371DB8C7AE004A0FC1 /* PublicNetUtil.swift in Sources */,
-				1FCDBD1D1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.swift in Sources */,
+				649524651E1C979A0052AC0A /* EvaluateView.swift in Sources */,
 				1F4FDD211DE7CE9F008B17F7 /* FTMiCompanyAuthViewController.swift in Sources */,
 				1FFECEB51DB9C3CB0039BFF3 /* CHSMiChangeIdentityViewController.swift in Sources */,
 				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,

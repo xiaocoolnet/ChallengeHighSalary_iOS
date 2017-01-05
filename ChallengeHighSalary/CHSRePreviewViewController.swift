@@ -335,36 +335,40 @@ class CHSRePreviewViewController: UIViewController {
         var cityBtnWidth:CGFloat = 0
         let cityBtnHeight:CGFloat = skillTagLab.frame.size.height
         
-        for (i,city) in ((CHSUserInfo.currentUserInfo.work?.first?.skill.components(separatedBy: "-"))!).enumerated() {
-            cityBtnWidth = calculateWidth(city, size: 15, height: cityBtnHeight)+cityBtnMargin
-
-            let skillLab = UILabel(frame: CGRect(x: cityBtnX, y: cityBtnY, width: cityBtnWidth, height: cityBtnHeight))
-            skillLab.layer.cornerRadius = 6
-            skillLab.layer.borderWidth = 1
-            skillLab.layer.borderColor = baseColor.cgColor
-            skillLab.textColor = baseColor
-            skillLab.textAlignment = .center
-            skillLab.font = UIFont.systemFont(ofSize: 15)
-            skillLab.text = city
-//            skillLab.sizeToFit()
-//            skillLab.center.y = skillTagLab.center.y
-//            skillLab.frame.origin.x = jobView.frame.size.width-8-skillLab.frame.size.width
-            jobView.addSubview(skillLab)
+        if (CHSUserInfo.currentUserInfo.work?.count) != 0{
             
-            if i+1 < ((CHSUserInfo.currentUserInfo.work?.first?.skill.components(separatedBy: "-"))?.count)! {
+            for (i,city) in ((CHSUserInfo.currentUserInfo.work?.first?.skill.components(separatedBy: "-"))!).enumerated() {
+                cityBtnWidth = calculateWidth(city, size: 15, height: cityBtnHeight)+cityBtnMargin
                 
-                let nextBtnWidth = calculateWidth(((CHSUserInfo.currentUserInfo.work?.first?.skill.components(separatedBy: "-"))!)[i+1], size: 15, height: cityBtnHeight)+cityBtnMargin
+                let skillLab = UILabel(frame: CGRect(x: cityBtnX, y: cityBtnY, width: cityBtnWidth, height: cityBtnHeight))
+                skillLab.layer.cornerRadius = 6
+                skillLab.layer.borderWidth = 1
+                skillLab.layer.borderColor = baseColor.cgColor
+                skillLab.textColor = baseColor
+                skillLab.textAlignment = .center
+                skillLab.font = UIFont.systemFont(ofSize: 15)
+                skillLab.text = city
+                //            skillLab.sizeToFit()
+                //            skillLab.center.y = skillTagLab.center.y
+                //            skillLab.frame.origin.x = jobView.frame.size.width-8-skillLab.frame.size.width
+                jobView.addSubview(skillLab)
                 
-                if cityBtnWidth + cityBtnX + cityBtnMargin + nextBtnWidth >= screenSize.width - 20 {
-                    cityBtnX = cityBtnMargin
-                    cityBtnY = cityBtnHeight + cityBtnY + cityBtnMargin
-                }else{
+                if i+1 < ((CHSUserInfo.currentUserInfo.work?.first?.skill.components(separatedBy: "-"))?.count)! {
                     
-                    cityBtnX = cityBtnWidth + cityBtnX + cityBtnMargin
+                    let nextBtnWidth = calculateWidth(((CHSUserInfo.currentUserInfo.work?.first?.skill.components(separatedBy: "-"))!)[i+1], size: 15, height: cityBtnHeight)+cityBtnMargin
+                    
+                    if cityBtnWidth + cityBtnX + cityBtnMargin + nextBtnWidth >= screenSize.width - 20 {
+                        cityBtnX = cityBtnMargin
+                        cityBtnY = cityBtnHeight + cityBtnY + cityBtnMargin
+                    }else{
+                        
+                        cityBtnX = cityBtnWidth + cityBtnX + cityBtnMargin
+                    }
                 }
+                
             }
-            
         }
+        
 
         jobView.frame.size.height = cityBtnY+cityBtnHeight+cityBtnMargin+10
 

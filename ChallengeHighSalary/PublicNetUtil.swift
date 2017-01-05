@@ -259,6 +259,69 @@ class PublicNetUtil: NSObject {
             }
         }
     }
+    
+    //MARK:添加面试评论
+    func addComments(
+        companyid:String,evaluate_id:String,start:String,content:String,choose:String,
+invite_title:String,useful_num:String,handle:@escaping ResponseClosures){
+        
+        let url = kPortPrefix+"addEvaluate"
+        let param = [
+            "companyid":companyid,
+            "evaluate_id":evaluate_id,
+            "start":start,
+            "content":content,
+            "choose":choose,
+            "invite_title":invite_title,
+            "useful_num":useful_num
+        ];
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+            
+            if(error != nil){
+                handle(false, error.debugDescription as AnyObject?)
+            }else{
+                
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                
+                if checkCode.status == "success" {
+                    handle(true, nil)
+                }else{
+                    
+                    handle(false, nil)
+                }
+            }
+        }
+    }
+    
+    // MARK: 检测是否投递简历
+    func CheckHadResume(
+        _ userid:String,
+        companyid:String,
+        jobid:String,
+        handle:@escaping ResponseClosures) {
+        
+        let url = kPortPrefix+"ApplyJob_judge"
+        let param = [
+            "userid":userid,
+            "companyid":companyid,
+            "jobid":jobid
+        ];
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+            
+            if(error != nil){
+                handle(false, error.debugDescription as AnyObject?)
+            }else{
+                
+                let checkCode = JSONDeserializer<errorModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                if checkCode.status == "success" {
+                    handle(true, checkCode.data as AnyObject?)
+                }else{
+                    
+                    handle(false, nil)
+                }
+            }
+        }
+    }
 
     // MARK: 获取字典列表
     // parentid
@@ -291,4 +354,6 @@ class PublicNetUtil: NSObject {
             }
         }
     }
+    
+    
 }
