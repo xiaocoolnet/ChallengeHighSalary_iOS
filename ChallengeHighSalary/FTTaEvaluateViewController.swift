@@ -42,7 +42,7 @@ class FTTaEvaluateViewController: UIViewController, UITableViewDataSource, UITab
         self.automaticallyAdjustsScrollViewInsets = false
         self.view.backgroundColor = UIColor.white
         
-        self.title = "面试评价"
+        self.title = "人才评价"
         
         // tableView
         rootTableView.frame = CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-20-44)
