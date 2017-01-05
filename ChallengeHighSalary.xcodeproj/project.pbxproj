@@ -32,6 +32,8 @@
 		1F15080C1E0BD1A3009F154B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1508071E0BD1A3009F154B /* libWeChatSDK.a */; };
 		1F15080D1E0BD1A3009F154B /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F1508081E0BD1A3009F154B /* README.txt */; };
 		1F15080F1E0BD2B7009F154B /* weixinDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F15080E1E0BD2B7009F154B /* weixinDelegate.swift */; };
+		1F1787E51E1DD08C005E73CD /* FTTaInterEvaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1787E31E1DD08C005E73CD /* FTTaInterEvaTableViewCell.swift */; };
+		1F1787E61E1DD08C005E73CD /* FTTaInterEvaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F1787E41E1DD08C005E73CD /* FTTaInterEvaTableViewCell.xib */; };
 		1F180F6C1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F180F6B1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift */; };
 		1F180F701D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F180F6F1D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift */; };
 		1F2E7ADF1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E7ADE1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift */; };
@@ -132,8 +134,6 @@
 		1FCCC59E1DAE05F40065A799 /* CHSModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC59D1DAE05F40065A799 /* CHSModel.swift */; };
 		1FCCC5A71DAE3AEF0065A799 /* CHSReJobExpSkillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC5A61DAE3AEF0065A799 /* CHSReJobExpSkillViewController.swift */; };
 		1FCDBD181E1B9946007814A1 /* FTTaEvaluateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDBD171E1B9946007814A1 /* FTTaEvaluateViewController.swift */; };
-		1FCDBD1D1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDBD1B1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.swift */; };
-		1FCDBD1E1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDBD1C1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.xib */; };
 		1FCDBD211E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDBD1F1E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.swift */; };
 		1FCDBD221E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FCDBD201E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.xib */; };
 		1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDFEBF1D73E6DB0067970B /* AppDelegate.swift */; };
@@ -280,6 +280,8 @@
 		1F15080A1E0BD1A3009F154B /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		1F15080B1E0BD1A3009F154B /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		1F15080E1E0BD2B7009F154B /* weixinDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = weixinDelegate.swift; sourceTree = "<group>"; };
+		1F1787E31E1DD08C005E73CD /* FTTaInterEvaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaInterEvaTableViewCell.swift; sourceTree = "<group>"; };
+		1F1787E41E1DD08C005E73CD /* FTTaInterEvaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTaInterEvaTableViewCell.xib; sourceTree = "<group>"; };
 		1F180F6B1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChRetrievalViewController.swift; sourceTree = "<group>"; };
 		1F180F6F1D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChPersonalInfoViewController.swift; sourceTree = "<group>"; };
 		1F2E7ADE1DF5336B00477D83 /* FTMiCompanyAuthSureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiCompanyAuthSureViewController.swift; sourceTree = "<group>"; };
@@ -388,8 +390,6 @@
 		1FCCC59D1DAE05F40065A799 /* CHSModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSModel.swift; sourceTree = "<group>"; };
 		1FCCC5A61DAE3AEF0065A799 /* CHSReJobExpSkillViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReJobExpSkillViewController.swift; sourceTree = "<group>"; };
 		1FCDBD171E1B9946007814A1 /* FTTaEvaluateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaEvaluateViewController.swift; sourceTree = "<group>"; };
-		1FCDBD1B1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaInterviewEvaTableViewCell.swift; sourceTree = "<group>"; };
-		1FCDBD1C1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTaInterviewEvaTableViewCell.xib; sourceTree = "<group>"; };
 		1FCDBD1F1E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaInterviewEvaHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		1FCDBD201E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTTaInterviewEvaHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		1FCDFEBC1D73E6DB0067970B /* ChallengeHighSalary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChallengeHighSalary.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1108,10 +1108,10 @@
 				1FEF80A31D810E5700486F9C /* FTTaNoPositionTableViewCell.swift */,
 				1FF9DB1F1D9624DB00F0C69D /* FTTalentTableViewCell.swift */,
 				1FF9DB201D9624DB00F0C69D /* FTTalentTableViewCell.xib */,
-				1FCDBD1B1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.swift */,
-				1FCDBD1C1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.xib */,
 				1FCDBD1F1E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.swift */,
 				1FCDBD201E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.xib */,
+				1F1787E31E1DD08C005E73CD /* FTTaInterEvaTableViewCell.swift */,
+				1F1787E41E1DD08C005E73CD /* FTTaInterEvaTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1475,7 +1475,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F1507FF1E0BC311009F154B /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
-				1FCDBD1E1E1B9FFA007814A1 /* FTTaInterviewEvaTableViewCell.xib in Resources */,
 				1FF06CD61D7D609A0032943B /* DropDownCell.xib in Resources */,
 				1FF1CE151DA88D1B000F0A9A /* area.plist in Resources */,
 				1FB6D6001D9BC3BA00262BBD /* FTMiMyRewardTableViewCell.xib in Resources */,
@@ -1507,6 +1506,7 @@
 				1F482B8C1D7FBE400079A62B /* citydict.plist in Resources */,
 				1FB6D5FA1D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.xib in Resources */,
 				1FC3CCAC1D9CB5CE004AA4C6 /* FTMyInterviewInvitationTableViewCell.xib in Resources */,
+				1F1787E61E1DD08C005E73CD /* FTTaInterEvaTableViewCell.xib in Resources */,
 				1F577B411DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.xib in Resources */,
 				1F35F0AF1DC9EA02009858A9 /* CHSMeHomeTableViewCell.xib in Resources */,
 				1F4FD2671D76C01D00FF7040 /* FontAwesome.ttf in Resources */,
@@ -1716,6 +1716,7 @@
 				1FEC64DC1D9120C50045038C /* CHSMiPhoneBindingViewController.swift in Sources */,
 				1FCCC59E1DAE05F40065A799 /* CHSModel.swift in Sources */,
 				1FCDFF011D7411160067970B /* LoHomeViewController.swift in Sources */,
+				1F1787E51E1DD08C005E73CD /* FTTaInterEvaTableViewCell.swift in Sources */,
 				649524611E1C87D20052AC0A /* CHSMeEvaluateViewController.swift in Sources */,
 				1FF9DB241D96298300F0C69D /* FTMiMyHiringRecordViewController.swift in Sources */,
 				1FF1CE171DA89E21000F0A9A /* FTTaWorkplaceViewController.swift in Sources */,

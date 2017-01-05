@@ -1,14 +1,14 @@
 //
-//  FTTaInterviewEvaTableViewCell.swift
+//  FTTaInterEvaTableViewCell.swift
 //  ChallengeHighSalary
 //
-//  Created by 高扬 on 2017/1/3.
+//  Created by 高扬 on 2017/1/5.
 //  Copyright © 2017年 北京校酷网络科技公司. All rights reserved.
 //
 
 import UIKit
 
-class FTTaInterviewEvaTableViewCell: UITableViewCell {
+class FTTaInterEvaTableViewCell: UITableViewCell {
     
     @IBOutlet weak var headerImg: UIImageView!
     
