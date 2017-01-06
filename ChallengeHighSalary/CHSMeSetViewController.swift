@@ -141,12 +141,55 @@ class CHSMeSetViewController: UIViewController, UITableViewDataSource, UITableVi
     func switchValueChanged(_ swi:UISwitch) {
         UserDefaults.standard.set(swi.isOn, forKey: CHSMiMessageRemindSetting_key_pre+String(swi.tag))
         //        print("消息提醒设置，swi.tag === \(swi.tag)，swi.on = \(swi.on) && \(NSUserDefaults.standardUserDefaults().boolForKey("CHSMiMessageRemindSetting\(swi.tag)"))")
+        if swi.isOn && swi.tag == 1 {
+            // 加入黑名单
+            addBlackList()
+        }else if swi.isOn == false && swi.tag == 1{
+            // 取消黑名单
+            deleteBlackList()
+        }
     }
     
     
     // MARK:- tableview delegate
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return kHeightScale*15
+    }
+    
+    // MARK: 加入黑名单
+    func addBlackList(){
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+
+        PublicNetUtil().setBlackList(CHSUserInfo.currentUserInfo.userid, type: "1", blackid: "", reason: "") { (success, response) in
+            if success {
+                checkCodeHud.mode = .text
+                checkCodeHud.label.text = "加入黑名单成功"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
+            }else{
+                checkCodeHud.mode = .text
+                checkCodeHud.label.text = "加入黑名单失败"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
+            }
+        }
+    }
+    
+    //MARK: 取消黑名单
+    func deleteBlackList(){
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        
+        PublicNetUtil().delBlackList(CHSUserInfo.currentUserInfo.userid, type: "1", blackid: "") { (success, response) in
+            if success {
+                checkCodeHud.mode = .text
+                checkCodeHud.label.text = "取消黑名单成功"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
+            }else{
+                checkCodeHud.mode = .text
+                checkCodeHud.label.text = "取消黑名单失败"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
+            }
+        }
     }
     
     

@@ -86,9 +86,33 @@ class CHSChRetrievalViewController: UIViewController {
         btn.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0,(btn.imageView!.frame.size.height+btn.titleLabel!.bounds.size.height)/2+5, -btn.titleLabel!.bounds.size.width)//图片距离右边框距离减少图片的宽度，其它不边
     }
     // MARK: 进入首页 按钮 点击事件
-    func comeinBtnClick() {
+    func comeinBtnClick(sender:UIButton) {
+//        let vc = CHRoHomeViewController()
+        var dic = NSDictionary()
         
-        self.present(CHRoHomeViewController(), animated: false, completion: nil)
+        switch sender.tag {
+        case 1000:
+            dic = ["num":"5"]
+        case 1001:
+            dic = ["num":"6"]
+        case 1002:
+            dic = ["num":"7"]
+        case 1003:
+            dic = ["num":"3"]
+        case 1004:
+            dic = ["num":"2"]
+        case 1005:
+            dic = ["num":"4"]
+        case 1006:
+            dic = ["num":"1"]
+        case 1007:
+            dic = ["num":"0"]
+        default:
+            break
+        }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NotificationIdentifier"), object: dic)
+        
+        self.popViewcontroller()
         
     }
     

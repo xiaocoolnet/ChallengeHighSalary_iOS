@@ -15,11 +15,13 @@ class CHSNetUtil: NSObject {
     // userid
     func getjoblist(
         _ userid:String,
+        sort:String,
         handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"getjoblist"
         let param = [
-            "userid":userid
+            "userid":userid,
+            "sort":sort
         ];
         NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
@@ -33,6 +35,40 @@ class CHSNetUtil: NSObject {
                     let jobInfoModel = JSONDeserializer<JobInfoModel>.deserializeFrom(dict: json as! NSDictionary?)!
 
 //                    let jobInfoModel:JobInfoModel = JobInfoModel.jsonToModel(json)
+                    handle(true, jobInfoModel.data as AnyObject?)
+                }else{
+                    
+                    handle(false, nil)
+                }
+            }
+        }
+    }
+    
+    // MARK: 获取有红包公司列表
+    func getRedenvelopeList(
+        pager:String,
+        red_job:String,
+        red_interview:String,
+        red_induction:String,
+        handle:@escaping ResponseClosures) {
+        
+        let url = kPortPrefix+"getjoblist"
+        let param = [
+            "pager":pager,
+            "red_job":red_job,
+            "red_interview":red_interview,
+            "red_induction":red_induction
+        ];
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+            
+            if(error != nil){
+                handle(false, error.debugDescription as AnyObject?)
+            }else{
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                
+                if checkCode.status == "success" {
+                    let jobInfoModel = JSONDeserializer<JobInfoModel>.deserializeFrom(dict: json as! NSDictionary?)!
+        
                     handle(true, jobInfoModel.data as AnyObject?)
                 }else{
                     

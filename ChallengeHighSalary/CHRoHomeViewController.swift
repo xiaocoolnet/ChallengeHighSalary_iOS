@@ -11,6 +11,7 @@ import UIKit
 class CHRoHomeViewController: UITabBarController, UIViewControllerTransitioningDelegate {
 
     var messageNVC = UINavigationController()
+    var num = ""
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +19,7 @@ class CHRoHomeViewController: UITabBarController, UIViewControllerTransitioningD
         // Do any additional setup after loading the view.
         
         let chanceNVC = UINavigationController(rootViewController: ChChHomeViewController())
+        
         chanceNVC.tabBarItem = UITabBarItem(title: "机会", image: UIImage(named: "tabbar_机会"), selectedImage: UIImage(named: "tabbar_机会_sel"))
         
         let resumeNVC = UINavigationController(rootViewController: ChReHomeViewController())

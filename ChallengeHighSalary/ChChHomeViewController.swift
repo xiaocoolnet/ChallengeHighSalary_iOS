@@ -28,6 +28,14 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     let findEmployerTableView = UITableView(frame: CGRect(x: screenSize.width, y: 0, width: screenSize.width, height: screenSize.height-20-44-49-37), style: .plain)
     
     var locationManager = AMapLocationManager()
+    
+    var sort = "1"
+    var sorttype = Int()
+    var segChoose = LFLUISegmentedControl()
+    var red_job = ""
+    var red_interview = ""
+    var red_induction = ""
+    var redEnvelopeBtn = ImageBtn()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,11 +45,48 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
 
         // Do any additional setup after loading the view.
         
+        sort = String(typeNum)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(getMyName(notification:)), name:NSNotification.Name(rawValue: "NotificationIdentifier"), object: nil)
+        
         self.view.backgroundColor = UIColor.white
         
         setNavigationBar()
+        print(sorttype)
         setSubviews()
         
+    }
+    
+    func getMyName(notification:NSNotification){
+        
+        //获取词典中的值
+        print(notification)
+        let name = (notification.object as! NSDictionary)["num"] as! String
+        sorttype = Int(name)!
+        print(sorttype)
+        if sorttype <= 4{
+            segChoose.selectTheSegument(sorttype)
+        }else{
+            segChoose.selectTheSegument(5)
+            if sorttype == 5 {
+                self.redEnvelopeBtn.resetdataCenter("职位红包", #imageLiteral(resourceName: "ic_下拉"))
+                self.red_job = "1"
+                self.red_interview = ""
+                self.red_induction = ""
+            }else if sorttype == 6{
+                self.redEnvelopeBtn.resetdataCenter("面试红包", #imageLiteral(resourceName: "ic_下拉"))
+                self.red_job = ""
+                self.red_interview = "1"
+                self.red_induction = ""
+            }else if sorttype == 7{
+                self.redEnvelopeBtn.resetdataCenter("就职红包", #imageLiteral(resourceName: "ic_下拉"))
+                self.red_job = ""
+                self.red_interview = ""
+                self.red_induction = "1"
+            }
+            getRed_job()
+            redEnvelopeDrop.hide()
+        }
     }
     
     var hud = MBProgressHUD()
@@ -81,7 +126,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     // MARK: 加载数据 - 招聘列表
     func loadJobListData() {
         
-        CHSNetUtil().getjoblist(CHSUserInfo.currentUserInfo.userid) { (success, response) in
+        CHSNetUtil().getjoblist("",sort:"1") { (success, response) in
             if success {
                 self.jobList = (response as! [JobInfoDataModel]?)!
                 self.findJobTableView.reloadData()
@@ -145,6 +190,40 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         }
         
         
+    }
+    
+    // MARK: 数据解析（最近）
+    func latelyLoadData(){
+        print(self.sort)
+        CHSNetUtil().getjoblist("",sort:self.sort) { (success, response) in
+            if success {
+                self.jobList = (response as! [JobInfoDataModel]?)!
+                self.findJobTableView.reloadData()
+                
+            }else{
+                
+            }
+            
+            if self.findJobTableView.mj_header.isRefreshing() {
+                self.findJobTableView.mj_header.endRefreshing()
+            }
+        }
+    }
+    
+    // MARk: 获取有红包公司列表
+    func getRed_job(){
+        CHSNetUtil().getRedenvelopeList(pager: "1", red_job: self.red_job, red_interview: self.red_interview, red_induction: self.red_induction) { (success, response) in
+            if success {
+                self.jobList = (response as! [JobInfoDataModel]?)!
+                self.findJobTableView.reloadData()
+                
+            }else{
+                
+            }
+            if self.findJobTableView.mj_header.isRefreshing() {
+                self.findJobTableView.mj_header.endRefreshing()
+            }
+        }
     }
     
     // MARK: 设置 NavigationBar
@@ -285,8 +364,8 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         }
         
         // 红包
-        let redEnvelopeBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: (screenSize.width)/6, height: 37))
-        redEnvelopeBtn?.resetdataCenter("红包", #imageLiteral(resourceName: "ic_下拉"))
+        redEnvelopeBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: (screenSize.width)/6, height: 37))
+        redEnvelopeBtn.resetdataCenter("红包", #imageLiteral(resourceName: "ic_下拉"))
         
         // 红包 下拉
         redEnvelopeDrop.anchorView = redEnvelopeBtn
@@ -295,18 +374,38 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         redEnvelopeDrop.width = screenSize.width
         redEnvelopeDrop.direction = .bottom
         
-//        redEnvelopeDrop.dataSource = ["全部","职位红包","面试红包","就职红包"]
+        redEnvelopeDrop.dataSource = ["全部","职位红包","面试红包","就职红包"]
         
         // 下拉列表选中后的回调方法
         redEnvelopeDrop.selectionAction = { (index, item) in
+            print(index)
+            self.redEnvelopeBtn.resetdataCenter(item, #imageLiteral(resourceName: "ic_下拉"))
+            if index == 0 {
+                self.red_job = ""
+                self.red_interview = ""
+                self.red_induction = ""
+            }else if index == 1{
+                self.red_job = "1"
+                self.red_interview = ""
+                self.red_induction = ""
+            }else if index == 2{
+                self.red_job = ""
+                self.red_interview = "1"
+                self.red_induction = ""
+            }else if index == 3{
+                self.red_job = ""
+                self.red_interview = ""
+                self.red_induction = "1"
+            }
             
-            redEnvelopeBtn?.resetdataCenter(item, #imageLiteral(resourceName: "ic_下拉"))
+            self.getRed_job()
 
         }
         
         // 选择菜单
-        let segChoose = LFLUISegmentedControl.segment(withFrame: CGRect(x: 0, y: 0,width: screenSize.width ,height: 37), titleArray: ["最新","最热","最近","评价",salaryBtn as Any,redEnvelopeBtn as Any], defaultSelect: 0)!
+        segChoose = LFLUISegmentedControl.segment(withFrame: CGRect(x: 0, y: 0,width: screenSize.width ,height: 37), titleArray: ["最新","最热","最近","评价","薪资",redEnvelopeBtn as Any], defaultSelect: 0)!
         segChoose.tag = 101
+        segChoose.selectTheSegument(sorttype)
         segChoose.lineColor(baseColor)
         segChoose.titleColor(UIColor.black, selectTitleColor: baseColor, backGroundColor: UIColor.white, titleFontSize: 14)
         segChoose.delegate = self
@@ -323,7 +422,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         self.rootScrollView.addSubview(findJobTableView)
         
         
-        findJobTableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(loadJobListData))
+        findJobTableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(latelyLoadData))
         findJobTableView.mj_header.beginRefreshing()
     }
     
@@ -421,9 +520,24 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         if segmentTag == 101 {
             
             if selection == 4 {
-                _ = salaryDrop.show()
+//                _ = salaryDrop.show()
+                self.sort = "5"
+                latelyLoadData()
             }else if selection == 5 {
                 _ = redEnvelopeDrop.show()
+            }else if selection == 2 {
+                self.sort = "3"
+                latelyLoadData()
+            }else if selection == 1{
+                self.sort = "2"
+                latelyLoadData()
+                
+            }else if selection == 3 {
+                self.sort = "4"
+                latelyLoadData()
+            }else if selection == 0 {
+                self.sort = "1"
+                latelyLoadData()
             }
         }else if segmentTag == 102 {
             

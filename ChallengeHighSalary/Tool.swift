@@ -21,6 +21,8 @@ let defaultReGeocodeTimeout = 3
 
 var displayLabel: UILabel!
 
+var typeNum = 1
+
 let baseColor = UIColor(red: 105/255.0, green: 216/255.0, blue: 147/255.0, alpha: 1)
 
 //MARK:- 网络数据
