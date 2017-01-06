@@ -65,11 +65,11 @@ class FTPersonalViewController: UIViewController {
         
         self.title = self.resumeData.realname
         
-        // rightBarButtonItems
-        let shareBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-        shareBtn.setImage(UIImage(named: "ic_分享"), for: UIControlState())
-        shareBtn.addTarget(self, action: #selector(shareBtnClick), for: .touchUpInside)
-        let shareItem = UIBarButtonItem(customView: shareBtn)
+//        // rightBarButtonItems
+//        let shareBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+//        shareBtn.setImage(UIImage(named: "ic_分享"), for: UIControlState())
+//        shareBtn.addTarget(self, action: #selector(shareBtnClick), for: .touchUpInside)
+//        let shareItem = UIBarButtonItem(customView: shareBtn)
         
         collectionBtn.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
         collectionBtn.setImage(UIImage(named: "ic_收藏"), for: UIControlState())
@@ -78,7 +78,8 @@ class FTPersonalViewController: UIViewController {
         
         let collectionItem = UIBarButtonItem(customView: collectionBtn)
         
-        self.navigationItem.rightBarButtonItems = [collectionItem,shareItem]
+//        self.navigationItem.rightBarButtonItems = [collectionItem,shareItem]
+        self.navigationItem.rightBarButtonItems = [collectionItem]
         
     }
     
