@@ -16,10 +16,12 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-
+        
+        _lb_title_fontSize = 17;
+        
         lb_title = [[UILabel alloc] initWithFrame:CGRectZero];
         lb_title.numberOfLines = 0;
-        lb_title.font = [UIFont systemFontOfSize:14.f];
+        lb_title.font = [UIFont systemFontOfSize:_lb_title_fontSize];
         lb_title.backgroundColor = [UIColor clearColor];
         lb_title.text = title;
         CGSize size = [lb_title.text sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:14.f]}];
@@ -42,16 +44,17 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        _lb_title_fontSize = 17;
         
         lb_title = [[UILabel alloc] initWithFrame:CGRectZero];
-//        lb_title.numberOfLines = 0;
-        lb_title.font = [UIFont systemFontOfSize:17.f];
+        //        lb_title.numberOfLines = 0;
+        lb_title.font = [UIFont systemFontOfSize:_lb_title_fontSize];
         lb_title.adjustsFontSizeToFitWidth = true;
         lb_title.backgroundColor = [UIColor clearColor];
         [self addSubview:lb_title];
         
         image = [[UIImageView alloc] initWithFrame:CGRectZero];
-
+        
         image.backgroundColor = [UIColor clearColor];
         [self addSubview:image];
     }
@@ -61,14 +64,14 @@
 -(void)resetdata:(NSString *)title :(UIImage *)Image
 {
     lb_title.text = title;
-    CGSize size = [lb_title.text sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:17.f]}];
+    CGSize size = [lb_title.text sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:_lb_title_fontSize]}];
     //假设lb_title与图片、按钮边缘间隔都是10,图片大小50*50
     CGFloat margin = 5;
     CGFloat imgWidth = Image.size.width;
     CGFloat imgHeight = Image.size.height;
     
     if (size.width>self.frame.size.width-margin-imgWidth-10) {
-        size.width =self.frame.size.width-margin-imgWidth-10;
+        size.width = self.frame.size.width-margin-imgWidth-10;
     }
     image.image = Image;
     lb_title.frame = CGRectMake(margin, 0, size.width, self.frame.size.height);
@@ -78,7 +81,7 @@
 -(void)resetdataRight:(NSString *)title :(UIImage *)Image
 {
     lb_title.text = title;
-    CGSize size = [lb_title.text sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:17.f]}];
+    CGSize size = [lb_title.text sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:_lb_title_fontSize]}];
     //假设lb_title与图片、按钮边缘间隔都是10,图片大小50*50
     CGFloat margin = 5;
     CGFloat imgWidth = Image.size.width;
@@ -94,7 +97,7 @@
 -(void)resetdataCenter:(NSString *)title :(UIImage *)Image
 {
     lb_title.text = title;
-    CGSize size = [lb_title.text sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:17.f]}];
+    CGSize size = [lb_title.text sizeWithAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:_lb_title_fontSize]}];
     //假设lb_title与图片、按钮边缘间隔都是10,图片大小50*50
     CGFloat margin = 5;
     CGFloat imgWidth = Image.size.width;
@@ -114,11 +117,11 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 @end

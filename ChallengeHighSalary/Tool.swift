@@ -47,6 +47,8 @@ let FTPublishJobSelectedNameArray_key = "publishJobSelectedNameArray"
 var isLogin = UserDefaults.standard.bool(forKey: isLogin_key)
 var positioningCity = "未知"
 
+var ftSortType = 0
+
 //MARK:- 公用方法
 typealias ResponseClosures = (_ success:Bool,_ response:AnyObject?)->Void
 
