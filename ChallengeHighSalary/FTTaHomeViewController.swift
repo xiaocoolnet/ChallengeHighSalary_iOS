@@ -39,9 +39,13 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         self.tabBarController?.tabBar.isHidden = false
         self.customizeDropDown()
         
-        self.myTableView.mj_header.beginRefreshing()
+        if originSortType != ftSortType {
+            self.myTableView.mj_header.beginRefreshing()
+        }
 
     }
+    
+    var originSortType = 0
     
     // MARK: 加载数据
     func loadData() {
@@ -49,15 +53,16 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         var sortType = 0
         var online = false
         
+        originSortType = ftSortType
         if ftSortType > 4 {
-            if ftSortType == 6 {
+            if ftSortType == 5 {
                 online = false
                 onlineStateBtn.resetdataCenter("全部", #imageLiteral(resourceName: "ic_下拉"))
             }else{
                 online = true
                 onlineStateBtn.resetdataCenter("在线", #imageLiteral(resourceName: "ic_下拉"))
             }
-            segChoose.selectTheSegument(0)
+            segChoose.selectTheSegument(selectionSeg)
             onlineStateDrop.hide()
         }else{
             sortType = ftSortType
@@ -123,7 +128,9 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         // 下拉列表选中后的回调方法
         onlineStateDrop.selectionAction = { (index, item) in
             self.onlineStateBtn.resetdataCenter(item, #imageLiteral(resourceName: "ic_下拉"))
-
+//            self.selectionSeg = 5
+            ftSortType = index+5
+            self.myTableView.mj_header.beginRefreshing()
 //            onlineStateBtn.setTitle(item, for: UIControlState())
         }
         
@@ -176,7 +183,11 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             _ = onlineStateDrop.show()
             segChoose.selectTheSegument(selectionSeg)
         }else{
-            selectionSeg = selection
+            if selection != selectionSeg {
+                ftSortType = selection
+                selectionSeg = selection
+                self.myTableView.mj_header.beginRefreshing()
+            }
         }
     }
     
