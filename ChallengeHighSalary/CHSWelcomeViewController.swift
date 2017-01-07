@@ -104,7 +104,7 @@ class CHSWelcomeViewController: UIViewController {
     }
     // MARK: 进入首页 按钮 点击事件
     func comeinBtnClick() {
-        
+        typeNum = 1
         self.present(CHRoHomeViewController(), animated: false, completion: nil)
         
     }

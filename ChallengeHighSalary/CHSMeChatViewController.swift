@@ -22,6 +22,8 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
     
     var keyboardShowState = false
     
+    var btnState = true
+    
     var jobInfo:JobInfoDataModel? {
         didSet {
             self.selfTitle = (self.jobInfo?.realname)!
@@ -271,10 +273,9 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
         
         btn.frame = CGRect(x: 15, y: 10, width: screenSize.width - 30, height: 30)
         btn.setTitle("投递简历", for: .normal)
-        btn.backgroundColor = baseColor
         btn.layer.cornerRadius = 15
         headerView.addSubview(btn)
-        
+
         // 您正在与企业沟通 Label
         let tagLab = UILabel()
         tagLab.font = UIFont.systemFont(ofSize: 14)
@@ -464,8 +465,8 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
     
     func clickBtn(){
         print(111)
-//        let vc = CHSMePositionViewController()
-        let vc = CHSMeEvaluateViewController()
+        let vc = CHSMePositionViewController()
+//        let vc = CHSMeEvaluateViewController()
         
         let signOutAlert = UIAlertController(title: "", message: "经过面试,您对面试公司有何评价?", preferredStyle: .alert)
         self.present(signOutAlert, animated: true, completion: nil)
@@ -507,23 +508,51 @@ class CHSMeChatViewController: UIViewController, UITableViewDataSource, UITableV
     //MARK:检测是否投递简历
     func loadData(){
         
-        PublicNetUtil().CheckHadResume(
+        PublicNetUtil().ApplyJob_judge(
             CHSUserInfo.currentUserInfo.userid,
-            companyid: "",
-            jobid: "") { (success, response) in
+            companyid: "2",
+            jobid: "2") { (success, response) in
                 if success {
-                    if (response as! errorModel).data == "1"{
+                    if (response as! String) == "1"{
+                        self.btn.setTitle("已投递", for: .normal)
+                        self.btnState = false
+                        self.btn.backgroundColor = UIColor.lightGray
                         
-                        self.btn.setTitle("已投递", for: .normal)
                     }else if response as! String == "0"{
-                        self.btn.setTitle("已投递", for: .normal)
+                        self.btn.setTitle("投递简历", for: .normal)
+                        self.btn.backgroundColor = baseColor
+                        self.btn.addTarget(self, action: #selector(self.sendResume), for: .touchUpInside)
                     }
                     self.rootTableView.reloadData()
                     
                 }else{
                     
                 }
-                
+        }
+    }
+    
+    // MARK: 投递简历
+    func sendResume(){
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        
+        PublicNetUtil().DeliveryResume(
+            CHSUserInfo.currentUserInfo.userid,
+            companyid:"",
+            jobid:"") { (success, resopnse) in
+                if success {
+                    
+                    checkCodeHud.mode = .text
+                    checkCodeHud.label.text = "投递简历成功"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
+                    
+                }else{
+                    
+                    checkCodeHud.mode = .text
+                    checkCodeHud.label.text = "投递简历失败"
+                    checkCodeHud.hide(animated: true, afterDelay: 1)
+                    
+                }
         }
     }
 

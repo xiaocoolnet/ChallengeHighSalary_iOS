@@ -83,8 +83,28 @@ class CHSMiMyBlacklistViewController: UIViewController, UITableViewDataSource, U
         cell.companyNameLab.text = blacks?.company_name
         cell.industryLab.text = ""
         cell.addressLab.text = blacks?.industry
+        cell.cancelBlacklistBtn.addTarget(self, action: #selector(deleteBlackList), for: .touchUpInside)
         
         return cell
+    }
+    
+    //MARK: 取消黑名单
+    func deleteBlackList(){
+        let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        checkCodeHud.removeFromSuperViewOnHide = true
+        
+        PublicNetUtil().delBlackList(CHSUserInfo.currentUserInfo.userid, type: "1", blackid: "") { (success, response) in
+            if success {
+                checkCodeHud.mode = .text
+                checkCodeHud.label.text = "取消黑名单成功"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
+                self.loadData()
+            }else{
+                checkCodeHud.mode = .text
+                checkCodeHud.label.text = "取消黑名单失败"
+                checkCodeHud.hide(animated: true, afterDelay: 1)
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
