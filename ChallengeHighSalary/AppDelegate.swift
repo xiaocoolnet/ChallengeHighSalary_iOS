@@ -24,9 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        // MARK: - 第三方
+        // MARK: QQ
         _ = TencentOAuth(appId: "1105667627", andDelegate: nil)
+        // MARK: 微信
         WXApi.registerApp("wxee897f37d6f7fabb")
 
+        // MARK: 极光推送
+        /*************** 极光推送 ****************/
         //Required
         if NSString(string: UIDevice.current.systemVersion).floatValue >= 10.0 {
             
@@ -50,12 +55,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate {
 //            channel:channel
 //            apsForProduction:isProduction];
         
+        /****************************************/
+        
 //        Bmob.register(withAppKey: "ea5ad4cc1f92e1fbc45aa3eb399b1b28")
         
+        // MARK: 高德地图
         AMapServices.shared().apiKey = "f5bd61f0a61bde209f87e5d42e2ad8a3"
         
+        // MARK: Bugtags
         Bugtags.start(withAppKey: "66c9f2b441c760820f6a7fab8add27da", invocationEvent: BTGInvocationEventBubble)
         
+        // MARK: -
+        
+        // MARK: app设置
         UITabBar.appearance().tintColor = baseColor
         UITabBar.appearance().backgroundColor = UIColor(red: 248/255.0, green: 248/255.0, blue: 248/255.0, alpha: 1)
         
@@ -65,32 +77,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate {
             NSForegroundColorAttributeName:UIColor.white
         ]
         
-        
-        //  关闭用户手势反馈，默认为开启。
-        //  [[PgyManager sharedPgyManager] setEnableFeedback:NO];
-//        PgyManager.shared().isFeedbackEnabled = false
-        
-        //  设置用户反馈激活模式为三指拖动，默认为摇一摇。
-        //  [[PgyManager sharedPgyManager] setFeedbackActiveType:kPGYFeedbackActiveTypeThreeFingersPan];
-        
-        //  设置用户反馈界面的颜色，会影响到Title的背景颜色和录音按钮的边框颜色，默认为0x37C5A1(绿色)。
-        //  [[PgyManager sharedPgyManager] setThemeColor:[UIColor blackColor]];
-        
-        //  设置摇一摇灵敏度，数字越小，灵敏度越高，默认为2.3。
-        //  [[PgyManager sharedPgyManager] setShakingThreshold:3.0];
-        
-        //  是否显示蒲公英SDK的Debug Log，如果遇到SDK无法正常工作的情况可以开启此标志以确认原因，默认为关闭。
-        //  [[PgyManager sharedPgyManager] setEnableDebugLog:YES];
-        //  PgyManager.sharedPgyManager().enableDebugLog = true
-        
-        //  启动SDK
-        //  设置三指拖动激活摇一摇需在此调用之前
-        //启动基本SDK
-//        PgyManager.shared().start(withAppId: "65ddba40d825f80a8056adf5c0815f35")
-        
+        // MARK: - 引导页
 //        UserDefaults.standard.removeObject(forKey: "appVersion")
 //        UserDefaults.standard.removeObject(forKey: myCity_key)
-
         
         // 得到当前应用的版本号
         let infoDictionary = Bundle.main.infoDictionary
@@ -114,6 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, JPUSHRegisterDelegate {
             self.window?.rootViewController = UINavigationController(rootViewController: LoHomeViewController())
 
         }
+        // MARK: - 
         
         return true
     }
