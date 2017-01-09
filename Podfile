@@ -11,6 +11,8 @@ target 'ChallengeHighSalary' do
 #  pod 'Pgyer', '2.8.4'
   pod 'BmobSDK'
   pod 'AMapLocation'  #定位 SDK
+  pod 'AMap3DMap'  #3D地图 SDK（2D地图：AMap2DMap NO-IDFA版本：AMap3DMap-NO-IDFA，AMap2DMap-NO-IDFA）
+  pod 'AMapSearch'
   pod 'Bugtags'
   
   post_install do |installer|

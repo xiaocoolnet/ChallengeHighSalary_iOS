@@ -28,10 +28,12 @@ fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class FTTaWorkplaceViewController: UIViewController {
+class FTTaWorkplaceViewController: UIViewController, AMapSearchDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
     let countLab = UILabel()
     let positionNameTf = UITextField()
+    
+    var amapSearch:AMapSearchAPI!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +74,7 @@ class FTTaWorkplaceViewController: UIViewController {
         
         positionNameTf.frame = CGRect(x: 8, y: 0, width: screenSize.width-16, height: 44)
         positionNameTf.backgroundColor = UIColor.white
+        positionNameTf.delegate = self
         
         positionNameTf.placeholder = "请输入工作地点"
         
@@ -83,20 +86,93 @@ class FTTaWorkplaceViewController: UIViewController {
         positionNameTf.addTarget(self, action: #selector(positionNameTfValueChanged), for: .editingChanged)
         positionNameBgView.addSubview(positionNameTf)
         
-        let tipLab = UILabel(frame: CGRect(x: 8, y: positionNameTf.frame.maxY+10, width: screenSize.width*0.6, height: 30))
+        let tipLab = UILabel(frame: CGRect(x: 8, y: positionNameBgView.frame.maxY+10, width: screenSize.width*0.6, height: 30))
         tipLab.textColor = UIColor(red: 170/255.0, green: 170/255.0, blue: 170/255.0, alpha: 1)
         tipLab.text = "请填写您的工作地点"
         tipLab.font = UIFont.systemFont(ofSize: 14)
-        positionNameBgView.addSubview(tipLab)
+        self.view.addSubview(tipLab)
         
-        countLab.frame = CGRect(x: tipLab.frame.maxX, y: positionNameTf.frame.maxY+10, width: screenSize.width-tipLab.frame.maxX-8, height: 30)
+        countLab.frame = CGRect(x: tipLab.frame.maxX, y: positionNameBgView.frame.maxY+10, width: screenSize.width-tipLab.frame.maxX-8, height: 30)
         countLab.textAlignment = .right
         countLab.text = "\((positionNameTf.text?.characters.count)!)/50"
-        positionNameBgView.addSubview(countLab)
+        self.view.addSubview(countLab)
+        
+        rootTableView.frame = CGRect(x: 0, y: countLab.frame.maxY, width: screenSize.width, height: screenSize.height)
+        rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
+
+        rootTableView.delegate = self
+        rootTableView.dataSource = self
+        
+        self.view.addSubview(rootTableView)
+        
+        rootTableView.tableFooterView = UIView()
+        
+        amapSearch = AMapSearchAPI()
+        amapSearch.delegate = self
+        
+    }
+    
+    // MARK: - 
+    let rootTableView = TPKeyboardAvoidingTableView()
+    var pois = [AMapPOI]()
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return pois.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "workPlaceCell")
+        if cell == nil {
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "workPlaceCell")
+        }
+        
+        cell?.textLabel?.text = pois[indexPath.row].name
+        cell?.detailTextLabel?.text = pois[indexPath.row].address
+        
+        return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(pois[indexPath.row].name,pois[indexPath.row].location.latitude,pois[indexPath.row].location.longitude)
+        
+        
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("textFieldDidEndEditing")
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        let request = AMapPOIKeywordsSearchRequest()
+        request.keywords = positionNameTf.text
+        request.city = "烟台"
+        
+        amapSearch.aMapPOIKeywordsSearch(request)
+//        let geo = AMapGeocodeSearchRequest()
+//        geo.address = positionNameTf.text
+//        amapSearch.aMapGeocodeSearch(geo)
+        
+        return true
+    }
+    func onPOISearchDone(_ request: AMapPOISearchBaseRequest!, response: AMapPOISearchResponse!) {
+        
+        if response.count == 0 {
+            return
+        }
+        
+        self.pois = response.pois
+        self.rootTableView.reloadData()
+        
+        for address in response.pois {
+            print(address.address,address.name,address.typecode)
+        }
+
     }
     
     // MARK: 点击保存按钮
     func saveBtnClick() {
+        
+    
+        
         if self.positionNameTf.text!.isEmpty {
             let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
             checkCodeHud.removeFromSuperViewOnHide = true
@@ -133,6 +209,11 @@ class FTTaWorkplaceViewController: UIViewController {
             }
         }
         countLab.text = "\((textField.text?.characters.count)!)/\(maxCount)"
+        
+    }
+    
+    func aMapSearchRequest(_ request: Any!, didFailWithError error: Error!) {
+        print(error)
     }
     
     override func didReceiveMemoryWarning() {

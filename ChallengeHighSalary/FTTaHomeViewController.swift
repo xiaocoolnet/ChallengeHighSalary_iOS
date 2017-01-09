@@ -11,7 +11,10 @@ import MJRefresh
 
 class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, UITableViewDataSource, UITableViewDelegate  {
     
+    var segChoose:LFLUISegmentedControl!
     var onlineStateDrop = DropDown()
+    // 在线状态
+    var onlineStateBtn:ImageBtn!
     
     let myTableView = UITableView(frame: CGRect(x: screenSize.width, y: 0, width: screenSize.width, height: screenSize.height-20-44-49-37), style: .plain)
     
@@ -35,10 +38,37 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         self.navigationController?.navigationBar.isHidden = false
         self.tabBarController?.tabBar.isHidden = false
         self.customizeDropDown()
+        
+        if originSortType != ftSortType {
+            self.myTableView.mj_header.beginRefreshing()
+        }
+
     }
+    
+    var originSortType = 0
     
     // MARK: 加载数据
     func loadData() {
+        
+        var sortType = 0
+        var online = false
+        
+        originSortType = ftSortType
+        if ftSortType > 4 {
+            if ftSortType == 5 {
+                online = false
+                onlineStateBtn.resetdataCenter("全部", #imageLiteral(resourceName: "ic_下拉"))
+            }else{
+                online = true
+                onlineStateBtn.resetdataCenter("在线", #imageLiteral(resourceName: "ic_下拉"))
+            }
+            segChoose.selectTheSegument(selectionSeg)
+            onlineStateDrop.hide()
+        }else{
+            sortType = ftSortType
+            segChoose.selectTheSegument(sortType)
+        }
+        
         FTNetUtil().getResumeList("") { (success, response) in
             if success {
                 self.resumeModel = response as! [MyResumeData]
@@ -82,13 +112,9 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
         // 在线状态
-        let onlineStateBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: screenSize.width/6, height: 37))!
-        onlineStateBtn.resetdataCenter("在线", #imageLiteral(resourceName: "ic_下拉"))
-//        let onlineStateBtn = UIButton()
-//        onlineStateBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-//        onlineStateBtn.setTitle("经验", for: UIControlState())
-//        onlineStateBtn.setImage(UIImage(named: "ic_下拉"), for: UIControlState())
-//        exchangeBtnImageAndTitle(onlineStateBtn, margin: 5)
+        onlineStateBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: screenSize.width/6, height: 37))!
+        onlineStateBtn.lb_title_fontSize = 14
+        onlineStateBtn.resetdataCenter("全部", #imageLiteral(resourceName: "ic_下拉"))
         
         // 在线状态 下拉
         onlineStateDrop.anchorView = onlineStateBtn
@@ -97,17 +123,19 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         onlineStateDrop.width = screenSize.width
         onlineStateDrop.direction = .bottom
         
-        onlineStateDrop.dataSource = ["不限","在线"]
+        onlineStateDrop.dataSource = ["全部","在线"]
         
         // 下拉列表选中后的回调方法
         onlineStateDrop.selectionAction = { (index, item) in
-            onlineStateBtn.resetdataCenter(item, #imageLiteral(resourceName: "ic_下拉"))
-
+            self.onlineStateBtn.resetdataCenter(item, #imageLiteral(resourceName: "ic_下拉"))
+//            self.selectionSeg = 5
+            ftSortType = index+5
+            self.myTableView.mj_header.beginRefreshing()
 //            onlineStateBtn.setTitle(item, for: UIControlState())
         }
         
         // 选择菜单
-        let segChoose = LFLUISegmentedControl.segment(withFrame: CGRect(x: 0, y: 64,width: screenSize.width ,height: 37), titleArray: ["推荐","最近","最热","最新","好评",onlineStateBtn], defaultSelect: 0)!
+        segChoose = LFLUISegmentedControl.segment(withFrame: CGRect(x: 0, y: 64,width: screenSize.width ,height: 37), titleArray: ["推荐","最近","最热","最新","好评",onlineStateBtn], defaultSelect: 0)!
         segChoose.tag = 102
         segChoose.lineColor(baseColor)
         segChoose.titleColor(UIColor.black, selectTitleColor: baseColor, backGroundColor: UIColor.white, titleFontSize: 14)
@@ -146,12 +174,20 @@ class FTTaHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         appearance.textFont = UIFont.systemFont(ofSize: 14)
     }
     
+    var selectionSeg = 0
     // MARK: LFLUISegmentedControlDelegate
     func uisegumentSelectionChange(_ selection: Int, segmentTag: Int) {
         print("ChChHomeViewController click \(selection) item")
         
         if selection == 5 {
             _ = onlineStateDrop.show()
+            segChoose.selectTheSegument(selectionSeg)
+        }else{
+            if selection != selectionSeg {
+                ftSortType = selection
+                selectionSeg = selection
+                self.myTableView.mj_header.beginRefreshing()
+            }
         }
     }
     

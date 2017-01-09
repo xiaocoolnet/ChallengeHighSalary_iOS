@@ -62,7 +62,7 @@ class FTTaRetrievalViewController: UIViewController {
             cateBtn.setTitleColor(baseColor, for: UIControlState())
             cateBtn.setTitle(retrievalName, for: UIControlState())
             cateBtn.tag = 1000+i
-            cateBtn.addTarget(self, action: #selector(comeinBtnClick), for: .touchUpInside)
+            cateBtn.addTarget(self, action: #selector(cateBtnClick(cateBtn:)), for: .touchUpInside)
             btnBgView.addSubview(cateBtn)
             //            print(cateBtn.frame)
             initButton(cateBtn)
@@ -86,9 +86,12 @@ class FTTaRetrievalViewController: UIViewController {
         btn.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0,(btn.imageView!.frame.size.height+btn.titleLabel!.bounds.size.height)/2+5, -btn.titleLabel!.bounds.size.width)//图片距离右边框距离减少图片的宽度，其它不边
     }
     
-    // MARK: 进入首页 按钮 点击事件
-    func comeinBtnClick() {
-        self.present(FTRoHomeViewController(), animated: false, completion: nil)
+    // MARK: 分类 按钮 点击事件
+    func cateBtnClick(cateBtn:UIButton) {
+        
+        ftSortType = cateBtn.tag-1000
+        
+        _ = self.navigationController?.popViewController(animated: true)
         
     }
     

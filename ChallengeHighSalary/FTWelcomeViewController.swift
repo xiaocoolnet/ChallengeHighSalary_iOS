@@ -63,7 +63,7 @@ class FTWelcomeViewController: UIViewController {
             cateBtn.setTitleColor(baseColor, for: UIControlState())
             cateBtn.setTitle(retrievalName, for: UIControlState())
             cateBtn.tag = 1000+i
-            cateBtn.addTarget(self, action: #selector(comeinBtnClick), for: .touchUpInside)
+            cateBtn.addTarget(self, action: #selector(cateBtnClick(cateBtn:)), for: .touchUpInside)
             btnBgView.addSubview(cateBtn)
             //            print(cateBtn.frame)
             initButton(cateBtn)
@@ -108,6 +108,16 @@ class FTWelcomeViewController: UIViewController {
         self.present(FTRoHomeViewController(), animated: false, completion: nil)
         
     }
+    
+    // MARK: 分类 按钮 点击事件
+    func cateBtnClick(cateBtn:UIButton) {
+        
+        ftSortType = cateBtn.tag-1000
+        
+        self.present(FTRoHomeViewController(), animated: false, completion: nil)
+        
+    }
+    
     // MARK: 退出 按钮 点击事件
     func logOutBtnClick() {
         
