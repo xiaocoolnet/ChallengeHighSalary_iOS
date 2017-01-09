@@ -116,13 +116,13 @@ class CHSMePositionViewController: UIViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section != 0 && indexPath.row == 1 {
-            let signOutAlert = UIAlertController(title: "是否拨打电话?", message: "16262828662", preferredStyle: .alert)
+            let signOutAlert = UIAlertController(title: "拨打电话", message: "拨打电话: 16262828662", preferredStyle: .alert)
             self.present(signOutAlert, animated: true, completion: nil)
             
-            let cancelAction = UIAlertAction(title: "否", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
             signOutAlert.addAction(cancelAction)
             
-            let sureAction = UIAlertAction(title: "是", style: .default, handler: { (sureAction) in
+            let sureAction = UIAlertAction(title: "确定", style: .default, handler: { (sureAction) in
                 var phone = String()
                 phone = "telprompt:16262828662)"
                 UIApplication.shared.openURL(NSURL.init(string: phone)! as URL)

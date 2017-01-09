@@ -45,7 +45,35 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
 
         // Do any additional setup after loading the view.
         
-        sort = String(typeNum)
+//        let num = String(typeNum)
+        
+        // 红包
+        redEnvelopeBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: (screenSize.width)/6, height: 37))
+        redEnvelopeBtn.resetdataCenter("红包", #imageLiteral(resourceName: "ic_下拉"))
+
+        
+        if typeNum <= 5 {
+            sort = String(typeNum)
+            sorttype = typeNum - 1
+        }else if typeNum == 6{
+            sorttype = 5
+            self.redEnvelopeBtn.resetdataCenter("职位红包", #imageLiteral(resourceName: "ic_下拉"))
+            self.red_job = "1"
+            self.red_interview = ""
+            self.red_induction = ""
+        }else if typeNum == 7{
+            sorttype = 5
+            self.redEnvelopeBtn.resetdataCenter("面试红包", #imageLiteral(resourceName: "ic_下拉"))
+            self.red_job = ""
+            self.red_interview = "1"
+            self.red_induction = ""
+        }else if typeNum == 8{
+            sorttype = 5
+            self.redEnvelopeBtn.resetdataCenter("就职红包", #imageLiteral(resourceName: "ic_下拉"))
+            self.red_job = ""
+            self.red_interview = ""
+            self.red_induction = "1"
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(getMyName(notification:)), name:NSNotification.Name(rawValue: "NotificationIdentifier"), object: nil)
         
@@ -197,6 +225,10 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         print(self.sort)
         CHSNetUtil().getjoblist("",sort:self.sort) { (success, response) in
             if success {
+                self.hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                self.hud.label.text = "加载中"
+                self.hud.removeFromSuperViewOnHide = true
+                self.hud.hide(animated: true, afterDelay: 1)
                 self.jobList = (response as! [JobInfoDataModel]?)!
                 self.findJobTableView.reloadData()
                 
@@ -363,9 +395,6 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
             
         }
         
-        // 红包
-        redEnvelopeBtn = ImageBtn(frame: CGRect(x: 0, y: 0, width: (screenSize.width)/6, height: 37))
-        redEnvelopeBtn.resetdataCenter("红包", #imageLiteral(resourceName: "ic_下拉"))
         
         // 红包 下拉
         redEnvelopeDrop.anchorView = redEnvelopeBtn
@@ -421,8 +450,12 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         findJobTableView.delegate = self
         self.rootScrollView.addSubview(findJobTableView)
         
-        
-        findJobTableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(latelyLoadData))
+        if typeNum <= 5 {
+            
+            findJobTableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(latelyLoadData))
+        }else{
+            findJobTableView.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(getRed_job))
+        }
         findJobTableView.mj_header.beginRefreshing()
     }
     
