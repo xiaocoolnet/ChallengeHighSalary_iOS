@@ -135,6 +135,9 @@ class ChChSearchViewController: UIViewController, UITableViewDataSource, UITable
             
             UserDefaults.standard.setValue(searhHistoryArray, forKey: "searhHistory")
             self.myTableView.reloadData()
+            
+            self.navigationController?.pushViewController(ChChResultViewController(), animated: true)
+           
         }
         
     }

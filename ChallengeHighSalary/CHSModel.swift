@@ -454,3 +454,33 @@ class BlackListDataBlacks: HandyJSON {
     
     required init() {}
 }
+
+class InvitationModel: HandyJSON {
+    
+    var status: String?
+    
+    var data: [InvitationData]?
+    
+    required init() {}
+    
+}
+
+class InvitationData: HandyJSON {
+    
+    var userid: String?
+    
+    var realname: String?
+    
+    var sex: String?
+    
+    var photo: String?
+    
+    var jobtype: String?
+    
+    var address: String?
+    
+    var create_time: String?
+    
+    required init() {}
+    
+}
