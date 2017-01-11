@@ -18,6 +18,8 @@ class ChChFindEmployerTableViewCell: UITableViewCell {
     
     @IBOutlet weak var industry_financing_countLab: UILabel!
     
+    @IBOutlet weak var imgView: UIImageView!
+    
     var companyInfo:Company_infoDataModel? {
         didSet {
             self.logoImg.sd_setImage(with: URL(string: kImagePrefix+(companyInfo?.logo)!), placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))

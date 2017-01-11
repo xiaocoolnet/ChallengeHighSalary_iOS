@@ -12,6 +12,8 @@ class CHSChCompanyInterviewEvaluationViewController: UIViewController, UITableVi
     
     let rootTableView = UITableView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height-20-44-49-37), style: .grouped)
     
+    var dataArray = EvaluateStartData()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,7 +22,7 @@ class CHSChCompanyInterviewEvaluationViewController: UIViewController, UITableVi
         setSubviews()
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
-        
+        loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,6 +35,22 @@ class CHSChCompanyInterviewEvaluationViewController: UIViewController, UITableVi
     // MARK: popViewcontroller
     func popViewcontroller() {
         _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    // MARK: 加载数据
+    func loadData(){
+        // 获取公司综合评分
+        CHSNetUtil().getCompanyEvaluateStart(companyid: "1") { (success, response) in
+            if success {
+                self.dataArray = response as! EvaluateStartData
+                self.rootTableView.reloadData()
+            }else{
+                
+            }
+        }
+        
+        // 获取面试评价 列表
+        
     }
     
     
@@ -75,6 +93,8 @@ class CHSChCompanyInterviewEvaluationViewController: UIViewController, UITableVi
             cell.selectionStyle = .none
             rootTableView.rowHeight = 61
             
+            cell.evaluateStartInfo = self.dataArray
+            
             return cell
         }else{
             
@@ -95,45 +115,6 @@ class CHSChCompanyInterviewEvaluationViewController: UIViewController, UITableVi
         return 0.0001
     }
     
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if (indexPath as NSIndexPath).section == 0 {
-//            return 61
-//        }else{
-    
-//            let evaTagArray = ["面试官很nice","面试效率高","聊得很开心"]
-//            let evaContent = "面试过程：公司人员配置目测完善，希望能获得这份工作"
-//            
-//            let cityBtnMargin:CGFloat = 10
-//            var cityBtnX:CGFloat = cityBtnMargin
-//            var cityBtnY:CGFloat = cityBtnMargin
-//            var cityBtnWidth:CGFloat = 0
-//            let cityBtnHeight:CGFloat = 25
-//            
-//            for (i,city) in evaTagArray.enumerated() {
-//                cityBtnWidth = calculateWidth(city, size: 14, height: cityBtnHeight)+cityBtnMargin*4
-//                
-//                
-//                if i+1 < evaTagArray.count {
-//                    
-//                    let nextBtnWidth = calculateWidth(evaTagArray[i+1], size: 14, height: cityBtnHeight)+cityBtnMargin*4
-//                    
-//                    if cityBtnWidth + cityBtnX + cityBtnMargin + nextBtnWidth >= screenSize.width - 20 {
-//                        cityBtnX = cityBtnMargin
-//                        cityBtnY = cityBtnHeight + cityBtnY + cityBtnMargin
-//                    }else{
-//                        
-//                        cityBtnX = cityBtnWidth + cityBtnX + cityBtnMargin
-//                    }
-//                }
-//            }
-//            
-//            let evaContentHeight = calculateHeight(evaContent, size: 13, width: screenSize.width-10)
-//
-//    
-//            return cityBtnY+cityBtnHeight+2*cityBtnMargin+evaContentHeight+86//8+40+cityBtnY+cityBtnHeight+cityBtnMargin+evaContentHeight+cityBtnMargin+30+8
-//        }
-//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        self.navigationController?.pushViewController(CHSChPersonalInfoViewController(), animated: true)
