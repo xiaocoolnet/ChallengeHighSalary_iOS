@@ -60,31 +60,29 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         areaDic = NSDictionary.init(contentsOfFile: Bundle.main.path(forAuxiliaryExecutable: "area.plist")!)!  as! [String:[String:Array<String>]]
         provinceArray = Array(areaDic.keys)
         provinceArray = provinceArray.sorted(by: { (str1, str2) -> Bool in
-            if #available(iOS 9.0, *) {
-                print(str1.localizedCapitalized,str2.lowercased())
-            } else {
-                // Fallback on earlier versions
-            }
-            return str1.lowercased() < str2.lowercased()
+
+            return self.transform(chinese: str1) < self.transform(chinese: str2)
         })
         
-        cityArray = Array(areaDic[provinceArray.first!]!.keys)
+        cityArray = Array(areaDic[provinceArray.first!]!.keys).sorted(by: { (str1, str2) -> Bool in
+            return self.transform(chinese: str1) < self.transform(chinese: str2)
+        })
         
         loadNetData()
     }
-//    func transform(chinese:String) -> String {
-//        let pinyin = NSString(string: chinese).mutableCopy() as! NSMutableString
-////        CFStringTransform((__bridge CFMutableStringRef)pinyin, <#T##range: UnsafeMutablePointer<CFRange>!##UnsafeMutablePointer<CFRange>!#>, <#T##transform: CFString!##CFString!#>, <#T##reverse: Bool##Bool#>)
-//        
-//    }
-//    + (NSString *)transform:(NSString *)chinese
-//    {
-//    NSMutableString *pinyin = [chinese mutableCopy];
-//    CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformMandarinLatin, NO);
-//    CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformStripCombiningMarks, NO);
-//    NSLog(@"%@", pinyin);
-//    return [pinyin uppercaseString];
-//    }
+    
+    func transform(chinese:String) -> String {
+        
+        let pinyin = NSString(string: chinese).mutableCopy() as! NSMutableString
+        
+        CFStringTransform(pinyin, nil, kCFStringTransformMandarinLatin, false)
+        
+        CFStringTransform(pinyin, nil, kCFStringTransformStripCombiningMarks, false)
+
+        return pinyin.uppercased
+        
+    }
+
     
     // MARK: - 获取数据
     func loadNetData() {
@@ -553,7 +551,9 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         }else if pickerView.tag == 104 {
             
             if component == 0 {
-                cityArray = Array(areaDic[provinceArray[row]]!.keys)
+                cityArray = Array(areaDic[provinceArray[row]]!.keys).sorted(by: { (str1, str2) -> Bool in
+                    return self.transform(chinese: str1) < self.transform(chinese: str2)
+                })
 
             }
         }else{

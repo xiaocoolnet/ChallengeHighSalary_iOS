@@ -14,7 +14,8 @@ target 'ChallengeHighSalary' do
   pod 'AMap3DMap'  #3D地图 SDK（2D地图：AMap2DMap NO-IDFA版本：AMap3DMap-NO-IDFA，AMap2DMap-NO-IDFA）
   pod 'AMapSearch'
   pod 'Bugtags'
-  
+  pod 'TZImagePickerController'
+
   post_install do |installer|
       installer.pods_project.targets.each do |target|
           target.build_configurations.each do |config|

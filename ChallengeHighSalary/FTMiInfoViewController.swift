@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import TZImagePickerController
 
-class FTMiInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, LoReFTInfoInputViewControllerDelegate {
+class FTMiInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, LoReFTInfoInputViewControllerDelegate, TZImagePickerControllerDelegate {
     
     let rootTableView = TPKeyboardAvoidingTableView()
     let headerImg = UIImageView()
@@ -367,36 +368,45 @@ class FTMiInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         switch ((indexPath as NSIndexPath).section,(indexPath as NSIndexPath).row) {
         case (0,0):
             
-            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            let imagePickerVc = TZImagePickerController(maxImagesCount: 1, delegate: self)
             
-            let cameraAction = UIAlertAction(title: "拍照", style: .default, handler: { (action) in
-                
-                if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                    let picker = UIImagePickerController()
-                    picker.delegate = self
-                    picker.allowsEditing = true
-                    picker.sourceType = .camera
-                    self.present(picker, animated: true, completion: nil)
-                }else{
-                    print("无法打开相机")
-                }
-            })
-            alert.addAction(cameraAction)
+            imagePickerVc?.showSelectBtn = false
+            imagePickerVc?.allowCrop = true
+//            imagePickerVc.crop
+            imagePickerVc?.sortAscendingByModificationDate = false
             
-            let photoLibraryAction = UIAlertAction(title: "从手机相册选择", style: .default, handler: { (action) in
-                
-                let picker = UIImagePickerController()
-                picker.sourceType = .photoLibrary
-                picker.delegate = self
-                picker.allowsEditing = true
-                self.present(picker, animated: true, completion: nil)
-            })
-            alert.addAction(photoLibraryAction)
+            self.present(imagePickerVc!, animated: true, completion: nil)
             
-            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-            alert.addAction(cancelAction)
-            
-            self.present(alert, animated: true, completion: nil)
+//            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//            
+//            let cameraAction = UIAlertAction(title: "拍照", style: .default, handler: { (action) in
+//                
+//                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+//                    let picker = UIImagePickerController()
+//                    picker.delegate = self
+//                    picker.allowsEditing = true
+//                    picker.sourceType = .camera
+//                    self.present(picker, animated: true, completion: nil)
+//                }else{
+//                    print("无法打开相机")
+//                }
+//            })
+//            alert.addAction(cameraAction)
+//            
+//            let photoLibraryAction = UIAlertAction(title: "从手机相册选择", style: .default, handler: { (action) in
+//                
+//                let picker = UIImagePickerController()
+//                picker.sourceType = .photoLibrary
+//                picker.delegate = self
+//                picker.allowsEditing = true
+//                self.present(picker, animated: true, completion: nil)
+//            })
+//            alert.addAction(photoLibraryAction)
+//            
+//            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+//            alert.addAction(cancelAction)
+//            
+//            self.present(alert, animated: true, completion: nil)
         case (0,1):
             
             let cell = tableView.cellForRow(at: indexPath)
@@ -467,20 +477,28 @@ class FTMiInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     // MARK: UIImagePickerControllerDelegate
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [Any]!, isSelectOriginalPhoto: Bool) {
         
-        let type = info[UIImagePickerControllerMediaType] as! String
-        if type != "public.image" {
-            return
-        }
-        
-        //裁剪后图片
-        selectedImage = (info[UIImagePickerControllerEditedImage] as! UIImage)
-        
+        selectedImage = photos.first
+
         headerImg.image = selectedImage
-        
-        picker.dismiss(animated: true, completion: nil)
+
     }
+//    // MARK: UIImagePickerControllerDelegate
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+//        
+//        let type = info[UIImagePickerControllerMediaType] as! String
+//        if type != "public.image" {
+//            return
+//        }
+//        
+//        //裁剪后图片
+//        selectedImage = (info[UIImagePickerControllerEditedImage] as! UIImage)
+//        
+//        headerImg.image = selectedImage
+//        
+//        picker.dismiss(animated: true, completion: nil)
+//    }
     
     // MARK: 上传图片
     func uploadImage() {

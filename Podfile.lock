@@ -31,6 +31,7 @@ PODS:
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - TZImagePickerController (1.7.7)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
@@ -43,6 +44,7 @@ DEPENDENCIES:
   - MJRefresh (~> 3.1.12)
   - PagingMenuController (~> 1.4.0)
   - SDWebImage (~> 3.8)
+  - TZImagePickerController
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -56,7 +58,8 @@ SPEC CHECKSUMS:
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   PagingMenuController: 79a9ce7472839d9afd0a6b879af6132822644a47
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  TZImagePickerController: 3e337576e388dd9fbf342220ab8ee258d0659370
 
-PODFILE CHECKSUM: 215ebe4301335225b41ac0290340cdf1cd78600f
+PODFILE CHECKSUM: 2c8a7fc7d2fce218e7cd51189c35d0c28ef9cc16
 
 COCOAPODS: 1.0.1
