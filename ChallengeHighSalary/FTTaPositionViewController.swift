@@ -60,13 +60,31 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         areaDic = NSDictionary.init(contentsOfFile: Bundle.main.path(forAuxiliaryExecutable: "area.plist")!)!  as! [String:[String:Array<String>]]
         provinceArray = Array(areaDic.keys)
         provinceArray = provinceArray.sorted(by: { (str1, str2) -> Bool in
-            str1 < str2
+            if #available(iOS 9.0, *) {
+                print(str1.localizedCapitalized,str2.lowercased())
+            } else {
+                // Fallback on earlier versions
+            }
+            return str1.lowercased() < str2.lowercased()
         })
         
         cityArray = Array(areaDic[provinceArray.first!]!.keys)
         
         loadNetData()
     }
+//    func transform(chinese:String) -> String {
+//        let pinyin = NSString(string: chinese).mutableCopy() as! NSMutableString
+////        CFStringTransform((__bridge CFMutableStringRef)pinyin, <#T##range: UnsafeMutablePointer<CFRange>!##UnsafeMutablePointer<CFRange>!#>, <#T##transform: CFString!##CFString!#>, <#T##reverse: Bool##Bool#>)
+//        
+//    }
+//    + (NSString *)transform:(NSString *)chinese
+//    {
+//    NSMutableString *pinyin = [chinese mutableCopy];
+//    CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformMandarinLatin, NO);
+//    CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformStripCombiningMarks, NO);
+//    NSLog(@"%@", pinyin);
+//    return [pinyin uppercaseString];
+//    }
     
     // MARK: - 获取数据
     func loadNetData() {
@@ -123,6 +141,8 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
     
     // MARK: popViewcontroller
     func popViewcontroller() {
+        
+        ftPostPosition = ""
         _ = self.navigationController?.popViewController(animated: true)
     }
     
@@ -196,6 +216,8 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
                         checkCodeHud.mode = .text
                         checkCodeHud.label.text = "发布职位成功"
                         checkCodeHud.hide(animated: true, afterDelay: 1)
+                        
+                        ftPostPosition = ""
                         
                         let time: TimeInterval = 1.0
                         let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
@@ -294,7 +316,19 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         case (1,2):
             self.navigationController?.pushViewController(FTTaSkillRequiredViewController(), animated: true)
         case (3,1):
-            self.navigationController?.pushViewController(FTTaWorkplaceViewController(), animated: true)
+            
+            if ftPostPosition == "" {
+                
+                let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                hud.removeFromSuperViewOnHide = true
+                hud.mode = .text
+                hud.label.text = "请先选择工作城市"
+                hud.hide(animated: true, afterDelay: 1)
+                
+            }else{
+                
+                self.navigationController?.pushViewController(FTTaWorkplaceViewController(), animated: true)
+            }
             
         case (3,2):
             
@@ -417,6 +451,8 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         }else if pickerView.tag == 104 {
             
             selectedNameArray[3][0] = "\(provinceArray[pickerView.selectedRow(inComponent: 0)])-\(cityArray[pickerView.selectedRow(inComponent: 1)])"
+            
+            ftPostPosition = selectedNameArray[3][0]
 
             pickSelectedRowArray[4][0] = pickerView.selectedRow(inComponent: 0)
             pickSelectedRowArray[4][1] = pickerView.selectedRow(inComponent: 1)

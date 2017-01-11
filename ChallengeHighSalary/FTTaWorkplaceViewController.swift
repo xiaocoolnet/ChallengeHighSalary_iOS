@@ -30,7 +30,7 @@ fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 class FTTaWorkplaceViewController: UIViewController, AMapSearchDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
-    let countLab = UILabel()
+//    let countLab = UILabel()
     let positionNameTf = UITextField()
     
     var amapSearch:AMapSearchAPI!
@@ -62,7 +62,7 @@ class FTTaWorkplaceViewController: UIViewController, AMapSearchDelegate, UITextF
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_返回_white"), style: .done, target: self, action: #selector(popViewcontroller))
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .done, target: self, action: #selector(saveBtnClick))
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "ic_提交"), style: .done, target: self, action: #selector(saveBtnClick))
         
         self.view.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
         
@@ -77,29 +77,30 @@ class FTTaWorkplaceViewController: UIViewController, AMapSearchDelegate, UITextF
         positionNameTf.delegate = self
         
         positionNameTf.placeholder = "请输入工作地点"
+        positionNameTf.returnKeyType = .search
         
-        var FTPublishJobSelectedNameArray = UserDefaults.standard.array(forKey: FTPublishJobSelectedNameArray_key) as! [Array<String>]
-        if FTPublishJobSelectedNameArray[3][1] != "工作地点" {
-            positionNameTf.text = FTPublishJobSelectedNameArray[3][1]
-        }
+//        var FTPublishJobSelectedNameArray = UserDefaults.standard.array(forKey: FTPublishJobSelectedNameArray_key) as! [Array<String>]
+//        if FTPublishJobSelectedNameArray[3][1] != "工作地点" {
+//            positionNameTf.text = FTPublishJobSelectedNameArray[3][1]
+//        }
         
-        positionNameTf.addTarget(self, action: #selector(positionNameTfValueChanged), for: .editingChanged)
+//        positionNameTf.addTarget(self, action: #selector(positionNameTfValueChanged), for: .editingChanged)
         positionNameBgView.addSubview(positionNameTf)
         
         let tipLab = UILabel(frame: CGRect(x: 8, y: positionNameBgView.frame.maxY+10, width: screenSize.width*0.6, height: 30))
         tipLab.textColor = UIColor(red: 170/255.0, green: 170/255.0, blue: 170/255.0, alpha: 1)
-        tipLab.text = "请填写您的工作地点"
+        tipLab.text = "输入工作地点，按下回车键搜索"
         tipLab.font = UIFont.systemFont(ofSize: 14)
         self.view.addSubview(tipLab)
         
-        countLab.frame = CGRect(x: tipLab.frame.maxX, y: positionNameBgView.frame.maxY+10, width: screenSize.width-tipLab.frame.maxX-8, height: 30)
-        countLab.textAlignment = .right
-        countLab.text = "\((positionNameTf.text?.characters.count)!)/50"
-        self.view.addSubview(countLab)
+//        countLab.frame = CGRect(x: tipLab.frame.maxX, y: positionNameBgView.frame.maxY+10, width: screenSize.width-tipLab.frame.maxX-8, height: 30)
+//        countLab.textAlignment = .right
+//        countLab.text = "\((positionNameTf.text?.characters.count)!)/50"
+//        self.view.addSubview(countLab)
         
-        rootTableView.frame = CGRect(x: 0, y: countLab.frame.maxY, width: screenSize.width, height: screenSize.height)
+        rootTableView.frame = CGRect(x: 0, y: tipLab.frame.maxY, width: screenSize.width, height: screenSize.height)
         rootTableView.backgroundColor = UIColor(red: 245/255.0, green: 245/255.0, blue: 245/255.0, alpha: 1)
-
+        
         rootTableView.delegate = self
         rootTableView.dataSource = self
         
@@ -124,6 +125,7 @@ class FTTaWorkplaceViewController: UIViewController, AMapSearchDelegate, UITextF
         if cell == nil {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "workPlaceCell")
         }
+        cell?.selectionStyle = .blue
         
         cell?.textLabel?.text = pois[indexPath.row].name
         cell?.detailTextLabel?.text = pois[indexPath.row].address
@@ -132,6 +134,9 @@ class FTTaWorkplaceViewController: UIViewController, AMapSearchDelegate, UITextF
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        saveBtnClick(with: pois[indexPath.row])
+        
         print(pois[indexPath.row].name,pois[indexPath.row].location.latitude,pois[indexPath.row].location.longitude)
         
         
@@ -142,17 +147,39 @@ class FTTaWorkplaceViewController: UIViewController, AMapSearchDelegate, UITextF
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        let request = AMapPOIKeywordsSearchRequest()
-        request.keywords = positionNameTf.text
-        request.city = "烟台"
-        
-        amapSearch.aMapPOIKeywordsSearch(request)
-//        let geo = AMapGeocodeSearchRequest()
-//        geo.address = positionNameTf.text
-//        amapSearch.aMapGeocodeSearch(geo)
-        
-        return true
+        if ftPostPosition == "" {
+            
+            let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+            hud.removeFromSuperViewOnHide = true
+            hud.mode = .text
+            hud.label.text = "请先选择工作城市"
+            hud.hide(animated: true, afterDelay: 1)
+            
+            let time: TimeInterval = 1.0
+            let delay = DispatchTime.now() + Double(Int64(time * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+            
+            DispatchQueue.main.asyncAfter(deadline: delay) {
+                
+                _ = self.navigationController?.popViewController(animated: true)
+                
+            }
+            
+            return false
+        }else{
+            
+            let request = AMapPOIKeywordsSearchRequest()
+            request.keywords = positionNameTf.text
+            request.city = ftPostPosition.components(separatedBy: "-").last
+            
+            amapSearch.aMapPOIKeywordsSearch(request)
+            //        let geo = AMapGeocodeSearchRequest()
+            //        geo.address = positionNameTf.text
+            //        amapSearch.aMapGeocodeSearch(geo)
+            
+            return true
+        }
     }
+    
     func onPOISearchDone(_ request: AMapPOISearchBaseRequest!, response: AMapPOISearchResponse!) {
         
         if response.count == 0 {
@@ -169,48 +196,50 @@ class FTTaWorkplaceViewController: UIViewController, AMapSearchDelegate, UITextF
     }
     
     // MARK: 点击保存按钮
-    func saveBtnClick() {
+    func saveBtnClick(with jobAddress:AMapPOI) {
         
-    
         
-        if self.positionNameTf.text!.isEmpty {
+        
+        if jobAddress.name == nil || jobAddress.name == "" {
             let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
             checkCodeHud.removeFromSuperViewOnHide = true
             
             checkCodeHud.mode = .text
-            checkCodeHud.label.text = "请输入工作地点"
+            checkCodeHud.label.text = "请重试"
             checkCodeHud.hide(animated: true, afterDelay: 1)
         }else{
             var FTPublishJobSelectedNameArray = UserDefaults.standard.array(forKey: FTPublishJobSelectedNameArray_key) as! [Array<String>]
-            FTPublishJobSelectedNameArray[3][1] = self.positionNameTf.text!
+            FTPublishJobSelectedNameArray[3][1] = jobAddress.address
             UserDefaults.standard.setValue(FTPublishJobSelectedNameArray, forKey: FTPublishJobSelectedNameArray_key)
+            
+            ftPostPositionLocation = jobAddress.location
             
             _ = self.navigationController?.popViewController(animated: true)
         }
     }
     
-    // MARK: 限制输入字数
-    let maxCount = 50
-    
-    func positionNameTfValueChanged(_ textField: UITextField) {
-        
-        let lang = textInputMode?.primaryLanguage
-        if lang == "zh-Hans" {
-            let range = textField.markedTextRange
-            if range == nil {
-                if textField.text?.characters.count >= maxCount {
-                    textField.text = textField.text?.substring(to: (textField.text?.characters.index((textField.text?.startIndex)!, offsetBy: maxCount))!)
-                }
-            }
-        }
-        else {
-            if textField.text?.characters.count >= maxCount {
-                textField.text = textField.text?.substring(to: (textField.text?.characters.index((textField.text?.startIndex)!, offsetBy: maxCount))!)
-            }
-        }
-        countLab.text = "\((textField.text?.characters.count)!)/\(maxCount)"
-        
-    }
+//    // MARK: 限制输入字数
+//    let maxCount = 50
+//    
+//    func positionNameTfValueChanged(_ textField: UITextField) {
+//        
+//        let lang = textInputMode?.primaryLanguage
+//        if lang == "zh-Hans" {
+//            let range = textField.markedTextRange
+//            if range == nil {
+//                if textField.text?.characters.count >= maxCount {
+//                    textField.text = textField.text?.substring(to: (textField.text?.characters.index((textField.text?.startIndex)!, offsetBy: maxCount))!)
+//                }
+//            }
+//        }
+//        else {
+//            if textField.text?.characters.count >= maxCount {
+//                textField.text = textField.text?.substring(to: (textField.text?.characters.index((textField.text?.startIndex)!, offsetBy: maxCount))!)
+//            }
+//        }
+//        countLab.text = "\((textField.text?.characters.count)!)/\(maxCount)"
+//        
+//    }
     
     func aMapSearchRequest(_ request: Any!, didFailWithError error: Error!) {
         print(error)

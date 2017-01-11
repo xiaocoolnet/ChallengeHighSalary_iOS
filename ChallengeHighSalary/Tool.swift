@@ -49,6 +49,9 @@ var positioningCity = "未知"
 
 var ftSortType = 0
 
+var ftPostPosition = ""
+var ftPostPositionLocation = AMapGeoPoint()
+
 //MARK:- 公用方法
 typealias ResponseClosures = (_ success:Bool,_ response:AnyObject?)->Void
 

@@ -33,7 +33,7 @@ class FTTaJobDescriptionsViewController: UIViewController, UITableViewDataSource
     let rootTableView = UITableView()
     let jobDescriptionTv = UIPlaceHolderTextView()
     
-    var othersDrop = DropDown()
+//    var othersDrop = DropDown()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,28 +129,28 @@ class FTTaJobDescriptionsViewController: UIViewController, UITableViewDataSource
             
         }else{
             
-            cell?.textLabel?.font = UIFont.systemFont(ofSize: 13)
-            cell?.textLabel?.textColor = baseColor
-            cell?.textLabel?.textAlignment = .left
-            cell?.textLabel?.text = "看看别人怎么写"
+//            cell?.textLabel?.font = UIFont.systemFont(ofSize: 13)
+//            cell?.textLabel?.textColor = baseColor
+//            cell?.textLabel?.textAlignment = .left
+//            cell?.textLabel?.text = "看看别人怎么写"
             
             cell?.detailTextLabel?.font = UIFont.systemFont(ofSize: 13)
             cell?.detailTextLabel?.textColor = baseColor
             cell?.detailTextLabel?.textAlignment = .right
             cell?.detailTextLabel?.text = "\((jobDescriptionTv.text?.characters.count)!)/\(maxCount)"
-            othersDrop.anchorView = cell
-            othersDrop.bottomOffset = CGPoint(x: 8, y: 45)
-            othersDrop.width = screenSize.width-16
-            othersDrop.direction = .bottom
-            
-            othersDrop.dataSource = ["不限","1万以下","1~2万","2~3万","3~4万","4~5万","5万以上"]
-            
-            // 下拉列表选中后的回调方法
-            othersDrop.selectionAction = { (index, item) in
-                
-                self.jobDescriptionTv.text = item
-                self.positionNameTfValueChanged()
-            }
+//            othersDrop.anchorView = cell
+//            othersDrop.bottomOffset = CGPoint(x: 8, y: 45)
+//            othersDrop.width = screenSize.width-16
+//            othersDrop.direction = .bottom
+//            
+//            othersDrop.dataSource = ["不限","1万以下","1~2万","2~3万","3~4万","4~5万","5万以上"]
+//            
+//            // 下拉列表选中后的回调方法
+//            othersDrop.selectionAction = { (index, item) in
+//                
+//                self.jobDescriptionTv.text = item
+//                self.positionNameTfValueChanged()
+//            }
         }
         
         
@@ -169,11 +169,11 @@ class FTTaJobDescriptionsViewController: UIViewController, UITableViewDataSource
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath as NSIndexPath).row == 1 {
-            _ = othersDrop.show()
-        }
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if (indexPath as NSIndexPath).row == 1 {
+//            _ = othersDrop.show()
+//        }
+//    }
     
     // MARK: 限制输入字数
     let maxCount = 120
