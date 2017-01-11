@@ -11,8 +11,8 @@ import UIKit
 class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     let rootTableView = UITableView(frame: CGRect(x: 0, y: 64, width: screenSize.width, height: screenSize.height-64), style: .grouped)
-    let nameArray = [["公司信息"],["职位类型","职位名称","技能要求","薪资范围"],["工作性质","经验要求","学历要求"],["工作城市","工作地点","职位描述","公司福利"]]
-    var selectedNameArray = [["公司信息"],["职位类型","职位名称","技能要求","薪资范围"],["工作性质","经验要求","学历要求"],["工作城市","工作地点","职位描述","公司福利"]] {
+    let nameArray = [["公司信息"],["职位类型","职位名称","技能要求","薪资范围","有效时间","招聘人数"],["工作性质","经验要求","学历要求"],["工作城市","工作地点","职位描述","公司福利"]]
+    var selectedNameArray = [["公司信息"],["职位类型","职位名称","技能要求","薪资范围","有效时间","招聘人数"],["工作性质","经验要求","学历要求"],["工作城市","工作地点","职位描述","公司福利"]] {
         didSet {
             self.rootTableView.reloadData()
         }
