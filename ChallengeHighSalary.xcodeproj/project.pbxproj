@@ -223,6 +223,7 @@
 		1FF9DB291D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF9DB271D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.xib */; };
 		1FFECEB51DB9C3CB0039BFF3 /* CHSMiChangeIdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFECEB41DB9C3CB0039BFF3 /* CHSMiChangeIdentityViewController.swift */; };
 		1FFECEB71DB9FB320039BFF3 /* FTMiChangeIdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFECEB61DB9FB320039BFF3 /* FTMiChangeIdentityViewController.swift */; };
+		644986C51E2327F80060DB3E /* ChChResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644986C41E2327F80060DB3E /* ChChResultViewController.swift */; };
 		647C3CAB1E1B85CA001640BC /* CHSMePositionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C3CAA1E1B85CA001640BC /* CHSMePositionTableViewCell.swift */; };
 		647C3CAD1E1BA58F001640BC /* CHSMeSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C3CAC1E1BA58F001640BC /* CHSMeSetViewController.swift */; };
 		649524611E1C87D20052AC0A /* CHSMeEvaluateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649524601E1C87D20052AC0A /* CHSMeEvaluateViewController.swift */; };
@@ -495,6 +496,7 @@
 		1FFECEB61DB9FB320039BFF3 /* FTMiChangeIdentityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiChangeIdentityViewController.swift; sourceTree = "<group>"; };
 		4F2FE0939DDAB1E11CA9B594 /* Pods-ChallengeHighSalary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChallengeHighSalary.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChallengeHighSalary/Pods-ChallengeHighSalary.release.xcconfig"; sourceTree = "<group>"; };
 		573ED6BB8CB6F9F6257D7C55 /* Pods-ChallengeHighSalary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChallengeHighSalary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChallengeHighSalary/Pods-ChallengeHighSalary.debug.xcconfig"; sourceTree = "<group>"; };
+		644986C41E2327F80060DB3E /* ChChResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChResultViewController.swift; sourceTree = "<group>"; };
 		647C3CAA1E1B85CA001640BC /* CHSMePositionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMePositionTableViewCell.swift; sourceTree = "<group>"; };
 		647C3CAC1E1BA58F001640BC /* CHSMeSetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMeSetViewController.swift; sourceTree = "<group>"; };
 		649524601E1C87D20052AC0A /* CHSMeEvaluateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMeEvaluateViewController.swift; sourceTree = "<group>"; };
@@ -1194,6 +1196,7 @@
 				1FF06CBF1D7D17960032943B /* ChChHomeViewController.swift */,
 				1F482B881D7FBD630079A62B /* ChChCityViewController.swift */,
 				1F482B911D7FF7B80079A62B /* ChChSearchViewController.swift */,
+				644986C41E2327F80060DB3E /* ChChResultViewController.swift */,
 				1F180F6B1D8E40CC00EDBCE3 /* CHSChRetrievalViewController.swift */,
 				1F180F6F1D8E6EE800EDBCE3 /* CHSChPersonalInfoViewController.swift */,
 				1FDB00121D8F7490007043B4 /* CHSChCompanyHomeViewController.swift */,
@@ -1654,6 +1657,7 @@
 				1FF3C6A11D9269F70069DD23 /* CHSMiMyDeliveryRecordViewController.swift in Sources */,
 				1FF06CD91D7D609A0032943B /* DropDownCell.swift in Sources */,
 				1FDB001B1D8FB0EE007043B4 /* CHSChCompanyPositionListViewController.swift in Sources */,
+				644986C51E2327F80060DB3E /* ChChResultViewController.swift in Sources */,
 				1FDA44D71E02870C00DB1D99 /* FTMeChatSettingViewController.swift in Sources */,
 				1F14AF431D93CD0A00456A80 /* FTTaRetrievalViewController.swift in Sources */,
 				1FDB00181D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift in Sources */,

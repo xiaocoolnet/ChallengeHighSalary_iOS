@@ -12,6 +12,8 @@ class CHSMeInvitedViewController: UIViewController, UITableViewDataSource, UITab
     
     let rootTableView = UITableView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height-20-44), style: .grouped)
     
+    var dataArray = [InvitationData]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,6 +21,7 @@ class CHSMeInvitedViewController: UIViewController, UITableViewDataSource, UITab
         
         setNavigationBar()
         setSubviews()
+        loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +42,16 @@ class CHSMeInvitedViewController: UIViewController, UITableViewDataSource, UITab
     // MARK: popViewcontroller
     func popViewcontroller() {
         _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: 加载数据
+    func loadData(){
+        CHSNetUtil().GetInterviewInformList("301", type: "0", pager: "1") { (success, response) in
+            if success {
+                self.dataArray = response as! [InvitationData]
+                self.rootTableView.reloadData()
+            }
+        }
     }
     
     // MARK: 设置子视图
@@ -63,13 +76,15 @@ class CHSMeInvitedViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 10
+        return self.dataArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CHSMeInvitedCell") as! CHSMeInvitedTableViewCell
         cell.selectionStyle = .none
+        
+//        cell.InvitationInfo = self.dataArray[indexPath.section]
         
         return cell
     }

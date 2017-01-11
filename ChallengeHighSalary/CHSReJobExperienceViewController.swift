@@ -739,6 +739,11 @@ class CHSReJobExperienceViewController: UIViewController, UITableViewDataSource,
         
         return view
     }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        jobContentTv.resignFirstResponder()
+        self.view.endEditing(true)
+    }
     // MARK:-
     
     override func didReceiveMemoryWarning() {

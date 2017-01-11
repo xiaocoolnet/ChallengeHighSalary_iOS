@@ -39,7 +39,7 @@ fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 class LoReCHSJobExperienceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LoReFTInfoInputViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate {
     
-    let rootTableView = UITableView()
+    let rootTableView = TPKeyboardAvoidingTableView()
     
     var pickerView = UIPickerView()
     
@@ -734,6 +734,12 @@ class LoReCHSJobExperienceViewController: UIViewController, UITableViewDataSourc
         
         return view
     }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        jobContentTv.resignFirstResponder()
+        self.view.endEditing(true)
+    }
+    
     // MARK:-
     
     override func didReceiveMemoryWarning() {

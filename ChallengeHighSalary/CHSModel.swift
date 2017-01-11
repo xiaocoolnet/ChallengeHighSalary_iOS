@@ -145,6 +145,10 @@ class JobInfoModel: HandyJSON {
 
     var data: [JobInfoDataModel]?
     
+    var statu: String?
+    
+    var date: [JobInfoDataModel]? // 数组模型
+    
     required init() {}
 
 }
@@ -451,6 +455,93 @@ class BlackListDataBlacks: HandyJSON {
     var produte_info: String?
     
     var com_introduce: String?
+    
+    required init() {}
+}
+
+class InvitationModel: HandyJSON {
+    
+    var status: String?
+    
+    var data: [InvitationData]?
+    
+    required init() {}
+    
+}
+
+class InvitationData: HandyJSON {
+    
+    var userid: String?
+    
+    var realname: String?
+    
+    var sex: String?
+    
+    var photo: String?
+    
+    var jobtype: String?
+    
+    var address: String?
+    
+    var create_time: String?
+    
+    required init() {}
+    
+}
+
+class EvaluateStartModel: HandyJSON {
+    
+    var status = ""
+    
+    var data: EvaluateStartData?
+    
+    required init() {}
+    
+}
+
+class EvaluateStartData: HandyJSON {
+    
+    var com_score = ""
+    
+    var description = ""
+    
+    var interviewer = ""
+    
+    var company = ""
+    
+    required init() {}
+    
+}
+
+class EvaluateListModel: HandyJSON {
+    var status = ""
+    var data: [getEvaluateListData]?
+    required init() {}
+}
+
+class getEvaluateListData: HandyJSON {
+    
+    var id: String?
+    
+    var companyid: String?
+    
+    var evaluate_id:String?
+    
+    var start:String?
+    
+    var content: String?
+    
+    var choose: String?
+    
+    var create_time: String?
+    
+    var invite_title: String?
+    
+    var useful_num: String?
+    
+    var photo: String?
+    
+    var user_name: String?
     
     required init() {}
 }

@@ -372,6 +372,39 @@ class CHSNetUtil: NSObject {
         }
     }
     
+    // MARK: 获取面试邀请通知列表
+    // userid type pager
+    func GetInterviewInformList(
+        _ uid:String,
+        type:String,
+        pager:String,
+        handle:@escaping ResponseClosures) {
+        
+        let url = kPortPrefix+"getMyInvited"
+        let param = [
+            "userid":uid,
+            "type":type,
+            "pager":pager
+        ];
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+            
+            if(error != nil){
+                handle(false, error.debugDescription as AnyObject?)
+            }else{
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                
+                if checkCode.status == "success" {
+                    let jobInfoModel = JSONDeserializer<InvitationModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                    
+                    handle(true, jobInfoModel.data as AnyObject?)
+                }else{
+                    
+                    handle(false, nil)
+                }
+            }
+        }
+    }
+    
     // MARK: 获取聊天列表
     // uid
     func GetChatListData(
@@ -487,6 +520,67 @@ class CHSNetUtil: NSObject {
                 
                 if checkCode.status == "success" {
                     let jobInfoModel = JSONDeserializer<MyApplyJob>.deserializeFrom(dict: json as! NSDictionary?)!
+                    
+                    handle(true, jobInfoModel.data as AnyObject?)
+                }else{
+                    
+                    handle(false, nil)
+                }
+            }
+        }
+    }
+    
+    // MARK: 获取面试综合评分
+    // companyid
+    func getCompanyEvaluateStart(
+        
+        companyid:String,
+        handle:@escaping ResponseClosures) {
+        
+        let url = kPortPrefix+"getEvaluateStart"
+        let param = [
+            "companyid":companyid
+        ];
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+            
+            if(error != nil){
+                handle(false, error.debugDescription as AnyObject?)
+            }else{
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                
+                if checkCode.status == "success" {
+                    let jobInfoModel = JSONDeserializer<EvaluateStartModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                    
+                    handle(true, jobInfoModel.data as AnyObject?)
+                }else{
+                    
+                    handle(false, nil)
+                }
+            }
+        }
+    }
+    
+    // MARK: 获取面试评价 列表
+    // companyid(公司id),pager分页
+    func getEvaluateList(
+        companyid:String,
+        pager:String,
+        handle:@escaping ResponseClosures) {
+        
+        let url = kPortPrefix+"getEvaluateStart"
+        let param = [
+            "companyid":companyid,
+            "pager":pager
+        ];
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+            
+            if(error != nil){
+                handle(false, error.debugDescription as AnyObject?)
+            }else{
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                
+                if checkCode.status == "success" {
+                    let jobInfoModel = JSONDeserializer<EvaluateListModel>.deserializeFrom(dict: json as! NSDictionary?)!
                     
                     handle(true, jobInfoModel.data as AnyObject?)
                 }else{

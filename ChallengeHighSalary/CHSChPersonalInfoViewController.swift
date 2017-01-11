@@ -58,7 +58,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
         
         checkCodeHud.label.text = "正在获取公司信息"
         
-        // 检查收藏
+        // 检查收藏 
         PublicNetUtil().CheckHadFavorite(
         CHSUserInfo.currentUserInfo.userid,
         object_id: (self.jobInfo?.jobid ?? "")!,
@@ -577,7 +577,7 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
 //            shareBtn_1.setImage(UIImage(named: imageArray[i]), for: UIControlState())
             shareBtn_1.setBackgroundImage(imgArray[i], for: .normal)
             shareBtn_1.tag = 1000+i
-//            shareBtn_1.addTarget(self, action: #selector(shareBtnClick(_:)), forControlEvents: .TouchUpInside)
+            shareBtn_1.addTarget(self, action: #selector(clickShareButton(sender:)), for: .touchUpInside)
             bottomView.addSubview(shareBtn_1)
             print("挑战高薪-机会-个人信息页-分享视图-按钮 \(i) frame == \(shareBtn_1.frame)")
             
@@ -631,8 +631,6 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
 
 //        let chatController = CHSMeChatViewController(conversationChatter: self.jobInfo?.userid, conversationType: EMConversationTypeChat)
         let chatController = CHSMeChatViewController()
-
-        
         
         chatController.hidesBottomBarWhenPushed = true
         
@@ -644,20 +642,74 @@ class CHSChPersonalInfoViewController: UIViewController, UIScrollViewDelegate {
 //        EaseMessageViewController *chatController = [[EaseMessageViewController alloc] initWithConversationChatter:@"8001" conversationType:EMConversationTypeChat];
     }
     
+    func clickShareButton(sender:UIButton){
+        // 分享到QQ好友
+        if sender.tag == 1000 {
+            
+            // 网址
+            let newsUrl = URL(string: kImagePrefix+(self.jobInfo?.logo ?? "")!)
+            // 标题
+            let title = self.jobInfo?.company_name ?? ""
+            
+            // 内容
+            let description = self.jobInfo?.description_job ?? ""
+            
+            // 图片(压缩后)
+            var previewImageData = Data()
+            
+            let url = URL(string: kImagePrefix+(self.jobInfo?.logo ?? "")!)
+            
+            let data = try? Data(contentsOf: url!)
+            let thumbImage = UIImage(data: data!)
+            
+            previewImageData = thumbImage!.compressImage(thumbImage!, maxLength: 32700)!
+            
+            let newsObj = QQApiNewsObject(url: newsUrl, title: title, description: description, previewImageData: previewImageData, targetContentType: QQApiURLTargetTypeNews)
+            let req = SendMessageToQQReq(content: newsObj)
+            
+            QQApiInterface.send(req)
+            
+        }else if sender.tag == 1001 || sender.tag == 1002{
+            let message = WXMediaMessage()
+            // 标题
+            message.title = self.jobInfo?.company_name ?? ""
+            // 描述
+            message.description = self.jobInfo?.description_job ?? ""
+            // 图片
+            let url = URL(string: kImagePrefix+(self.jobInfo?.logo ?? "")!)
+            let data = try? Data(contentsOf: url!)
+            let thumbImage = UIImage(data: data!)
+            let data2 = thumbImage!.compressImage(thumbImage!, maxLength: 32700)
+            message.setThumbImage(UIImage(data: data2!))
+            //网址
+            let webPageObject = WXWebpageObject()
+            webPageObject.webpageUrl = kImagePrefix+(self.jobInfo?.logo ?? "")
+            message.mediaObject = webPageObject
+            
+            let req = SendMessageToWXReq()
+            req.bText = false
+            req.message = message
+            
+            switch sender.tag {
+            case 1001:
+                // 分享到微信好友
+                req.scene = Int32(WXSceneSession.rawValue)
+            case 1002:
+                // 分享到朋友圈
+                req.scene = Int32(WXSceneTimeline.rawValue)
+            default:
+                break
+            }
+            
+            
+            WXApi.send(req)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

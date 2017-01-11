@@ -228,6 +228,41 @@ class PublicNetUtil: NSObject {
         }
     }
     
+    // MARK：判断是否已加入黑名单
+    // userid,blackid,type(1个人拉黑企业，2企业拉黑个人)
+    func JudgeBlack(
+        _ userid:String,
+        blackid:String,
+        type:String,
+        handle:@escaping ResponseClosures) {
+        
+        let url = kPortPrefix+"judgeBlack"
+        let param = [
+            "userid":userid,
+            "blackid":blackid,
+            "type":type
+        ];
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
+            
+            if(error != nil){
+                handle(false, error.debugDescription as AnyObject?)
+            }else{
+                
+                let checkCode = JSONDeserializer<StatusModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                
+                if checkCode.status == "success" {
+                    
+                    let checkCode = JSONDeserializer<errorModel>.deserializeFrom(dict: json as! NSDictionary?)!
+                    
+                    handle(true, checkCode.data as AnyObject?)
+                }else{
+                    
+                    handle(false, nil)
+                }
+            }
+        }
+    }
+    
     // Mark: 添加黑名单
     // userid,type(1个人拉黑企业，2企业拉黑个人),blackid(被拉黑用户id,不写则删除全部)
     func setBlackList(

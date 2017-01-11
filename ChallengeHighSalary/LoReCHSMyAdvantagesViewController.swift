@@ -30,7 +30,7 @@ fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 class LoReCHSMyAdvantagesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
     
-    let rootTableView = UITableView()
+    let rootTableView = TPKeyboardAvoidingTableView()
     
     let myAdvantagesTv = UIPlaceHolderTextView()
     
@@ -254,6 +254,16 @@ class LoReCHSMyAdvantagesViewController: UIViewController, UITableViewDataSource
         let cell = rootTableView.cellForRow(at: IndexPath(row: 1, section: 0))
         cell?.detailTextLabel?.text = "\(self.myAdvantagesTv.text.characters.count)/\(jobContentMaxCount)"
         cell?.detailTextLabel?.sizeToFit()
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        myAdvantagesTv.resignFirstResponder()
+        self.view.endEditing(true)
+    }
+    
+    //点击空白处回收键盘
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     override func didReceiveMemoryWarning() {

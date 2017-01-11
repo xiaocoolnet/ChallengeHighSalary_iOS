@@ -12,7 +12,8 @@ class CHSMeSetViewController: UIViewController, UITableViewDataSource, UITableVi
     
     let rootTableView = UITableView()
     
-    let nameArray = [["聊天置顶","将对方加入黑名单","标记为不合适"],["查看历史聊天记录","举报对方"]]
+    let nameArray = [["将对方加入黑名单"],["查看历史聊天记录"]]
+    var swi = UISwitch()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +21,7 @@ class CHSMeSetViewController: UIViewController, UITableViewDataSource, UITableVi
         // Do any additional setup after loading the view.
         
         self.setSubviews()
+        loadBlackData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -123,8 +125,8 @@ class CHSMeSetViewController: UIViewController, UITableViewDataSource, UITableVi
         case 0:
             cell?.accessoryType = .none
             
-            let swi = UISwitch.init(frame: CGRect(x: screenSize.width-51-10, y: 13/2.0, width: 51, height: 31))
-            swi.isOn = UserDefaults.standard.bool(forKey: CHSMiMessageRemindSetting_key_pre+String(indexPath.section*100+indexPath.row))
+            swi = UISwitch.init(frame: CGRect(x: screenSize.width-51-10, y: 13/2.0, width: 51, height: 31))
+//            swi.isOn = UserDefaults.standard.bool(forKey: CHSMiMessageRemindSetting_key_pre+String(indexPath.section*100+indexPath.row))
             swi.tag = indexPath.section*100+indexPath.row
             swi.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
             //        print("消息提醒设置，indexPath.section === \(indexPath.section)，indexPath.row === \(indexPath.row)，swi.on = \(swi.on)")
@@ -139,12 +141,11 @@ class CHSMeSetViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func switchValueChanged(_ swi:UISwitch) {
-        UserDefaults.standard.set(swi.isOn, forKey: CHSMiMessageRemindSetting_key_pre+String(swi.tag))
-        //        print("消息提醒设置，swi.tag === \(swi.tag)，swi.on = \(swi.on) && \(NSUserDefaults.standardUserDefaults().boolForKey("CHSMiMessageRemindSetting\(swi.tag)"))")
-        if swi.isOn && swi.tag == 1 {
+//        UserDefaults.standard.set(swi.isOn, forKey: CHSMiMessageRemindSetting_key_pre+String(swi.tag))
+        if swi.isOn {
             // 加入黑名单
             addBlackList()
-        }else if swi.isOn == false && swi.tag == 1{
+        }else if swi.isOn == false {
             // 取消黑名单
             deleteBlackList()
         }
@@ -156,16 +157,36 @@ class CHSMeSetViewController: UIViewController, UITableViewDataSource, UITableVi
         return kHeightScale*15
     }
     
+    //MARK:检测是否投递简历
+    func loadBlackData(){
+        
+        PublicNetUtil().JudgeBlack(CHSUserInfo.currentUserInfo.userid, blackid: "301", type: "1") { (success, response) in
+            if success {
+                if (response as! String) == "1"{
+                    
+                    self.swi.isOn = true
+                }else if response as! String == "0"{
+                    self.swi.isOn = false
+                }
+                
+            }else{
+                
+            }
+        }
+        
+    }
+    
     // MARK: 加入黑名单
     func addBlackList(){
         let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
 
-        PublicNetUtil().setBlackList(CHSUserInfo.currentUserInfo.userid, type: "1", blackid: "", reason: "") { (success, response) in
+        PublicNetUtil().setBlackList(CHSUserInfo.currentUserInfo.userid, type: "1", blackid: "301", reason: "") { (success, response) in
             if success {
                 checkCodeHud.mode = .text
                 checkCodeHud.label.text = "加入黑名单成功"
                 checkCodeHud.hide(animated: true, afterDelay: 1)
+                self.swi.isOn = true
             }else{
                 checkCodeHud.mode = .text
                 checkCodeHud.label.text = "加入黑名单失败"
@@ -179,11 +200,12 @@ class CHSMeSetViewController: UIViewController, UITableViewDataSource, UITableVi
         let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
         
-        PublicNetUtil().delBlackList(CHSUserInfo.currentUserInfo.userid, type: "1", blackid: "") { (success, response) in
+        PublicNetUtil().delBlackList(CHSUserInfo.currentUserInfo.userid, type: "1", blackid: "301") { (success, response) in
             if success {
                 checkCodeHud.mode = .text
                 checkCodeHud.label.text = "取消黑名单成功"
                 checkCodeHud.hide(animated: true, afterDelay: 1)
+                self.swi.isOn = false
             }else{
                 checkCodeHud.mode = .text
                 checkCodeHud.label.text = "取消黑名单失败"

@@ -63,7 +63,7 @@ class CHSWelcomeViewController: UIViewController {
             cateBtn.setTitleColor(baseColor, for: UIControlState())
             cateBtn.setTitle(retrievalName, for: UIControlState())
             cateBtn.tag = 1000+i
-            cateBtn.addTarget(self, action: #selector(comeinBtnClick), for: .touchUpInside)
+            cateBtn.addTarget(self, action: #selector(clickComeinBtn), for: .touchUpInside)
             btnBgView.addSubview(cateBtn)
             //            print(cateBtn.frame)
             initButton(cateBtn)
@@ -108,6 +108,33 @@ class CHSWelcomeViewController: UIViewController {
         self.present(CHRoHomeViewController(), animated: false, completion: nil)
         
     }
+    
+    //MARK：其他按钮点击事件
+    func clickComeinBtn(sender:UIButton){
+        switch sender.tag {
+        case 1000:
+            typeNum = 6
+        case 1001:
+            typeNum = 7
+        case 1002:
+            typeNum = 8
+        case 1003:
+            typeNum = 4
+        case 1004:
+            typeNum = 3
+        case 1005:
+            typeNum = 5
+        case 1006:
+            typeNum = 2
+        case 1007:
+            typeNum = 1
+        default:
+            break
+        }
+        
+        self.present(CHRoHomeViewController(), animated: false, completion: nil)
+    }
+    
     // MARK: 退出 按钮 点击事件
     func logOutBtnClick() {
         
