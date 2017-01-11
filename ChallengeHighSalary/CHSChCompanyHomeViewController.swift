@@ -83,7 +83,7 @@ class CHSChCompanyHomeViewController: UIViewController, UITableViewDataSource, U
         let interviewEvaluateBtn = UIButton(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 45))
         interviewEvaluateBtn.backgroundColor = baseColor
         interviewEvaluateBtn.setTitleColor(UIColor.white, for: UIControlState())
-        interviewEvaluateBtn.setTitle("面试评价(2)", for: UIControlState())
+        interviewEvaluateBtn.setTitle("面试评价", for: UIControlState())
         interviewEvaluateBtn.addTarget(self, action: #selector(interviewEvaluateBtnClick), for: .touchUpInside)
 //        self.view.addSubview(interviewEvaluateBtn)
         self.rootTableView.tableFooterView = interviewEvaluateBtn

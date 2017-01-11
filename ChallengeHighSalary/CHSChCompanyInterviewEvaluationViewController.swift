@@ -13,6 +13,7 @@ class CHSChCompanyInterviewEvaluationViewController: UIViewController, UITableVi
     let rootTableView = UITableView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height-20-44-49-37), style: .grouped)
     
     var dataArray = EvaluateStartData()
+    var dataSource = [getEvaluateListData]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,8 +50,17 @@ class CHSChCompanyInterviewEvaluationViewController: UIViewController, UITableVi
             }
         }
         
-        // 获取面试评价 列表
-        
+        // 获取面试评价列表
+        CHSNetUtil().getEvaluateList(companyid: "1", pager: "1") { (success, response) in
+            if success {
+                
+                self.dataSource = response as! [getEvaluateListData]
+                self.rootTableView.reloadData()
+                self.title = "面试评价(\(self.dataSource.count))"
+            }else{
+                
+            }
+        }
     }
     
     
@@ -77,7 +87,7 @@ class CHSChCompanyInterviewEvaluationViewController: UIViewController, UITableVi
         if section == 0 {
             return 1
         }else{
-            return 10
+            return self.dataSource.count
         }
     }
     
@@ -100,6 +110,9 @@ class CHSChCompanyInterviewEvaluationViewController: UIViewController, UITableVi
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "CHSChInterviewCell") as! CHSChInterviewEvaTableViewCell
             cell.selectionStyle = .none
+            
+            cell.evaluateList = self.dataSource[indexPath.row]
+            
             rootTableView.rowHeight = cell.usefulBtn.frame.maxY + 20
             
             return cell

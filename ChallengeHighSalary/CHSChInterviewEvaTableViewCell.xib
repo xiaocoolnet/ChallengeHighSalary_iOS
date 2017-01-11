@@ -106,7 +106,15 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="firstImgView" destination="biv-XD-Hgk" id="Rno-nb-0ma"/>
+                <outlet property="fiveImgView" destination="dtS-4s-AOX" id="Yop-d0-M70"/>
+                <outlet property="fourImgView" destination="dOn-Ze-UsP" id="5De-Iz-iuZ"/>
                 <outlet property="headerImg" destination="BFL-ie-v3W" id="rlc-EY-YcR"/>
+                <outlet property="jobLab" destination="91I-mm-QKG" id="Smk-oY-5qG"/>
+                <outlet property="nameLab" destination="Qmp-RN-xQE" id="aMQ-Zi-F22"/>
+                <outlet property="secImgView" destination="Cop-CT-rGH" id="JV7-I2-Wfd"/>
+                <outlet property="thirdImgView" destination="dwZ-l4-133" id="Pwi-2B-11d"/>
+                <outlet property="timeLab" destination="fmd-Vd-Lfq" id="vR2-iT-nUp"/>
             </connections>
             <point key="canvasLocation" x="334" y="493.5"/>
         </tableViewCell>

@@ -10,7 +10,7 @@ import UIKit
 
 class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    let rootTableView = UITableView()
+    let rootTableView = TPKeyboardAvoidingTableView()
     let headerImg = UIImageView()
     var selectedImage:UIImage?
     var orignalImage:UIImage?
@@ -565,21 +565,26 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
     }
     // MARK:-
     
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        QQTf.resignFirstResponder()
+        weiboTf.resignFirstResponder()
+        wechatTf.resignFirstResponder()
+        self.view.endEditing(true)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        QQTf.resignFirstResponder()
+        weiboTf.resignFirstResponder()
+        wechatTf.resignFirstResponder()
+        self.view.endEditing(true)
+    }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

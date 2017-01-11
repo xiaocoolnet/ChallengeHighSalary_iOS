@@ -567,7 +567,7 @@ class CHSNetUtil: NSObject {
         pager:String,
         handle:@escaping ResponseClosures) {
         
-        let url = kPortPrefix+"getEvaluateStart"
+        let url = kPortPrefix+"getEvaluateList"
         let param = [
             "companyid":companyid,
             "pager":pager
