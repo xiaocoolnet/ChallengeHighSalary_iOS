@@ -572,13 +572,6 @@ class CHSReEditPersonalInfoViewController: UIViewController, UITableViewDataSour
         self.view.endEditing(true)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        QQTf.resignFirstResponder()
-        weiboTf.resignFirstResponder()
-        wechatTf.resignFirstResponder()
-        self.view.endEditing(true)
-    }
-    
     
     
     override func didReceiveMemoryWarning() {

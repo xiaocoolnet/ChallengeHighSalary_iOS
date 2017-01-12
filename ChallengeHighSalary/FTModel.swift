@@ -49,6 +49,8 @@ class Company_infoDataModel: HandyJSON {
     var com_introduce = ""
     
     var produte_info = ""
+    
+    var userid = ""
 
     required init() {}
 

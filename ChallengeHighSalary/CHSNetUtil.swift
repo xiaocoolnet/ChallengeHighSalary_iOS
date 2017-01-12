@@ -82,11 +82,17 @@ class CHSNetUtil: NSObject {
     
     // MARK: 获取获取企业信息列表
     // userid
-    func getCompanyList(_ handle:@escaping ResponseClosures) {
+    func getCompanyList(
+        pager:String,
+        _ handle:@escaping ResponseClosures) {
         
         let url = kPortPrefix+"getCompanyList"
         
-        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: nil) { (json, error) in
+        let param = [
+            "pager":pager
+        ]
+        
+        NetUtil.net.request(.requestTypeGet, URLString: url, Parameter: param as [String : AnyObject]?) { (json, error) in
             
             if(error != nil){
                 handle(false, error.debugDescription as AnyObject?)

@@ -194,7 +194,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
     // MARK: 加载数据 - 公司列表
     func loadCompanyListData() {
         
-        CHSNetUtil().getCompanyList { (success, response) in
+        CHSNetUtil().getCompanyList(pager: "1") { (success, response) in
             if success {
                 self.companyList = (response as! [Company_infoDataModel]?)!
                 self.findEmployerTableView.reloadData()
@@ -665,7 +665,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         }else{
             let btn = UIButton()
             btn.tag = (indexPath as NSIndexPath).row
-            self.companyBtnClick(btn)
+            self.companyButtonClick(sender: btn)
         }
     }
     
@@ -683,6 +683,15 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         let companyPositionListVC = CHSChCompanyPositionListViewController()
         companyPositionListVC.company_infoJobs = self.companyList[jobsCountBtn.tag].jobs!
         self.navigationController?.pushViewController(companyPositionListVC, animated: true)
+    }
+    
+    // MARk: companyButtonClick
+    func companyButtonClick(sender:UIButton){
+        
+        let vc = CHSChCompanyHomeViewController()
+        vc.jobInfoUserid = self.companyList[sender.tag].userid
+        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     
