@@ -220,7 +220,7 @@ class ChChHomeViewController: UIViewController, LFLUISegmentedControlDelegate, U
         
     }
     
-    // MARK: 数据解析（最近）
+    // MARK: 数据解析（招聘列表）
     func latelyLoadData(){
         print(self.sort)
         CHSNetUtil().getjoblist("",sort:self.sort) { (success, response) in
