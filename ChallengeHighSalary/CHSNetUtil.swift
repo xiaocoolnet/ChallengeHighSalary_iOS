@@ -11,8 +11,10 @@ import HandyJSON
 
 class CHSNetUtil: NSObject {
     
+    
     // MARK: 获取招聘列表
     // userid
+    
     func getjoblist(
         _ userid:String,
         sort:String,
