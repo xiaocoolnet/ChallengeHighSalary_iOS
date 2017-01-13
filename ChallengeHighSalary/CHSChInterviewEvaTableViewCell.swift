@@ -12,9 +12,68 @@ class CHSChInterviewEvaTableViewCell: UITableViewCell {
 
     @IBOutlet weak var headerImg: UIImageView!
     
+    @IBOutlet weak var nameLab: UILabel!
+    
+    @IBOutlet weak var jobLab: UILabel!
+    
+    @IBOutlet weak var timeLab: UILabel!
+    
+    @IBOutlet weak var firstImgView: UIImageView!
+    
+    @IBOutlet weak var secImgView: UIImageView!
+    
+    @IBOutlet weak var thirdImgView: UIImageView!
+    
+    @IBOutlet weak var fourImgView: UIImageView!
+    
+    @IBOutlet weak var fiveImgView: UIImageView!
+    
+    
     let evaTagArray = ["面试官很nice","面试效率高","聊得很开心"]
     let evaContent = "公司人员配置目测完善，希望能获得这份工作"
     var usefulBtn : UIButton!
+    var evaContentLab : UILabel!
+    
+    
+    var evaluateList: getEvaluateListData? {
+        
+        didSet {
+            
+            //  时间
+            let dateformate = DateFormatter()
+            dateformate.dateFormat = "MM-dd"
+            let date = NSDate(timeIntervalSince1970: TimeInterval((evaluateList?.create_time!)!)!)
+            let str:String = dateformate.string(from: date as Date)
+            timeLab.text = str
+            
+            headerImg?.sd_setImage(with: URL(string: kImagePrefix + (evaluateList?.photo ?? "")), placeholderImage: #imageLiteral(resourceName: "ic_默认头像"))
+                       
+            nameLab.text = evaluateList?.user_name ?? ""
+            
+            jobLab.text = evaluateList?.invite_title ?? ""
+            
+            evaContentLab.text = evaluateList?.content ?? ""
+            
+            usefulBtn.setTitle("有用(\(evaluateList?.useful_num ?? ""))", for: .normal)
+            
+            if evaluateList?.start == "1" {
+                secImgView.image = UIImage.init(named: "ic-stargray")
+                thirdImgView.image = UIImage.init(named: "ic-stargray")
+                fourImgView.image = UIImage.init(named: "ic-stargray")
+                fiveImgView.image = UIImage.init(named: "ic-stargray")
+            }else if evaluateList?.start == "2" {
+                thirdImgView.image = UIImage.init(named: "ic-stargray")
+                fourImgView.image = UIImage.init(named: "ic-stargray")
+                fiveImgView.image = UIImage.init(named: "ic-stargray")
+            }else if evaluateList?.start == "3" {
+                fourImgView.image = UIImage.init(named: "ic-stargray")
+                fiveImgView.image = UIImage.init(named: "ic-stargray")
+            }else if evaluateList?.start == "4" {
+                fiveImgView.image = UIImage.init(named: "ic-stargray")
+            }
+            
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -71,7 +130,7 @@ class CHSChInterviewEvaTableViewCell: UITableViewCell {
         evaLab.text = "面试评价:"
         self.contentView.addSubview(evaLab)
         
-        let evaContentLab = UILabel(frame: CGRect(x: 10, y: evaLab.frame.maxY + 10, width: screenSize.width-10, height: evaContentHeight))
+        evaContentLab = UILabel(frame: CGRect(x: 10, y: evaLab.frame.maxY + 10, width: screenSize.width-10, height: evaContentHeight))
         evaContentLab.font = UIFont.systemFont(ofSize: 13)
         evaContentLab.textColor = UIColor.black
         evaContentLab.text = evaContent
