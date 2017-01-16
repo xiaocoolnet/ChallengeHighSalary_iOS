@@ -1,1 +1,0 @@
-#ChallengeHighSalary_iOS
