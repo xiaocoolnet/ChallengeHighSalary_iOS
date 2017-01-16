@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="66" id="dXu-Bd-M9R" customClass="CHSMeHomeTableViewCell" customModule="ChallengeHighSalary" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="387" height="66"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dXu-Bd-M9R" id="h87-qJ-rCJ">
+                <rect key="frame" x="0.0" y="0.0" width="387" height="65"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="系统消息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTP-Z0-vTP">
+                        <rect key="frame" x="66" y="8" width="64" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="北京时代网络公司正在招聘网页设计师噢" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RFf-sw-9UA">
+                        <rect key="frame" x="66" y="36" width="252" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="07月20日" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fw5-w2-72z">
+                        <rect key="frame" x="317" y="8" width="62" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pDg-fB-Wwe">
+                        <rect key="frame" x="8" y="8" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="ZeC-TU-Iwl"/>
+                            <constraint firstAttribute="height" constant="50" id="fVY-cD-wMT"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="hTP-Z0-vTP" firstAttribute="top" secondItem="h87-qJ-rCJ" secondAttribute="topMargin" id="8Md-go-uj9"/>
+                    <constraint firstItem="pDg-fB-Wwe" firstAttribute="centerY" secondItem="h87-qJ-rCJ" secondAttribute="centerY" id="Q9Q-xt-zPe"/>
+                    <constraint firstItem="hTP-Z0-vTP" firstAttribute="leading" secondItem="pDg-fB-Wwe" secondAttribute="trailing" constant="8" id="RTG-cE-pOK"/>
+                    <constraint firstItem="Fw5-w2-72z" firstAttribute="top" secondItem="h87-qJ-rCJ" secondAttribute="topMargin" id="bR4-Fg-Xjm"/>
+                    <constraint firstItem="RFf-sw-9UA" firstAttribute="leading" secondItem="pDg-fB-Wwe" secondAttribute="trailing" constant="8" id="eHX-Sx-7fH"/>
+                    <constraint firstItem="RFf-sw-9UA" firstAttribute="top" secondItem="hTP-Z0-vTP" secondAttribute="bottom" constant="8" id="eOZ-gJ-9yB"/>
+                    <constraint firstItem="Fw5-w2-72z" firstAttribute="trailing" secondItem="h87-qJ-rCJ" secondAttribute="trailingMargin" id="oLA-61-FlX"/>
+                    <constraint firstItem="pDg-fB-Wwe" firstAttribute="leading" secondItem="h87-qJ-rCJ" secondAttribute="leadingMargin" id="ufX-KD-l6p"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="descriptionLab" destination="RFf-sw-9UA" id="woA-Bq-par"/>
+                <outlet property="iconImg" destination="pDg-fB-Wwe" id="er6-aA-UNU"/>
+                <outlet property="timeLab" destination="Fw5-w2-72z" id="omW-uy-gZW"/>
+                <outlet property="titleLab" destination="hTP-Z0-vTP" id="6oZ-PT-arB"/>
+            </connections>
+            <point key="canvasLocation" x="255.5" y="482"/>
+        </tableViewCell>
+    </objects>
+</document>
