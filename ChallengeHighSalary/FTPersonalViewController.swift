@@ -768,7 +768,9 @@ class FTPersonalViewController: UIViewController {
         
         payBtn.superview?.superview?.removeFromSuperview()
 
-        self.setSubviews_alreadyPay()
+        self.navigationController?.pushViewController(FTTaPayViewController(), animated: true)
+        
+//        self.setSubviews_alreadyPay()
     }
     
     // MARK: - 和他聊聊按钮 点击事件

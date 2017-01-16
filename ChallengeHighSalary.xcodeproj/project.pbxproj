@@ -79,6 +79,11 @@
 		1F577B411DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F577B3F1DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.xib */; };
 		1F5B672C1DAA352600F74666 /* FTNetUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B672B1DAA352600F74666 /* FTNetUtil.swift */; };
 		1F5B672E1DAA354A00F74666 /* FTModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B672D1DAA354A00F74666 /* FTModel.swift */; };
+		1F7091A81E28CB3A002EBAB7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7091A71E28CB3A002EBAB7 /* QuartzCore.framework */; };
+		1F7091AA1E28CB44002EBAB7 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7091A91E28CB44002EBAB7 /* CoreText.framework */; };
+		1F7091AC1E28CB7A002EBAB7 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7091AB1E28CB7A002EBAB7 /* CoreMotion.framework */; };
+		1F7091AE1E28CB8B002EBAB7 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7091AD1E28CB8B002EBAB7 /* AlipaySDK.framework */; };
+		1F7091B01E28D023002EBAB7 /* FTTaPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7091AF1E28D023002EBAB7 /* FTTaPayViewController.swift */; };
 		1F7B303A1D7FA36600D0BF56 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7B30391D7FA36600D0BF56 /* MapKit.framework */; };
 		1F7EDB031DDEA41D005FD660 /* CHSMeChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7EDB021DDEA41D005FD660 /* CHSMeChatTableViewCell.swift */; };
 		1F87411B1D82AF47007B8793 /* LoForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */; };
@@ -334,6 +339,11 @@
 		1F577B3F1DA9F38900AB5D99 /* CHSMeInvitedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSMeInvitedTableViewCell.xib; sourceTree = "<group>"; };
 		1F5B672B1DAA352600F74666 /* FTNetUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTNetUtil.swift; sourceTree = "<group>"; };
 		1F5B672D1DAA354A00F74666 /* FTModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTModel.swift; sourceTree = "<group>"; };
+		1F7091A71E28CB3A002EBAB7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		1F7091A91E28CB44002EBAB7 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		1F7091AB1E28CB7A002EBAB7 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		1F7091AD1E28CB8B002EBAB7 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
+		1F7091AF1E28D023002EBAB7 /* FTTaPayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaPayViewController.swift; sourceTree = "<group>"; };
 		1F7B30391D7FA36600D0BF56 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1F7EDB021DDEA41D005FD660 /* CHSMeChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMeChatTableViewCell.swift; sourceTree = "<group>"; };
 		1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoForgetPasswordViewController.swift; sourceTree = "<group>"; };
@@ -511,19 +521,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F7091AE1E28CB8B002EBAB7 /* AlipaySDK.framework in Frameworks */,
+				1F7091AC1E28CB7A002EBAB7 /* CoreMotion.framework in Frameworks */,
+				1F9E52891DE5338E00556F31 /* Foundation.framework in Frameworks */,
+				1F9E52871DE5338600556F31 /* CoreGraphics.framework in Frameworks */,
+				1F7091AA1E28CB44002EBAB7 /* CoreText.framework in Frameworks */,
+				1F7091A81E28CB3A002EBAB7 /* QuartzCore.framework in Frameworks */,
 				1F1508051E0BCF6F009F154B /* libc++.tbd in Frameworks */,
 				1F1508031E0BCF5D009F154B /* libsqlite3.0.tbd in Frameworks */,
 				1F9E528F1DE533AB00556F31 /* libz.tbd in Frameworks */,
 				1F1507FD1E0BC2B3009F154B /* libstdc++.tbd in Frameworks */,
 				1F9E52831DE5336E00556F31 /* CoreTelephony.framework in Frameworks */,
 				1F1507FB1E0BC29E009F154B /* libsqlite3.tbd in Frameworks */,
-				1F9E52871DE5338600556F31 /* CoreGraphics.framework in Frameworks */,
 				1F1507F91E0BC280009F154B /* libiconv.tbd in Frameworks */,
 				1F9E52931DE533CE00556F31 /* libresolv.tbd in Frameworks */,
 				1F9E52911DE533C000556F31 /* UserNotifications.framework in Frameworks */,
 				1F9E528D1DE5339F00556F31 /* Security.framework in Frameworks */,
 				1F9E528B1DE5339600556F31 /* UIKit.framework in Frameworks */,
-				1F9E52891DE5338E00556F31 /* Foundation.framework in Frameworks */,
 				1F9E52851DE5337900556F31 /* SystemConfiguration.framework in Frameworks */,
 				1F15080C1E0BD1A3009F154B /* libWeChatSDK.a in Frameworks */,
 				1F9E52811DE5336200556F31 /* CoreFoundation.framework in Frameworks */,
@@ -1065,6 +1079,7 @@
 				1FCFE71A1DE6D54500D5FFA9 /* FTTaCompanyWelfareViewController.swift */,
 				1F8F9E0D1DFF9D74004F1700 /* FTTaChatViewController.swift */,
 				1FCDBD171E1B9946007814A1 /* FTTaEvaluateViewController.swift */,
+				1F7091AF1E28D023002EBAB7 /* FTTaPayViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1321,6 +1336,10 @@
 		7D0BA4E52437BC3903C79784 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F7091AD1E28CB8B002EBAB7 /* AlipaySDK.framework */,
+				1F7091AB1E28CB7A002EBAB7 /* CoreMotion.framework */,
+				1F7091A91E28CB44002EBAB7 /* CoreText.framework */,
+				1F7091A71E28CB3A002EBAB7 /* QuartzCore.framework */,
 				1F1508041E0BCF6F009F154B /* libc++.tbd */,
 				1F1508021E0BCF5D009F154B /* libsqlite3.0.tbd */,
 				1F1507FC1E0BC2B3009F154B /* libstdc++.tbd */,
@@ -1617,6 +1636,7 @@
 				1FB6D5F91D9B9EA700262BBD /* CHSMiMyBlacklistTableViewCell.swift in Sources */,
 				1FDB00241D8FCB4A007043B4 /* CHSMiHomeTableViewCell.swift in Sources */,
 				1FB6D5FC1D9BC31400262BBD /* FTMiMyRewardViewController.swift in Sources */,
+				1F7091B01E28D023002EBAB7 /* FTTaPayViewController.swift in Sources */,
 				1FF1CE1F1DA8C5D1000F0A9A /* FTMeHomeTableViewCell.swift in Sources */,
 				1F4B84E91E08DA5400C968CA /* LoReUserAgreementViewController.swift in Sources */,
 				1FDB001D1D8FB712007043B4 /* CHSReJobExperienceViewController.swift in Sources */,
