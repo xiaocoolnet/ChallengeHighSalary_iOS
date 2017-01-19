@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import AGEmojiKeyboard
 
-class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, AGEmojiKeyboardViewDataSource, AGEmojiKeyboardViewDelegate {
     
     let rootTableView = UITableView(frame: CGRect.zero, style: .grouped)
     
@@ -195,7 +196,7 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
         inputBgView.backgroundColor = UIColor(red: 247/255.0, green: 247/255.0, blue: 247/255.0, alpha: 1)
         self.view.addSubview(inputBgView)
         
-        inputTF.frame = CGRect(x: 8, y: 5, width: screenSize.width-50-24, height: 34)
+        inputTF.frame = CGRect(x: 8, y: 5, width: screenSize.width-50-34-32, height: 34)
         //        inputView.backgroundColor = UIColor.cyan
         inputTF.borderStyle = .roundedRect
         inputTF.returnKeyType = .send
@@ -203,7 +204,12 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
         inputTF.addTarget(self, action: #selector(inputTFEditChanged(textField:)), for: .editingChanged)
         inputBgView.addSubview(inputTF)
         
-        sendBtn.frame = CGRect(x: screenSize.width-50-8, y: 5, width: 50, height: 34)
+        let emoticonsBtn = UIButton(frame: CGRect(x: inputTF.frame.maxX+8, y: 5, width: 34, height: 34))
+        emoticonsBtn.backgroundColor = baseColor
+        emoticonsBtn.addTarget(self, action: #selector(emoticonsBtnClick), for: .touchUpInside)
+        inputBgView.addSubview(emoticonsBtn)
+        
+        sendBtn.frame = CGRect(x: emoticonsBtn.frame.maxX+8, y: 5, width: 50, height: 34)
         sendBtn.backgroundColor = UIColor.lightGray
         sendBtn.layer.cornerRadius = 8
         sendBtn.setTitleColor(UIColor.white, for: .normal)
@@ -219,6 +225,59 @@ class FTMeChatViewController: UIViewController, UITableViewDataSource, UITableVi
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
     }
+    
+    // MARK: - 表情按钮点击事件
+    func emoticonsBtnClick() {
+        let emojiKeyboardView = AGEmojiKeyboardView(frame: CGRect(x: 8, y: 5, width: screenSize.width, height: 216), dataSource: self)
+        emojiKeyboardView?.autoresizingMask = UIViewAutoresizing.flexibleHeight
+//        emojiKeyboardView?.segmentsBar
+        emojiKeyboardView?.delegate = self
+        self.inputTF.inputView = emojiKeyboardView
+        
+        self.inputTF.becomeFirstResponder()
+        
+        //        CGRect keyboardRect = CGRectMake(0, 0, self.view.frame.size.width, 216);
+        //        AGEmojiKeyboardView *emojiKeyboardView = [[AGEmojiKeyboardView alloc] initWithFrame:keyboardRect
+        //            dataSource:self];
+        //        emojiKeyboardView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        //        emojiKeyboardView.delegate = self;
+        //        self.textView.inputView = emojiKeyboardView;
+    }
+    
+    func emojiKeyBoardViewDidPressBackSpace(_ emojiKeyBoardView: AGEmojiKeyboardView!) {
+        
+    }
+    
+    func emojiKeyBoardView(_ emojiKeyBoardView: AGEmojiKeyboardView!, didUseEmoji emoji: String!) {
+        self.inputTF.text = self.inputTF.text?.appending(emoji)
+
+    }
+    
+    func emojiKeyboardView(_ emojiKeyboardView: AGEmojiKeyboardView!, imageForSelectedCategory category: AGEmojiKeyboardViewCategoryImage) -> UIImage! {
+        
+        switch category {
+        case .car:
+            return #imageLiteral(resourceName: "Church")
+        default:
+            return UIImage()
+        }
+        return UIImage()
+    }
+    
+    func emojiKeyboardView(_ emojiKeyboardView: AGEmojiKeyboardView!, imageForNonSelectedCategory category: AGEmojiKeyboardViewCategoryImage) -> UIImage! {
+        
+        switch category {
+        case .recent:
+            return #imageLiteral(resourceName: "Church")
+        default:
+            return UIImage()
+        }
+    }
+    
+    func backSpaceButtonImage(for emojiKeyboardView: AGEmojiKeyboardView!) -> UIImage! {
+        return UIImage()
+    }
+    
     var keyboardheight:CGFloat = 0
     // MARK: - 点击发送按钮
     func sendBtnClick() {

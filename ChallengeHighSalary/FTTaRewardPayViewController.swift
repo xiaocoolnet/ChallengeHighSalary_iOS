@@ -1,27 +1,33 @@
 //
-//  FTTaPayViewController.swift
+//  FTTaRewardPayViewController.swift
 //  ChallengeHighSalary
 //
-//  Created by 高扬 on 2017/1/13.
+//  Created by 高扬 on 2017/1/17.
 //  Copyright © 2017年 北京校酷网络科技公司. All rights reserved.
 //
 
 import UIKit
 
-class FTTaPayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FTTaRewardPayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    var count = 0
+    var money = 0
+    var redType = ""
+    var validity = ""
     
     let rootTableView = UITableView()
     
-    let nameArray = [["12个月 360元","6个月 200元","3个月 120元","单次购买 10元"],["支付宝支付","微信支付"]]
-    let imageArray = [[nil,nil,nil,nil],[#imageLiteral(resourceName: "ic_支付宝"),#imageLiteral(resourceName: "ic_微信")]]
-    var selectedArray = [[true,false,false,false],[true,false]]
-
+    var nameArray = [[String]]()
+    let imageArray = [[nil],[#imageLiteral(resourceName: "ic_支付宝"),#imageLiteral(resourceName: "ic_微信")]]
+    var selectedArray = [[true],[true,false]]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         
+        nameArray = [["\(count)个*\(money)元 \(count*money)元"],["支付宝支付","微信支付"]]
         self.setSubviews()
     }
     
@@ -68,18 +74,18 @@ class FTTaPayViewController: UIViewController, UITableViewDataSource, UITableVie
         
         setHeaderView()
         
-        let openingBtn = UIButton(frame: CGRect(x: 0, y: screenSize.height-44, width: screenSize.width, height: 44))
-        openingBtn.backgroundColor = baseColor
-        openingBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        openingBtn.setTitleColor(UIColor.white, for: UIControlState())
-        openingBtn.setTitle("立即开通", for: UIControlState())
-        openingBtn.addTarget(self, action: #selector(openingBtnClick), for: .touchUpInside)
-        self.view.addSubview(openingBtn)
+        let payBtn = UIButton(frame: CGRect(x: 0, y: screenSize.height-44, width: screenSize.width, height: 44))
+        payBtn.backgroundColor = baseColor
+        payBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        payBtn.setTitleColor(UIColor.white, for: UIControlState())
+        payBtn.setTitle("立即支付", for: UIControlState())
+        payBtn.addTarget(self, action: #selector(payBtnClick), for: .touchUpInside)
+        self.view.addSubview(payBtn)
     }
     
-    // MARK: - 点击立即开通按钮
-    func openingBtnClick() {
-        print("点击立即开通按钮")
+    // MARK: - 点击立即支付按钮
+    func payBtnClick() {
+        print("点击立即支付按钮")
         
         for (i,selectedArr) in selectedArray.enumerated() {
             for (j,selected) in selectedArr.enumerated() {
@@ -111,7 +117,7 @@ class FTTaPayViewController: UIViewController, UITableViewDataSource, UITableVie
         let jobLab = UILabel(frame: CGRect(x: nameLab.frame.minX, y: nameLab.frame.maxY+8, width: screenSize.width-(nameLab.frame.minX)-10, height: UIFont.systemFont(ofSize: 14).lineHeight))
         jobLab.font = UIFont.systemFont(ofSize: 14)
         jobLab.textColor = UIColor.lightGray
-        jobLab.text = "开通会员查看人才更多信息"
+        jobLab.text = "发放红包吸引更多人才"
         
         headerView.addSubview(jobLab)
         
@@ -167,7 +173,7 @@ class FTTaPayViewController: UIViewController, UITableViewDataSource, UITableVie
         
         
         if section == 0 {
-            headerLab.text = "会员套餐"
+            headerLab.text = "支付详情(\(redType) 有效期：\(validity)天)"
         }else{
             headerLab.text = "支付方式"
         }
@@ -179,16 +185,13 @@ class FTTaPayViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.section == 0 {
-            self.selectedArray[indexPath.section] = [false,false,false,false]
-            self.selectedArray[indexPath.section][indexPath.row] = true
-        }else{
+        if indexPath.section == 1 {
             self.selectedArray[indexPath.section] = [false,false]
             self.selectedArray[indexPath.section][indexPath.row] = true
         }
         
         self.rootTableView.reloadData()
-
+        
     }
     
     override func didReceiveMemoryWarning() {

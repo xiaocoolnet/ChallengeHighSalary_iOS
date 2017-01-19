@@ -215,7 +215,17 @@ class FTPersonalViewController: UIViewController {
     
     // MARK: - 在抢企业等按钮点击事件
     func toolBtnClick(toolBtn:UIButton) {
-        self.navigationController?.pushViewController(FTTaEvaluateViewController(), animated: true)
+        switch toolBtn.tag {
+        case 1000:
+            self.navigationController?.pushViewController(FTTaGrabAttentionCompanyViewController(), animated: true)
+        case 1001:
+            self.navigationController?.pushViewController(FTTaGrabAttentionCompanyViewController(), animated: true)
+        case 1002:
+            self.navigationController?.pushViewController(FTTaEvaluateViewController(), animated: true)
+
+        default:
+            break
+        }
     }
     
     // MARK: - 设置个人信息
@@ -768,9 +778,9 @@ class FTPersonalViewController: UIViewController {
         
         payBtn.superview?.superview?.removeFromSuperview()
 
-        self.navigationController?.pushViewController(FTTaPayViewController(), animated: true)
+//        self.navigationController?.pushViewController(FTTaPayViewController(), animated: true)
         
-//        self.setSubviews_alreadyPay()
+        self.setSubviews_alreadyPay()
     }
     
     // MARK: - 和他聊聊按钮 点击事件

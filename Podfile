@@ -15,6 +15,7 @@ target 'ChallengeHighSalary' do
   pod 'AMapSearch'
   pod 'Bugtags'
   pod 'TZImagePickerController'
+  pod 'AGEmojiKeyboard'
 
   post_install do |installer|
       installer.pods_project.targets.each do |target|

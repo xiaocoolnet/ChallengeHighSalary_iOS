@@ -41,6 +41,7 @@
 		1F2E7AE11DF55A2100477D83 /* FTMiCompanyAuthInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E7AE01DF55A2100477D83 /* FTMiCompanyAuthInfoViewController.swift */; };
 		1F31935A1DB47C5F004B264F /* FTMiMyCompanyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3193591DB47C5F004B264F /* FTMiMyCompanyInfoViewController.swift */; };
 		1F35F0AF1DC9EA02009858A9 /* CHSMeHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F35F0AE1DC9EA02009858A9 /* CHSMeHomeTableViewCell.xib */; };
+		1F3FA63C1E2F6B4100028F7D /* GYCustomEmoticonsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3FA63B1E2F6B4100028F7D /* GYCustomEmoticonsViewController.swift */; };
 		1F482B891D7FBD630079A62B /* ChChCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F482B881D7FBD630079A62B /* ChChCityViewController.swift */; };
 		1F482B8C1D7FBE400079A62B /* citydict.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F482B8B1D7FBE400079A62B /* citydict.plist */; };
 		1F482B8F1D7FE9C80079A62B /* ChChCityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F482B8D1D7FE9C80079A62B /* ChChCityTableViewCell.swift */; };
@@ -55,6 +56,7 @@
 		1F4FD2671D76C01D00FF7040 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F4FD2621D76C01D00FF7040 /* FontAwesome.ttf */; };
 		1F4FD2681D76C01D00FF7040 /* UIColor+BButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4FD2641D76C01D00FF7040 /* UIColor+BButton.m */; };
 		1F4FDD211DE7CE9F008B17F7 /* FTMiCompanyAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4FDD201DE7CE9F008B17F7 /* FTMiCompanyAuthViewController.swift */; };
+		1F55FC631E2F4CF500360FFC /* FTTaGrabAttentionCompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F55FC621E2F4CF500360FFC /* FTTaGrabAttentionCompanyViewController.swift */; };
 		1F577B0E1DA9E29B00AB5D99 /* FTMeResumeNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B0D1DA9E29B00AB5D99 /* FTMeResumeNotificationViewController.swift */; };
 		1F577B111DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F577B0F1DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.swift */; };
 		1F577B121DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F577B101DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.xib */; };
@@ -85,6 +87,7 @@
 		1F7091AE1E28CB8B002EBAB7 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7091AD1E28CB8B002EBAB7 /* AlipaySDK.framework */; };
 		1F7091B01E28D023002EBAB7 /* FTTaPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7091AF1E28D023002EBAB7 /* FTTaPayViewController.swift */; };
 		1F7B303A1D7FA36600D0BF56 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7B30391D7FA36600D0BF56 /* MapKit.framework */; };
+		1F7C74241E2DFFF700861540 /* FTTaRewardPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C74231E2DFFF700861540 /* FTTaRewardPayViewController.swift */; };
 		1F7EDB031DDEA41D005FD660 /* CHSMeChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7EDB021DDEA41D005FD660 /* CHSMeChatTableViewCell.swift */; };
 		1F87411B1D82AF47007B8793 /* LoForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */; };
 		1F87411D1D82C22B007B8793 /* LoRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */; };
@@ -132,6 +135,8 @@
 		1FC3CCB81D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCB71D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift */; };
 		1FC3CCBA1D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCB91D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift */; };
 		1FC3CCBC1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3CCBB1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift */; };
+		1FC593C91E2DBC2B00DED1F9 /* FTTaPayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC593C81E2DBC2B00DED1F9 /* FTTaPayTableViewCell.swift */; };
+		1FC593CB1E2DC97400DED1F9 /* FTTaRewardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC593CA1E2DC97400DED1F9 /* FTTaRewardViewController.swift */; };
 		1FCC2FDF1DB607C0002360E4 /* FTPersonalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCC2FDE1DB607C0002360E4 /* FTPersonalViewController.swift */; };
 		1FCCC5951DADE72A0065A799 /* CHSReChoosePositionTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC5941DADE72A0065A799 /* CHSReChoosePositionTypeViewController.swift */; };
 		1FCCC5971DADE73C0065A799 /* CHSReChoosePositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCCC5961DADE73C0065A799 /* CHSReChoosePositionViewController.swift */; };
@@ -297,6 +302,7 @@
 		1F3193591DB47C5F004B264F /* FTMiMyCompanyInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiMyCompanyInfoViewController.swift; sourceTree = "<group>"; };
 		1F33D77A1D7587370028444A /* ChallengeHighSalary-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChallengeHighSalary-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F35F0AE1DC9EA02009858A9 /* CHSMeHomeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSMeHomeTableViewCell.xib; sourceTree = "<group>"; };
+		1F3FA63B1E2F6B4100028F7D /* GYCustomEmoticonsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GYCustomEmoticonsViewController.swift; sourceTree = "<group>"; };
 		1F482B881D7FBD630079A62B /* ChChCityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChCityViewController.swift; sourceTree = "<group>"; };
 		1F482B8B1D7FBE400079A62B /* citydict.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = citydict.plist; sourceTree = "<group>"; };
 		1F482B8D1D7FE9C80079A62B /* ChChCityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChCityTableViewCell.swift; sourceTree = "<group>"; };
@@ -315,6 +321,7 @@
 		1F4FD2631D76C01D00FF7040 /* UIColor+BButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+BButton.h"; sourceTree = "<group>"; };
 		1F4FD2641D76C01D00FF7040 /* UIColor+BButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+BButton.m"; sourceTree = "<group>"; };
 		1F4FDD201DE7CE9F008B17F7 /* FTMiCompanyAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiCompanyAuthViewController.swift; sourceTree = "<group>"; };
+		1F55FC621E2F4CF500360FFC /* FTTaGrabAttentionCompanyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaGrabAttentionCompanyViewController.swift; sourceTree = "<group>"; };
 		1F577B0D1DA9E29B00AB5D99 /* FTMeResumeNotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeResumeNotificationViewController.swift; sourceTree = "<group>"; };
 		1F577B0F1DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMeResumeNotificationTableViewCell.swift; sourceTree = "<group>"; };
 		1F577B101DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FTMeResumeNotificationTableViewCell.xib; sourceTree = "<group>"; };
@@ -345,6 +352,7 @@
 		1F7091AD1E28CB8B002EBAB7 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		1F7091AF1E28D023002EBAB7 /* FTTaPayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaPayViewController.swift; sourceTree = "<group>"; };
 		1F7B30391D7FA36600D0BF56 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		1F7C74231E2DFFF700861540 /* FTTaRewardPayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaRewardPayViewController.swift; sourceTree = "<group>"; };
 		1F7EDB021DDEA41D005FD660 /* CHSMeChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMeChatTableViewCell.swift; sourceTree = "<group>"; };
 		1F87411A1D82AF47007B8793 /* LoForgetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoForgetPasswordViewController.swift; sourceTree = "<group>"; };
 		1F87411C1D82C22B007B8793 /* LoRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoRegisterViewController.swift; sourceTree = "<group>"; };
@@ -395,6 +403,8 @@
 		1FC3CCB71D9CE9B6004AA4C6 /* FTTaChoosePositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaChoosePositionViewController.swift; sourceTree = "<group>"; };
 		1FC3CCB91D9CF78F004AA4C6 /* FTTaPositionNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaPositionNameViewController.swift; sourceTree = "<group>"; };
 		1FC3CCBB1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaSkillRequiredViewController.swift; sourceTree = "<group>"; };
+		1FC593C81E2DBC2B00DED1F9 /* FTTaPayTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaPayTableViewCell.swift; sourceTree = "<group>"; };
+		1FC593CA1E2DC97400DED1F9 /* FTTaRewardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTTaRewardViewController.swift; sourceTree = "<group>"; };
 		1FCC2FDE1DB607C0002360E4 /* FTPersonalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTPersonalViewController.swift; sourceTree = "<group>"; };
 		1FCCC5941DADE72A0065A799 /* CHSReChoosePositionTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReChoosePositionTypeViewController.swift; sourceTree = "<group>"; };
 		1FCCC5961DADE73C0065A799 /* CHSReChoosePositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSReChoosePositionViewController.swift; sourceTree = "<group>"; };
@@ -975,6 +985,7 @@
 				1F081C3B1DD161A90030444F /* NetUtil.swift */,
 				1F1508001E0BCC69009F154B /* qqApiDelegate.swift */,
 				1F15080E1E0BD2B7009F154B /* weixinDelegate.swift */,
+				1F3FA63B1E2F6B4100028F7D /* GYCustomEmoticonsViewController.swift */,
 			);
 			name = "Tool(工具)";
 			sourceTree = "<group>";
@@ -1065,6 +1076,7 @@
 		1FEF80991D810A1500486F9C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1F55FC621E2F4CF500360FFC /* FTTaGrabAttentionCompanyViewController.swift */,
 				1F14AF421D93CD0A00456A80 /* FTTaRetrievalViewController.swift */,
 				1FEF809C1D810A4D00486F9C /* FTTaHomeViewController.swift */,
 				1FB311521D96615400217DDA /* FTTaPositionViewController.swift */,
@@ -1080,6 +1092,8 @@
 				1F8F9E0D1DFF9D74004F1700 /* FTTaChatViewController.swift */,
 				1FCDBD171E1B9946007814A1 /* FTTaEvaluateViewController.swift */,
 				1F7091AF1E28D023002EBAB7 /* FTTaPayViewController.swift */,
+				1FC593CA1E2DC97400DED1F9 /* FTTaRewardViewController.swift */,
+				1F7C74231E2DFFF700861540 /* FTTaRewardPayViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1132,6 +1146,7 @@
 				1FCDBD201E1BA01E007814A1 /* FTTaInterviewEvaHeaderTableViewCell.xib */,
 				1F1787E31E1DD08C005E73CD /* FTTaInterEvaTableViewCell.swift */,
 				1F1787E41E1DD08C005E73CD /* FTTaInterEvaTableViewCell.xib */,
+				1FC593C81E2DBC2B00DED1F9 /* FTTaPayTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1640,6 +1655,7 @@
 				1FF1CE1F1DA8C5D1000F0A9A /* FTMeHomeTableViewCell.swift in Sources */,
 				1F4B84E91E08DA5400C968CA /* LoReUserAgreementViewController.swift in Sources */,
 				1FDB001D1D8FB712007043B4 /* CHSReJobExperienceViewController.swift in Sources */,
+				1FC593C91E2DBC2B00DED1F9 /* FTTaPayTableViewCell.swift in Sources */,
 				1F7EDB031DDEA41D005FD660 /* CHSMeChatTableViewCell.swift in Sources */,
 				1FF06CC01D7D17960032943B /* ChChHomeViewController.swift in Sources */,
 				1FC3CCA41D9CA055004AA4C6 /* FTMiMyInterviewInvitationViewController.swift in Sources */,
@@ -1676,10 +1692,12 @@
 				1F1507F31E0B62D0009F154B /* CHSWelcomeViewController.swift in Sources */,
 				1FF3C6A11D9269F70069DD23 /* CHSMiMyDeliveryRecordViewController.swift in Sources */,
 				1FF06CD91D7D609A0032943B /* DropDownCell.swift in Sources */,
+				1F55FC631E2F4CF500360FFC /* FTTaGrabAttentionCompanyViewController.swift in Sources */,
 				1FDB001B1D8FB0EE007043B4 /* CHSChCompanyPositionListViewController.swift in Sources */,
 				644986C51E2327F80060DB3E /* ChChResultViewController.swift in Sources */,
 				1FDA44D71E02870C00DB1D99 /* FTMeChatSettingViewController.swift in Sources */,
 				1F14AF431D93CD0A00456A80 /* FTTaRetrievalViewController.swift in Sources */,
+				1F3FA63C1E2F6B4100028F7D /* GYCustomEmoticonsViewController.swift in Sources */,
 				1FDB00181D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift in Sources */,
 				1F577B141DA9E7C600AB5D99 /* FTMeCollectionMeViewController.swift in Sources */,
 				1F4B84EC1E09086C00C968CA /* MBProgressHUD.m in Sources */,
@@ -1694,6 +1712,7 @@
 				1FD697731DB0CC22008D0A14 /* LoReCHSEduExperienceViewController.swift in Sources */,
 				1FF06CD41D7D609A0032943B /* DPDUIView+Extension.swift in Sources */,
 				1FB6D5F61D9B9E1900262BBD /* CHSMiMyBlacklistViewController.swift in Sources */,
+				1FC593CB1E2DC97400DED1F9 /* FTTaRewardViewController.swift in Sources */,
 				1F1224D71D979CA60094C6CE /* CHSRePreviewViewController.swift in Sources */,
 				1F482B891D7FBD630079A62B /* ChChCityViewController.swift in Sources */,
 				1FF06CDD1D7D6D970032943B /* ChChFindJobTableViewCell.swift in Sources */,
@@ -1760,6 +1779,7 @@
 				1FEC4A371DB8C7AE004A0FC1 /* PublicNetUtil.swift in Sources */,
 				649524651E1C979A0052AC0A /* EvaluateView.swift in Sources */,
 				1F4FDD211DE7CE9F008B17F7 /* FTMiCompanyAuthViewController.swift in Sources */,
+				1F7C74241E2DFFF700861540 /* FTTaRewardPayViewController.swift in Sources */,
 				1FFECEB51DB9C3CB0039BFF3 /* CHSMiChangeIdentityViewController.swift in Sources */,
 				1FCDFEC01D73E6DB0067970B /* AppDelegate.swift in Sources */,
 				1FCDBD181E1B9946007814A1 /* FTTaEvaluateViewController.swift in Sources */,
