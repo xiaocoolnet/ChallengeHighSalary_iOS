@@ -26,7 +26,9 @@ var typeNum = 1
 let baseColor = UIColor(red: 105/255.0, green: 216/255.0, blue: 147/255.0, alpha: 1)
 
 //MARK:- 网络数据
-let kDomainName = "http://app.nzrc.cn/"
+//let kDomainName = "http://app.nzrc.cn/"
+let kDomainName = "http://nyjob.xiaocool.net/"
+
 let kPortPrefix = "\(kDomainName)index.php?g=apps&m=index&a="
 let kImagePrefix = "\(kDomainName)/uploads/microblog/"
 

@@ -41,7 +41,6 @@
 		1F2E7AE11DF55A2100477D83 /* FTMiCompanyAuthInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E7AE01DF55A2100477D83 /* FTMiCompanyAuthInfoViewController.swift */; };
 		1F31935A1DB47C5F004B264F /* FTMiMyCompanyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3193591DB47C5F004B264F /* FTMiMyCompanyInfoViewController.swift */; };
 		1F35F0AF1DC9EA02009858A9 /* CHSMeHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F35F0AE1DC9EA02009858A9 /* CHSMeHomeTableViewCell.xib */; };
-		1F3FA63C1E2F6B4100028F7D /* GYCustomEmoticonsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3FA63B1E2F6B4100028F7D /* GYCustomEmoticonsViewController.swift */; };
 		1F482B891D7FBD630079A62B /* ChChCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F482B881D7FBD630079A62B /* ChChCityViewController.swift */; };
 		1F482B8C1D7FBE400079A62B /* citydict.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F482B8B1D7FBE400079A62B /* citydict.plist */; };
 		1F482B8F1D7FE9C80079A62B /* ChChCityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F482B8D1D7FE9C80079A62B /* ChChCityTableViewCell.swift */; };
@@ -302,7 +301,6 @@
 		1F3193591DB47C5F004B264F /* FTMiMyCompanyInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTMiMyCompanyInfoViewController.swift; sourceTree = "<group>"; };
 		1F33D77A1D7587370028444A /* ChallengeHighSalary-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChallengeHighSalary-Bridging-Header.h"; sourceTree = "<group>"; };
 		1F35F0AE1DC9EA02009858A9 /* CHSMeHomeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSMeHomeTableViewCell.xib; sourceTree = "<group>"; };
-		1F3FA63B1E2F6B4100028F7D /* GYCustomEmoticonsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GYCustomEmoticonsViewController.swift; sourceTree = "<group>"; };
 		1F482B881D7FBD630079A62B /* ChChCityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChCityViewController.swift; sourceTree = "<group>"; };
 		1F482B8B1D7FBE400079A62B /* citydict.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = citydict.plist; sourceTree = "<group>"; };
 		1F482B8D1D7FE9C80079A62B /* ChChCityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChChCityTableViewCell.swift; sourceTree = "<group>"; };
@@ -985,7 +983,6 @@
 				1F081C3B1DD161A90030444F /* NetUtil.swift */,
 				1F1508001E0BCC69009F154B /* qqApiDelegate.swift */,
 				1F15080E1E0BD2B7009F154B /* weixinDelegate.swift */,
-				1F3FA63B1E2F6B4100028F7D /* GYCustomEmoticonsViewController.swift */,
 			);
 			name = "Tool(工具)";
 			sourceTree = "<group>";
@@ -1697,7 +1694,6 @@
 				644986C51E2327F80060DB3E /* ChChResultViewController.swift in Sources */,
 				1FDA44D71E02870C00DB1D99 /* FTMeChatSettingViewController.swift in Sources */,
 				1F14AF431D93CD0A00456A80 /* FTTaRetrievalViewController.swift in Sources */,
-				1F3FA63C1E2F6B4100028F7D /* GYCustomEmoticonsViewController.swift in Sources */,
 				1FDB00181D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift in Sources */,
 				1F577B141DA9E7C600AB5D99 /* FTMeCollectionMeViewController.swift in Sources */,
 				1F4B84EC1E09086C00C968CA /* MBProgressHUD.m in Sources */,
