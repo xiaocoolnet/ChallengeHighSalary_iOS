@@ -8,12 +8,12 @@
 
 import UIKit
 
-class FTTaRewardPayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FTTaRewardPayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate {
     
     var count = 0
     var money = 0
-    var redType = ""
-    var validity = ""
+    var red_type = ""
+    var validity = 0
     
     let rootTableView = UITableView()
     
@@ -94,6 +94,97 @@ class FTTaRewardPayViewController: UIViewController, UITableViewDataSource, UITa
                 }
             }
         }
+        
+        if selectedArray[1][0] == true {
+            doAlipayPay()
+        }
+    }
+    
+    // 支付宝支付
+    func doAlipayPay() {
+        
+        //将商品信息赋予AlixPayOrder的成员变量
+        let order = Order()
+        
+        // NOTE: app_id设置
+        order.app_id = alipay_app_id
+        
+        // NOTE: 支付接口名称
+        order.method = "alipay.trade.app.pay"
+        
+        // NOTE: 参数编码格式
+        order.charset = "utf-8"
+        
+        order.notify_url = alipay_notify_url
+        
+        // NOTE: 当前时间点
+        let formatter = DateFormatter()
+        formatter.date(from: "yyyy-MM-dd HH:mm:ss")
+        order.timestamp = formatter.string(from: Date())
+        
+        // NOTE: 支付版本
+        order.version = "1.0"
+        
+        // NOTE: sign_type设置
+        order.sign_type = "RSA"
+        
+        // NOTE: 商品数据
+        order.biz_content = BizContent()
+        order.biz_content.body = "\(money)元 * \(count)个"
+        order.biz_content.subject = red_type
+        order.biz_content.out_trade_no = self.generateTradeNO()//订单ID（由商家自行制定）
+        order.biz_content.timeout_express = "30m" //超时时间设置
+        order.biz_content.total_amount = String(format: "%.2f", count*money) //商品价格
+        
+        
+        //将商品信息拼接成字符串
+        let orderInfo = order.orderInfoEncoded(false)
+        let orderInfoEncoded = order.orderInfoEncoded(true)
+        print("orderSpec = \(orderInfo)")
+        
+        // NOTE: 获取私钥并将商户信息签名，外部商户的加签过程请务必放在服务端，防止公私钥数据泄露；
+        //       需要遵循RSA签名规范，并将签名字符串base64编码和UrlEncode
+        
+        let privateKey = alipay_privateKey
+        let signer = RSADataSigner(privateKey: privateKey)
+        let signedString = signer?.sign(orderInfo, withRSA2: false)
+        
+        // NOTE: 如果加签成功，则继续执行支付
+        if (signedString != nil) {
+            //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
+            let appScheme = "ChallengeHighSalary"
+            
+            // NOTE: 将签名成功字符串格式化为订单字符串,请严格按照该格式
+            let orderString = "\(orderInfoEncoded!)&sign=\(signedString!)"
+//            ( [NSString stringWithFormat:@"%@&sign=%@", orderInfoEncoded, signedString];
+            
+            
+            // NOTE: 调用支付结果开始支付
+            AlipaySDK.defaultService().payOrder(orderString, fromScheme: appScheme, callback: { (resultDic) in
+                print("reslut = \(resultDic)")
+            })
+
+        }
+    }
+    
+    
+    func generateTradeNO() -> String
+    {
+        let kNumber = 15
+        
+        let sourceStr = NSString(string: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        var resultStr = ""
+        arc4random()
+        for _ in 0 ..< kNumber {
+            
+            let index = Int(arc4random()) % sourceStr.length
+            
+            let oneStr = sourceStr.substring(with: NSMakeRange(index, 1))
+            resultStr.append(oneStr)
+            
+        }
+
+        return resultStr
     }
     
     // MARK:- 设置tableview 头视图
@@ -143,18 +234,25 @@ class FTTaRewardPayViewController: UIViewController, UITableViewDataSource, UITa
         
         cell.selectionStyle = .none
         
-        let str = nameArray[indexPath.section][indexPath.row]
-        
-        let nsStr = NSString(string: str)
-        let attStr = NSMutableAttributedString(string: str)
-        
-        if str.contains(" ") {
+        if indexPath.section == 0 {
             
-            attStr.addAttributes([NSForegroundColorAttributeName: UIColor.orange], range: NSMakeRange(nsStr.range(of: " ").location, nsStr.length-nsStr.range(of: " ").location))
+            let str = red_type+"："+nameArray[indexPath.section][indexPath.row]
+            
+            let nsStr = NSString(string: str)
+            let attStr = NSMutableAttributedString(string: str)
+            
+            if str.contains(" ") {
+                
+                attStr.addAttributes([NSForegroundColorAttributeName: UIColor.orange], range: NSMakeRange(nsStr.range(of: " ").location, nsStr.length-nsStr.range(of: " ").location))
+            }
+            
+            cell.setInfo(with: imageArray[indexPath.section][indexPath.row], text: attStr, selectedDot: selectedArray[indexPath.section][indexPath.row])
+        }else{
+            
+            let str = nameArray[indexPath.section][indexPath.row]
+            
+            cell.setInfo(with: imageArray[indexPath.section][indexPath.row], text: NSMutableAttributedString(string: str), selectedDot: selectedArray[indexPath.section][indexPath.row])
         }
-        
-        cell.setInfo(with: imageArray[indexPath.section][indexPath.row], text: attStr, selectedDot: selectedArray[indexPath.section][indexPath.row])
-        
         
         return cell
     }
@@ -173,7 +271,7 @@ class FTTaRewardPayViewController: UIViewController, UITableViewDataSource, UITa
         
         
         if section == 0 {
-            headerLab.text = "支付详情(\(redType) 有效期：\(validity)天)"
+            headerLab.text = "支付详情(有效期：\(validity)天)"
         }else{
             headerLab.text = "支付方式"
         }

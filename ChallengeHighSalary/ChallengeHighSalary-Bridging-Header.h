@@ -44,6 +44,8 @@
 /********* 支付宝 **********/
 
 #import <AlipaySDK/AlipaySDK.h>
+#import "Order.h"
+#import "RSADataSigner.h"
 
 /**************************/
 

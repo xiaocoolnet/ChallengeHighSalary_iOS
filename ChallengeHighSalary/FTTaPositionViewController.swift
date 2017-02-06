@@ -100,7 +100,7 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         hud.removeFromSuperViewOnHide = true
         hud.margin = 10
         
-        PublicNetUtil.getDictionaryList(parentid: "52") { (success, response) in
+        PublicNetUtil.getDictionaryList(parentid: "9") { (success, response) in
             if success {
                 
                 let dicData = response as! [DicDataModel]
@@ -108,20 +108,20 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
                 for dic in dicData {
                     self.pickExpRequiredArray.append((dic.name ?? "")!)
                 }
-                
-                flag += 1
-                if flag >= 2 {
-                    hud.hide(animated: true)
-                }
-                
             }else{
                 
-                self.loadNetData()
+                // self.loadNetData()
                
             }
+            
+            flag += 1
+            if flag >= 2 {
+                hud.hide(animated: true)
+            }
+            
         }
         
-        PublicNetUtil.getDictionaryList(parentid: "60") { (success, response) in
+        PublicNetUtil.getDictionaryList(parentid: "15") { (success, response) in
             if success {
                 hud.hide(animated: true)
                 let dicData = response as! [DicDataModel]
@@ -129,17 +129,17 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
                 for dic in dicData {
                     self.pickEduRequiredArray.append((dic.name ?? "")!)
                 }
-                
-                flag += 1
-                if flag >= 2 {
-                    hud.hide(animated: true)
-                }
-                
             }else{
                 
-                self.loadNetData()
+                // self.loadNetData()
 
             }
+            
+            flag += 1
+            if flag >= 2 {
+                hud.hide(animated: true)
+            }
+            
         }
         
     }
@@ -179,6 +179,13 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
     
     // MARK: 发布职位按钮 点击事件
     func postPositionBtnClick() {
+        let rewardPayController = FTTaRewardPayViewController()
+        rewardPayController.count = redCount
+        rewardPayController.money = redMoney
+        rewardPayController.validity = redValidity
+        rewardPayController.redType = redType
+        self.navigationController?.pushViewController(rewardPayController, animated: true)
+        return
         
         let checkCodeHud = MBProgressHUD.showAdded(to: self.view, animated: true)
         checkCodeHud.removeFromSuperViewOnHide = true
@@ -199,6 +206,17 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
             checkCodeHud.mode = .text
             checkCodeHud.label.text = "请完善职位信息"
             checkCodeHud.hide(animated: true, afterDelay: 1)
+        }else if selectedNameArray[4][0] != "悬赏招聘" {
+            
+            checkCodeHud.hide(animated: true)
+
+            let rewardPayController = FTTaRewardPayViewController()
+            rewardPayController.count = redCount
+            rewardPayController.money = redMoney
+            rewardPayController.validity = redValidity
+            rewardPayController.redType = redType
+            self.navigationController?.pushViewController(rewardPayController, animated: true)
+            
         }else{
             
             checkCodeHud.label.text = "正在发布职位"

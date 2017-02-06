@@ -18,6 +18,7 @@ class FTTaRewardViewController: UIViewController, UITextFieldDelegate {
     let redEnvelopeBtn2 = UIButton()
     let redEnvelopeBtn3 = UIButton()
     
+    var redTypeArray = ["职位红包","面试红包","就职红包"]
     var selectedArray = [true,false,false]
     
     override func viewDidLoad() {
@@ -68,6 +69,7 @@ class FTTaRewardViewController: UIViewController, UITextFieldDelegate {
         moneyTF.placeholder = "填写金额"
         moneyTF.font = UIFont.systemFont(ofSize: 16)
         moneyTF.textAlignment = .right
+        moneyTF.text = redMoney == 0 ? "":String(redMoney)
         moneyBgView.addSubview(moneyTF)
         
         let moneyUnitLab = UILabel(frame: CGRect(x: moneyTF.frame.maxX+8, y: 0, width: calculateWidth("元", size: 16, height: 44), height: 44))
@@ -98,6 +100,7 @@ class FTTaRewardViewController: UIViewController, UITextFieldDelegate {
         countTF.placeholder = "填写个数"
         countTF.font = UIFont.systemFont(ofSize: 16)
         countTF.textAlignment = .right
+        countTF.text = redCount == 0 ? "":String(redCount)
         countBgView.addSubview(countTF)
         
         let countUnitLab = UILabel(frame: CGRect(x: countTF.frame.maxX+8, y: 0, width: calculateWidth("个", size: 16, height: 44), height: 44))
@@ -128,6 +131,8 @@ class FTTaRewardViewController: UIViewController, UITextFieldDelegate {
         validityTF.placeholder = "填写有效期"
         validityTF.font = UIFont.systemFont(ofSize: 16)
         validityTF.textAlignment = .right
+        validityTF.text = redValidity == 0 ? "":String(redValidity)
+
         validityBgView.addSubview(validityTF)
         
         let validityUnitLab = UILabel(frame: CGRect(x: validityTF.frame.maxX+8, y: 0, width: calculateWidth("天", size: 16, height: 44), height: 44))
@@ -154,7 +159,7 @@ class FTTaRewardViewController: UIViewController, UITextFieldDelegate {
         // 职位红包
         let redEnvelopeTag1 = UILabel()
         redEnvelopeTag1.font = UIFont.systemFont(ofSize: 16)
-        redEnvelopeTag1.text = "职位红包"
+        redEnvelopeTag1.text = redTypeArray[0]
         redEnvelopeTag1.sizeToFit()
         redEnvelopeTag1.frame.origin = CGPoint(x: 8, y: 44+22-moneyTagLab.frame.height/2.0)
         typeBgView.addSubview(redEnvelopeTag1)
@@ -170,7 +175,7 @@ class FTTaRewardViewController: UIViewController, UITextFieldDelegate {
         // 面试红包
         let redEnvelopeTag2 = UILabel()
         redEnvelopeTag2.font = UIFont.systemFont(ofSize: 16)
-        redEnvelopeTag2.text = "面试红包"
+        redEnvelopeTag2.text = redTypeArray[1]
         redEnvelopeTag2.sizeToFit()
         redEnvelopeTag2.frame.origin = CGPoint(x: 8, y: 88+22-moneyTagLab.frame.height/2.0)
         typeBgView.addSubview(redEnvelopeTag2)
@@ -186,7 +191,7 @@ class FTTaRewardViewController: UIViewController, UITextFieldDelegate {
         // 就职红包
         let redEnvelopeTag3 = UILabel()
         redEnvelopeTag3.font = UIFont.systemFont(ofSize: 16)
-        redEnvelopeTag3.text = "就职红包"
+        redEnvelopeTag3.text = redTypeArray[2]
         redEnvelopeTag3.sizeToFit()
         redEnvelopeTag3.frame.origin = CGPoint(x: 8, y: 132+22-moneyTagLab.frame.height/2.0)
         typeBgView.addSubview(redEnvelopeTag3)
@@ -206,6 +211,15 @@ class FTTaRewardViewController: UIViewController, UITextFieldDelegate {
         rootScrollView.addSubview(sureBtn)
         
         rootScrollView.contentSize = CGSize(width: 0, height: sureBtn.frame.maxY+20)
+        
+        for (i,subRedType) in redTypeArray.enumerated() {
+            if redType == subRedType {
+                self.selectedArray = [false,false,false]
+
+                self.selectedArray[i] = true
+                break
+            }
+        }
         
         redEnvelopeBtn1.isSelected = self.selectedArray[0]
         redEnvelopeBtn2.isSelected = self.selectedArray[1]
@@ -262,23 +276,39 @@ class FTTaRewardViewController: UIViewController, UITextFieldDelegate {
         print("红包有效期：\(validityTF.text!) 天")
         
         let typeArray = ["职位红包","面试红包","就职红包"]
-        for (i,selected) in self.selectedArray.enumerated() {
-            if selected {
-                
-                let rewardPayController = FTTaRewardPayViewController()
-                rewardPayController.count = NSString(string: countTF.text!).integerValue
-                rewardPayController.money = NSString(string: moneyTF.text!).integerValue
-                rewardPayController.validity = validityTF.text!
-                rewardPayController.redType = typeArray[i]
-                self.navigationController?.pushViewController(rewardPayController, animated: true)
-                
-                print("红包类型：\(typeArray[i])")
-                break
+        
+        if moneyTF.text == "0" || countTF.text == "0" {
+            redCount = 0
+            redMoney = 0
+            redValidity = 0
+            redType = ""
+            
+            var FTPublishJobSelectedNameArray = UserDefaults.standard.array(forKey: FTPublishJobSelectedNameArray_key) as! [Array<String>]
+            FTPublishJobSelectedNameArray[4][0] = "悬赏招聘"
+            UserDefaults.standard.setValue(FTPublishJobSelectedNameArray, forKey: FTPublishJobSelectedNameArray_key)
+            
+            _ = self.navigationController?.popViewController(animated: true)
+        }else{
+            
+            for (i,selected) in self.selectedArray.enumerated() {
+                if selected {
+                    
+                    redCount = NSString(string: countTF.text!).integerValue
+                    redMoney = NSString(string: moneyTF.text!).integerValue
+                    redValidity = NSString(string: validityTF.text!).integerValue
+                    redType = typeArray[i]
+                    
+                    var FTPublishJobSelectedNameArray = UserDefaults.standard.array(forKey: FTPublishJobSelectedNameArray_key) as! [Array<String>]
+                    FTPublishJobSelectedNameArray[4][0] = "\(redType) \(redMoney)元*\(redCount)个"
+                    UserDefaults.standard.setValue(FTPublishJobSelectedNameArray, forKey: FTPublishJobSelectedNameArray_key)
+                    
+                    _ = self.navigationController?.popViewController(animated: true)                    
+                    
+                    print("红包类型：\(typeArray[i])")
+                    break
+                }
             }
         }
-        
-        
-        
         
     }
     

@@ -50,6 +50,16 @@
 				<string>wxee897f37d6f7fabb</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Alipay</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>ChallengeHighSalary</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>0</string>

@@ -41,7 +41,7 @@ class FTTaPositionTypeViewController: UIViewController, UITableViewDataSource, U
         hud.margin = 10
         hud.label.text = "正在获取职位类型"
         
-        PublicNetUtil.getDictionaryList(parentid: "1") { (success, response) in
+        PublicNetUtil.getDictionaryList(parentid: "22") { (success, response) in
             if success {
                 hud.hide(animated: true)
                 self.positionTypeArray = response as! [DicDataModel]
