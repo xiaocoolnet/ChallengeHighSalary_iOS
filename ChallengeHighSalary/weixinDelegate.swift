@@ -26,7 +26,16 @@ class weixinDelegate: NSObject,WXApiDelegate {
      * @param resp具体的回应内容，是自动释放的
      */
     func onResp(_ resp: BaseResp!) {
-        
+        if resp .isKind(of: PayResp.self) {
+            let response = resp as! PayResp
+            switch response.errCode {
+            case WXSuccess.rawValue:
+                //服务器端查询支付通知或查询API返回的结果再提示成功
+                print("支付成功")
+            default:
+                print("支付失败，retcode= \(resp.errCode)")
+            }
+        }
     }
 
 }

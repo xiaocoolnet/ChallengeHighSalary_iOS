@@ -19,6 +19,8 @@
 //WeiXin
 #import "WXApi.h"
 
+#import "FZJWeiXinPayMainController.h"
+
 #import "BButton.h"
 #import "LFLUISegmentedControl.h"
 #import <CoreLocation/CoreLocation.h>

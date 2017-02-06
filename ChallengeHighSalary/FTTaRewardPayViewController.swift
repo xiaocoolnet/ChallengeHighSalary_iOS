@@ -97,6 +97,8 @@ class FTTaRewardPayViewController: UIViewController, UITableViewDataSource, UITa
         
         if selectedArray[1][0] == true {
             doAlipayPay()
+        }else{
+            doWXPay()
         }
     }
     
@@ -126,7 +128,7 @@ class FTTaRewardPayViewController: UIViewController, UITableViewDataSource, UITa
         order.version = "1.0"
         
         // NOTE: sign_type设置
-        order.sign_type = "RSA"
+        order.sign_type = "RSA2"
         
         // NOTE: 商品数据
         order.biz_content = BizContent()
@@ -147,12 +149,12 @@ class FTTaRewardPayViewController: UIViewController, UITableViewDataSource, UITa
         
         let privateKey = alipay_privateKey
         let signer = RSADataSigner(privateKey: privateKey)
-        let signedString = signer?.sign(orderInfo, withRSA2: false)
+        let signedString = signer?.sign(orderInfo, withRSA2: true)
         
         // NOTE: 如果加签成功，则继续执行支付
         if (signedString != nil) {
             //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
-            let appScheme = "ChallengeHighSalary"
+            let appScheme = "alipay_nzrc_tzgx"
             
             // NOTE: 将签名成功字符串格式化为订单字符串,请严格按照该格式
             let orderString = "\(orderInfoEncoded!)&sign=\(signedString!)"
@@ -161,7 +163,24 @@ class FTTaRewardPayViewController: UIViewController, UITableViewDataSource, UITa
             
             // NOTE: 调用支付结果开始支付
             AlipaySDK.defaultService().payOrder(orderString, fromScheme: appScheme, callback: { (resultDic) in
+                
                 print("reslut = \(resultDic)")
+                if resultDic != nil {
+                    let Alipayjson = resultDic! as NSDictionary
+
+                    let resultStatus = Alipayjson.value(forKey: "resultStatus") as! String
+                    if resultStatus == "9000"{
+                        print("OK")
+                    }else if resultStatus == "8000" {
+                        print("正在处理中")
+                    }else if resultStatus == "4000" {
+                        print("订单支付失败");
+                    }else if resultStatus == "6001" {
+                        print("用户中途取消")
+                    }else if resultStatus == "6002" {
+                        print("网络连接出错")
+                    }
+                }
             })
 
         }
@@ -185,6 +204,151 @@ class FTTaRewardPayViewController: UIViewController, UITableViewDataSource, UITa
         }
 
         return resultStr
+    }
+    
+    // 微信支付
+    func doWXPay() {
+        //微信支付
+        let aa = FZJWeiXinPayMainController()
+//        if body.length == 0 || body.length>30{
+//            body = "无效商品名称"
+//        }
+//        if price == 0{
+//            alert("金额不能为0", delegate: self)
+//            return
+//        }
+//        if  self.numForGoodS.characters.count < 1{
+//            alert("订单错误", delegate: self)
+//            return
+//        }
+        aa.testStart(String(count*money*100), orderName: red_type, numOfGoods: self.generateTradeNO())
+        //            aa.testStart("1" ,orderName: body as String,numOfGoods:self.numForGoodS);
+        
+        //            let vc = MyBookDan()
+        //            self.navigationController?.pushViewController(vc, animated: true)
+        
+        //            //随机数
+        //            let orderNO   = CommonUtil.genOutTradNo()
+        //            //随机数串
+        //            let noncestr  = CommonUtil.genNonceStr()
+        //            //ip地址
+        //            let addressIP = CommonUtil.getIPAddress(true)
+        //            //回调地址
+        //            let urlStr = "http://www.weixin.qq.com/wxpay/pay.php"
+        //
+        //            let genTimeStamp = CommonUtil.genTimeStamp() + "51bang"
+        //
+        //
+        //
+        //
+        //
+        //
+        //            //声称签名
+        //            let signParams = NSMutableDictionary()
+        //            signParams.setObject(WXAppId as String, forKey: "appid")
+        //            signParams.setObject(WXPartnerId as String, forKey: "mch_id")
+        //            signParams.setObject(noncestr as String, forKey: "nonce_str")
+        //            signParams.setObject(body as String, forKey: "body")
+        //            signParams.setObject(subject as String, forKey: "detail")
+        //            signParams.setObject(genTimeStamp as String, forKey: "attach")
+        //            signParams.setObject(String(price), forKey: "total_fee")
+        //            signParams.setObject(addressIP as String, forKey: "spbill_create_ip")
+        //            signParams.setObject(urlStr as String, forKey: "notify_url")
+        //            signParams.setObject("APP", forKey: "trade_type")
+        ////            signParams.setObject(WXAPIKey as String, forKey: "key")
+        //            var str1 = NSString()
+        ////            let array = NSMutableArray()
+        //            for key in signParams.allKeys {
+        //
+        //                str1 = str1 as String + String(key as! String) + "=" + String(signParams.valueForKey(key as! String)) + "&"
+        //            }
+        //            print(str1)
+        //
+        //
+        //            let sign1 = CommonUtil.genSign(signParams as [NSObject : AnyObject])
+        //
+        ////            print(sign1)
+        ////            let sign = CommonUtil.md5(sign1)
+        //
+        //            let xmlData = XMLHelper()
+        //            let url = "https://api.mch.weixin.qq.com/pay/unifiedorder"
+        //
+        //
+        //            let  aa = xmlData.genPackage(NSMutableDictionary(dictionary: signParams))
+        //
+        //            let data = xmlData.httpSend(url, method: "POST", data: aa)
+        //            xmlData.startParse(data)
+        //            let dict = xmlData.getDict()
+        //            print(dict)
+        //
+        //            if dict != nil{
+        //                let retcode = dict.objectForKey("retcode") as! NSString
+        //
+        //                if retcode.intValue == 0{
+        //                    let stamp = dict.objectForKey("timestamp") as! NSString
+        //
+        //
+        //                    //调起微信支付
+        //                    let req = PayReq.init()
+        //                    req.partnerId = dict.objectForKey("partnerid") as! String
+        //                    req.prepayId = dict.objectForKey("prepayid") as! String
+        //                    req.nonceStr = dict.objectForKey("noncestr") as! String
+        //                    req.timeStamp = UInt32(stamp as String)!
+        //                    req.package = dict.objectForKey("package") as! String
+        //                    req.sign = dict.objectForKey("sign") as! String
+        //
+        //                    WXApi.sendReq(req)
+        //                    //日志输出
+        //
+        //
+        //                }else{
+        //
+        //                }
+        //            }else{
+        //
+        //            }
+        //
+        //
+        //            shopHelper.getWeixinDingdan(WXAppId, mch_id: WXPartnerId, device_info: "", nonce_str: orderNO, sign: sign1, body: body as String, detail:subject as String, attach: "", out_trade_no: genTimeStamp, fee_type: "", total_fee: price, spbill_create_ip: addressIP, time_start: "", time_expire: "", goods_tag: "", notify_url: urlStr, trade_type: "trade_type", limit_pay: "", handle: { (success, response) in
+        //
+        //
+        //
+        //            })
+        //
+        //
+        //            let payred = PayReq.init()
+        //            payred.partnerId = WXPartnerId as NSString as String
+        //            payred.prepayId = "wx201608251458218270593b310274371597"
+        //            payred.nonceStr = "0dabdecff46177f8e214fd1facdeb72d"
+        //
+        
+        
+        
+        //            WXApi.registerApp:"wxd930ea5d5a258f4f" withDescription:"demo 2.0"
+        //
+        //
+        //            self.getWeChatPayWithOrderName("我的订单", price: "1")
+        //              self.payForWechat()
+        //              let req = payRequsestHandler
+        //              req.payForWechat()
+    }
+    func doWeChatPay() {
+        
+        let request = PayReq()
+        /** 商家向财付通申请的商家id */
+        request.partnerId = "10000100"
+        /** 预支付订单 */
+        request.prepayId = "1101000000140415649af9fc314aa427"
+        /** 商家根据财付通文档填写的数据和签名 */
+        request.package = "Sign=WXPay"
+        /** 随机串，防重发 */
+        request.nonceStr = "a462b76e7436e98e0ed6e13c64b4fd1c"
+        /** 时间戳，防重发 */
+        request.timeStamp = UInt32(NSDate().timeIntervalSince1970 * 1000)
+        /** 商家根据财付通文档填写的数据和签名 */
+        request.sign = "582282D72DD2B03AD892830965F428CB16E7A256"
+        
+        WXApi.send(request)
     }
     
     // MARK:- 设置tableview 头视图

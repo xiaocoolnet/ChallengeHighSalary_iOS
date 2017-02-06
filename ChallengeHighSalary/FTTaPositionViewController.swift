@@ -183,7 +183,7 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
         rewardPayController.count = redCount
         rewardPayController.money = redMoney
         rewardPayController.validity = redValidity
-        rewardPayController.redType = redType
+        rewardPayController.red_type = redType
         self.navigationController?.pushViewController(rewardPayController, animated: true)
         return
         
@@ -214,7 +214,7 @@ class FTTaPositionViewController: UIViewController, UITableViewDataSource, UITab
             rewardPayController.count = redCount
             rewardPayController.money = redMoney
             rewardPayController.validity = redValidity
-            rewardPayController.redType = redType
+            rewardPayController.red_type = redType
             self.navigationController?.pushViewController(rewardPayController, animated: true)
             
         }else{

@@ -239,6 +239,10 @@
 		64C34D5A1E15FC95007E4B10 /* CHSMePositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C34D591E15FC95007E4B10 /* CHSMePositionViewController.swift */; };
 		64C34D5D1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C34D5B1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.swift */; };
 		64C34D5E1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64C34D5C1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.xib */; };
+		A90EE78D1E48147D00172117 /* FZJWeiXinPayMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = A90EE78C1E48147D00172117 /* FZJWeiXinPayMainController.m */; };
+		A90EE7951E4817B400172117 /* ApiXml.mm in Sources */ = {isa = PBXBuildFile; fileRef = A90EE7901E4817B400172117 /* ApiXml.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		A90EE7961E4817B400172117 /* payRequsestHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = A90EE7921E4817B400172117 /* payRequsestHandler.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		A90EE7971E4817B400172117 /* WXUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = A90EE7941E4817B400172117 /* WXUtil.mm */; };
 		A9D069611E46F74F0051CD45 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7091AD1E28CB8B002EBAB7 /* AlipaySDK.framework */; };
 		A9D069641E46F78F0051CD45 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D069631E46F78F0051CD45 /* Order.m */; };
 		A9D926B61E47033200CA25F4 /* base64.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D926AC1E47033200CA25F4 /* base64.m */; };
@@ -530,6 +534,14 @@
 		64C34D591E15FC95007E4B10 /* CHSMePositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSMePositionViewController.swift; sourceTree = "<group>"; };
 		64C34D5B1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSChEvaluateTableViewCell.swift; sourceTree = "<group>"; };
 		64C34D5C1E163F5F007E4B10 /* CHSChEvaluateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHSChEvaluateTableViewCell.xib; sourceTree = "<group>"; };
+		A90EE78B1E48147D00172117 /* FZJWeiXinPayMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZJWeiXinPayMainController.h; sourceTree = "<group>"; };
+		A90EE78C1E48147D00172117 /* FZJWeiXinPayMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZJWeiXinPayMainController.m; sourceTree = "<group>"; };
+		A90EE78F1E4817B400172117 /* ApiXml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiXml.h; sourceTree = "<group>"; };
+		A90EE7901E4817B400172117 /* ApiXml.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ApiXml.mm; sourceTree = "<group>"; };
+		A90EE7911E4817B400172117 /* payRequsestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = payRequsestHandler.h; sourceTree = "<group>"; };
+		A90EE7921E4817B400172117 /* payRequsestHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = payRequsestHandler.mm; sourceTree = "<group>"; };
+		A90EE7931E4817B400172117 /* WXUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXUtil.h; sourceTree = "<group>"; };
+		A90EE7941E4817B400172117 /* WXUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WXUtil.mm; sourceTree = "<group>"; };
 		A9D069621E46F78F0051CD45 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		A9D069631E46F78F0051CD45 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		A9D926AB1E47033200CA25F4 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
@@ -778,6 +790,9 @@
 		1F8741191D82A02A007B8793 /* 3rd */ = {
 			isa = PBXGroup;
 			children = (
+				A90EE78E1E4817B400172117 /* wx_lib */,
+				A90EE78B1E48147D00172117 /* FZJWeiXinPayMainController.h */,
+				A90EE78C1E48147D00172117 /* FZJWeiXinPayMainController.m */,
 				A9FCDA2C1E46C79100E821D8 /* Alipay */,
 				1F1508061E0BD1A3009F154B /* OpenSDK1.7.5 */,
 				1FDA4CD61DEFBE0D00BFB060 /* ImageBtn */,
@@ -1477,6 +1492,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A90EE78E1E4817B400172117 /* wx_lib */ = {
+			isa = PBXGroup;
+			children = (
+				A90EE78F1E4817B400172117 /* ApiXml.h */,
+				A90EE7901E4817B400172117 /* ApiXml.mm */,
+				A90EE7911E4817B400172117 /* payRequsestHandler.h */,
+				A90EE7921E4817B400172117 /* payRequsestHandler.mm */,
+				A90EE7931E4817B400172117 /* WXUtil.h */,
+				A90EE7941E4817B400172117 /* WXUtil.mm */,
+			);
+			path = wx_lib;
+			sourceTree = "<group>";
+		};
 		A9D926AA1E47033200CA25F4 /* Util */ = {
 			isa = PBXGroup;
 			children = (
@@ -1842,6 +1870,7 @@
 				1FD697771DB0D000008D0A14 /* LoReCHSMyAdvantagesViewController.swift in Sources */,
 				1FF524D11D88DBD800E1B70F /* LoginNetUtil.swift in Sources */,
 				1FC3CCB01D9CDCBD004AA4C6 /* FTMiMyBlacklistViewController.swift in Sources */,
+				A90EE7961E4817B400172117 /* payRequsestHandler.mm in Sources */,
 				1F5B672E1DAA354A00F74666 /* FTModel.swift in Sources */,
 				1FC3CCBC1D9D051F004AA4C6 /* FTTaSkillRequiredViewController.swift in Sources */,
 				1F577B241DA9F20F00AB5D99 /* CHSMeCollectionMeViewController.swift in Sources */,
@@ -1895,6 +1924,7 @@
 				647C3CAD1E1BA58F001640BC /* CHSMeSetViewController.swift in Sources */,
 				1FF06CD71D7D609A0032943B /* DropDown+Appearance.swift in Sources */,
 				1FC3CCAB1D9CB5CE004AA4C6 /* FTMyInterviewInvitationTableViewCell.swift in Sources */,
+				A90EE78D1E48147D00172117 /* FZJWeiXinPayMainController.m in Sources */,
 				1FF3C6A61D927E040069DD23 /* CHSChInterviewEvaHeaderTableViewCell.swift in Sources */,
 				1F4FD2681D76C01D00FF7040 /* UIColor+BButton.m in Sources */,
 				1FF9DB161D96145D00F0C69D /* GuideViewController.swift in Sources */,
@@ -1912,7 +1942,9 @@
 				1F14AF431D93CD0A00456A80 /* FTTaRetrievalViewController.swift in Sources */,
 				1FDB00181D8F8ED9007043B4 /* CHSChCompanyPositionTableViewCell.swift in Sources */,
 				1F577B141DA9E7C600AB5D99 /* FTMeCollectionMeViewController.swift in Sources */,
+				A90EE7951E4817B400172117 /* ApiXml.mm in Sources */,
 				1F4B84EC1E09086C00C968CA /* MBProgressHUD.m in Sources */,
+				A90EE7971E4817B400172117 /* WXUtil.mm in Sources */,
 				1FF9DB281D9629F500F0C69D /* FTMiMyHiringRecordTableViewCell.swift in Sources */,
 				1FEF809D1D810A4D00486F9C /* FTTaHomeViewController.swift in Sources */,
 				1F577B111DA9E2E200AB5D99 /* FTMeResumeNotificationTableViewCell.swift in Sources */,

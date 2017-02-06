@@ -57,7 +57,7 @@
 			<string>Alipay</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>ChallengeHighSalary</string>
+				<string>alipay_nzrc_tzgx</string>
 			</array>
 		</dict>
 	</array>
