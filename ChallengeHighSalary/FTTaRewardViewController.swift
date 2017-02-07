@@ -65,7 +65,7 @@ class FTTaRewardViewController: UIViewController, UITextFieldDelegate {
             width: moneyBgView.frame.width-8-calculateWidth("元", size: 16, height: 44)-8-moneyTagLab.frame.maxX,
             height: 44)
         moneyTF.delegate = self
-        moneyTF.keyboardType = .numberPad
+        moneyTF.keyboardType = .numbersAndPunctuation
         moneyTF.placeholder = "填写金额"
         moneyTF.font = UIFont.systemFont(ofSize: 16)
         moneyTF.textAlignment = .right
@@ -267,6 +267,17 @@ class FTTaRewardViewController: UIViewController, UITextFieldDelegate {
             hud.label.text = "请填写红包有效期"
             hud.hide(animated: true, afterDelay: 1)
             return
+        }else{
+            let mobile = "^(([1-9]+)|([0-9]+.[0-9]{1,2}))$"
+            let regexMobile = NSPredicate(format: "SELF MATCHES %@",mobile)
+            if regexMobile.evaluate(with: moneyTF.text) == false {
+                let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                hud.removeFromSuperViewOnHide = true
+                hud.mode = .text
+                hud.label.text = "请填写正确的红包金额"
+                hud.hide(animated: true, afterDelay: 1)
+                return
+            }
         }
         
         
@@ -294,7 +305,7 @@ class FTTaRewardViewController: UIViewController, UITextFieldDelegate {
                 if selected {
                     
                     redCount = NSString(string: countTF.text!).integerValue
-                    redMoney = NSString(string: moneyTF.text!).integerValue
+                    redMoney = NSString(string: moneyTF.text!).doubleValue
                     redValidity = NSString(string: validityTF.text!).integerValue
                     redType = typeArray[i]
                     
@@ -314,8 +325,25 @@ class FTTaRewardViewController: UIViewController, UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if (textField.text?.characters.count)! >= 3 && string != "" {
+        if string == "" {
+            return true
+        }
+        
+        if (textField.text?.characters.count)! >= 6 {
             return false
+        }else if textField == moneyTF {
+
+            if (textField.text?.contains("."))! {
+                if string == "." {
+                    return false
+                }
+                
+                if (textField.text?.components(separatedBy: ".").last?.characters.count)! > 1 {
+                    return false
+                }
+            }else if string == "." {
+                return true
+            }
         }
         return self.validateNumber(string)
     }

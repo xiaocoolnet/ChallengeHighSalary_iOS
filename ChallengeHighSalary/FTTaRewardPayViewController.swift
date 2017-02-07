@@ -11,7 +11,7 @@ import UIKit
 class FTTaRewardPayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate {
     
     var count = 0
-    var money = 0
+    var money:Double = 0
     var red_type = ""
     var validity = 0
     
@@ -27,7 +27,7 @@ class FTTaRewardPayViewController: UIViewController, UITableViewDataSource, UITa
         
         // Do any additional setup after loading the view.
         
-        nameArray = [["\(count)个*\(money)元 \(count*money)元"],["支付宝支付","微信支付"]]
+        nameArray = [["\(count)个*\(money)元 \(Double(count)*money)元"],["支付宝支付","微信支付"]]
         self.setSubviews()
     }
     
@@ -96,13 +96,130 @@ class FTTaRewardPayViewController: UIViewController, UITableViewDataSource, UITa
         }
         
         if selectedArray[1][0] == true {
-            doAlipayPay()
+            doAlipayPay_2()
         }else{
             doWXPay()
         }
     }
     
     // 支付宝支付
+    func doAlipayPay_2()
+    {
+        //重要说明
+        //这里只是为了方便直接向商户展示支付宝的整个支付流程；所以Demo中加签过程直接放在客户端完成；
+        //真实App里，privateKey等数据严禁放在客户端，加签过程务必要放在服务端完成；
+        //防止商户私密数据泄露，造成不必要的资金损失，及面临各种安全风险；
+        /*============================================================================*/
+        /*=======================需要填写商户app申请的===================================*/
+        /*============================================================================*/
+        let appID = alipay_app_id
+        
+        // 如下私钥，rsa2PrivateKey 或者 rsaPrivateKey 只需要填入一个
+        // 如果商户两个都设置了，优先使用 rsa2PrivateKey
+        // rsa2PrivateKey 可以保证商户交易在更加安全的环境下进行，建议使用 rsa2PrivateKey
+        // 获取 rsa2PrivateKey，建议使用支付宝提供的公私钥生成工具生成，
+        // 工具地址：https://doc.open.alipay.com/docs/doc.htm?treeId=291&articleId=106097&docType=1
+        let rsa2PrivateKey = alipay_privateKey
+        /*============================================================================*/
+        /*============================================================================*/
+        /*============================================================================*/
+        
+        //partner和seller获取失败,提示
+        if (appID.characters.count == 0 ||
+            (rsa2PrivateKey.characters.count == 0))
+        {
+            print("缺少appId或者私钥。")
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+//            message:@"缺少appId或者私钥。"
+//            delegate:self
+//            cancelButtonTitle:@"确定"
+//            otherButtonTitles:nil];
+//            [alert show];
+            return;
+        }
+        
+        /*
+         *生成订单信息及签名
+         */
+        //将商品信息赋予AlixPayOrder的成员变量
+        let order = Order()
+        
+        // NOTE: app_id设置
+        order.app_id = appID
+        
+        // NOTE: 支付接口名称
+        order.method = "alipay.trade.app.pay"
+        
+        // NOTE: 参数编码格式
+        order.charset = "utf-8"
+        
+        // NOTE: 当前时间点
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        order.timestamp = formatter.string(from: Date())
+        
+        // NOTE: 支付版本
+        order.version = "1.0"
+        
+        // NOTE: sign_type 根据商户设置的私钥来决定
+        order.sign_type = "RSA2"
+        
+        // NOTE: 商品数据
+        order.biz_content = BizContent()
+        order.biz_content.body = "\(red_type)-\(money)元 * \(count)个"
+        order.biz_content.subject = "\(red_type)-\(money)元 * \(count)个"
+        order.biz_content.out_trade_no = self.generateTradeNO()//订单ID（由商家自行制定）
+        order.biz_content.timeout_express = "30m" //超时时间设置
+        let total_amount:Double = Double(count) * money
+        order.biz_content.total_amount = String(format: "%.2f", total_amount) //商品价格
+        
+        //将商品信息拼接成字符串
+        let orderInfo = order.orderInfoEncoded(false)
+        let orderInfoEncoded = order.orderInfoEncoded(true)
+        print("orderSpec = \(orderInfo)")
+        
+        // NOTE: 获取私钥并将商户信息签名，外部商户的加签过程请务必放在服务端，防止公私钥数据泄露；
+        //       需要遵循RSA签名规范，并将签名字符串base64编码和UrlEncode
+        
+        let signer = RSADataSigner(privateKey: rsa2PrivateKey)
+        let signedString = signer?.sign(orderInfo, withRSA2: true)
+        
+        // NOTE: 如果加签成功，则继续执行支付
+        if (signedString != nil) {
+            //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
+            let appScheme = "alipay_nzrc_tzgx"
+            
+            // NOTE: 将签名成功字符串格式化为订单字符串,请严格按照该格式
+            let orderString = "\(orderInfoEncoded!)&sign=\(signedString!)";
+            
+            // NOTE: 调用支付结果开始支付
+            AlipaySDK.defaultService().payOrder(orderString, fromScheme: appScheme, callback: { (resultDic) in
+                
+                print("reslut = \(resultDic)")
+                if resultDic != nil {
+                    let Alipayjson = resultDic! as NSDictionary
+                    
+                    let resultStatus = Alipayjson.value(forKey: "resultStatus") as! String
+                    if resultStatus == "9000"{
+                        print("OK")
+                    }else if resultStatus == "8000" {
+                        print("正在处理中")
+                    }else if resultStatus == "4000" {
+                        print("订单支付失败");
+                    }else if resultStatus == "6001" {
+                        print("用户中途取消")
+                    }else if resultStatus == "6002" {
+                        print("网络连接出错")
+                    }
+                }
+                
+            })
+
+        }
+    
+    }
+    
     func doAlipayPay() {
         
         //将商品信息赋予AlixPayOrder的成员变量
@@ -121,7 +238,7 @@ class FTTaRewardPayViewController: UIViewController, UITableViewDataSource, UITa
         
         // NOTE: 当前时间点
         let formatter = DateFormatter()
-        formatter.date(from: "yyyy-MM-dd HH:mm:ss")
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         order.timestamp = formatter.string(from: Date())
         
         // NOTE: 支付版本
@@ -136,7 +253,7 @@ class FTTaRewardPayViewController: UIViewController, UITableViewDataSource, UITa
         order.biz_content.subject = red_type
         order.biz_content.out_trade_no = self.generateTradeNO()//订单ID（由商家自行制定）
         order.biz_content.timeout_express = "30m" //超时时间设置
-        order.biz_content.total_amount = String(format: "%.2f", count*money) //商品价格
+        order.biz_content.total_amount = String(format: "%.2f", Double(count)*money) //商品价格
         
         
         //将商品信息拼接成字符串
@@ -221,7 +338,7 @@ class FTTaRewardPayViewController: UIViewController, UITableViewDataSource, UITa
 //            alert("订单错误", delegate: self)
 //            return
 //        }
-        aa.testStart(String(count*money*100), orderName: red_type, numOfGoods: self.generateTradeNO())
+        aa.testStart(String(Double(count)*money*100), orderName: red_type, numOfGoods: self.generateTradeNO())
         //            aa.testStart("1" ,orderName: body as String,numOfGoods:self.numForGoodS);
         
         //            let vc = MyBookDan()

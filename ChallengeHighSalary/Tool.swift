@@ -56,7 +56,7 @@ var ftPostPositionLocation = AMapGeoPoint()
 
 // 发布职位
 var redCount = 0
-var redMoney = 0
+var redMoney:Double = 0
 var redType = ""
 var redValidity = 0
 

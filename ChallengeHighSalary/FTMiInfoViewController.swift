@@ -69,8 +69,16 @@ class FTMiInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // MARK: 加载数据
     func loadData() {
-        
-        selectedImage = CHSUserInfo.currentUserInfo.avatar == "" ? nil:UIImage(data: try! Data(contentsOf: URL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!))
+        do {
+            let data = try Data(contentsOf: URL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!)
+            
+            
+            selectedImage = CHSUserInfo.currentUserInfo.avatar == "" ? nil:UIImage(data: data)
+
+        } catch  {
+            selectedImage = nil
+        }
+//        selectedImage = CHSUserInfo.currentUserInfo.avatar == "" ? nil:UIImage(data: try? Data(contentsOf: URL(string: kImagePrefix+CHSUserInfo.currentUserInfo.avatar)!))
         nameText = CHSUserInfo.currentUserInfo.realName == "" ? nil:CHSUserInfo.currentUserInfo.realName
         positionText = CHSUserInfo.currentUserInfo.myjob == "" ? nil:CHSUserInfo.currentUserInfo.myjob
         emailText = CHSUserInfo.currentUserInfo.email == "" ? nil:CHSUserInfo.currentUserInfo.email

@@ -24,7 +24,7 @@
 #import "ApiXml.h"
 
 //微信支付的appid(不是微信分享的appid)第二个
-#define APP_KEY @"wxee897f37d6f7fabb"
+#define APP_KEY @"wx765b8c5e082532b4"
 
 #define MCH_ID @"1364047302"//商户号
 
